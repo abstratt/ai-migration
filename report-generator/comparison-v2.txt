@@ -1,0 +1,2374 @@
+########## org.gradle.api.artifacts.repositories.MavenArtifactRepository ##########
+--- G94 ---
+Compiled from "MavenArtifactRepository.java"
+public interface org.gradle.api.artifacts.repositories.MavenArtifactRepository extends org.gradle.api.artifacts.repositories.ArtifactRepository,org.gradle.api.artifacts.repositories.UrlArtifactRepository,org.gradle.api.artifacts.repositories.AuthenticationSupported,org.gradle.api.artifacts.repositories.MetadataSupplierAware {
+  public abstract java.net.URI getUrl();
+  public abstract void setUrl(java.net.URI);
+  public abstract void setUrl(java.lang.Object);
+  public abstract java.util.Set<java.net.URI> getArtifactUrls();
+  public abstract void artifactUrls(java.lang.Object...);
+  public abstract void setArtifactUrls(java.util.Set<java.net.URI>);
+  public abstract void setArtifactUrls(java.lang.Iterable<?>);
+  public abstract void metadataSources(org.gradle.api.Action<? super org.gradle.api.artifacts.repositories.MavenArtifactRepository$MetadataSources>);
+  public abstract org.gradle.api.artifacts.repositories.MavenArtifactRepository$MetadataSources getMetadataSources();
+  public abstract void mavenContent(org.gradle.api.Action<? super org.gradle.api.artifacts.repositories.MavenRepositoryContentDescriptor>);
+}
+--- G10 ---
+Compiled from "MavenArtifactRepository.java"
+public interface org.gradle.api.artifacts.repositories.MavenArtifactRepository extends org.gradle.api.artifacts.repositories.ArtifactRepository,org.gradle.api.artifacts.repositories.UrlArtifactRepository,org.gradle.api.artifacts.repositories.AuthenticationSupported,org.gradle.api.artifacts.repositories.MetadataSupplierAware {
+  public abstract org.gradle.api.provider.Property<java.net.URI> getUrl();
+  public abstract void setUrl(java.lang.Object);
+  public abstract org.gradle.api.provider.SetProperty<java.net.URI> getArtifactUrls();
+  public abstract void artifactUrls(java.lang.Object...);
+  public abstract void metadataSources(org.gradle.api.Action<? super org.gradle.api.artifacts.repositories.MavenArtifactRepository$MetadataSources>);
+  public abstract org.gradle.api.artifacts.repositories.MavenArtifactRepository$MetadataSources getMetadataSources();
+  public abstract void mavenContent(org.gradle.api.Action<? super org.gradle.api.artifacts.repositories.MavenRepositoryContentDescriptor>);
+}
+
+########## org.gradle.api.artifacts.repositories.UrlArtifactRepository ##########
+--- G94 ---
+Compiled from "UrlArtifactRepository.java"
+public interface org.gradle.api.artifacts.repositories.UrlArtifactRepository {
+  public abstract java.net.URI getUrl();
+  public abstract void setUrl(java.net.URI);
+  public abstract void setUrl(java.lang.Object);
+  public abstract boolean isAllowInsecureProtocol();
+  public abstract void setAllowInsecureProtocol(boolean);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getAllowInsecureContinueWhenDisabled();
+}
+--- G10 ---
+Compiled from "UrlArtifactRepository.java"
+public interface org.gradle.api.artifacts.repositories.UrlArtifactRepository {
+  public abstract org.gradle.api.provider.Property<java.net.URI> getUrl();
+  public abstract void setUrl(java.lang.Object);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getAllowInsecureProtocol();
+  public default org.gradle.api.provider.Property<java.lang.Boolean> getIsAllowInsecureProtocol();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getAllowInsecureContinueWhenDisabled();
+}
+
+########## org.gradle.api.file.DeleteSpec ##########
+--- G94 ---
+Compiled from "DeleteSpec.java"
+public interface org.gradle.api.file.DeleteSpec {
+  public abstract org.gradle.api.file.DeleteSpec delete(java.lang.Object...);
+  public abstract void setFollowSymlinks(boolean);
+}
+--- G10 ---
+Compiled from "DeleteSpec.java"
+public interface org.gradle.api.file.DeleteSpec {
+  public abstract org.gradle.api.file.DeleteSpec delete(java.lang.Object...);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFollowSymlinks();
+}
+
+########## org.gradle.api.internal.tasks.testing.filter.DefaultTestFilter ##########
+--- G94 ---
+Compiled from "DefaultTestFilter.java"
+public class org.gradle.api.internal.tasks.testing.filter.DefaultTestFilter implements org.gradle.api.tasks.testing.TestFilter {
+  public org.gradle.api.internal.tasks.testing.filter.DefaultTestFilter();
+  public org.gradle.api.tasks.testing.TestFilter includeTestsMatching(java.lang.String);
+  public org.gradle.api.tasks.testing.TestFilter excludeTestsMatching(java.lang.String);
+  public org.gradle.api.tasks.testing.TestFilter includeTest(java.lang.String, java.lang.String);
+  public org.gradle.api.tasks.testing.TestFilter excludeTest(java.lang.String, java.lang.String);
+  public void setFailOnNoMatchingTests(boolean);
+  public boolean isFailOnNoMatchingTests();
+  public java.util.Set<java.lang.String> getIncludePatterns();
+  public java.util.Set<java.lang.String> getExcludePatterns();
+  public org.gradle.api.tasks.testing.TestFilter setIncludePatterns(java.lang.String...);
+  public org.gradle.api.tasks.testing.TestFilter setExcludePatterns(java.lang.String...);
+  public java.util.Set<java.lang.String> getCommandLineIncludePatterns();
+  public org.gradle.api.tasks.testing.TestFilter setCommandLineIncludePatterns(java.util.Collection<java.lang.String>);
+  public org.gradle.api.tasks.testing.TestFilter includeCommandLineTest(java.lang.String, java.lang.String);
+  public org.gradle.api.internal.tasks.testing.filter.TestFilterSpec toSpec();
+  public boolean hasPatterns();
+}
+--- G10 ---
+Compiled from "DefaultTestFilter.java"
+public abstract class org.gradle.api.internal.tasks.testing.filter.DefaultTestFilter implements org.gradle.api.tasks.testing.TestFilter {
+  public org.gradle.api.internal.tasks.testing.filter.DefaultTestFilter();
+  public org.gradle.api.tasks.testing.TestFilter includeTestsMatching(java.lang.String);
+  public org.gradle.api.tasks.testing.TestFilter excludeTestsMatching(java.lang.String);
+  public org.gradle.api.tasks.testing.TestFilter includeTest(java.lang.String, java.lang.String);
+  public org.gradle.api.tasks.testing.TestFilter excludeTest(java.lang.String, java.lang.String);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFailOnNoMatchingTests();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getIncludePatterns();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getExcludePatterns();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getCommandLineIncludePatterns();
+  public org.gradle.api.tasks.testing.TestFilter includeCommandLineTest(java.lang.String, java.lang.String);
+  public org.gradle.api.internal.tasks.testing.filter.TestFilterSpec toSpec();
+  public void validate();
+}
+
+########## org.gradle.api.plugins.JavaApplication ##########
+--- G94 ---
+Compiled from "JavaApplication.java"
+public interface org.gradle.api.plugins.JavaApplication {
+  public abstract java.lang.String getApplicationName();
+  public abstract void setApplicationName(java.lang.String);
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMainModule();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMainClass();
+  public abstract java.lang.Iterable<java.lang.String> getApplicationDefaultJvmArgs();
+  public abstract void setApplicationDefaultJvmArgs(java.lang.Iterable<java.lang.String>);
+  public abstract java.lang.String getExecutableDir();
+  public abstract void setExecutableDir(java.lang.String);
+  public abstract org.gradle.api.file.CopySpec getApplicationDistribution();
+  public abstract void setApplicationDistribution(org.gradle.api.file.CopySpec);
+}
+--- G10 ---
+Compiled from "JavaApplication.java"
+public interface org.gradle.api.plugins.JavaApplication {
+  public abstract org.gradle.api.provider.Property<java.lang.String> getApplicationName();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMainModule();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMainClass();
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getApplicationDefaultJvmArgs();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getExecutableDir();
+  public abstract org.gradle.api.file.CopySpec getApplicationDistribution();
+  public abstract void setApplicationDistribution(org.gradle.api.file.CopySpec);
+}
+
+########## org.gradle.api.plugins.antlr.AntlrTask ##########
+--- G94 ---
+Compiled from "AntlrTask.java"
+public abstract class org.gradle.api.plugins.antlr.AntlrTask extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.plugins.antlr.AntlrTask();
+  public boolean isTrace();
+  public void setTrace(boolean);
+  public boolean isTraceLexer();
+  public void setTraceLexer(boolean);
+  public boolean isTraceParser();
+  public void setTraceParser(boolean);
+  public boolean isTraceTreeWalker();
+  public void setTraceTreeWalker(boolean);
+  public java.lang.String getMaxHeapSize();
+  public void setMaxHeapSize(java.lang.String);
+  public void setArguments(java.util.List<java.lang.String>);
+  public java.util.List<java.lang.String> getArguments();
+  public java.io.File getOutputDirectory();
+  public void setOutputDirectory(java.io.File);
+  public org.gradle.api.file.FileCollection getAntlrClasspath();
+  public void execute(org.gradle.work.InputChanges);
+  public void setSource(org.gradle.api.file.FileTree);
+  public void setSource(java.lang.Object);
+  public org.gradle.api.file.FileTree getSource();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getPackageName();
+}
+--- G10 ---
+Compiled from "AntlrTask.java"
+public abstract class org.gradle.api.plugins.antlr.AntlrTask extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.plugins.antlr.AntlrTask();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getTrace();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsTrace();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getTraceLexer();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsTraceLexer();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getTraceParser();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsTraceParser();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getTraceTreeWalker();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsTraceTreeWalker();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMaxHeapSize();
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getArguments();
+  public abstract org.gradle.api.file.DirectoryProperty getOutputDirectory();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getAntlrClasspath();
+  public void execute(org.gradle.work.InputChanges);
+  public void setSource(org.gradle.api.file.FileTree);
+  public void setSource(java.lang.Object);
+  public org.gradle.api.file.FileTree getSource();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getPackageName();
+}
+
+########## org.gradle.api.plugins.quality.Checkstyle ##########
+--- G94 ---
+Compiled from "Checkstyle.java"
+public abstract class org.gradle.api.plugins.quality.Checkstyle extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.CheckstyleReports> {
+  public org.gradle.api.plugins.quality.Checkstyle();
+  public java.io.File getConfigFile();
+  public void setConfigFile(java.io.File);
+  public org.gradle.api.plugins.quality.CheckstyleReports reports(groovy.lang.Closure);
+  public org.gradle.api.plugins.quality.CheckstyleReports reports(org.gradle.api.Action<? super org.gradle.api.plugins.quality.CheckstyleReports>);
+  public void run();
+  public org.gradle.api.file.FileTree getSource();
+  public org.gradle.api.file.FileCollection getCheckstyleClasspath();
+  public void setCheckstyleClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.file.FileCollection getClasspath();
+  public void setClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.resources.TextResource getConfig();
+  public void setConfig(org.gradle.api.resources.TextResource);
+  public java.util.Map<java.lang.String, java.lang.Object> getConfigProperties();
+  public void setConfigProperties(java.util.Map<java.lang.String, java.lang.Object>);
+  public org.gradle.api.file.DirectoryProperty getConfigDirectory();
+  public final org.gradle.api.plugins.quality.CheckstyleReports getReports();
+  public int getMaxErrors();
+  public void setMaxErrors(int);
+  public int getMaxWarnings();
+  public void setMaxWarnings(int);
+  public boolean isShowViolations();
+  public void setShowViolations(boolean);
+  public org.gradle.api.provider.Property<java.lang.Boolean> getEnableExternalDtdLoad();
+  public boolean isIgnoreFailures();
+  public org.gradle.api.reporting.ReportContainer reports(org.gradle.api.Action);
+  public org.gradle.api.reporting.ReportContainer reports(groovy.lang.Closure);
+  public org.gradle.api.reporting.ReportContainer getReports();
+}
+--- G10 ---
+Compiled from "Checkstyle.java"
+public abstract class org.gradle.api.plugins.quality.Checkstyle extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.CheckstyleReports> {
+  public org.gradle.api.plugins.quality.Checkstyle();
+  public java.io.File getConfigFile();
+  public void setConfigFile(java.io.File);
+  public org.gradle.api.plugins.quality.CheckstyleReports reports(groovy.lang.Closure);
+  public org.gradle.api.plugins.quality.CheckstyleReports reports(org.gradle.api.Action<? super org.gradle.api.plugins.quality.CheckstyleReports>);
+  public void run();
+  public org.gradle.api.file.FileTree getSource();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getCheckstyleClasspath();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public org.gradle.api.resources.TextResource getConfig();
+  public void setConfig(org.gradle.api.resources.TextResource);
+  public abstract org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object> getConfigProperties();
+  public org.gradle.api.file.DirectoryProperty getConfigDirectory();
+  public final org.gradle.api.plugins.quality.CheckstyleReports getReports();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxErrors();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxWarnings();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowViolations();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsShowViolations();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getEnableExternalDtdLoad();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsIgnoreFailures();
+  public org.gradle.api.reporting.ReportContainer reports(org.gradle.api.Action);
+  public org.gradle.api.reporting.ReportContainer reports(groovy.lang.Closure);
+  public org.gradle.api.reporting.ReportContainer getReports();
+}
+
+########## org.gradle.api.plugins.quality.CheckstyleExtension ##########
+--- G94 ---
+Compiled from "CheckstyleExtension.java"
+public abstract class org.gradle.api.plugins.quality.CheckstyleExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
+  public org.gradle.api.plugins.quality.CheckstyleExtension(org.gradle.api.Project);
+  public java.io.File getConfigFile();
+  public void setConfigFile(java.io.File);
+  public org.gradle.api.resources.TextResource getConfig();
+  public void setConfig(org.gradle.api.resources.TextResource);
+  public java.util.Map<java.lang.String, java.lang.Object> getConfigProperties();
+  public void setConfigProperties(java.util.Map<java.lang.String, java.lang.Object>);
+  public org.gradle.api.file.DirectoryProperty getConfigDirectory();
+  public int getMaxErrors();
+  public void setMaxErrors(int);
+  public int getMaxWarnings();
+  public void setMaxWarnings(int);
+  public boolean isShowViolations();
+  public void setShowViolations(boolean);
+  public org.gradle.api.provider.Property<java.lang.Boolean> getEnableExternalDtdLoad();
+}
+--- G10 ---
+Compiled from "CheckstyleExtension.java"
+public abstract class org.gradle.api.plugins.quality.CheckstyleExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
+  public org.gradle.api.plugins.quality.CheckstyleExtension(org.gradle.api.Project);
+  public java.io.File getConfigFile();
+  public void setConfigFile(java.io.File);
+  public org.gradle.api.resources.TextResource getConfig();
+  public void setConfig(org.gradle.api.resources.TextResource);
+  public abstract org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object> getConfigProperties();
+  public org.gradle.api.file.DirectoryProperty getConfigDirectory();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxErrors();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxWarnings();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowViolations();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsShowViolations();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getEnableExternalDtdLoad();
+}
+
+########## org.gradle.api.plugins.quality.CodeNarc ##########
+--- G94 ---
+Compiled from "CodeNarc.java"
+public abstract class org.gradle.api.plugins.quality.CodeNarc extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.CodeNarcReports> {
+  public org.gradle.api.plugins.quality.CodeNarc();
+  public java.io.File getConfigFile();
+  public org.gradle.api.file.FileTree getSource();
+  public void setConfigFile(java.io.File);
+  public void run();
+  public org.gradle.api.plugins.quality.CodeNarcReports reports(groovy.lang.Closure);
+  public org.gradle.api.plugins.quality.CodeNarcReports reports(org.gradle.api.Action<? super org.gradle.api.plugins.quality.CodeNarcReports>);
+  public org.gradle.api.file.FileCollection getCodenarcClasspath();
+  public void setCodenarcClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.file.FileCollection getCompilationClasspath();
+  public void setCompilationClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.resources.TextResource getConfig();
+  public void setConfig(org.gradle.api.resources.TextResource);
+  public int getMaxPriority1Violations();
+  public void setMaxPriority1Violations(int);
+  public int getMaxPriority2Violations();
+  public void setMaxPriority2Violations(int);
+  public int getMaxPriority3Violations();
+  public void setMaxPriority3Violations(int);
+  public org.gradle.api.plugins.quality.CodeNarcReports getReports();
+  public org.gradle.api.reporting.ReportContainer reports(org.gradle.api.Action);
+  public org.gradle.api.reporting.ReportContainer reports(groovy.lang.Closure);
+  public org.gradle.api.reporting.ReportContainer getReports();
+}
+--- G10 ---
+Compiled from "CodeNarc.java"
+public abstract class org.gradle.api.plugins.quality.CodeNarc extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.CodeNarcReports> {
+  public org.gradle.api.plugins.quality.CodeNarc();
+  public java.io.File getConfigFile();
+  public org.gradle.api.file.FileTree getSource();
+  public void setConfigFile(java.io.File);
+  public void run();
+  public org.gradle.api.plugins.quality.CodeNarcReports reports(groovy.lang.Closure);
+  public org.gradle.api.plugins.quality.CodeNarcReports reports(org.gradle.api.Action<? super org.gradle.api.plugins.quality.CodeNarcReports>);
+  public abstract org.gradle.api.file.ConfigurableFileCollection getCodenarcClasspath();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getCompilationClasspath();
+  public org.gradle.api.resources.TextResource getConfig();
+  public void setConfig(org.gradle.api.resources.TextResource);
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxPriority1Violations();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxPriority2Violations();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxPriority3Violations();
+  public org.gradle.api.plugins.quality.CodeNarcReports getReports();
+  public org.gradle.api.reporting.ReportContainer reports(org.gradle.api.Action);
+  public org.gradle.api.reporting.ReportContainer reports(groovy.lang.Closure);
+  public org.gradle.api.reporting.ReportContainer getReports();
+}
+
+########## org.gradle.api.plugins.quality.CodeNarcExtension ##########
+--- G94 ---
+Compiled from "CodeNarcExtension.java"
+public abstract class org.gradle.api.plugins.quality.CodeNarcExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
+  public org.gradle.api.plugins.quality.CodeNarcExtension(org.gradle.api.Project);
+  public org.gradle.api.resources.TextResource getConfig();
+  public void setConfig(org.gradle.api.resources.TextResource);
+  public java.io.File getConfigFile();
+  public void setConfigFile(java.io.File);
+  public int getMaxPriority1Violations();
+  public void setMaxPriority1Violations(int);
+  public int getMaxPriority2Violations();
+  public void setMaxPriority2Violations(int);
+  public int getMaxPriority3Violations();
+  public void setMaxPriority3Violations(int);
+  public java.lang.String getReportFormat();
+  public void setReportFormat(java.lang.String);
+}
+--- G10 ---
+Compiled from "CodeNarcExtension.java"
+public abstract class org.gradle.api.plugins.quality.CodeNarcExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
+  public org.gradle.api.plugins.quality.CodeNarcExtension(org.gradle.api.Project);
+  public org.gradle.api.resources.TextResource getConfig();
+  public void setConfig(org.gradle.api.resources.TextResource);
+  public java.io.File getConfigFile();
+  public void setConfigFile(java.io.File);
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxPriority1Violations();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxPriority2Violations();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxPriority3Violations();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getReportFormat();
+}
+
+########## org.gradle.api.plugins.quality.CodeQualityExtension ##########
+--- G94 ---
+Compiled from "CodeQualityExtension.java"
+public abstract class org.gradle.api.plugins.quality.CodeQualityExtension {
+  public org.gradle.api.plugins.quality.CodeQualityExtension();
+  public java.lang.String getToolVersion();
+  public void setToolVersion(java.lang.String);
+  public java.util.Collection<org.gradle.api.tasks.SourceSet> getSourceSets();
+  public void setSourceSets(java.util.Collection<org.gradle.api.tasks.SourceSet>);
+  public boolean isIgnoreFailures();
+  public void setIgnoreFailures(boolean);
+  public java.io.File getReportsDir();
+  public void setReportsDir(java.io.File);
+}
+--- G10 ---
+Compiled from "CodeQualityExtension.java"
+public abstract class org.gradle.api.plugins.quality.CodeQualityExtension {
+  public org.gradle.api.plugins.quality.CodeQualityExtension();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getToolVersion();
+  public abstract org.gradle.api.provider.ListProperty<org.gradle.api.tasks.SourceSet> getSourceSets();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIgnoreFailures();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsIgnoreFailures();
+  public abstract org.gradle.api.file.DirectoryProperty getReportsDir();
+}
+
+########## org.gradle.api.plugins.quality.Pmd ##########
+--- G94 ---
+Compiled from "Pmd.java"
+public abstract class org.gradle.api.plugins.quality.Pmd extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.PmdReports> {
+  public org.gradle.api.plugins.quality.Pmd();
+  public void run();
+  public boolean stdOutIsAttachedToTerminal();
+  public org.gradle.api.plugins.quality.PmdReports reports(groovy.lang.Closure);
+  public org.gradle.api.plugins.quality.PmdReports reports(org.gradle.api.Action<? super org.gradle.api.plugins.quality.PmdReports>);
+  public static void validate(int);
+  public org.gradle.api.file.FileTree getSource();
+  public org.gradle.api.file.FileCollection getPmdClasspath();
+  public void setPmdClasspath(org.gradle.api.file.FileCollection);
+  public java.util.List<java.lang.String> getRuleSets();
+  public void setRuleSets(java.util.List<java.lang.String>);
+  public org.gradle.api.plugins.quality.TargetJdk getTargetJdk();
+  public void setTargetJdk(org.gradle.api.plugins.quality.TargetJdk);
+  public org.gradle.api.resources.TextResource getRuleSetConfig();
+  public void setRuleSetConfig(org.gradle.api.resources.TextResource);
+  public org.gradle.api.file.FileCollection getRuleSetFiles();
+  public void setRuleSetFiles(org.gradle.api.file.FileCollection);
+  public final org.gradle.api.plugins.quality.PmdReports getReports();
+  public org.gradle.api.provider.Property<java.lang.Integer> getMaxFailures();
+  public org.gradle.api.provider.Property<java.lang.Integer> getRulesMinimumPriority();
+  public boolean isConsoleOutput();
+  public void setConsoleOutput(boolean);
+  public org.gradle.api.file.FileCollection getClasspath();
+  public void setClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIncrementalAnalysis();
+  public java.io.File getIncrementalCacheFile();
+  public org.gradle.api.provider.Property<java.lang.Integer> getThreads();
+  public org.gradle.api.reporting.ReportContainer reports(org.gradle.api.Action);
+  public org.gradle.api.reporting.ReportContainer reports(groovy.lang.Closure);
+  public org.gradle.api.reporting.ReportContainer getReports();
+}
+--- G10 ---
+Compiled from "Pmd.java"
+public abstract class org.gradle.api.plugins.quality.Pmd extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.PmdReports> {
+  public org.gradle.api.plugins.quality.Pmd();
+  public void run();
+  public boolean stdOutIsAttachedToTerminal();
+  public org.gradle.api.plugins.quality.PmdReports reports(groovy.lang.Closure);
+  public org.gradle.api.plugins.quality.PmdReports reports(org.gradle.api.Action<? super org.gradle.api.plugins.quality.PmdReports>);
+  public static void validate(int);
+  public org.gradle.api.file.FileTree getSource();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getPmdClasspath();
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getRuleSets();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.plugins.quality.TargetJdk> getTargetJdk();
+  public org.gradle.api.resources.TextResource getRuleSetConfig();
+  public void setRuleSetConfig(org.gradle.api.resources.TextResource);
+  public abstract org.gradle.api.file.ConfigurableFileCollection getRuleSetFiles();
+  public final org.gradle.api.plugins.quality.PmdReports getReports();
+  public org.gradle.api.provider.Property<java.lang.Integer> getMaxFailures();
+  public org.gradle.api.provider.Property<java.lang.Integer> getRulesMinimumPriority();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getConsoleOutput();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsConsoleOutput();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIncrementalAnalysis();
+  public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getIncrementalCacheFile();
+  public org.gradle.api.provider.Property<java.lang.Integer> getThreads();
+  public org.gradle.api.reporting.ReportContainer reports(org.gradle.api.Action);
+  public org.gradle.api.reporting.ReportContainer reports(groovy.lang.Closure);
+  public org.gradle.api.reporting.ReportContainer getReports();
+}
+
+########## org.gradle.api.plugins.quality.PmdExtension ##########
+--- G94 ---
+Compiled from "PmdExtension.java"
+public abstract class org.gradle.api.plugins.quality.PmdExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
+  public org.gradle.api.plugins.quality.PmdExtension(org.gradle.api.Project);
+  public java.util.List<java.lang.String> getRuleSets();
+  public void setRuleSets(java.util.List<java.lang.String>);
+  public void ruleSets(java.lang.String...);
+  public org.gradle.api.plugins.quality.TargetJdk getTargetJdk();
+  public void setTargetJdk(org.gradle.api.plugins.quality.TargetJdk);
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxFailures();
+  public void setTargetJdk(java.lang.Object);
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getRulesMinimumPriority();
+  public org.gradle.api.resources.TextResource getRuleSetConfig();
+  public void setRuleSetConfig(org.gradle.api.resources.TextResource);
+  public org.gradle.api.file.FileCollection getRuleSetFiles();
+  public void setRuleSetFiles(org.gradle.api.file.FileCollection);
+  public void ruleSetFiles(java.lang.Object...);
+  public boolean isConsoleOutput();
+  public void setConsoleOutput(boolean);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncrementalAnalysis();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getThreads();
+}
+--- G10 ---
+Compiled from "PmdExtension.java"
+public abstract class org.gradle.api.plugins.quality.PmdExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
+  public org.gradle.api.plugins.quality.PmdExtension(org.gradle.api.Project);
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getRuleSets();
+  public void ruleSets(java.lang.String...);
+  public abstract org.gradle.api.provider.Property<org.gradle.api.plugins.quality.TargetJdk> getTargetJdk();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxFailures();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getRulesMinimumPriority();
+  public org.gradle.api.resources.TextResource getRuleSetConfig();
+  public void setRuleSetConfig(org.gradle.api.resources.TextResource);
+  public abstract org.gradle.api.file.ConfigurableFileCollection getRuleSetFiles();
+  public void ruleSetFiles(java.lang.Object...);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getConsoleOutput();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsConsoleOutput();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncrementalAnalysis();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getThreads();
+}
+
+########## org.gradle.api.publish.PublicationArtifact ##########
+--- G94 ---
+Compiled from "PublicationArtifact.java"
+public interface org.gradle.api.publish.PublicationArtifact extends org.gradle.api.Buildable {
+  public abstract java.io.File getFile();
+  public abstract void builtBy(java.lang.Object...);
+}
+--- G10 ---
+Compiled from "PublicationArtifact.java"
+public interface org.gradle.api.publish.PublicationArtifact extends org.gradle.api.Buildable {
+  public abstract org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getFile();
+  public abstract void builtBy(java.lang.Object...);
+}
+
+########## org.gradle.api.publish.ivy.IvyArtifact ##########
+--- G94 ---
+Compiled from "IvyArtifact.java"
+public interface org.gradle.api.publish.ivy.IvyArtifact extends org.gradle.api.publish.PublicationArtifact {
+  public abstract java.lang.String getName();
+  public abstract void setName(java.lang.String);
+  public abstract java.lang.String getType();
+  public abstract void setType(java.lang.String);
+  public abstract java.lang.String getExtension();
+  public abstract void setExtension(java.lang.String);
+  public abstract java.lang.String getClassifier();
+  public abstract void setClassifier(java.lang.String);
+  public abstract java.lang.String getConf();
+  public abstract void setConf(java.lang.String);
+}
+--- G10 ---
+Compiled from "IvyArtifact.java"
+public interface org.gradle.api.publish.ivy.IvyArtifact extends org.gradle.api.publish.PublicationArtifact {
+  public abstract org.gradle.api.provider.Property<java.lang.String> getName();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getType();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getExtension();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getClassifier();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getConf();
+}
+
+########## org.gradle.api.publish.ivy.IvyModuleDescriptorSpec ##########
+--- G94 ---
+Compiled from "IvyModuleDescriptorSpec.java"
+public interface org.gradle.api.publish.ivy.IvyModuleDescriptorSpec {
+  public abstract void withXml(org.gradle.api.Action<? super org.gradle.api.XmlProvider>);
+  public abstract java.lang.String getStatus();
+  public abstract void setStatus(java.lang.String);
+  public abstract java.lang.String getBranch();
+  public abstract void setBranch(java.lang.String);
+  public abstract org.gradle.api.publish.ivy.IvyExtraInfoSpec getExtraInfo();
+  public abstract void extraInfo(java.lang.String, java.lang.String, java.lang.String);
+  public abstract void license(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyModuleDescriptorLicense>);
+  public abstract void author(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyModuleDescriptorAuthor>);
+  public abstract void description(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyModuleDescriptorDescription>);
+}
+--- G10 ---
+Compiled from "IvyModuleDescriptorSpec.java"
+public interface org.gradle.api.publish.ivy.IvyModuleDescriptorSpec {
+  public abstract void withXml(org.gradle.api.Action<? super org.gradle.api.XmlProvider>);
+  public abstract org.gradle.api.provider.Property<java.lang.String> getStatus();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getBranch();
+  public abstract org.gradle.api.publish.ivy.IvyExtraInfoSpec getExtraInfo();
+  public abstract void extraInfo(java.lang.String, java.lang.String, java.lang.String);
+  public abstract void license(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyModuleDescriptorLicense>);
+  public abstract void author(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyModuleDescriptorAuthor>);
+  public abstract void description(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyModuleDescriptorDescription>);
+}
+
+########## org.gradle.api.publish.ivy.IvyPublication ##########
+--- G94 ---
+Compiled from "IvyPublication.java"
+public interface org.gradle.api.publish.ivy.IvyPublication extends org.gradle.api.publish.Publication {
+  public abstract org.gradle.api.publish.ivy.IvyModuleDescriptorSpec getDescriptor();
+  public abstract void descriptor(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyModuleDescriptorSpec>);
+  public abstract void from(org.gradle.api.component.SoftwareComponent);
+  public abstract void configurations(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyConfigurationContainer>);
+  public abstract org.gradle.api.publish.ivy.IvyConfigurationContainer getConfigurations();
+  public abstract org.gradle.api.publish.ivy.IvyArtifact artifact(java.lang.Object);
+  public abstract org.gradle.api.publish.ivy.IvyArtifact artifact(java.lang.Object, org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyArtifact>);
+  public abstract org.gradle.api.publish.ivy.IvyArtifactSet getArtifacts();
+  public abstract void setArtifacts(java.lang.Iterable<?>);
+  public abstract java.lang.String getOrganisation();
+  public abstract void setOrganisation(java.lang.String);
+  public abstract java.lang.String getModule();
+  public abstract void setModule(java.lang.String);
+  public abstract java.lang.String getRevision();
+  public abstract void setRevision(java.lang.String);
+  public abstract void versionMapping(org.gradle.api.Action<? super org.gradle.api.publish.VersionMappingStrategy>);
+  public abstract void suppressIvyMetadataWarningsFor(java.lang.String);
+  public abstract void suppressAllIvyMetadataWarnings();
+}
+--- G10 ---
+Compiled from "IvyPublication.java"
+public interface org.gradle.api.publish.ivy.IvyPublication extends org.gradle.api.publish.Publication {
+  public abstract org.gradle.api.publish.ivy.IvyModuleDescriptorSpec getDescriptor();
+  public abstract void descriptor(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyModuleDescriptorSpec>);
+  public abstract void from(org.gradle.api.component.SoftwareComponent);
+  public abstract void configurations(org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyConfigurationContainer>);
+  public abstract org.gradle.api.publish.ivy.IvyConfigurationContainer getConfigurations();
+  public abstract org.gradle.api.publish.ivy.IvyArtifact artifact(java.lang.Object);
+  public abstract org.gradle.api.publish.ivy.IvyArtifact artifact(java.lang.Object, org.gradle.api.Action<? super org.gradle.api.publish.ivy.IvyArtifact>);
+  public abstract org.gradle.api.publish.ivy.IvyArtifactSet getArtifacts();
+  public abstract void setArtifacts(java.lang.Iterable<?>);
+  public abstract org.gradle.api.provider.Property<java.lang.String> getOrganisation();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getModule();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getRevision();
+  public abstract void versionMapping(org.gradle.api.Action<? super org.gradle.api.publish.VersionMappingStrategy>);
+  public abstract void suppressIvyMetadataWarningsFor(java.lang.String);
+  public abstract void suppressAllIvyMetadataWarnings();
+}
+
+########## org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor ##########
+--- G94 ---
+Compiled from "GenerateIvyDescriptor.java"
+public abstract class org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor extends org.gradle.api.DefaultTask {
+  public org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor();
+  public org.gradle.api.publish.ivy.IvyModuleDescriptorSpec getDescriptor();
+  public void setDescriptor(org.gradle.api.publish.ivy.IvyModuleDescriptorSpec);
+  public java.io.File getDestination();
+  public void setDestination(java.io.File);
+  public void setDestination(java.lang.Object);
+  public void doGenerate();
+}
+--- G10 ---
+Compiled from "GenerateIvyDescriptor.java"
+public abstract class org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor extends org.gradle.api.DefaultTask {
+  public org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor();
+  public org.gradle.api.publish.ivy.IvyModuleDescriptorSpec getDescriptor();
+  public void setDescriptor(org.gradle.api.publish.ivy.IvyModuleDescriptorSpec);
+  public abstract org.gradle.api.file.RegularFileProperty getDestination();
+  public void doGenerate();
+}
+
+########## org.gradle.api.publish.maven.MavenArtifact ##########
+--- G94 ---
+Compiled from "MavenArtifact.java"
+public interface org.gradle.api.publish.maven.MavenArtifact extends org.gradle.api.publish.PublicationArtifact {
+  public abstract java.lang.String getExtension();
+  public abstract void setExtension(java.lang.String);
+  public abstract java.lang.String getClassifier();
+  public abstract void setClassifier(java.lang.String);
+}
+--- G10 ---
+Compiled from "MavenArtifact.java"
+public interface org.gradle.api.publish.maven.MavenArtifact extends org.gradle.api.publish.PublicationArtifact {
+  public abstract org.gradle.api.provider.Property<java.lang.String> getExtension();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getClassifier();
+}
+
+########## org.gradle.api.publish.maven.MavenPom ##########
+--- G94 ---
+Compiled from "MavenPom.java"
+public interface org.gradle.api.publish.maven.MavenPom {
+  public abstract java.lang.String getPackaging();
+  public abstract void setPackaging(java.lang.String);
+  public abstract org.gradle.api.provider.Property<java.lang.String> getName();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDescription();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getUrl();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getInceptionYear();
+  public abstract void licenses(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomLicenseSpec>);
+  public abstract void organization(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomOrganization>);
+  public abstract void developers(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomDeveloperSpec>);
+  public abstract void contributors(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomContributorSpec>);
+  public abstract void scm(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomScm>);
+  public abstract void issueManagement(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomIssueManagement>);
+  public abstract void ciManagement(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomCiManagement>);
+  public abstract void distributionManagement(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomDistributionManagement>);
+  public abstract void mailingLists(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomMailingListSpec>);
+  public abstract org.gradle.api.provider.MapProperty<java.lang.String, java.lang.String> getProperties();
+  public abstract void withXml(org.gradle.api.Action<? super org.gradle.api.XmlProvider>);
+}
+--- G10 ---
+Compiled from "MavenPom.java"
+public interface org.gradle.api.publish.maven.MavenPom {
+  public abstract org.gradle.api.provider.Property<java.lang.String> getPackaging();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getName();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDescription();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getUrl();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getInceptionYear();
+  public abstract void licenses(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomLicenseSpec>);
+  public abstract void organization(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomOrganization>);
+  public abstract void developers(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomDeveloperSpec>);
+  public abstract void contributors(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomContributorSpec>);
+  public abstract void scm(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomScm>);
+  public abstract void issueManagement(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomIssueManagement>);
+  public abstract void ciManagement(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomCiManagement>);
+  public abstract void distributionManagement(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomDistributionManagement>);
+  public abstract void mailingLists(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPomMailingListSpec>);
+  public abstract org.gradle.api.provider.MapProperty<java.lang.String, java.lang.String> getProperties();
+  public abstract void withXml(org.gradle.api.Action<? super org.gradle.api.XmlProvider>);
+}
+
+########## org.gradle.api.publish.maven.MavenPublication ##########
+--- G94 ---
+Compiled from "MavenPublication.java"
+public interface org.gradle.api.publish.maven.MavenPublication extends org.gradle.api.publish.Publication {
+  public abstract org.gradle.api.publish.maven.MavenPom getPom();
+  public abstract void pom(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPom>);
+  public abstract void from(org.gradle.api.component.SoftwareComponent);
+  public abstract org.gradle.api.publish.maven.MavenArtifact artifact(java.lang.Object);
+  public abstract org.gradle.api.publish.maven.MavenArtifact artifact(java.lang.Object, org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenArtifact>);
+  public abstract void setArtifacts(java.lang.Iterable<?>);
+  public abstract org.gradle.api.publish.maven.MavenArtifactSet getArtifacts();
+  public abstract java.lang.String getGroupId();
+  public abstract void setGroupId(java.lang.String);
+  public abstract java.lang.String getArtifactId();
+  public abstract void setArtifactId(java.lang.String);
+  public abstract java.lang.String getVersion();
+  public abstract void setVersion(java.lang.String);
+  public abstract void versionMapping(org.gradle.api.Action<? super org.gradle.api.publish.VersionMappingStrategy>);
+  public abstract void suppressPomMetadataWarningsFor(java.lang.String);
+  public abstract void suppressAllPomMetadataWarnings();
+}
+--- G10 ---
+Compiled from "MavenPublication.java"
+public interface org.gradle.api.publish.maven.MavenPublication extends org.gradle.api.publish.Publication {
+  public abstract org.gradle.api.publish.maven.MavenPom getPom();
+  public abstract void pom(org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenPom>);
+  public abstract void from(org.gradle.api.component.SoftwareComponent);
+  public abstract org.gradle.api.publish.maven.MavenArtifact artifact(java.lang.Object);
+  public abstract org.gradle.api.publish.maven.MavenArtifact artifact(java.lang.Object, org.gradle.api.Action<? super org.gradle.api.publish.maven.MavenArtifact>);
+  public abstract void setArtifacts(java.lang.Iterable<?>);
+  public abstract org.gradle.api.publish.maven.MavenArtifactSet getArtifacts();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getGroupId();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getArtifactId();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getVersion();
+  public abstract void versionMapping(org.gradle.api.Action<? super org.gradle.api.publish.VersionMappingStrategy>);
+  public abstract void suppressPomMetadataWarningsFor(java.lang.String);
+  public abstract void suppressAllPomMetadataWarnings();
+}
+
+########## org.gradle.api.publish.maven.tasks.GenerateMavenPom ##########
+--- G94 ---
+Compiled from "GenerateMavenPom.java"
+public abstract class org.gradle.api.publish.maven.tasks.GenerateMavenPom extends org.gradle.api.DefaultTask {
+  public org.gradle.api.publish.maven.tasks.GenerateMavenPom();
+  public org.gradle.api.publish.maven.MavenPom getPom();
+  public void setPom(org.gradle.api.publish.maven.MavenPom);
+  public java.io.File getDestination();
+  public void setDestination(java.io.File);
+  public void setDestination(java.lang.Object);
+  public void doGenerate();
+}
+--- G10 ---
+Compiled from "GenerateMavenPom.java"
+public abstract class org.gradle.api.publish.maven.tasks.GenerateMavenPom extends org.gradle.api.DefaultTask {
+  public org.gradle.api.publish.maven.tasks.GenerateMavenPom();
+  public org.gradle.api.publish.maven.MavenPom getPom();
+  public void setPom(org.gradle.api.publish.maven.MavenPom);
+  public abstract org.gradle.api.file.RegularFileProperty getDestination();
+  public void doGenerate();
+}
+
+########## org.gradle.api.tasks.AbstractExecTask ##########
+--- G94 ---
+Compiled from "AbstractExecTask.java"
+public abstract class org.gradle.api.tasks.AbstractExecTask<T extends org.gradle.api.tasks.AbstractExecTask> extends org.gradle.api.internal.ConventionTask implements org.gradle.process.ExecSpec {
+  public org.gradle.api.tasks.AbstractExecTask(java.lang.Class<T>);
+  public T commandLine(java.lang.Object...);
+  public T commandLine(java.lang.Iterable<?>);
+  public T args(java.lang.Object...);
+  public T args(java.lang.Iterable<?>);
+  public T setArgs(java.util.List<java.lang.String>);
+  public T setArgs(java.lang.Iterable<?>);
+  public java.util.List<java.lang.String> getArgs();
+  public java.util.List<org.gradle.process.CommandLineArgumentProvider> getArgumentProviders();
+  public java.util.List<java.lang.String> getCommandLine();
+  public void setCommandLine(java.util.List<java.lang.String>);
+  public void setCommandLine(java.lang.Iterable<?>);
+  public void setCommandLine(java.lang.Object...);
+  public java.lang.String getExecutable();
+  public void setExecutable(java.lang.String);
+  public void setExecutable(java.lang.Object);
+  public T executable(java.lang.Object);
+  public java.io.File getWorkingDir();
+  public void setWorkingDir(java.io.File);
+  public void setWorkingDir(java.lang.Object);
+  public T workingDir(java.lang.Object);
+  public java.util.Map<java.lang.String, java.lang.Object> getEnvironment();
+  public void setEnvironment(java.util.Map<java.lang.String, ?>);
+  public T environment(java.lang.String, java.lang.Object);
+  public T environment(java.util.Map<java.lang.String, ?>);
+  public T copyTo(org.gradle.process.ProcessForkOptions);
+  public T setStandardInput(java.io.InputStream);
+  public java.io.InputStream getStandardInput();
+  public T setStandardOutput(java.io.OutputStream);
+  public java.io.OutputStream getStandardOutput();
+  public T setErrorOutput(java.io.OutputStream);
+  public java.io.OutputStream getErrorOutput();
+  public T setIgnoreExitValue(boolean);
+  public boolean isIgnoreExitValue();
+  public org.gradle.api.provider.Provider<org.gradle.process.ExecResult> getExecutionResult();
+  public org.gradle.process.ExecSpec setArgs(java.lang.Iterable);
+  public org.gradle.process.ExecSpec setArgs(java.util.List);
+  public org.gradle.process.ExecSpec args(java.lang.Iterable);
+  public org.gradle.process.ExecSpec args(java.lang.Object[]);
+  public org.gradle.process.ExecSpec commandLine(java.lang.Iterable);
+  public org.gradle.process.ExecSpec commandLine(java.lang.Object[]);
+  public org.gradle.process.BaseExecSpec setErrorOutput(java.io.OutputStream);
+  public org.gradle.process.BaseExecSpec setStandardOutput(java.io.OutputStream);
+  public org.gradle.process.BaseExecSpec setStandardInput(java.io.InputStream);
+  public org.gradle.process.BaseExecSpec setIgnoreExitValue(boolean);
+  public org.gradle.process.ProcessForkOptions copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.process.ProcessForkOptions environment(java.lang.String, java.lang.Object);
+  public org.gradle.process.ProcessForkOptions environment(java.util.Map);
+  public org.gradle.process.ProcessForkOptions workingDir(java.lang.Object);
+  public org.gradle.process.ProcessForkOptions executable(java.lang.Object);
+}
+--- G10 ---
+Compiled from "AbstractExecTask.java"
+public abstract class org.gradle.api.tasks.AbstractExecTask<T extends org.gradle.api.tasks.AbstractExecTask> extends org.gradle.api.internal.ConventionTask implements org.gradle.process.ExecSpec {
+  public org.gradle.api.tasks.AbstractExecTask(java.lang.Class<T>);
+  public T commandLine(java.lang.Object...);
+  public T commandLine(java.lang.Iterable<?>);
+  public T args(java.lang.Object...);
+  public T args(java.lang.Iterable<?>);
+  public org.gradle.api.provider.ListProperty<java.lang.String> getArgs();
+  public org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider> getArgumentProviders();
+  public org.gradle.api.provider.Provider<java.util.List<java.lang.String>> getCommandLine();
+  public org.gradle.api.provider.Property<java.lang.String> getExecutable();
+  public T executable(java.lang.Object);
+  public org.gradle.api.file.DirectoryProperty getWorkingDir();
+  public T workingDir(java.lang.Object);
+  public org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object> getEnvironment();
+  public T environment(java.lang.String, java.lang.Object);
+  public T environment(java.util.Map<java.lang.String, ?>);
+  public T copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.api.provider.Property<java.io.InputStream> getStandardInput();
+  public org.gradle.api.provider.Property<java.io.OutputStream> getStandardOutput();
+  public org.gradle.api.provider.Property<java.io.OutputStream> getErrorOutput();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIgnoreExitValue();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsIgnoreExitValue();
+  public org.gradle.api.provider.Provider<org.gradle.process.ExecResult> getExecutionResult();
+  public org.gradle.process.ExecSpec args(java.lang.Iterable);
+  public org.gradle.process.ExecSpec args(java.lang.Object[]);
+  public org.gradle.process.ExecSpec commandLine(java.lang.Iterable);
+  public org.gradle.process.ExecSpec commandLine(java.lang.Object[]);
+  public org.gradle.process.ProcessForkOptions copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.process.ProcessForkOptions environment(java.lang.String, java.lang.Object);
+  public org.gradle.process.ProcessForkOptions environment(java.util.Map);
+  public org.gradle.process.ProcessForkOptions workingDir(java.lang.Object);
+  public org.gradle.process.ProcessForkOptions executable(java.lang.Object);
+}
+
+########## org.gradle.api.tasks.Delete ##########
+--- G94 ---
+Compiled from "Delete.java"
+public abstract class org.gradle.api.tasks.Delete extends org.gradle.api.internal.ConventionTask implements org.gradle.api.file.DeleteSpec {
+  public org.gradle.api.tasks.Delete();
+  public org.gradle.api.file.FileCollection getTargetFiles();
+  public java.util.Set<java.lang.Object> getDelete();
+  public void setDelete(java.util.Set<java.lang.Object>);
+  public void setDelete(java.lang.Object);
+  public boolean isFollowSymlinks();
+  public void setFollowSymlinks(boolean);
+  public org.gradle.api.tasks.Delete delete(java.lang.Object...);
+  public org.gradle.api.file.DeleteSpec delete(java.lang.Object[]);
+}
+--- G10 ---
+Compiled from "Delete.java"
+public abstract class org.gradle.api.tasks.Delete extends org.gradle.api.internal.ConventionTask implements org.gradle.api.file.DeleteSpec {
+  public org.gradle.api.tasks.Delete();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getTargetFiles();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFollowSymlinks();
+  public java.util.Set<java.lang.Object> getDelete();
+  public void setDelete(java.util.Set<java.lang.Object>);
+  public void setDelete(java.lang.Object);
+  public org.gradle.api.tasks.Delete delete(java.lang.Object...);
+  public org.gradle.api.file.DeleteSpec delete(java.lang.Object[]);
+}
+
+########## org.gradle.api.tasks.Exec ##########
+--- G94 ---
+Compiled from "Exec.java"
+public abstract class org.gradle.api.tasks.Exec extends org.gradle.api.tasks.AbstractExecTask<org.gradle.api.tasks.Exec> {
+  public org.gradle.api.tasks.Exec();
+  public java.util.List<java.lang.String> getArgs();
+  public org.gradle.api.tasks.Exec setArgs(java.util.List<java.lang.String>);
+  public org.gradle.api.tasks.Exec setArgs(java.lang.Iterable<?>);
+  public boolean isIgnoreExitValue();
+  public org.gradle.api.tasks.Exec setIgnoreExitValue(boolean);
+  public java.io.InputStream getStandardInput();
+  public org.gradle.api.tasks.Exec setStandardInput(java.io.InputStream);
+  public java.io.OutputStream getStandardOutput();
+  public org.gradle.api.tasks.Exec setStandardOutput(java.io.OutputStream);
+  public java.io.OutputStream getErrorOutput();
+  public org.gradle.api.tasks.Exec setErrorOutput(java.io.OutputStream);
+  public org.gradle.api.tasks.AbstractExecTask setIgnoreExitValue(boolean);
+  public org.gradle.api.tasks.AbstractExecTask setErrorOutput(java.io.OutputStream);
+  public org.gradle.api.tasks.AbstractExecTask setStandardOutput(java.io.OutputStream);
+  public org.gradle.api.tasks.AbstractExecTask setStandardInput(java.io.InputStream);
+  public org.gradle.api.tasks.AbstractExecTask setArgs(java.lang.Iterable);
+  public org.gradle.api.tasks.AbstractExecTask setArgs(java.util.List);
+  public org.gradle.process.ExecSpec setArgs(java.lang.Iterable);
+  public org.gradle.process.ExecSpec setArgs(java.util.List);
+  public org.gradle.process.BaseExecSpec setErrorOutput(java.io.OutputStream);
+  public org.gradle.process.BaseExecSpec setStandardOutput(java.io.OutputStream);
+  public org.gradle.process.BaseExecSpec setStandardInput(java.io.InputStream);
+  public org.gradle.process.BaseExecSpec setIgnoreExitValue(boolean);
+}
+--- G10 ---
+Compiled from "Exec.java"
+public abstract class org.gradle.api.tasks.Exec extends org.gradle.api.tasks.AbstractExecTask<org.gradle.api.tasks.Exec> {
+  public org.gradle.api.tasks.Exec();
+  public org.gradle.api.provider.ListProperty<java.lang.String> getArgs();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIgnoreExitValue();
+  public org.gradle.api.provider.Property<java.io.InputStream> getStandardInput();
+  public org.gradle.api.provider.Property<java.io.OutputStream> getStandardOutput();
+  public org.gradle.api.provider.Property<java.io.OutputStream> getErrorOutput();
+}
+
+########## org.gradle.api.tasks.JavaExec ##########
+--- G94 ---
+Compiled from "JavaExec.java"
+public abstract class org.gradle.api.tasks.JavaExec extends org.gradle.api.internal.ConventionTask implements org.gradle.process.JavaExecSpec {
+  public org.gradle.api.tasks.JavaExec();
+  public void exec();
+  public java.util.List<java.lang.String> getAllJvmArgs();
+  public void setAllJvmArgs(java.util.List<java.lang.String>);
+  public void setAllJvmArgs(java.lang.Iterable<?>);
+  public java.util.List<java.lang.String> getJvmArgs();
+  public void setJvmArgs(java.util.List<java.lang.String>);
+  public void setJvmArgs(java.lang.Iterable<?>);
+  public org.gradle.api.tasks.JavaExec jvmArgs(java.lang.Iterable<?>);
+  public org.gradle.api.tasks.JavaExec jvmArgs(java.lang.Object...);
+  public java.util.Map<java.lang.String, java.lang.Object> getSystemProperties();
+  public void setSystemProperties(java.util.Map<java.lang.String, ? extends java.lang.Object>);
+  public org.gradle.api.tasks.JavaExec systemProperties(java.util.Map<java.lang.String, ? extends java.lang.Object>);
+  public org.gradle.api.tasks.JavaExec systemProperty(java.lang.String, java.lang.Object);
+  public org.gradle.api.file.FileCollection getBootstrapClasspath();
+  public void setBootstrapClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.tasks.JavaExec bootstrapClasspath(java.lang.Object...);
+  public java.lang.String getMinHeapSize();
+  public void setMinHeapSize(java.lang.String);
+  public java.lang.String getDefaultCharacterEncoding();
+  public void setDefaultCharacterEncoding(java.lang.String);
+  public java.lang.String getMaxHeapSize();
+  public void setMaxHeapSize(java.lang.String);
+  public boolean getEnableAssertions();
+  public void setEnableAssertions(boolean);
+  public boolean getDebug();
+  public void setDebug(boolean);
+  public org.gradle.process.JavaDebugOptions getDebugOptions();
+  public void debugOptions(org.gradle.api.Action<org.gradle.process.JavaDebugOptions>);
+  public org.gradle.api.provider.Property<java.lang.String> getMainModule();
+  public org.gradle.api.provider.Property<java.lang.String> getMainClass();
+  public java.util.List<java.lang.String> getArgs();
+  public org.gradle.api.tasks.JavaExec setArgsString(java.lang.String);
+  public org.gradle.api.tasks.JavaExec setArgs(java.util.List<java.lang.String>);
+  public org.gradle.api.tasks.JavaExec setArgs(java.lang.Iterable<?>);
+  public org.gradle.api.tasks.JavaExec args(java.lang.Object...);
+  public org.gradle.process.JavaExecSpec args(java.lang.Iterable<?>);
+  public java.util.List<org.gradle.process.CommandLineArgumentProvider> getArgumentProviders();
+  public org.gradle.api.tasks.JavaExec setClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.tasks.JavaExec classpath(java.lang.Object...);
+  public org.gradle.api.file.FileCollection getClasspath();
+  public org.gradle.api.jvm.ModularitySpec getModularity();
+  public org.gradle.api.tasks.JavaExec copyTo(org.gradle.process.JavaForkOptions);
+  public org.gradle.api.JavaVersion getJavaVersion();
+  public java.lang.String getExecutable();
+  public void setExecutable(java.lang.String);
+  public void setExecutable(java.lang.Object);
+  public org.gradle.api.tasks.JavaExec executable(java.lang.Object);
+  public java.io.File getWorkingDir();
+  public void setWorkingDir(java.io.File);
+  public void setWorkingDir(java.lang.Object);
+  public org.gradle.api.tasks.JavaExec workingDir(java.lang.Object);
+  public java.util.Map<java.lang.String, java.lang.Object> getEnvironment();
+  public void setEnvironment(java.util.Map<java.lang.String, ?>);
+  public org.gradle.api.tasks.JavaExec environment(java.lang.String, java.lang.Object);
+  public org.gradle.api.tasks.JavaExec environment(java.util.Map<java.lang.String, ?>);
+  public org.gradle.api.tasks.JavaExec copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.api.tasks.JavaExec setStandardInput(java.io.InputStream);
+  public java.io.InputStream getStandardInput();
+  public org.gradle.api.tasks.JavaExec setStandardOutput(java.io.OutputStream);
+  public java.io.OutputStream getStandardOutput();
+  public org.gradle.api.tasks.JavaExec setErrorOutput(java.io.OutputStream);
+  public java.io.OutputStream getErrorOutput();
+  public org.gradle.process.JavaExecSpec setIgnoreExitValue(boolean);
+  public boolean isIgnoreExitValue();
+  public java.util.List<java.lang.String> getCommandLine();
+  public java.util.List<org.gradle.process.CommandLineArgumentProvider> getJvmArgumentProviders();
+  public org.gradle.api.provider.ListProperty<java.lang.String> getJvmArguments();
+  public org.gradle.api.provider.Provider<org.gradle.process.ExecResult> getExecutionResult();
+  public org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavaLauncher> getJavaLauncher();
+  public org.gradle.process.JavaExecSpec setClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.process.JavaExecSpec classpath(java.lang.Object[]);
+  public org.gradle.process.JavaExecSpec setArgs(java.lang.Iterable);
+  public org.gradle.process.JavaExecSpec setArgs(java.util.List);
+  public org.gradle.process.JavaExecSpec args(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions copyTo(org.gradle.process.JavaForkOptions);
+  public org.gradle.process.JavaForkOptions bootstrapClasspath(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions jvmArgs(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions jvmArgs(java.lang.Iterable);
+  public org.gradle.process.JavaForkOptions systemProperty(java.lang.String, java.lang.Object);
+  public org.gradle.process.JavaForkOptions systemProperties(java.util.Map);
+  public org.gradle.process.ProcessForkOptions copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.process.ProcessForkOptions environment(java.lang.String, java.lang.Object);
+  public org.gradle.process.ProcessForkOptions environment(java.util.Map);
+  public org.gradle.process.ProcessForkOptions workingDir(java.lang.Object);
+  public org.gradle.process.ProcessForkOptions executable(java.lang.Object);
+  public org.gradle.process.BaseExecSpec setErrorOutput(java.io.OutputStream);
+  public org.gradle.process.BaseExecSpec setStandardOutput(java.io.OutputStream);
+  public org.gradle.process.BaseExecSpec setStandardInput(java.io.InputStream);
+  public org.gradle.process.BaseExecSpec setIgnoreExitValue(boolean);
+}
+--- G10 ---
+Compiled from "JavaExec.java"
+public abstract class org.gradle.api.tasks.JavaExec extends org.gradle.api.internal.ConventionTask implements org.gradle.process.JavaExecSpec {
+  public org.gradle.api.tasks.JavaExec();
+  public void exec();
+  public org.gradle.api.provider.Provider<java.util.List<java.lang.String>> getAllJvmArgs();
+  public org.gradle.api.provider.ListProperty<java.lang.String> getJvmArgs();
+  public org.gradle.api.tasks.JavaExec jvmArgs(java.lang.Iterable<?>);
+  public org.gradle.api.tasks.JavaExec jvmArgs(java.lang.Object...);
+  public org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object> getSystemProperties();
+  public org.gradle.api.tasks.JavaExec systemProperties(java.util.Map<java.lang.String, ? extends java.lang.Object>);
+  public org.gradle.api.tasks.JavaExec systemProperty(java.lang.String, java.lang.Object);
+  public org.gradle.api.file.ConfigurableFileCollection getBootstrapClasspath();
+  public org.gradle.api.tasks.JavaExec bootstrapClasspath(java.lang.Object...);
+  public org.gradle.api.provider.Property<java.lang.String> getMinHeapSize();
+  public org.gradle.api.provider.Property<java.lang.String> getDefaultCharacterEncoding();
+  public org.gradle.api.provider.Property<java.lang.String> getMaxHeapSize();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getEnableAssertions();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getDebug();
+  public org.gradle.process.JavaDebugOptions getDebugOptions();
+  public void debugOptions(org.gradle.api.Action<org.gradle.process.JavaDebugOptions>);
+  public org.gradle.api.provider.Property<java.lang.String> getMainModule();
+  public org.gradle.api.provider.Property<java.lang.String> getMainClass();
+  public org.gradle.api.provider.ListProperty<java.lang.String> getArgs();
+  public org.gradle.api.tasks.JavaExec setArgsString(java.lang.String);
+  public org.gradle.api.tasks.JavaExec args(java.lang.Object...);
+  public org.gradle.process.JavaExecSpec args(java.lang.Iterable<?>);
+  public org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider> getArgumentProviders();
+  public org.gradle.api.tasks.JavaExec classpath(java.lang.Object...);
+  public org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public org.gradle.api.jvm.ModularitySpec getModularity();
+  public org.gradle.api.tasks.JavaExec copyTo(org.gradle.process.JavaForkOptions);
+  public org.gradle.api.provider.Provider<org.gradle.api.JavaVersion> getJavaVersion();
+  public org.gradle.api.provider.Property<java.lang.String> getExecutable();
+  public org.gradle.api.tasks.JavaExec executable(java.lang.Object);
+  public org.gradle.api.file.DirectoryProperty getWorkingDir();
+  public org.gradle.api.tasks.JavaExec workingDir(java.lang.Object);
+  public org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object> getEnvironment();
+  public org.gradle.api.tasks.JavaExec environment(java.lang.String, java.lang.Object);
+  public org.gradle.api.tasks.JavaExec environment(java.util.Map<java.lang.String, ?>);
+  public org.gradle.api.tasks.JavaExec copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.api.provider.Property<java.io.InputStream> getStandardInput();
+  public org.gradle.api.provider.Property<java.io.OutputStream> getStandardOutput();
+  public org.gradle.api.provider.Property<java.io.OutputStream> getErrorOutput();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIgnoreExitValue();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsIgnoreExitValue();
+  public org.gradle.api.provider.Provider<java.util.List<java.lang.String>> getCommandLine();
+  public org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider> getJvmArgumentProviders();
+  public org.gradle.api.provider.ListProperty<java.lang.String> getJvmArguments();
+  public org.gradle.api.provider.Provider<org.gradle.process.ExecResult> getExecutionResult();
+  public org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavaLauncher> getJavaLauncher();
+  public org.gradle.process.JavaExecSpec classpath(java.lang.Object[]);
+  public org.gradle.process.JavaExecSpec args(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions copyTo(org.gradle.process.JavaForkOptions);
+  public org.gradle.process.JavaForkOptions bootstrapClasspath(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions jvmArgs(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions jvmArgs(java.lang.Iterable);
+  public org.gradle.process.JavaForkOptions systemProperty(java.lang.String, java.lang.Object);
+  public org.gradle.process.JavaForkOptions systemProperties(java.util.Map);
+  public org.gradle.process.ProcessForkOptions copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.process.ProcessForkOptions environment(java.lang.String, java.lang.Object);
+  public org.gradle.process.ProcessForkOptions environment(java.util.Map);
+  public org.gradle.process.ProcessForkOptions workingDir(java.lang.Object);
+  public org.gradle.process.ProcessForkOptions executable(java.lang.Object);
+}
+
+########## org.gradle.api.tasks.WriteProperties ##########
+--- G94 ---
+Compiled from "WriteProperties.java"
+public abstract class org.gradle.api.tasks.WriteProperties extends org.gradle.api.DefaultTask {
+  public org.gradle.api.tasks.WriteProperties();
+  public java.util.Map<java.lang.String, java.lang.String> getProperties();
+  public void setProperties(java.util.Map<java.lang.String, java.lang.Object>);
+  public void property(java.lang.String, java.lang.Object);
+  public void properties(java.util.Map<java.lang.String, java.lang.Object>);
+  public java.lang.String getLineSeparator();
+  public void setLineSeparator(java.lang.String);
+  public java.lang.String getComment();
+  public void setComment(java.lang.String);
+  public java.lang.String getEncoding();
+  public void setEncoding(java.lang.String);
+  public abstract org.gradle.api.file.RegularFileProperty getDestinationFile();
+  public void writeProperties() throws java.io.IOException;
+}
+--- G10 ---
+Compiled from "WriteProperties.java"
+public abstract class org.gradle.api.tasks.WriteProperties extends org.gradle.api.DefaultTask {
+  public org.gradle.api.tasks.WriteProperties();
+  public abstract org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object> getProperties();
+  public void property(java.lang.String, java.lang.Object);
+  public void properties(java.util.Map<java.lang.String, java.lang.Object>);
+  public abstract org.gradle.api.provider.Property<java.lang.String> getLineSeparator();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getComment();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getEncoding();
+  public abstract org.gradle.api.file.RegularFileProperty getDestinationFile();
+  public void writeProperties() throws java.io.IOException;
+  public abstract org.gradle.api.provider.ProviderFactory getProviderFactory();
+}
+
+########## org.gradle.api.tasks.ant.AntTarget ##########
+--- G94 ---
+Compiled from "AntTarget.java"
+public abstract class org.gradle.api.tasks.ant.AntTarget extends org.gradle.api.internal.ConventionTask {
+  public org.gradle.api.tasks.ant.AntTarget();
+  public org.apache.tools.ant.Target getTarget();
+  public void setTarget(org.apache.tools.ant.Target);
+  public java.io.File getBaseDir();
+  public void setBaseDir(java.io.File);
+  public java.lang.String getDescription();
+  public void setDescription(java.lang.String);
+}
+--- G10 ---
+Compiled from "AntTarget.java"
+public abstract class org.gradle.api.tasks.ant.AntTarget extends org.gradle.api.internal.ConventionTask {
+  public org.gradle.api.tasks.ant.AntTarget();
+  public abstract org.gradle.api.provider.Property<org.apache.tools.ant.Target> getTarget();
+  public abstract org.gradle.api.file.DirectoryProperty getBaseDir();
+  public java.lang.String getDescription();
+  public void setDescription(java.lang.String);
+}
+
+########## org.gradle.api.tasks.bundling.AbstractArchiveTask ##########
+--- G94 ---
+Compiled from "AbstractArchiveTask.java"
+public abstract class org.gradle.api.tasks.bundling.AbstractArchiveTask extends org.gradle.api.tasks.AbstractCopyTask {
+  public org.gradle.api.tasks.bundling.AbstractArchiveTask();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveFileName();
+  public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getArchiveFile();
+  public org.gradle.api.file.DirectoryProperty getDestinationDirectory();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveBaseName();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveAppendix();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveVersion();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveExtension();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveClassifier();
+  public org.gradle.api.tasks.bundling.AbstractArchiveTask into(java.lang.Object);
+  public org.gradle.api.tasks.bundling.AbstractArchiveTask into(java.lang.Object, groovy.lang.Closure);
+  public org.gradle.api.file.CopySpec into(java.lang.Object, org.gradle.api.Action<? super org.gradle.api.file.CopySpec>);
+  public boolean isPreserveFileTimestamps();
+  public void setPreserveFileTimestamps(boolean);
+  public boolean isReproducibleFileOrder();
+  public void setReproducibleFileOrder(boolean);
+  public void useFileSystemPermissions();
+  public org.gradle.api.tasks.AbstractCopyTask into(java.lang.Object, groovy.lang.Closure);
+  public org.gradle.api.tasks.AbstractCopyTask into(java.lang.Object);
+  public org.gradle.api.file.CopySpec into(java.lang.Object, groovy.lang.Closure);
+  public org.gradle.api.file.CopySpec into(java.lang.Object);
+  public org.gradle.api.file.CopyProcessingSpec into(java.lang.Object);
+}
+--- G10 ---
+Compiled from "AbstractArchiveTask.java"
+public abstract class org.gradle.api.tasks.bundling.AbstractArchiveTask extends org.gradle.api.tasks.AbstractCopyTask {
+  public org.gradle.api.tasks.bundling.AbstractArchiveTask();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveFileName();
+  public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getArchiveFile();
+  public org.gradle.api.file.DirectoryProperty getDestinationDirectory();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveBaseName();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveAppendix();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveVersion();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveExtension();
+  public org.gradle.api.provider.Property<java.lang.String> getArchiveClassifier();
+  public org.gradle.api.tasks.bundling.AbstractArchiveTask into(java.lang.Object);
+  public org.gradle.api.tasks.bundling.AbstractArchiveTask into(java.lang.Object, groovy.lang.Closure);
+  public org.gradle.api.file.CopySpec into(java.lang.Object, org.gradle.api.Action<? super org.gradle.api.file.CopySpec>);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getPreserveFileTimestamps();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsPreserveFileTimestamps();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getReproducibleFileOrder();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsReproducibleFileOrder();
+  public void useFileSystemPermissions();
+  public org.gradle.api.tasks.AbstractCopyTask into(java.lang.Object, groovy.lang.Closure);
+  public org.gradle.api.tasks.AbstractCopyTask into(java.lang.Object);
+  public org.gradle.api.file.CopySpec into(java.lang.Object, groovy.lang.Closure);
+  public org.gradle.api.file.CopySpec into(java.lang.Object);
+  public org.gradle.api.file.CopyProcessingSpec into(java.lang.Object);
+}
+
+########## org.gradle.api.tasks.bundling.Tar ##########
+--- G94 ---
+Compiled from "Tar.java"
+public abstract class org.gradle.api.tasks.bundling.Tar extends org.gradle.api.tasks.bundling.AbstractArchiveTask {
+  public org.gradle.api.tasks.bundling.Tar();
+  public org.gradle.api.tasks.bundling.Compression getCompression();
+  public void setCompression(org.gradle.api.tasks.bundling.Compression);
+}
+--- G10 ---
+Compiled from "Tar.java"
+public abstract class org.gradle.api.tasks.bundling.Tar extends org.gradle.api.tasks.bundling.AbstractArchiveTask {
+  public org.gradle.api.tasks.bundling.Tar();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.bundling.Compression> getCompression();
+}
+
+########## org.gradle.api.tasks.bundling.War ##########
+--- G94 ---
+Compiled from "War.java"
+public abstract class org.gradle.api.tasks.bundling.War extends org.gradle.api.tasks.bundling.Jar {
+  public static final java.lang.String WAR_EXTENSION;
+  public org.gradle.api.tasks.bundling.War();
+  public abstract org.gradle.api.model.ObjectFactory getObjectFactory();
+  public org.gradle.api.file.CopySpec getWebInf();
+  public org.gradle.api.file.CopySpec webInf(groovy.lang.Closure);
+  public org.gradle.api.file.CopySpec webInf(org.gradle.api.Action<? super org.gradle.api.file.CopySpec>);
+  public org.gradle.api.file.FileCollection getClasspath();
+  public void setClasspath(org.gradle.api.file.FileCollection);
+  public void setClasspath(java.lang.Object);
+  public void classpath(java.lang.Object...);
+  public java.io.File getWebXml();
+  public void setWebXml(java.io.File);
+  public org.gradle.api.file.DirectoryProperty getWebAppDirectory();
+}
+--- G10 ---
+Compiled from "War.java"
+public abstract class org.gradle.api.tasks.bundling.War extends org.gradle.api.tasks.bundling.Jar {
+  public static final java.lang.String WAR_EXTENSION;
+  public org.gradle.api.tasks.bundling.War();
+  public abstract org.gradle.api.model.ObjectFactory getObjectFactory();
+  public org.gradle.api.file.CopySpec getWebInf();
+  public org.gradle.api.file.CopySpec webInf(groovy.lang.Closure);
+  public org.gradle.api.file.CopySpec webInf(org.gradle.api.Action<? super org.gradle.api.file.CopySpec>);
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public void classpath(java.lang.Object...);
+  public abstract org.gradle.api.file.RegularFileProperty getWebXml();
+  public org.gradle.api.file.DirectoryProperty getWebAppDirectory();
+}
+
+########## org.gradle.api.tasks.bundling.Zip ##########
+--- G94 ---
+Compiled from "Zip.java"
+public abstract class org.gradle.api.tasks.bundling.Zip extends org.gradle.api.tasks.bundling.AbstractArchiveTask {
+  public static final java.lang.String ZIP_EXTENSION;
+  public org.gradle.api.tasks.bundling.Zip();
+  public org.gradle.api.tasks.bundling.ZipEntryCompression getEntryCompression();
+  public void setEntryCompression(org.gradle.api.tasks.bundling.ZipEntryCompression);
+  public void setZip64(boolean);
+  public boolean isZip64();
+  public java.lang.String getMetadataCharset();
+  public void setMetadataCharset(java.lang.String);
+}
+--- G10 ---
+Compiled from "Zip.java"
+public abstract class org.gradle.api.tasks.bundling.Zip extends org.gradle.api.tasks.bundling.AbstractArchiveTask {
+  public static final java.lang.String ZIP_EXTENSION;
+  public org.gradle.api.tasks.bundling.Zip();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.bundling.ZipEntryCompression> getEntryCompression();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getZip64();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsZip64();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMetadataCharset();
+}
+
+########## org.gradle.api.tasks.compile.AbstractCompile ##########
+--- G94 ---
+Compiled from "AbstractCompile.java"
+public abstract class org.gradle.api.tasks.compile.AbstractCompile extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.tasks.compile.AbstractCompile();
+  public org.gradle.api.file.FileCollection getClasspath();
+  public void setClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.file.DirectoryProperty getDestinationDirectory();
+  public java.lang.String getSourceCompatibility();
+  public void setSourceCompatibility(java.lang.String);
+  public java.lang.String getTargetCompatibility();
+  public void setTargetCompatibility(java.lang.String);
+}
+--- G10 ---
+Compiled from "AbstractCompile.java"
+public abstract class org.gradle.api.tasks.compile.AbstractCompile extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.tasks.compile.AbstractCompile();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public org.gradle.api.file.DirectoryProperty getDestinationDirectory();
+  public java.lang.String getSourceCompatibility();
+  public void setSourceCompatibility(java.lang.String);
+  public java.lang.String getTargetCompatibility();
+  public void setTargetCompatibility(java.lang.String);
+}
+
+########## org.gradle.api.tasks.compile.BaseForkOptions ##########
+--- G94 ---
+Compiled from "BaseForkOptions.java"
+public class org.gradle.api.tasks.compile.BaseForkOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.compile.BaseForkOptions();
+  public java.lang.String getMemoryInitialSize();
+  public void setMemoryInitialSize(java.lang.String);
+  public java.lang.String getMemoryMaximumSize();
+  public void setMemoryMaximumSize(java.lang.String);
+  public java.util.List<java.lang.String> getJvmArgs();
+  public void setJvmArgs(java.util.List<java.lang.String>);
+}
+--- G10 ---
+Compiled from "BaseForkOptions.java"
+public abstract class org.gradle.api.tasks.compile.BaseForkOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.compile.BaseForkOptions();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMemoryInitialSize();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMemoryMaximumSize();
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getJvmArgs();
+}
+
+########## org.gradle.api.tasks.compile.CompileOptions ##########
+--- G94 ---
+Compiled from "CompileOptions.java"
+public abstract class org.gradle.api.tasks.compile.CompileOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.compile.CompileOptions(org.gradle.api.model.ObjectFactory);
+  public boolean isFailOnError();
+  public void setFailOnError(boolean);
+  public boolean isVerbose();
+  public void setVerbose(boolean);
+  public boolean isListFiles();
+  public void setListFiles(boolean);
+  public boolean isDeprecation();
+  public void setDeprecation(boolean);
+  public boolean isWarnings();
+  public void setWarnings(boolean);
+  public java.lang.String getEncoding();
+  public void setEncoding(java.lang.String);
+  public boolean isDebug();
+  public void setDebug(boolean);
+  public org.gradle.api.tasks.compile.DebugOptions getDebugOptions();
+  public void debugOptions(org.gradle.api.Action<? super org.gradle.api.tasks.compile.DebugOptions>);
+  public boolean isFork();
+  public void setFork(boolean);
+  public org.gradle.api.tasks.compile.ForkOptions getForkOptions();
+  public void forkOptions(org.gradle.api.Action<? super org.gradle.api.tasks.compile.ForkOptions>);
+  public org.gradle.api.file.FileCollection getBootstrapClasspath();
+  public void setBootstrapClasspath(org.gradle.api.file.FileCollection);
+  public java.lang.String getExtensionDirs();
+  public void setExtensionDirs(java.lang.String);
+  public java.util.List<java.lang.String> getCompilerArgs();
+  public java.util.List<java.lang.String> getAllCompilerArgs();
+  public java.util.List<org.gradle.process.CommandLineArgumentProvider> getCompilerArgumentProviders();
+  public void setCompilerArgs(java.util.List<java.lang.String>);
+  public org.gradle.api.tasks.compile.CompileOptions setIncremental(boolean);
+  public boolean isIncremental();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIncrementalAfterFailure();
+  public org.gradle.api.file.FileCollection getSourcepath();
+  public void setSourcepath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.file.FileCollection getAnnotationProcessorPath();
+  public void setAnnotationProcessorPath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.provider.Property<java.lang.Integer> getRelease();
+  public org.gradle.api.provider.Property<java.lang.String> getJavaModuleVersion();
+  public org.gradle.api.provider.Property<java.lang.String> getJavaModuleMainClass();
+  public org.gradle.api.file.DirectoryProperty getGeneratedSourceOutputDirectory();
+  public org.gradle.api.file.DirectoryProperty getHeaderOutputDirectory();
+}
+--- G10 ---
+Compiled from "CompileOptions.java"
+public abstract class org.gradle.api.tasks.compile.CompileOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.compile.CompileOptions(org.gradle.api.model.ObjectFactory);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFailOnError();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsFailOnError();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getVerbose();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsVerbose();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getListFiles();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsListFiles();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getDeprecation();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsDeprecation();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getWarnings();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsWarnings();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getEncoding();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getDebug();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsDebug();
+  public org.gradle.api.tasks.compile.DebugOptions getDebugOptions();
+  public void debugOptions(org.gradle.api.Action<? super org.gradle.api.tasks.compile.DebugOptions>);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFork();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsFork();
+  public org.gradle.api.tasks.compile.ForkOptions getForkOptions();
+  public void forkOptions(org.gradle.api.Action<? super org.gradle.api.tasks.compile.ForkOptions>);
+  public abstract org.gradle.api.file.ConfigurableFileCollection getBootstrapClasspath();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getExtensionDirs();
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getCompilerArgs();
+  public org.gradle.api.provider.Provider<java.util.List<java.lang.String>> getAllCompilerArgs();
+  public abstract org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider> getCompilerArgumentProviders();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncremental();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsIncremental();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIncrementalAfterFailure();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getSourcepath();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getAnnotationProcessorPath();
+  public org.gradle.api.provider.Property<java.lang.Integer> getRelease();
+  public org.gradle.api.provider.Property<java.lang.String> getJavaModuleVersion();
+  public org.gradle.api.provider.Property<java.lang.String> getJavaModuleMainClass();
+  public org.gradle.api.file.DirectoryProperty getGeneratedSourceOutputDirectory();
+  public org.gradle.api.file.DirectoryProperty getHeaderOutputDirectory();
+}
+
+########## org.gradle.api.tasks.compile.DebugOptions ##########
+--- G94 ---
+Compiled from "DebugOptions.java"
+public class org.gradle.api.tasks.compile.DebugOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.compile.DebugOptions();
+  public java.lang.String getDebugLevel();
+  public void setDebugLevel(java.lang.String);
+}
+--- G10 ---
+Compiled from "DebugOptions.java"
+public abstract class org.gradle.api.tasks.compile.DebugOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.compile.DebugOptions();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDebugLevel();
+}
+
+########## org.gradle.api.tasks.compile.ForkOptions ##########
+--- G94 ---
+Compiled from "ForkOptions.java"
+public abstract class org.gradle.api.tasks.compile.ForkOptions extends org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions {
+  public org.gradle.api.tasks.compile.ForkOptions();
+  public java.lang.String getExecutable();
+  public void setExecutable(java.lang.String);
+  public java.io.File getJavaHome();
+  public void setJavaHome(java.io.File);
+  public java.lang.String getTempDir();
+  public void setTempDir(java.lang.String);
+}
+--- G10 ---
+Compiled from "ForkOptions.java"
+public abstract class org.gradle.api.tasks.compile.ForkOptions extends org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions {
+  public org.gradle.api.tasks.compile.ForkOptions();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getExecutable();
+  public java.io.File getJavaHome();
+  public void setJavaHome(java.io.File);
+  public abstract org.gradle.api.provider.Property<java.lang.String> getTempDir();
+}
+
+########## org.gradle.api.tasks.compile.GroovyCompile ##########
+--- G94 ---
+Compiled from "GroovyCompile.java"
+public abstract class org.gradle.api.tasks.compile.GroovyCompile extends org.gradle.api.tasks.compile.AbstractCompile implements org.gradle.api.internal.tasks.compile.HasCompileOptions {
+  public org.gradle.api.tasks.compile.GroovyCompile();
+  public org.gradle.api.file.FileCollection getClasspath();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getAstTransformationClasspath();
+  public org.gradle.api.file.FileTree getSource();
+  public abstract org.gradle.api.tasks.compile.GroovyCompileOptions getGroovyOptions();
+  public abstract org.gradle.api.tasks.compile.CompileOptions getOptions();
+  public org.gradle.api.file.FileCollection getGroovyClasspath();
+  public void setGroovyClasspath(org.gradle.api.file.FileCollection);
+  public abstract org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavaLauncher> getJavaLauncher();
+}
+--- G10 ---
+Compiled from "GroovyCompile.java"
+public abstract class org.gradle.api.tasks.compile.GroovyCompile extends org.gradle.api.tasks.compile.AbstractCompile implements org.gradle.api.internal.tasks.compile.HasCompileOptions {
+  public org.gradle.api.tasks.compile.GroovyCompile();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getAstTransformationClasspath();
+  public org.gradle.api.file.FileTree getSource();
+  public abstract org.gradle.api.tasks.compile.GroovyCompileOptions getGroovyOptions();
+  public abstract org.gradle.api.tasks.compile.CompileOptions getOptions();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getGroovyClasspath();
+  public abstract org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavaLauncher> getJavaLauncher();
+}
+
+########## org.gradle.api.tasks.compile.GroovyCompileOptions ##########
+--- G94 ---
+Compiled from "GroovyCompileOptions.java"
+public abstract class org.gradle.api.tasks.compile.GroovyCompileOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.compile.GroovyCompileOptions();
+  public boolean isFailOnError();
+  public void setFailOnError(boolean);
+  public boolean isVerbose();
+  public void setVerbose(boolean);
+  public boolean isListFiles();
+  public void setListFiles(boolean);
+  public java.lang.String getEncoding();
+  public void setEncoding(java.lang.String);
+  public boolean isFork();
+  public void setFork(boolean);
+  public java.io.File getConfigurationScript();
+  public void setConfigurationScript(java.io.File);
+  public boolean isJavaAnnotationProcessing();
+  public void setJavaAnnotationProcessing(boolean);
+  public boolean isParameters();
+  public void setParameters(boolean);
+  public abstract org.gradle.api.tasks.compile.GroovyForkOptions getForkOptions();
+  public void forkOptions(org.gradle.api.Action<? super org.gradle.api.tasks.compile.GroovyForkOptions>);
+  public java.util.Map<java.lang.String, java.lang.Boolean> getOptimizationOptions();
+  public void setOptimizationOptions(java.util.Map<java.lang.String, java.lang.Boolean>);
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getDisabledGlobalASTTransformations();
+  public java.io.File getStubDir();
+  public void setStubDir(java.io.File);
+  public java.util.List<java.lang.String> getFileExtensions();
+  public void setFileExtensions(java.util.List<java.lang.String>);
+  public boolean isKeepStubs();
+  public void setKeepStubs(boolean);
+}
+--- G10 ---
+Compiled from "GroovyCompileOptions.java"
+public abstract class org.gradle.api.tasks.compile.GroovyCompileOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.compile.GroovyCompileOptions();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFailOnError();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsFailOnError();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getVerbose();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsVerbose();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getListFiles();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsListFiles();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getEncoding();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFork();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsFork();
+  public abstract org.gradle.api.file.RegularFileProperty getConfigurationScript();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getJavaAnnotationProcessing();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsJavaAnnotationProcessing();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getParameters();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsParameters();
+  public abstract org.gradle.api.tasks.compile.GroovyForkOptions getForkOptions();
+  public void forkOptions(org.gradle.api.Action<? super org.gradle.api.tasks.compile.GroovyForkOptions>);
+  public abstract org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Boolean> getOptimizationOptions();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getDisabledGlobalASTTransformations();
+  public abstract org.gradle.api.file.DirectoryProperty getStubDir();
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getFileExtensions();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getKeepStubs();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsKeepStubs();
+}
+
+########## org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions ##########
+--- G94 ---
+Compiled from "ProviderAwareCompilerDaemonForkOptions.java"
+public class org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions extends org.gradle.api.tasks.compile.BaseForkOptions {
+  public org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions();
+  public java.util.List<org.gradle.process.CommandLineArgumentProvider> getJvmArgumentProviders();
+  public java.util.List<java.lang.String> getAllJvmArgs();
+}
+--- G10 ---
+Compiled from "ProviderAwareCompilerDaemonForkOptions.java"
+public abstract class org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions extends org.gradle.api.tasks.compile.BaseForkOptions {
+  public org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions();
+  public abstract org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider> getJvmArgumentProviders();
+  public org.gradle.api.provider.Provider<java.util.List<java.lang.String>> getAllJvmArgs();
+}
+
+########## org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask ##########
+--- G94 ---
+Compiled from "AbstractDependencyReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask extends org.gradle.api.tasks.diagnostics.AbstractProjectBasedReportTask<org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask$DependencyReportModel> {
+  public org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask();
+  public org.gradle.api.tasks.diagnostics.internal.ReportRenderer getRenderer();
+  public void setRenderer(org.gradle.api.tasks.diagnostics.internal.DependencyReportRenderer);
+  public java.util.Set<org.gradle.api.artifacts.Configuration> getConfigurations();
+  public void setConfigurations(java.util.Set<org.gradle.api.artifacts.Configuration>);
+  public void setConfiguration(java.lang.String);
+  public org.gradle.api.artifacts.ConfigurationContainer getTaskConfigurations();
+}
+--- G10 ---
+Compiled from "AbstractDependencyReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask extends org.gradle.api.tasks.diagnostics.AbstractProjectBasedReportTask<org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask$DependencyReportModel> {
+  public org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.diagnostics.internal.DependencyReportRenderer> getRenderer();
+  public org.gradle.api.provider.SetProperty<org.gradle.api.artifacts.Configuration> getConfigurations();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getSelectedConfiguration();
+  public void setConfiguration(java.lang.String);
+}
+
+########## org.gradle.api.tasks.diagnostics.ConventionReportTask ##########
+--- G94 ---
+Compiled from "ConventionReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.ConventionReportTask extends org.gradle.api.internal.ConventionTask {
+  public org.gradle.api.file.DirectoryProperty getProjectReportDirectory();
+  public java.io.File getOutputFile();
+  public void setOutputFile(java.io.File);
+  public java.util.Set<org.gradle.api.Project> getProjects();
+  public void setProjects(java.util.Set<org.gradle.api.Project>);
+}
+--- G10 ---
+Compiled from "ConventionReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.ConventionReportTask extends org.gradle.api.internal.ConventionTask {
+  public abstract org.gradle.api.file.DirectoryProperty getProjectReportDirectory();
+  public abstract org.gradle.api.file.RegularFileProperty getOutputFile();
+  public org.gradle.api.provider.SetProperty<org.gradle.api.Project> getProjects();
+}
+
+########## org.gradle.api.tasks.diagnostics.DependencyInsightReportTask ##########
+--- G94 ---
+Compiled from "DependencyInsightReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.DependencyInsightReportTask extends org.gradle.api.DefaultTask {
+  public org.gradle.api.tasks.diagnostics.DependencyInsightReportTask();
+  public org.gradle.api.provider.Property<org.gradle.api.artifacts.result.ResolvedComponentResult> getRootComponentProperty();
+  public void setDependencySpec(org.gradle.api.specs.Spec<org.gradle.api.artifacts.result.DependencyResult>);
+  public void setDependencySpec(java.lang.Object);
+  public org.gradle.api.artifacts.Configuration getConfiguration();
+  public void setConfiguration(org.gradle.api.artifacts.Configuration);
+  public void setConfiguration(java.lang.String);
+  public boolean isShowSinglePathToDependency();
+  public void setShowSinglePathToDependency(boolean);
+  public org.gradle.api.provider.Property<java.lang.Boolean> getShowingAllVariants();
+  public void report();
+}
+--- G10 ---
+Compiled from "DependencyInsightReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.DependencyInsightReportTask extends org.gradle.api.DefaultTask {
+  public org.gradle.api.tasks.diagnostics.DependencyInsightReportTask();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.artifacts.result.ResolvedComponentResult> getRootComponentProperty();
+  public void setDependencySpec(org.gradle.api.specs.Spec<org.gradle.api.artifacts.result.DependencyResult>);
+  public void dependencySpec(org.gradle.api.specs.Spec<org.gradle.api.artifacts.result.DependencyResult>);
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDependencyNotation();
+  public org.gradle.api.provider.Property<org.gradle.api.artifacts.Configuration> getConfiguration();
+  public void setConfigurationName(java.lang.String);
+  public void setConfiguration(java.lang.String);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowSinglePathToDependency();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsShowSinglePathToDependency();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowingAllVariants();
+  public void report();
+}
+
+########## org.gradle.api.tasks.diagnostics.PropertyReportTask ##########
+--- G94 ---
+Compiled from "PropertyReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.PropertyReportTask extends org.gradle.api.tasks.diagnostics.AbstractProjectBasedReportTask<org.gradle.api.tasks.diagnostics.PropertyReportTask$PropertyReportModel> {
+  public org.gradle.api.tasks.diagnostics.PropertyReportTask();
+  public org.gradle.api.provider.Property<java.lang.String> getProperty();
+  public org.gradle.api.tasks.diagnostics.internal.ReportRenderer getRenderer();
+  public void setRenderer(org.gradle.api.tasks.diagnostics.internal.PropertyReportRenderer);
+}
+--- G10 ---
+Compiled from "PropertyReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.PropertyReportTask extends org.gradle.api.tasks.diagnostics.AbstractProjectBasedReportTask<org.gradle.api.tasks.diagnostics.PropertyReportTask$PropertyReportModel> {
+  public org.gradle.api.tasks.diagnostics.PropertyReportTask();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getProperty();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.diagnostics.internal.PropertyReportRenderer> getRenderer();
+}
+
+########## org.gradle.api.tasks.diagnostics.TaskReportTask ##########
+--- G94 ---
+Compiled from "TaskReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.TaskReportTask extends org.gradle.api.tasks.diagnostics.ConventionReportTask {
+  public org.gradle.api.tasks.diagnostics.TaskReportTask();
+  public org.gradle.api.tasks.diagnostics.internal.ReportRenderer getRenderer();
+  public void setRenderer(org.gradle.api.tasks.diagnostics.internal.TaskReportRenderer);
+  public void setShowDetail(boolean);
+  public boolean isDetail();
+  public void setDisplayGroup(java.lang.String);
+  public java.lang.String getDisplayGroup();
+  public void setDisplayGroups(java.util.List<java.lang.String>);
+  public java.util.List<java.lang.String> getDisplayGroups();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getShowTypes();
+}
+--- G10 ---
+Compiled from "TaskReportTask.java"
+public abstract class org.gradle.api.tasks.diagnostics.TaskReportTask extends org.gradle.api.tasks.diagnostics.ConventionReportTask {
+  public org.gradle.api.tasks.diagnostics.TaskReportTask();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.diagnostics.internal.TaskReportRenderer> getRenderer();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowDetail();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsShowDetail();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDisplayGroup();
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getDisplayGroups();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowTypes();
+}
+
+########## org.gradle.api.tasks.javadoc.Groovydoc ##########
+--- G94 ---
+Compiled from "Groovydoc.java"
+public abstract class org.gradle.api.tasks.javadoc.Groovydoc extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.tasks.javadoc.Groovydoc();
+  public org.gradle.api.file.FileTree getSource();
+  public java.io.File getDestinationDir();
+  public void setDestinationDir(java.io.File);
+  public org.gradle.api.file.FileCollection getGroovyClasspath();
+  public void setGroovyClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.file.FileCollection getClasspath();
+  public void setClasspath(org.gradle.api.file.FileCollection);
+  public boolean isUse();
+  public void setUse(boolean);
+  public boolean isNoTimestamp();
+  public void setNoTimestamp(boolean);
+  public boolean isNoVersionStamp();
+  public void setNoVersionStamp(boolean);
+  public java.lang.String getWindowTitle();
+  public void setWindowTitle(java.lang.String);
+  public java.lang.String getDocTitle();
+  public void setDocTitle(java.lang.String);
+  public java.lang.String getHeader();
+  public void setHeader(java.lang.String);
+  public java.lang.String getFooter();
+  public void setFooter(java.lang.String);
+  public org.gradle.api.resources.TextResource getOverviewText();
+  public void setOverviewText(org.gradle.api.resources.TextResource);
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.javadoc.GroovydocAccess> getAccess();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncludeAuthor();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getProcessScripts();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncludeMainForScripts();
+  public java.util.Set<org.gradle.api.tasks.javadoc.Groovydoc$Link> getLinks();
+  public void setLinks(java.util.Set<org.gradle.api.tasks.javadoc.Groovydoc$Link>);
+  public void link(java.lang.String, java.lang.String...);
+}
+--- G10 ---
+Compiled from "Groovydoc.java"
+public abstract class org.gradle.api.tasks.javadoc.Groovydoc extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.tasks.javadoc.Groovydoc();
+  public org.gradle.api.file.FileTree getSource();
+  public abstract org.gradle.api.file.DirectoryProperty getDestinationDir();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getGroovyClasspath();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getUse();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsUse();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getNoTimestamp();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsNoTimestamp();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getNoVersionStamp();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsNoVersionStamp();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getWindowTitle();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDocTitle();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getHeader();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getFooter();
+  public org.gradle.api.resources.TextResource getOverviewText();
+  public void setOverviewText(org.gradle.api.resources.TextResource);
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.javadoc.GroovydocAccess> getAccess();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncludeAuthor();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getProcessScripts();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncludeMainForScripts();
+  public abstract org.gradle.api.provider.SetProperty<org.gradle.api.tasks.javadoc.Groovydoc$Link> getLinks();
+  public void link(java.lang.String, java.lang.String...);
+}
+
+########## org.gradle.api.tasks.javadoc.Javadoc ##########
+--- G94 ---
+Compiled from "Javadoc.java"
+public abstract class org.gradle.api.tasks.javadoc.Javadoc extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.tasks.javadoc.Javadoc();
+  public org.gradle.api.file.FileTree getSource();
+  public org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavadocTool> getJavadocTool();
+  public java.io.File getDestinationDir();
+  public void setDestinationDir(java.io.File);
+  public java.lang.String getMaxMemory();
+  public void setMaxMemory(java.lang.String);
+  public java.lang.String getTitle();
+  public void setTitle(java.lang.String);
+  public org.gradle.api.file.FileCollection getClasspath();
+  public void setClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.jvm.ModularitySpec getModularity();
+  public org.gradle.external.javadoc.MinimalJavadocOptions getOptions();
+  public void options(groovy.lang.Closure<?>);
+  public void options(org.gradle.api.Action<? super org.gradle.external.javadoc.MinimalJavadocOptions>);
+  public boolean isFailOnError();
+  public void setFailOnError(boolean);
+  public java.io.File getOptionsFile();
+  public java.lang.String getExecutable();
+  public void setExecutable(java.lang.String);
+}
+--- G10 ---
+Compiled from "Javadoc.java"
+public abstract class org.gradle.api.tasks.javadoc.Javadoc extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.tasks.javadoc.Javadoc();
+  public org.gradle.api.file.FileTree getSource();
+  public org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavadocTool> getJavadocTool();
+  public abstract org.gradle.api.file.DirectoryProperty getDestinationDir();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getMaxMemory();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getTitle();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public org.gradle.api.jvm.ModularitySpec getModularity();
+  public org.gradle.external.javadoc.MinimalJavadocOptions getOptions();
+  public void options(groovy.lang.Closure<?>);
+  public void options(org.gradle.api.Action<? super org.gradle.external.javadoc.MinimalJavadocOptions>);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFailOnError();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsFailOnError();
+  public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getOptionsFile();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getExecutable();
+}
+
+########## org.gradle.api.tasks.scala.ScalaCompile ##########
+--- G94 ---
+Compiled from "ScalaCompile.java"
+public abstract class org.gradle.api.tasks.scala.ScalaCompile extends org.gradle.language.scala.tasks.AbstractScalaCompile {
+  public org.gradle.api.tasks.scala.ScalaCompile();
+  public org.gradle.api.tasks.scala.ScalaCompileOptions getScalaCompileOptions();
+  public org.gradle.api.file.FileCollection getScalaClasspath();
+  public void setScalaClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.file.FileCollection getScalaCompilerPlugins();
+  public void setScalaCompilerPlugins(org.gradle.api.file.FileCollection);
+  public org.gradle.api.file.FileCollection getZincClasspath();
+  public void setZincClasspath(org.gradle.api.file.FileCollection);
+  public void setCompiler(org.gradle.language.base.internal.compile.Compiler<org.gradle.api.internal.tasks.scala.ScalaJavaJointCompileSpec>);
+  public org.gradle.language.scala.tasks.BaseScalaCompileOptions getScalaCompileOptions();
+}
+--- G10 ---
+Compiled from "ScalaCompile.java"
+public abstract class org.gradle.api.tasks.scala.ScalaCompile extends org.gradle.language.scala.tasks.AbstractScalaCompile {
+  public org.gradle.api.tasks.scala.ScalaCompile();
+  public org.gradle.api.tasks.scala.ScalaCompileOptions getScalaCompileOptions();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getScalaClasspath();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getScalaCompilerPlugins();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getZincClasspath();
+  public void setCompiler(org.gradle.language.base.internal.compile.Compiler<org.gradle.api.internal.tasks.scala.ScalaJavaJointCompileSpec>);
+  public org.gradle.language.scala.tasks.BaseScalaCompileOptions getScalaCompileOptions();
+}
+
+########## org.gradle.api.tasks.scala.ScalaDoc ##########
+--- G94 ---
+Compiled from "ScalaDoc.java"
+public abstract class org.gradle.api.tasks.scala.ScalaDoc extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.tasks.scala.ScalaDoc();
+  public java.io.File getDestinationDir();
+  public void setDestinationDir(java.io.File);
+  public org.gradle.api.file.FileTree getSource();
+  public org.gradle.api.file.ConfigurableFileCollection getCompilationOutputs();
+  public org.gradle.api.file.FileCollection getClasspath();
+  public void setClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.file.FileCollection getScalaClasspath();
+  public void setScalaClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.tasks.scala.ScalaDocOptions getScalaDocOptions();
+  public void scalaDocOptions(org.gradle.api.Action<? super org.gradle.api.tasks.scala.ScalaDocOptions>);
+  public java.lang.String getTitle();
+  public void setTitle(java.lang.String);
+  public org.gradle.api.provider.Property<java.lang.String> getMaxMemory();
+  public org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavaLauncher> getJavaLauncher();
+}
+--- G10 ---
+Compiled from "ScalaDoc.java"
+public abstract class org.gradle.api.tasks.scala.ScalaDoc extends org.gradle.api.tasks.SourceTask {
+  public org.gradle.api.tasks.scala.ScalaDoc();
+  public abstract org.gradle.api.file.DirectoryProperty getDestinationDir();
+  public org.gradle.api.file.FileTree getSource();
+  public org.gradle.api.file.ConfigurableFileCollection getCompilationOutputs();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getScalaClasspath();
+  public org.gradle.api.tasks.scala.ScalaDocOptions getScalaDocOptions();
+  public void scalaDocOptions(org.gradle.api.Action<? super org.gradle.api.tasks.scala.ScalaDocOptions>);
+  public abstract org.gradle.api.provider.Property<java.lang.String> getTitle();
+  public org.gradle.api.provider.Property<java.lang.String> getMaxMemory();
+  public org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavaLauncher> getJavaLauncher();
+}
+
+########## org.gradle.api.tasks.scala.ScalaDocOptions ##########
+--- G94 ---
+Compiled from "ScalaDocOptions.java"
+public abstract class org.gradle.api.tasks.scala.ScalaDocOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.scala.ScalaDocOptions();
+  public boolean isDeprecation();
+  public void setDeprecation(boolean);
+  public boolean isUnchecked();
+  public void setUnchecked(boolean);
+  public java.lang.String getWindowTitle();
+  public void setWindowTitle(java.lang.String);
+  public java.lang.String getDocTitle();
+  public void setDocTitle(java.lang.String);
+  public java.lang.String getHeader();
+  public void setHeader(java.lang.String);
+  public java.lang.String getFooter();
+  public void setFooter(java.lang.String);
+  public java.lang.String getTop();
+  public void setTop(java.lang.String);
+  public java.lang.String getBottom();
+  public void setBottom(java.lang.String);
+  public java.util.List<java.lang.String> getAdditionalParameters();
+  public void setAdditionalParameters(java.util.List<java.lang.String>);
+}
+--- G10 ---
+Compiled from "ScalaDocOptions.java"
+public abstract class org.gradle.api.tasks.scala.ScalaDocOptions implements java.io.Serializable {
+  public org.gradle.api.tasks.scala.ScalaDocOptions();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getDeprecation();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsDeprecation();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getUnchecked();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsUnchecked();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getWindowTitle();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDocTitle();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getHeader();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getFooter();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getTop();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getBottom();
+  public abstract org.gradle.api.provider.ListProperty<java.lang.String> getAdditionalParameters();
+}
+
+########## org.gradle.api.tasks.testing.JUnitXmlReport ##########
+--- G94 ---
+Compiled from "JUnitXmlReport.java"
+public interface org.gradle.api.tasks.testing.JUnitXmlReport extends org.gradle.api.reporting.DirectoryReport {
+  public abstract boolean isOutputPerTestCase();
+  public abstract void setOutputPerTestCase(boolean);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getMergeReruns();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncludeSystemOutLog();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncludeSystemErrLog();
+}
+--- G10 ---
+Compiled from "JUnitXmlReport.java"
+public interface org.gradle.api.tasks.testing.JUnitXmlReport extends org.gradle.api.reporting.DirectoryReport {
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getOutputPerTestCase();
+  public default org.gradle.api.provider.Property<java.lang.Boolean> getIsOutputPerTestCase();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getMergeReruns();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncludeSystemOutLog();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getIncludeSystemErrLog();
+}
+
+########## org.gradle.api.tasks.testing.Test ##########
+--- G94 ---
+Compiled from "Test.java"
+public abstract class org.gradle.api.tasks.testing.Test extends org.gradle.api.tasks.testing.AbstractTestTask implements org.gradle.process.JavaForkOptions,org.gradle.api.tasks.util.PatternFilterable {
+  public org.gradle.api.tasks.testing.Test();
+  public java.io.File getWorkingDir();
+  public void setWorkingDir(java.io.File);
+  public void setWorkingDir(java.lang.Object);
+  public org.gradle.api.tasks.testing.Test workingDir(java.lang.Object);
+  public org.gradle.api.JavaVersion getJavaVersion();
+  public java.lang.String getExecutable();
+  public org.gradle.api.tasks.testing.Test executable(java.lang.Object);
+  public void setExecutable(java.lang.String);
+  public void setExecutable(java.lang.Object);
+  public java.util.Map<java.lang.String, java.lang.Object> getSystemProperties();
+  public void setSystemProperties(java.util.Map<java.lang.String, ? extends java.lang.Object>);
+  public org.gradle.api.tasks.testing.Test systemProperties(java.util.Map<java.lang.String, ? extends java.lang.Object>);
+  public org.gradle.api.tasks.testing.Test systemProperty(java.lang.String, java.lang.Object);
+  public org.gradle.api.file.FileCollection getBootstrapClasspath();
+  public void setBootstrapClasspath(org.gradle.api.file.FileCollection);
+  public org.gradle.api.tasks.testing.Test bootstrapClasspath(java.lang.Object...);
+  public java.lang.String getMinHeapSize();
+  public java.lang.String getDefaultCharacterEncoding();
+  public void setDefaultCharacterEncoding(java.lang.String);
+  public void setMinHeapSize(java.lang.String);
+  public java.lang.String getMaxHeapSize();
+  public void setMaxHeapSize(java.lang.String);
+  public java.util.List<java.lang.String> getJvmArgs();
+  public java.util.List<org.gradle.process.CommandLineArgumentProvider> getJvmArgumentProviders();
+  public void setJvmArgs(java.util.List<java.lang.String>);
+  public void setJvmArgs(java.lang.Iterable<?>);
+  public org.gradle.api.tasks.testing.Test jvmArgs(java.lang.Iterable<?>);
+  public org.gradle.api.tasks.testing.Test jvmArgs(java.lang.Object...);
+  public boolean getEnableAssertions();
+  public void setEnableAssertions(boolean);
+  public boolean getDebug();
+  public void setDebug(boolean);
+  public org.gradle.process.JavaDebugOptions getDebugOptions();
+  public void debugOptions(org.gradle.api.Action<org.gradle.process.JavaDebugOptions>);
+  public void setFailFast(boolean);
+  public boolean getFailFast();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getDryRun();
+  public java.util.List<java.lang.String> getAllJvmArgs();
+  public void setAllJvmArgs(java.util.List<java.lang.String>);
+  public void setAllJvmArgs(java.lang.Iterable<?>);
+  public java.util.Map<java.lang.String, java.lang.Object> getEnvironment();
+  public org.gradle.api.tasks.testing.Test environment(java.util.Map<java.lang.String, ?>);
+  public org.gradle.api.tasks.testing.Test environment(java.lang.String, java.lang.Object);
+  public void setEnvironment(java.util.Map<java.lang.String, ?>);
+  public org.gradle.api.tasks.testing.Test copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.api.tasks.testing.Test copyTo(org.gradle.process.JavaForkOptions);
+  public org.gradle.api.jvm.ModularitySpec getModularity();
+  public void executeTests();
+  public org.gradle.api.tasks.testing.Test include(java.lang.String...);
+  public org.gradle.api.tasks.testing.Test include(java.lang.Iterable<java.lang.String>);
+  public org.gradle.api.tasks.testing.Test include(org.gradle.api.specs.Spec<org.gradle.api.file.FileTreeElement>);
+  public org.gradle.api.tasks.testing.Test include(groovy.lang.Closure);
+  public org.gradle.api.tasks.testing.Test exclude(java.lang.String...);
+  public org.gradle.api.tasks.testing.Test exclude(java.lang.Iterable<java.lang.String>);
+  public org.gradle.api.tasks.testing.Test exclude(org.gradle.api.specs.Spec<org.gradle.api.file.FileTreeElement>);
+  public org.gradle.api.tasks.testing.Test exclude(groovy.lang.Closure);
+  public org.gradle.api.tasks.testing.Test setTestNameIncludePatterns(java.util.List<java.lang.String>);
+  public org.gradle.api.file.FileCollection getTestClassesDirs();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getTestDefinitionDirs();
+  public void setTestClassesDirs(org.gradle.api.file.FileCollection);
+  public java.util.Set<java.lang.String> getIncludes();
+  public org.gradle.api.tasks.testing.Test setIncludes(java.lang.Iterable<java.lang.String>);
+  public java.util.Set<java.lang.String> getExcludes();
+  public org.gradle.api.tasks.testing.Test setExcludes(java.lang.Iterable<java.lang.String>);
+  public org.gradle.api.provider.Property<org.gradle.api.internal.tasks.testing.TestFramework> getTestFrameworkProperty();
+  public org.gradle.api.internal.tasks.testing.TestFramework getTestFramework();
+  public org.gradle.api.internal.tasks.testing.TestFramework testFramework(groovy.lang.Closure);
+  public org.gradle.api.tasks.testing.TestFrameworkOptions getOptions();
+  public org.gradle.api.tasks.testing.TestFrameworkOptions options(groovy.lang.Closure);
+  public org.gradle.api.tasks.testing.TestFrameworkOptions options(org.gradle.api.Action<? super org.gradle.api.tasks.testing.TestFrameworkOptions>);
+  public void useJUnit();
+  public void useJUnit(groovy.lang.Closure);
+  public void useJUnit(org.gradle.api.Action<? super org.gradle.api.tasks.testing.junit.JUnitOptions>);
+  public void useJUnitPlatform();
+  public void useJUnitPlatform(org.gradle.api.Action<? super org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions>);
+  public void useTestNG();
+  public void useTestNG(groovy.lang.Closure);
+  public void useTestNG(org.gradle.api.Action<? super org.gradle.api.tasks.testing.testng.TestNGOptions>);
+  public org.gradle.api.file.FileCollection getClasspath();
+  public void setClasspath(org.gradle.api.file.FileCollection);
+  public boolean isScanForTestClasses();
+  public void setScanForTestClasses(boolean);
+  public long getForkEvery();
+  public void setForkEvery(long);
+  public int getMaxParallelForks();
+  public void setMaxParallelForks(int);
+  public org.gradle.api.file.FileTree getCandidateClassFiles();
+  public void filter(org.gradle.api.Action<org.gradle.api.tasks.testing.TestFilter>);
+  public org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavaLauncher> getJavaLauncher();
+  public org.gradle.api.tasks.testing.AbstractTestTask setTestNameIncludePatterns(java.util.List);
+  public org.gradle.process.JavaForkOptions copyTo(org.gradle.process.JavaForkOptions);
+  public org.gradle.process.JavaForkOptions bootstrapClasspath(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions jvmArgs(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions jvmArgs(java.lang.Iterable);
+  public org.gradle.process.JavaForkOptions systemProperty(java.lang.String, java.lang.Object);
+  public org.gradle.process.JavaForkOptions systemProperties(java.util.Map);
+  public org.gradle.process.ProcessForkOptions copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.process.ProcessForkOptions environment(java.lang.String, java.lang.Object);
+  public org.gradle.process.ProcessForkOptions environment(java.util.Map);
+  public org.gradle.process.ProcessForkOptions workingDir(java.lang.Object);
+  public org.gradle.process.ProcessForkOptions executable(java.lang.Object);
+  public org.gradle.api.tasks.util.PatternFilterable exclude(groovy.lang.Closure);
+  public org.gradle.api.tasks.util.PatternFilterable exclude(org.gradle.api.specs.Spec);
+  public org.gradle.api.tasks.util.PatternFilterable exclude(java.lang.Iterable);
+  public org.gradle.api.tasks.util.PatternFilterable exclude(java.lang.String[]);
+  public org.gradle.api.tasks.util.PatternFilterable include(groovy.lang.Closure);
+  public org.gradle.api.tasks.util.PatternFilterable include(org.gradle.api.specs.Spec);
+  public org.gradle.api.tasks.util.PatternFilterable include(java.lang.Iterable);
+  public org.gradle.api.tasks.util.PatternFilterable include(java.lang.String[]);
+  public org.gradle.api.tasks.util.PatternFilterable setExcludes(java.lang.Iterable);
+  public org.gradle.api.tasks.util.PatternFilterable setIncludes(java.lang.Iterable);
+}
+--- G10 ---
+Compiled from "Test.java"
+public abstract class org.gradle.api.tasks.testing.Test extends org.gradle.api.tasks.testing.AbstractTestTask implements org.gradle.process.JavaForkOptions,org.gradle.api.tasks.util.PatternFilterable {
+  public org.gradle.api.tasks.testing.Test();
+  public org.gradle.api.file.DirectoryProperty getWorkingDir();
+  public org.gradle.api.tasks.testing.Test workingDir(java.lang.Object);
+  public org.gradle.api.provider.Provider<org.gradle.api.JavaVersion> getJavaVersion();
+  public org.gradle.api.provider.Property<java.lang.String> getExecutable();
+  public org.gradle.api.tasks.testing.Test executable(java.lang.Object);
+  public org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object> getSystemProperties();
+  public org.gradle.api.tasks.testing.Test systemProperties(java.util.Map<java.lang.String, ? extends java.lang.Object>);
+  public org.gradle.api.tasks.testing.Test systemProperty(java.lang.String, java.lang.Object);
+  public org.gradle.api.file.ConfigurableFileCollection getBootstrapClasspath();
+  public org.gradle.api.tasks.testing.Test bootstrapClasspath(java.lang.Object...);
+  public org.gradle.api.provider.Property<java.lang.String> getMinHeapSize();
+  public org.gradle.api.provider.Property<java.lang.String> getDefaultCharacterEncoding();
+  public org.gradle.api.provider.Property<java.lang.String> getMaxHeapSize();
+  public org.gradle.api.provider.ListProperty<java.lang.String> getJvmArgs();
+  public org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider> getJvmArgumentProviders();
+  public org.gradle.api.tasks.testing.Test jvmArgs(java.lang.Iterable<?>);
+  public org.gradle.api.tasks.testing.Test jvmArgs(java.lang.Object...);
+  public org.gradle.api.provider.Property<java.lang.Boolean> getEnableAssertions();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getDebug();
+  public org.gradle.process.JavaDebugOptions getDebugOptions();
+  public void debugOptions(org.gradle.api.Action<org.gradle.process.JavaDebugOptions>);
+  public void setFailFast(boolean);
+  public boolean getFailFast();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getDryRun();
+  public org.gradle.api.provider.Provider<java.util.List<java.lang.String>> getAllJvmArgs();
+  public org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object> getEnvironment();
+  public org.gradle.api.tasks.testing.Test environment(java.util.Map<java.lang.String, ?>);
+  public org.gradle.api.tasks.testing.Test environment(java.lang.String, java.lang.Object);
+  public org.gradle.api.tasks.testing.Test copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.api.tasks.testing.Test copyTo(org.gradle.process.JavaForkOptions);
+  public org.gradle.api.jvm.ModularitySpec getModularity();
+  public void executeTests();
+  public org.gradle.api.tasks.testing.Test include(java.lang.String...);
+  public org.gradle.api.tasks.testing.Test include(java.lang.Iterable<java.lang.String>);
+  public org.gradle.api.tasks.testing.Test include(org.gradle.api.specs.Spec<org.gradle.api.file.FileTreeElement>);
+  public org.gradle.api.tasks.testing.Test include(groovy.lang.Closure);
+  public org.gradle.api.tasks.testing.Test exclude(java.lang.String...);
+  public org.gradle.api.tasks.testing.Test exclude(java.lang.Iterable<java.lang.String>);
+  public org.gradle.api.tasks.testing.Test exclude(org.gradle.api.specs.Spec<org.gradle.api.file.FileTreeElement>);
+  public org.gradle.api.tasks.testing.Test exclude(groovy.lang.Closure);
+  public org.gradle.api.tasks.testing.Test setTestNameIncludePatterns(java.util.List<java.lang.String>);
+  public abstract org.gradle.api.file.ConfigurableFileCollection getTestClassesDirs();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getTestDefinitionDirs();
+  public java.util.Set<java.lang.String> getIncludes();
+  public org.gradle.api.tasks.testing.Test setIncludes(java.lang.Iterable<java.lang.String>);
+  public java.util.Set<java.lang.String> getExcludes();
+  public org.gradle.api.tasks.testing.Test setExcludes(java.lang.Iterable<java.lang.String>);
+  public abstract org.gradle.api.provider.Property<org.gradle.api.internal.tasks.testing.TestFramework> getTestFramework();
+  public org.gradle.api.internal.tasks.testing.TestFramework testFramework(groovy.lang.Closure);
+  public org.gradle.api.tasks.testing.TestFrameworkOptions getOptions();
+  public org.gradle.api.tasks.testing.TestFrameworkOptions options(groovy.lang.Closure);
+  public org.gradle.api.tasks.testing.TestFrameworkOptions options(org.gradle.api.Action<? super org.gradle.api.tasks.testing.TestFrameworkOptions>);
+  public void useJUnit();
+  public void useJUnit(groovy.lang.Closure);
+  public void useJUnit(org.gradle.api.Action<? super org.gradle.api.tasks.testing.junit.JUnitOptions>);
+  public void useJUnitPlatform();
+  public void useJUnitPlatform(org.gradle.api.Action<? super org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions>);
+  public void useTestNG();
+  public void useTestNG(groovy.lang.Closure);
+  public void useTestNG(org.gradle.api.Action<? super org.gradle.api.tasks.testing.testng.TestNGOptions>);
+  public abstract org.gradle.api.file.ConfigurableFileCollection getClasspath();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getScanForTestClasses();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsScanForTestClasses();
+  public abstract org.gradle.api.provider.Property<java.lang.Long> getForkEvery();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxParallelForks();
+  public org.gradle.api.file.FileTree getCandidateClassFiles();
+  public void filter(org.gradle.api.Action<org.gradle.api.tasks.testing.TestFilter>);
+  public org.gradle.api.provider.Property<org.gradle.jvm.toolchain.JavaLauncher> getJavaLauncher();
+  public org.gradle.api.tasks.testing.AbstractTestTask setTestNameIncludePatterns(java.util.List);
+  public org.gradle.process.JavaForkOptions copyTo(org.gradle.process.JavaForkOptions);
+  public org.gradle.process.JavaForkOptions bootstrapClasspath(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions jvmArgs(java.lang.Object[]);
+  public org.gradle.process.JavaForkOptions jvmArgs(java.lang.Iterable);
+  public org.gradle.process.JavaForkOptions systemProperty(java.lang.String, java.lang.Object);
+  public org.gradle.process.JavaForkOptions systemProperties(java.util.Map);
+  public org.gradle.process.ProcessForkOptions copyTo(org.gradle.process.ProcessForkOptions);
+  public org.gradle.process.ProcessForkOptions environment(java.lang.String, java.lang.Object);
+  public org.gradle.process.ProcessForkOptions environment(java.util.Map);
+  public org.gradle.process.ProcessForkOptions workingDir(java.lang.Object);
+  public org.gradle.process.ProcessForkOptions executable(java.lang.Object);
+  public org.gradle.api.tasks.util.PatternFilterable exclude(groovy.lang.Closure);
+  public org.gradle.api.tasks.util.PatternFilterable exclude(org.gradle.api.specs.Spec);
+  public org.gradle.api.tasks.util.PatternFilterable exclude(java.lang.Iterable);
+  public org.gradle.api.tasks.util.PatternFilterable exclude(java.lang.String[]);
+  public org.gradle.api.tasks.util.PatternFilterable include(groovy.lang.Closure);
+  public org.gradle.api.tasks.util.PatternFilterable include(org.gradle.api.specs.Spec);
+  public org.gradle.api.tasks.util.PatternFilterable include(java.lang.Iterable);
+  public org.gradle.api.tasks.util.PatternFilterable include(java.lang.String[]);
+  public org.gradle.api.tasks.util.PatternFilterable setExcludes(java.lang.Iterable);
+  public org.gradle.api.tasks.util.PatternFilterable setIncludes(java.lang.Iterable);
+}
+
+########## org.gradle.api.tasks.testing.TestFilter ##########
+--- G94 ---
+Compiled from "TestFilter.java"
+public interface org.gradle.api.tasks.testing.TestFilter {
+  public abstract org.gradle.api.tasks.testing.TestFilter includeTestsMatching(java.lang.String);
+  public abstract org.gradle.api.tasks.testing.TestFilter excludeTestsMatching(java.lang.String);
+  public abstract java.util.Set<java.lang.String> getIncludePatterns();
+  public abstract java.util.Set<java.lang.String> getExcludePatterns();
+  public abstract org.gradle.api.tasks.testing.TestFilter setIncludePatterns(java.lang.String...);
+  public abstract org.gradle.api.tasks.testing.TestFilter setExcludePatterns(java.lang.String...);
+  public abstract org.gradle.api.tasks.testing.TestFilter includeTest(java.lang.String, java.lang.String);
+  public abstract org.gradle.api.tasks.testing.TestFilter excludeTest(java.lang.String, java.lang.String);
+  public abstract void setFailOnNoMatchingTests(boolean);
+  public abstract boolean isFailOnNoMatchingTests();
+}
+--- G10 ---
+Compiled from "TestFilter.java"
+public interface org.gradle.api.tasks.testing.TestFilter {
+  public abstract org.gradle.api.tasks.testing.TestFilter includeTestsMatching(java.lang.String);
+  public abstract org.gradle.api.tasks.testing.TestFilter excludeTestsMatching(java.lang.String);
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getIncludePatterns();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getExcludePatterns();
+  public abstract org.gradle.api.tasks.testing.TestFilter includeTest(java.lang.String, java.lang.String);
+  public abstract org.gradle.api.tasks.testing.TestFilter excludeTest(java.lang.String, java.lang.String);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getFailOnNoMatchingTests();
+  public default org.gradle.api.provider.Property<java.lang.Boolean> getIsFailOnNoMatchingTests();
+}
+
+########## org.gradle.api.tasks.testing.TestReport ##########
+--- G94 ---
+Compiled from "TestReport.java"
+public abstract class org.gradle.api.tasks.testing.TestReport extends org.gradle.api.DefaultTask {
+  public org.gradle.api.tasks.testing.TestReport();
+  public abstract org.gradle.api.file.DirectoryProperty getDestinationDirectory();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getTestResults();
+}
+--- G10 ---
+Compiled from "TestReport.java"
+public abstract class org.gradle.api.tasks.testing.TestReport extends org.gradle.api.DefaultTask {
+  public org.gradle.api.tasks.testing.TestReport();
+  public abstract org.gradle.api.file.DirectoryProperty getDestinationDirectory();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getTestResults();
+}
+
+########## org.gradle.api.tasks.testing.junit.JUnitOptions ##########
+--- G94 ---
+Compiled from "JUnitOptions.java"
+public abstract class org.gradle.api.tasks.testing.junit.JUnitOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
+  public org.gradle.api.tasks.testing.junit.JUnitOptions();
+  public void copyFrom(org.gradle.api.tasks.testing.junit.JUnitOptions);
+  public org.gradle.api.tasks.testing.junit.JUnitOptions includeCategories(java.lang.String...);
+  public org.gradle.api.tasks.testing.junit.JUnitOptions excludeCategories(java.lang.String...);
+  public java.util.Set<java.lang.String> getIncludeCategories();
+  public void setIncludeCategories(java.util.Set<java.lang.String>);
+  public java.util.Set<java.lang.String> getExcludeCategories();
+  public void setExcludeCategories(java.util.Set<java.lang.String>);
+}
+--- G10 ---
+Compiled from "JUnitOptions.java"
+public abstract class org.gradle.api.tasks.testing.junit.JUnitOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
+  public org.gradle.api.tasks.testing.junit.JUnitOptions();
+  public void copyFrom(org.gradle.api.tasks.testing.junit.JUnitOptions);
+  public org.gradle.api.tasks.testing.junit.JUnitOptions includeCategories(java.lang.String...);
+  public org.gradle.api.tasks.testing.junit.JUnitOptions excludeCategories(java.lang.String...);
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getIncludeCategories();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getExcludeCategories();
+}
+
+########## org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions ##########
+--- G94 ---
+Compiled from "JUnitPlatformOptions.java"
+public abstract class org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions();
+  public void copyFrom(org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions);
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions includeEngines(java.lang.String...);
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions includeTags(java.lang.String...);
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions excludeEngines(java.lang.String...);
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions excludeTags(java.lang.String...);
+  public java.util.Set<java.lang.String> getIncludeEngines();
+  public java.util.Set<java.lang.String> getIncludeTags();
+  public void setIncludeEngines(java.util.Set<java.lang.String>);
+  public java.util.Set<java.lang.String> getExcludeEngines();
+  public void setExcludeEngines(java.util.Set<java.lang.String>);
+  public void setIncludeTags(java.util.Set<java.lang.String>);
+  public java.util.Set<java.lang.String> getExcludeTags();
+  public void setExcludeTags(java.util.Set<java.lang.String>);
+}
+--- G10 ---
+Compiled from "JUnitPlatformOptions.java"
+public abstract class org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions();
+  public void copyFrom(org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions);
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions includeEngines(java.lang.String...);
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions includeTags(java.lang.String...);
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions excludeEngines(java.lang.String...);
+  public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions excludeTags(java.lang.String...);
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getIncludeEngines();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getIncludeTags();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getExcludeEngines();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getExcludeTags();
+}
+
+########## org.gradle.api.tasks.testing.logging.TestLogging ##########
+--- G94 ---
+Compiled from "TestLogging.java"
+public interface org.gradle.api.tasks.testing.logging.TestLogging {
+  public abstract java.util.Set<org.gradle.api.tasks.testing.logging.TestLogEvent> getEvents();
+  public abstract void setEvents(java.util.Set<org.gradle.api.tasks.testing.logging.TestLogEvent>);
+  public abstract void setEvents(java.lang.Iterable<?>);
+  public abstract void events(java.lang.Object...);
+  public abstract int getMinGranularity();
+  public abstract void setMinGranularity(int);
+  public abstract int getMaxGranularity();
+  public abstract void setMaxGranularity(int);
+  public abstract int getDisplayGranularity();
+  public abstract void setDisplayGranularity(int);
+  public abstract boolean getShowExceptions();
+  public abstract void setShowExceptions(boolean);
+  public abstract boolean getShowCauses();
+  public abstract void setShowCauses(boolean);
+  public abstract boolean getShowStackTraces();
+  public abstract void setShowStackTraces(boolean);
+  public abstract org.gradle.api.tasks.testing.logging.TestExceptionFormat getExceptionFormat();
+  public abstract void setExceptionFormat(org.gradle.api.tasks.testing.logging.TestExceptionFormat);
+  public abstract void setExceptionFormat(java.lang.Object);
+  public abstract java.util.Set<org.gradle.api.tasks.testing.logging.TestStackTraceFilter> getStackTraceFilters();
+  public abstract void setStackTraceFilters(java.util.Set<org.gradle.api.tasks.testing.logging.TestStackTraceFilter>);
+  public abstract void setStackTraceFilters(java.lang.Iterable<?>);
+  public abstract void stackTraceFilters(java.lang.Object...);
+  public abstract boolean getShowStandardStreams();
+  public abstract org.gradle.api.tasks.testing.logging.TestLogging setShowStandardStreams(boolean);
+}
+--- G10 ---
+Compiled from "TestLogging.java"
+public interface org.gradle.api.tasks.testing.logging.TestLogging {
+  public abstract org.gradle.api.provider.SetProperty<org.gradle.api.tasks.testing.logging.TestLogEvent> getEvents();
+  public abstract void events(java.lang.Object...);
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMinGranularity();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getMaxGranularity();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getDisplayGranularity();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowExceptions();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowCauses();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowStackTraces();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.testing.logging.TestExceptionFormat> getExceptionFormat();
+  public abstract org.gradle.api.provider.SetProperty<org.gradle.api.tasks.testing.logging.TestStackTraceFilter> getStackTraceFilters();
+  public abstract void stackTraceFilters(java.lang.Object...);
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getShowStandardStreams();
+}
+
+########## org.gradle.api.tasks.testing.testng.TestNGOptions ##########
+--- G94 ---
+Compiled from "TestNGOptions.java"
+public abstract class org.gradle.api.tasks.testing.testng.TestNGOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
+  public static final java.lang.String DEFAULT_CONFIG_FAILURE_POLICY;
+  public org.gradle.api.tasks.testing.testng.TestNGOptions(org.gradle.api.file.ProjectLayout);
+  public void copyFrom(org.gradle.api.tasks.testing.testng.TestNGOptions);
+  public groovy.xml.MarkupBuilder suiteXmlBuilder();
+  public void suites(java.lang.String...);
+  public void suites(java.io.File...);
+  public java.util.List<java.io.File> getSuites(java.io.File);
+  public org.gradle.api.tasks.testing.testng.TestNGOptions includeGroups(java.lang.String...);
+  public org.gradle.api.tasks.testing.testng.TestNGOptions excludeGroups(java.lang.String...);
+  public org.gradle.api.tasks.testing.testng.TestNGOptions useDefaultListeners();
+  public org.gradle.api.tasks.testing.testng.TestNGOptions useDefaultListeners(boolean);
+  public java.lang.Object propertyMissing(java.lang.String);
+  public java.lang.Object methodMissing(java.lang.String, java.lang.Object);
+  public java.io.File getOutputDirectory();
+  public void setOutputDirectory(java.io.File);
+  public java.util.Set<java.lang.String> getIncludeGroups();
+  public void setIncludeGroups(java.util.Set<java.lang.String>);
+  public java.util.Set<java.lang.String> getExcludeGroups();
+  public void setExcludeGroups(java.util.Set<java.lang.String>);
+  public java.lang.String getConfigFailurePolicy();
+  public void setConfigFailurePolicy(java.lang.String);
+  public java.util.Set<java.lang.String> getListeners();
+  public void setListeners(java.util.Set<java.lang.String>);
+  public java.lang.String getParallel();
+  public void setParallel(java.lang.String);
+  public int getThreadCount();
+  public void setThreadCount(int);
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getSuiteThreadPoolSize();
+  public boolean getUseDefaultListeners();
+  public java.lang.String getThreadPoolFactoryClass();
+  public boolean isUseDefaultListeners();
+  public void setUseDefaultListeners(boolean);
+  public void setThreadPoolFactoryClass(java.lang.String);
+  public java.lang.String getSuiteName();
+  public void setSuiteName(java.lang.String);
+  public java.lang.String getTestName();
+  public void setTestName(java.lang.String);
+  public java.util.List<java.io.File> getSuiteXmlFiles();
+  public void setSuiteXmlFiles(java.util.List<java.io.File>);
+  public boolean getPreserveOrder();
+  public boolean isPreserveOrder();
+  public void setPreserveOrder(boolean);
+  public boolean getGroupByInstances();
+  public boolean isGroupByInstances();
+  public void setGroupByInstances(boolean);
+  public java.io.StringWriter getSuiteXmlWriter();
+  public void setSuiteXmlWriter(java.io.StringWriter);
+  public groovy.xml.MarkupBuilder getSuiteXmlBuilder();
+  public void setSuiteXmlBuilder(groovy.xml.MarkupBuilder);
+}
+--- G10 ---
+Compiled from "TestNGOptions.java"
+public abstract class org.gradle.api.tasks.testing.testng.TestNGOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
+  public static final java.lang.String DEFAULT_CONFIG_FAILURE_POLICY;
+  public org.gradle.api.tasks.testing.testng.TestNGOptions(org.gradle.api.file.ProjectLayout, org.gradle.api.model.ObjectFactory);
+  public void copyFrom(org.gradle.api.tasks.testing.testng.TestNGOptions);
+  public groovy.xml.MarkupBuilder suiteXmlBuilder();
+  public void suites(java.lang.String...);
+  public void suites(java.io.File...);
+  public java.util.List<java.io.File> getSuites(java.io.File);
+  public org.gradle.api.tasks.testing.testng.TestNGOptions includeGroups(java.lang.String...);
+  public org.gradle.api.tasks.testing.testng.TestNGOptions excludeGroups(java.lang.String...);
+  public org.gradle.api.tasks.testing.testng.TestNGOptions useDefaultListeners();
+  public org.gradle.api.tasks.testing.testng.TestNGOptions useDefaultListeners(boolean);
+  public java.lang.Object propertyMissing(java.lang.String);
+  public java.lang.Object methodMissing(java.lang.String, java.lang.Object);
+  public abstract org.gradle.api.file.DirectoryProperty getOutputDirectory();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getIncludeGroups();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getExcludeGroups();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getConfigFailurePolicy();
+  public abstract org.gradle.api.provider.SetProperty<java.lang.String> getListeners();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getParallel();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getThreadCount();
+  public abstract org.gradle.api.provider.Property<java.lang.Integer> getSuiteThreadPoolSize();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getThreadPoolFactoryClass();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getUseDefaultListeners();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsUseDefaultListeners();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getSuiteName();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getTestName();
+  public abstract org.gradle.api.file.ConfigurableFileCollection getSuiteXmlFiles();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getPreserveOrder();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsPreserveOrder();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getGroupByInstances();
+  public org.gradle.api.provider.Property<java.lang.Boolean> getIsGroupByInstances();
+  public org.gradle.api.provider.Property<java.io.StringWriter> getSuiteXmlWriter();
+  public org.gradle.api.provider.Property<groovy.xml.MarkupBuilder> getSuiteXmlBuilder();
+}
+
+########## org.gradle.api.tasks.wrapper.Wrapper ##########
+--- G94 ---
+Compiled from "Wrapper.java"
+public abstract class org.gradle.api.tasks.wrapper.Wrapper extends org.gradle.api.DefaultTask {
+  public static final java.lang.String DEFAULT_DISTRIBUTION_PARENT_NAME;
+  public org.gradle.api.tasks.wrapper.Wrapper();
+  public java.io.File getScriptFile();
+  public void setScriptFile(java.io.File);
+  public void setScriptFile(java.lang.Object);
+  public java.io.File getBatchScript();
+  public java.io.File getJarFile();
+  public void setJarFile(java.io.File);
+  public void setJarFile(java.lang.Object);
+  public java.io.File getPropertiesFile();
+  public java.lang.String getDistributionPath();
+  public void setDistributionPath(java.lang.String);
+  public java.lang.String getGradleVersion();
+  public void setGradleVersion(java.lang.String);
+  public org.gradle.api.tasks.wrapper.Wrapper$DistributionType getDistributionType();
+  public void setDistributionType(org.gradle.api.tasks.wrapper.Wrapper$DistributionType);
+  public java.util.List<org.gradle.api.tasks.wrapper.Wrapper$DistributionType> getAvailableDistributionTypes();
+  public java.lang.String getDistributionUrl();
+  public void setDistributionUrl(java.lang.String);
+  public java.lang.String getDistributionSha256Sum();
+  public void setDistributionSha256Sum(java.lang.String);
+  public org.gradle.api.tasks.wrapper.Wrapper$PathBase getDistributionBase();
+  public void setDistributionBase(org.gradle.api.tasks.wrapper.Wrapper$PathBase);
+  public java.lang.String getArchivePath();
+  public void setArchivePath(java.lang.String);
+  public org.gradle.api.tasks.wrapper.Wrapper$PathBase getArchiveBase();
+  public void setArchiveBase(org.gradle.api.tasks.wrapper.Wrapper$PathBase);
+  public org.gradle.api.provider.Property<java.lang.Integer> getNetworkTimeout();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getValidateDistributionUrl();
+}
+--- G10 ---
+Compiled from "Wrapper.java"
+public abstract class org.gradle.api.tasks.wrapper.Wrapper extends org.gradle.api.DefaultTask {
+  public static final java.lang.String DEFAULT_DISTRIBUTION_PARENT_NAME;
+  public org.gradle.api.tasks.wrapper.Wrapper();
+  public abstract org.gradle.api.file.RegularFileProperty getScriptFile();
+  public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getBatchScript();
+  public abstract org.gradle.api.file.RegularFileProperty getJarFile();
+  public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getPropertiesFile();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDistributionPath();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getGradleVersion();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.wrapper.Wrapper$DistributionType> getDistributionType();
+  public java.util.List<org.gradle.api.tasks.wrapper.Wrapper$DistributionType> getAvailableDistributionTypes();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDistributionUrl();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getDistributionSha256Sum();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.wrapper.Wrapper$PathBase> getDistributionBase();
+  public abstract org.gradle.api.provider.Property<java.lang.String> getArchivePath();
+  public abstract org.gradle.api.provider.Property<org.gradle.api.tasks.wrapper.Wrapper$PathBase> getArchiveBase();
+  public org.gradle.api.provider.Property<java.lang.Integer> getNetworkTimeout();
+  public abstract org.gradle.api.provider.Property<java.lang.Boolean> getValidateDistributionUrl();
+}
+

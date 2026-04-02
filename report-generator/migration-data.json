@@ -1,0 +1,2720 @@
+[
+  {
+    "class": "org.gradle.api.artifacts.repositories.MavenArtifactRepository",
+    "property": "artifactUrls",
+    "old_type": "Set<URI>",
+    "new_type": "SetProperty<URI>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setArtifactUrls(Set<URI>)",
+      "setArtifactUrls(Iterable<?>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.artifacts.repositories.UrlArtifactRepository",
+    "property": "allowInsecureProtocol",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setAllowInsecureProtocol(boolean)",
+      "isAllowInsecureProtocol()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.artifacts.repositories.UrlArtifactRepository",
+    "property": "url",
+    "old_type": "URI",
+    "new_type": "Property<URI>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.file.DeleteSpec",
+    "property": "followSymlinks",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setFollowSymlinks(boolean)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.JavaApplication",
+    "property": "applicationDefaultJvmArgs",
+    "old_type": "Iterable<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setApplicationDefaultJvmArgs(Iterable<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.JavaApplication",
+    "property": "applicationName",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setApplicationName(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.JavaApplication",
+    "property": "executableDir",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setExecutableDir(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "antlrClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "arguments",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setArguments(List<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "maxHeapSize",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxHeapSize(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "outputDirectory",
+    "old_type": "File",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": [
+      "setOutputDirectory(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "trace",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setTrace(boolean)",
+      "isTrace()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "traceLexer",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setTraceLexer(boolean)",
+      "isTraceLexer()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "traceParser",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setTraceParser(boolean)",
+      "isTraceParser()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "traceTreeWalker",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setTraceTreeWalker(boolean)",
+      "isTraceTreeWalker()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "checkstyleClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setCheckstyleClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "configProperties",
+    "old_type": "Map<String, Object>",
+    "new_type": "MapProperty<String, Object>",
+    "kind": "map",
+    "read_only": false,
+    "removed_accessors": [
+      "setConfigProperties(Map<String",
+      "Object>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "isIgnoreFailures",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "maxErrors",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxErrors(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "maxWarnings",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxWarnings(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "showViolations",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setShowViolations(boolean)",
+      "isShowViolations()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
+    "property": "configProperties",
+    "old_type": "Map<String, Object>",
+    "new_type": "MapProperty<String, Object>",
+    "kind": "map",
+    "read_only": false,
+    "removed_accessors": [
+      "setConfigProperties(Map<String",
+      "Object>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
+    "property": "maxErrors",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxErrors(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
+    "property": "maxWarnings",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxWarnings(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
+    "property": "showViolations",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setShowViolations(boolean)",
+      "isShowViolations()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "codenarcClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setCodenarcClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "compilationClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setCompilationClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "maxPriority1Violations",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxPriority1Violations(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "maxPriority2Violations",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxPriority2Violations(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "maxPriority3Violations",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxPriority3Violations(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
+    "property": "maxPriority1Violations",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxPriority1Violations(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
+    "property": "maxPriority2Violations",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxPriority2Violations(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
+    "property": "maxPriority3Violations",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxPriority3Violations(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
+    "property": "reportFormat",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setReportFormat(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeQualityExtension",
+    "property": "ignoreFailures",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setIgnoreFailures(boolean)",
+      "isIgnoreFailures()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeQualityExtension",
+    "property": "reportsDir",
+    "old_type": "File",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": [
+      "setReportsDir(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeQualityExtension",
+    "property": "sourceSets",
+    "old_type": "java.util.Collection<SourceSet>",
+    "new_type": "ListProperty<SourceSet>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setSourceSets(java.util.Collection<SourceSet>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeQualityExtension",
+    "property": "toolVersion",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setToolVersion(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "consoleOutput",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setConsoleOutput(boolean)",
+      "isConsoleOutput()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "incrementalCacheFile",
+    "old_type": "File",
+    "new_type": "Provider<RegularFile>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "pmdClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setPmdClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "ruleSetFiles",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setRuleSetFiles(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "ruleSets",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setRuleSets(List<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "targetJdk",
+    "old_type": "TargetJdk",
+    "new_type": "Property<TargetJdk>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setTargetJdk(TargetJdk)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.PmdExtension",
+    "property": "consoleOutput",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setConsoleOutput(boolean)",
+      "isConsoleOutput()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.PmdExtension",
+    "property": "ruleSetFiles",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setRuleSetFiles(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.PmdExtension",
+    "property": "ruleSets",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setRuleSets(List<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.PmdExtension",
+    "property": "targetJdk",
+    "old_type": "TargetJdk",
+    "new_type": "Property<TargetJdk>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setTargetJdk(TargetJdk)",
+      "setTargetJdk(Object)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.PublicationArtifact",
+    "property": "file",
+    "old_type": "File",
+    "new_type": "Provider<RegularFile>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "classifier",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setClassifier(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "conf",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setConf(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "extension",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setExtension(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "name",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setName(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "type",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setType(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyModuleDescriptorSpec",
+    "property": "branch",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setBranch(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyModuleDescriptorSpec",
+    "property": "status",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setStatus(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyPublication",
+    "property": "module",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setModule(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyPublication",
+    "property": "organisation",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setOrganisation(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyPublication",
+    "property": "revision",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setRevision(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor",
+    "property": "destination",
+    "old_type": "File",
+    "new_type": "RegularFileProperty",
+    "kind": "file",
+    "read_only": false,
+    "removed_accessors": [
+      "setDestination(File)",
+      "setDestination(Object)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenArtifact",
+    "property": "classifier",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setClassifier(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenArtifact",
+    "property": "extension",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setExtension(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenPom",
+    "property": "packaging",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setPackaging(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenPublication",
+    "property": "artifactId",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setArtifactId(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenPublication",
+    "property": "groupId",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setGroupId(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenPublication",
+    "property": "version",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setVersion(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.maven.tasks.GenerateMavenPom",
+    "property": "destination",
+    "old_type": "File",
+    "new_type": "RegularFileProperty",
+    "kind": "file",
+    "read_only": false,
+    "removed_accessors": [
+      "setDestination(File)",
+      "setDestination(Object)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.AbstractExecTask",
+    "property": "args",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setArgs(List<String>)",
+      "setArgs(Iterable<?>)",
+      "setArgs(Iterable)",
+      "setArgs(List)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.AbstractExecTask",
+    "property": "errorOutput",
+    "old_type": "OutputStream",
+    "new_type": "Property<OutputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setErrorOutput(OutputStream)",
+      "setErrorOutput(OutputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.AbstractExecTask",
+    "property": "ignoreExitValue",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setIgnoreExitValue(boolean)",
+      "setIgnoreExitValue(boolean)",
+      "isIgnoreExitValue()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.AbstractExecTask",
+    "property": "standardInput",
+    "old_type": "InputStream",
+    "new_type": "Property<InputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setStandardInput(InputStream)",
+      "setStandardInput(InputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.AbstractExecTask",
+    "property": "standardOutput",
+    "old_type": "OutputStream",
+    "new_type": "Property<OutputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setStandardOutput(OutputStream)",
+      "setStandardOutput(OutputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.Delete",
+    "property": "followSymlinks",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setFollowSymlinks(boolean)",
+      "isFollowSymlinks()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.Delete",
+    "property": "targetFiles",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.Exec",
+    "property": "args",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setArgs(List<String>)",
+      "setArgs(Iterable<?>)",
+      "setArgs(Iterable)",
+      "setArgs(List)",
+      "setArgs(Iterable)",
+      "setArgs(List)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.Exec",
+    "property": "errorOutput",
+    "old_type": "OutputStream",
+    "new_type": "Property<OutputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setErrorOutput(OutputStream)",
+      "setErrorOutput(OutputStream)",
+      "setErrorOutput(OutputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.Exec",
+    "property": "ignoreExitValue",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setIgnoreExitValue(boolean)",
+      "setIgnoreExitValue(boolean)",
+      "setIgnoreExitValue(boolean)",
+      "isIgnoreExitValue()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.Exec",
+    "property": "standardInput",
+    "old_type": "InputStream",
+    "new_type": "Property<InputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setStandardInput(InputStream)",
+      "setStandardInput(InputStream)",
+      "setStandardInput(InputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.Exec",
+    "property": "standardOutput",
+    "old_type": "OutputStream",
+    "new_type": "Property<OutputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setStandardOutput(OutputStream)",
+      "setStandardOutput(OutputStream)",
+      "setStandardOutput(OutputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.JavaExec",
+    "property": "args",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setArgs(List<String>)",
+      "setArgs(Iterable<?>)",
+      "setArgs(Iterable)",
+      "setArgs(List)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.JavaExec",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)",
+      "setClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.JavaExec",
+    "property": "errorOutput",
+    "old_type": "OutputStream",
+    "new_type": "Property<OutputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setErrorOutput(OutputStream)",
+      "setErrorOutput(OutputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.JavaExec",
+    "property": "ignoreExitValue",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setIgnoreExitValue(boolean)",
+      "setIgnoreExitValue(boolean)",
+      "isIgnoreExitValue()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.JavaExec",
+    "property": "javaVersion",
+    "old_type": "JavaVersion",
+    "new_type": "Provider<JavaVersion>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.JavaExec",
+    "property": "standardInput",
+    "old_type": "InputStream",
+    "new_type": "Property<InputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setStandardInput(InputStream)",
+      "setStandardInput(InputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.JavaExec",
+    "property": "standardOutput",
+    "old_type": "OutputStream",
+    "new_type": "Property<OutputStream>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setStandardOutput(OutputStream)",
+      "setStandardOutput(OutputStream)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.WriteProperties",
+    "property": "comment",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setComment(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.WriteProperties",
+    "property": "encoding",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setEncoding(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.WriteProperties",
+    "property": "lineSeparator",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setLineSeparator(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.WriteProperties",
+    "property": "properties",
+    "old_type": "Map<String, String>",
+    "new_type": "MapProperty<String, Object>",
+    "kind": "map",
+    "read_only": false,
+    "removed_accessors": [
+      "setProperties(Map<String",
+      "Object>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.ant.AntTarget",
+    "property": "baseDir",
+    "old_type": "File",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": [
+      "setBaseDir(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.ant.AntTarget",
+    "property": "target",
+    "old_type": "org.apache.tools.ant.Target",
+    "new_type": "Property<org.apache.tools.ant.Target>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setTarget(org.apache.tools.ant.Target)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.AbstractArchiveTask",
+    "property": "preserveFileTimestamps",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setPreserveFileTimestamps(boolean)",
+      "isPreserveFileTimestamps()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.AbstractArchiveTask",
+    "property": "reproducibleFileOrder",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setReproducibleFileOrder(boolean)",
+      "isReproducibleFileOrder()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.Tar",
+    "property": "compression",
+    "old_type": "Compression",
+    "new_type": "Property<Compression>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setCompression(Compression)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.War",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)",
+      "setClasspath(Object)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.War",
+    "property": "webXml",
+    "old_type": "File",
+    "new_type": "RegularFileProperty",
+    "kind": "file",
+    "read_only": false,
+    "removed_accessors": [
+      "setWebXml(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.Zip",
+    "property": "entryCompression",
+    "old_type": "ZipEntryCompression",
+    "new_type": "Property<ZipEntryCompression>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setEntryCompression(ZipEntryCompression)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.Zip",
+    "property": "metadataCharset",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMetadataCharset(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.Zip",
+    "property": "zip64",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setZip64(boolean)",
+      "isZip64()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.AbstractCompile",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.AbstractCompile",
+    "property": "destinationDirectory",
+    "old_type": "DirectoryProperty",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.BaseForkOptions",
+    "property": "jvmArgs",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setJvmArgs(List<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.BaseForkOptions",
+    "property": "memoryInitialSize",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMemoryInitialSize(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.BaseForkOptions",
+    "property": "memoryMaximumSize",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMemoryMaximumSize(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "allCompilerArgs",
+    "old_type": "List<String>",
+    "new_type": "Provider<List<String>>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "annotationProcessorPath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setAnnotationProcessorPath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "bootstrapClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setBootstrapClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "compilerArgs",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setCompilerArgs(List<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "compilerArgumentProviders",
+    "old_type": "List<CommandLineArgumentProvider>",
+    "new_type": "ListProperty<CommandLineArgumentProvider>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "debug",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setDebug(boolean)",
+      "isDebug()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "deprecation",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setDeprecation(boolean)",
+      "isDeprecation()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "encoding",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setEncoding(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "extensionDirs",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setExtensionDirs(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "failOnError",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setFailOnError(boolean)",
+      "isFailOnError()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "fork",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setFork(boolean)",
+      "isFork()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "generatedSourceOutputDirectory",
+    "old_type": "DirectoryProperty",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "incremental",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setIncremental(boolean)",
+      "isIncremental()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "listFiles",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setListFiles(boolean)",
+      "isListFiles()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "sourcepath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setSourcepath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "verbose",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setVerbose(boolean)",
+      "isVerbose()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "warnings",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setWarnings(boolean)",
+      "isWarnings()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.DebugOptions",
+    "property": "debugLevel",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setDebugLevel(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.ForkOptions",
+    "property": "executable",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setExecutable(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.ForkOptions",
+    "property": "tempDir",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setTempDir(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompile",
+    "property": "groovyClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setGroovyClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "configurationScript",
+    "old_type": "File",
+    "new_type": "RegularFileProperty",
+    "kind": "file",
+    "read_only": false,
+    "removed_accessors": [
+      "setConfigurationScript(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "encoding",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setEncoding(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "failOnError",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setFailOnError(boolean)",
+      "isFailOnError()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "fileExtensions",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setFileExtensions(List<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "fork",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setFork(boolean)",
+      "isFork()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "javaAnnotationProcessing",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setJavaAnnotationProcessing(boolean)",
+      "isJavaAnnotationProcessing()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "keepStubs",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setKeepStubs(boolean)",
+      "isKeepStubs()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "listFiles",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setListFiles(boolean)",
+      "isListFiles()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "optimizationOptions",
+    "old_type": "Map<String, Boolean>",
+    "new_type": "MapProperty<String, Boolean>",
+    "kind": "map",
+    "read_only": false,
+    "removed_accessors": [
+      "setOptimizationOptions(Map<String",
+      "Boolean>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "parameters",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setParameters(boolean)",
+      "isParameters()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "stubDir",
+    "old_type": "File",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": [
+      "setStubDir(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "verbose",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setVerbose(boolean)",
+      "isVerbose()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+    "property": "allJvmArgs",
+    "old_type": "List<String>",
+    "new_type": "Provider<List<String>>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+    "property": "jvmArgumentProviders",
+    "old_type": "List<CommandLineArgumentProvider>",
+    "new_type": "ListProperty<CommandLineArgumentProvider>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask",
+    "property": "configurations",
+    "old_type": "Set<Configuration>",
+    "new_type": "SetProperty<Configuration>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setConfigurations(Set<Configuration>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask",
+    "property": "renderer",
+    "old_type": "ReportRenderer",
+    "new_type": "Property<DependencyReportRenderer>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setRenderer(DependencyReportRenderer)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.ConventionReportTask",
+    "property": "outputFile",
+    "old_type": "File",
+    "new_type": "RegularFileProperty",
+    "kind": "file",
+    "read_only": false,
+    "removed_accessors": [
+      "setOutputFile(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.ConventionReportTask",
+    "property": "projects",
+    "old_type": "Set<Project>",
+    "new_type": "SetProperty<Project>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setProjects(Set<Project>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.DependencyInsightReportTask",
+    "property": "configuration",
+    "old_type": "Configuration",
+    "new_type": "Property<Configuration>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.DependencyInsightReportTask",
+    "property": "dependencyNotation",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.DependencyInsightReportTask",
+    "property": "showSinglePathToDependency",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setShowSinglePathToDependency(boolean)",
+      "isShowSinglePathToDependency()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.PropertyReportTask",
+    "property": "renderer",
+    "old_type": "ReportRenderer",
+    "new_type": "Property<PropertyReportRenderer>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setRenderer(PropertyReportRenderer)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.TaskReportTask",
+    "property": "displayGroup",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setDisplayGroup(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.TaskReportTask",
+    "property": "renderer",
+    "old_type": "ReportRenderer",
+    "new_type": "Property<TaskReportRenderer>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setRenderer(TaskReportRenderer)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.TaskReportTask",
+    "property": "showDetail",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setShowDetail(boolean)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "destinationDir",
+    "old_type": "File",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": [
+      "setDestinationDir(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "docTitle",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setDocTitle(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "footer",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setFooter(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "groovyClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setGroovyClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "header",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setHeader(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "links",
+    "old_type": "Set<Groovydoc$Link>",
+    "new_type": "SetProperty<Groovydoc$Link>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setLinks(Set<Groovydoc$Link>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "noTimestamp",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setNoTimestamp(boolean)",
+      "isNoTimestamp()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "noVersionStamp",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setNoVersionStamp(boolean)",
+      "isNoVersionStamp()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "use",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setUse(boolean)",
+      "isUse()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "windowTitle",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setWindowTitle(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "destinationDir",
+    "old_type": "File",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": [
+      "setDestinationDir(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "executable",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setExecutable(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "failOnError",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setFailOnError(boolean)",
+      "isFailOnError()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "maxMemory",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxMemory(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "optionsFile",
+    "old_type": "File",
+    "new_type": "Provider<RegularFile>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "title",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setTitle(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaCompile",
+    "property": "scalaClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setScalaClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaCompile",
+    "property": "scalaCompilerPlugins",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setScalaCompilerPlugins(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaCompile",
+    "property": "zincClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setZincClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDoc",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDoc",
+    "property": "destinationDir",
+    "old_type": "File",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": [
+      "setDestinationDir(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDoc",
+    "property": "scalaClasspath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setScalaClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDoc",
+    "property": "title",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setTitle(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "additionalParameters",
+    "old_type": "List<String>",
+    "new_type": "ListProperty<String>",
+    "kind": "list",
+    "read_only": false,
+    "removed_accessors": [
+      "setAdditionalParameters(List<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "bottom",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setBottom(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "deprecation",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setDeprecation(boolean)",
+      "isDeprecation()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "docTitle",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setDocTitle(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "footer",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setFooter(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "header",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setHeader(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "top",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setTop(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "unchecked",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setUnchecked(boolean)",
+      "isUnchecked()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "windowTitle",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setWindowTitle(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.JUnitXmlReport",
+    "property": "outputPerTestCase",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setOutputPerTestCase(boolean)",
+      "isOutputPerTestCase()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "classpath",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setClasspath(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "forkEvery",
+    "old_type": "long",
+    "new_type": "Property<java.lang.Long>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setForkEvery(long)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "javaVersion",
+    "old_type": "JavaVersion",
+    "new_type": "Provider<JavaVersion>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "maxParallelForks",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxParallelForks(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "scanForTestClasses",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setScanForTestClasses(boolean)",
+      "isScanForTestClasses()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "testClassesDirs",
+    "old_type": "FileCollection",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setTestClassesDirs(FileCollection)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "testFramework",
+    "old_type": "TestFramework",
+    "new_type": "Property<TestFramework>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.TestFilter",
+    "property": "excludePatterns",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setExcludePatterns(String...)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.TestFilter",
+    "property": "failOnNoMatchingTests",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setFailOnNoMatchingTests(boolean)",
+      "isFailOnNoMatchingTests()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.TestFilter",
+    "property": "includePatterns",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setIncludePatterns(String...)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.TestReport",
+    "property": "destinationDirectory",
+    "old_type": "DirectoryProperty",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junit.JUnitOptions",
+    "property": "excludeCategories",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setExcludeCategories(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junit.JUnitOptions",
+    "property": "includeCategories",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setIncludeCategories(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
+    "property": "excludeEngines",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setExcludeEngines(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
+    "property": "excludeTags",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setExcludeTags(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
+    "property": "includeEngines",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setIncludeEngines(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
+    "property": "includeTags",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setIncludeTags(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "displayGranularity",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setDisplayGranularity(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "events",
+    "old_type": "Set<TestLogEvent>",
+    "new_type": "SetProperty<TestLogEvent>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setEvents(Set<TestLogEvent>)",
+      "setEvents(Iterable<?>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "exceptionFormat",
+    "old_type": "TestExceptionFormat",
+    "new_type": "Property<TestExceptionFormat>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setExceptionFormat(TestExceptionFormat)",
+      "setExceptionFormat(Object)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "maxGranularity",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMaxGranularity(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "minGranularity",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setMinGranularity(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "showCauses",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setShowCauses(boolean)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "showExceptions",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setShowExceptions(boolean)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "showStackTraces",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setShowStackTraces(boolean)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "showStandardStreams",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setShowStandardStreams(boolean)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "stackTraceFilters",
+    "old_type": "Set<TestStackTraceFilter>",
+    "new_type": "SetProperty<TestStackTraceFilter>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setStackTraceFilters(Set<TestStackTraceFilter>)",
+      "setStackTraceFilters(Iterable<?>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "configFailurePolicy",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setConfigFailurePolicy(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "excludeGroups",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setExcludeGroups(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "groupByInstances",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setGroupByInstances(boolean)",
+      "isGroupByInstances()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "includeGroups",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setIncludeGroups(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "listeners",
+    "old_type": "Set<String>",
+    "new_type": "SetProperty<String>",
+    "kind": "set",
+    "read_only": false,
+    "removed_accessors": [
+      "setListeners(Set<String>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "outputDirectory",
+    "old_type": "File",
+    "new_type": "DirectoryProperty",
+    "kind": "dir",
+    "read_only": false,
+    "removed_accessors": [
+      "setOutputDirectory(File)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "parallel",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setParallel(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "preserveOrder",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setPreserveOrder(boolean)",
+      "isPreserveOrder()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "suiteName",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setSuiteName(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "suiteXmlBuilder",
+    "old_type": "groovy.xml.MarkupBuilder",
+    "new_type": "Property<groovy.xml.MarkupBuilder>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setSuiteXmlBuilder(groovy.xml.MarkupBuilder)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "suiteXmlFiles",
+    "old_type": "List<File>",
+    "new_type": "ConfigurableFileCollection",
+    "kind": "file_collection",
+    "read_only": false,
+    "removed_accessors": [
+      "setSuiteXmlFiles(List<File>)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "suiteXmlWriter",
+    "old_type": "java.io.StringWriter",
+    "new_type": "Property<java.io.StringWriter>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setSuiteXmlWriter(java.io.StringWriter)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "testName",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setTestName(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "threadCount",
+    "old_type": "int",
+    "new_type": "Property<Integer>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setThreadCount(int)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "threadPoolFactoryClass",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setThreadPoolFactoryClass(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "useDefaultListeners",
+    "old_type": "boolean",
+    "new_type": "Property<Boolean>",
+    "kind": "boolean",
+    "read_only": false,
+    "removed_accessors": [
+      "setUseDefaultListeners(boolean)",
+      "isUseDefaultListeners()"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "archiveBase",
+    "old_type": "Wrapper$PathBase",
+    "new_type": "Property<Wrapper$PathBase>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setArchiveBase(Wrapper$PathBase)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "archivePath",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setArchivePath(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "batchScript",
+    "old_type": "File",
+    "new_type": "Provider<RegularFile>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionBase",
+    "old_type": "Wrapper$PathBase",
+    "new_type": "Property<Wrapper$PathBase>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setDistributionBase(Wrapper$PathBase)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionPath",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setDistributionPath(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionSha256Sum",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setDistributionSha256Sum(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionType",
+    "old_type": "Wrapper$DistributionType",
+    "new_type": "Property<Wrapper$DistributionType>",
+    "kind": "other",
+    "read_only": false,
+    "removed_accessors": [
+      "setDistributionType(Wrapper$DistributionType)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionUrl",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setDistributionUrl(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "gradleVersion",
+    "old_type": "String",
+    "new_type": "Property<String>",
+    "kind": "scalar",
+    "read_only": false,
+    "removed_accessors": [
+      "setGradleVersion(String)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "jarFile",
+    "old_type": "File",
+    "new_type": "RegularFileProperty",
+    "kind": "file",
+    "read_only": false,
+    "removed_accessors": [
+      "setJarFile(File)",
+      "setJarFile(Object)"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "propertiesFile",
+    "old_type": "File",
+    "new_type": "Provider<RegularFile>",
+    "kind": "read_only",
+    "read_only": true,
+    "removed_accessors": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "scriptFile",
+    "old_type": "File",
+    "new_type": "RegularFileProperty",
+    "kind": "file",
+    "read_only": false,
+    "removed_accessors": [
+      "setScriptFile(File)",
+      "setScriptFile(Object)"
+    ]
+  }
+]
