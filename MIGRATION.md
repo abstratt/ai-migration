@@ -10,7 +10,7 @@ The repository to migrate is provided via the `REPO_URL` environment variable (e
 
 - **REPO_URL**: The repository URL (and optionally branch) to migrate.
 - **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see Setup).
-- **Clone directory**: `repositories/<repo-name>` (e.g. `repositories/my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
+- **Clone directory**: `<repo-name>` (e.g. `my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
 - **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>` (e.g. `gradle-10-migration/20260331-1400`). The timestamp is set at the start of the workflow and reused throughout.
 - **SDKMAN**: Pre-installed in the Docker image at `$HOME/.sdkman`
 
@@ -19,9 +19,9 @@ The repository to migrate is provided via the `REPO_URL` environment variable (e
 ### Setup
 
 0. **Parse `REPO_URL`** to extract the `owner/repo`, repo name, and optional branch.
-1. **Determine clone directory**: `repositories/<repo-name>`. If it already exists, delete it first.
+1. **Determine clone directory**: `<repo-name>`. If it already exists, delete it first.
 2. **Fork or reuse**: If a fork already exists on your GitHub account, use it; otherwise fork with `gh repo fork`
-3. **Clone** the fork into the clone directory, fetching only the target branch: `git clone --depth 1 --single-branch --branch <branch> <fork-url> repositories/<repo-name>` (use the branch from the URL, or omit `--branch` for the default branch)
+3. **Clone** the fork into the clone directory, fetching only the target branch: `git clone --depth 1 --single-branch --branch <branch> <fork-url> <repo-name>` (use the branch from the URL, or omit `--branch` for the default branch)
 6. **Determine required Java version** from the build configuration (e.g. `toolchain { languageVersion }`, `sourceCompatibility`, `targetCompatibility`, `JAVA_HOME` hints in CI files). Default to 21 if unclear.
 7. **Install and activate the JDK** via SDKMAN:
    ```bash
@@ -50,7 +50,7 @@ Note: Always use the `wrapper` task for standard Gradle version upgrades. Only m
    distributionUrl=https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip
    ```
    Also remove `distributionSha256Sum` if present, and set `validateDistributionUrl=false`.
-9. Validate with `./gradlew help`
+9. Validate with `./gradlew help` only to ensure Gradle actualy runs. The build will probably fail - do not do anything about it yet.
 10. **Commit**: present tense message (e.g. "Update Gradle distribution to custom Provider API build")
 
 #### Commit 2: Migrate build scripts using migration data
@@ -67,7 +67,12 @@ Note: Always use the `wrapper` task for standard Gradle version upgrades. Only m
     - Add a code comment explaining the reason for each non-trivial change
     - Ignore deprecations for now
 
-#### Commit 3: verify amd fix remaining issues
+14. **Commit current changes**
+
+    - Do not try to validate your changes using `./gradlew ...`yet. The build would potentially still fail - do not do anything about it yet. We want only changes you can make based on `migration-data.json` in this changeset
+
+
+#### Commit 3: verify and fix remaining issues
 
 14. **Verify** with `./gradlew help`. Fix any remaining issues not covered by the migration data (e.g., third-party plugin incompatibilities, custom build logic).
 
@@ -137,7 +142,7 @@ The following operations are pre-authorized and should be performed without aski
 - Run `gh` CLI commands for forking
 - Run `git` commands (clone, checkout, branch, add, commit, diff, status, log — but **not push**)
 - Run shell commands for inspecting build output, searching for patterns, and reading files
-- Download Gradle distributions (triggered automatically by `./gradlew`)
+- Download Gradle distributions (triggered automatically by `./gradlew`), including the custom Provider API build from `https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip`
 - Install JDK versions via SDKMAN (`sdk install java`, `sdk use java`)
 
 ## Report
@@ -146,8 +151,6 @@ After the migration is complete, produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `RE
 
 1. **Summary**: The repository, its migration status (migrated, skipped, failed), and the local branch name
 2. **Nature of changes**: A summary of the types of changes made
-
-Add a copy of the report to the repository under `REPO_DIR` and commit it locally.
 
 ## Important Notes
 
