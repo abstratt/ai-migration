@@ -2,7 +2,7 @@
 
 ## What this is
 
-A report generator that compares Gradle 10 preview vs 9.4.0 to catalog every `@ReplacesEagerProperty`-annotated property under `org.gradle.api.*`.
+A report generator that compares Gradle 10 preview vs 9.4.0 to catalog every `@ReplacesEagerProperty`-annotated property under all public API packages (see https://docs.gradle.org/current/userguide/public_apis.html).
 
 Outputs (both produced by `generate_report.py`):
 - `gradle-10-migration-report.md` — for human readers

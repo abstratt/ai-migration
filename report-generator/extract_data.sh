@@ -52,25 +52,63 @@ G94_HOME=$(find "$WORK_DIR/g94" -maxdepth 1 -mindepth 1 -type d | head -1)
 echo "Gradle 10 home: $G10_HOME"
 echo "Gradle 9.x home: $G94_HOME"
 
-# 3. Extract org.gradle.api.* classes from ALL JARs (lib/ AND lib/plugins/)
-echo "--- Extracting org.gradle.api.* classes ---"
+# 3. Extract classes from ALL public API packages (lib/ AND lib/plugins/)
+#    See https://docs.gradle.org/current/userguide/public_apis.html
+echo "--- Extracting public API classes ---"
 mkdir -p "$WORK_DIR/g10-classes" "$WORK_DIR/g94-classes"
 
+# All public API packages from Gradle docs
+PUBLIC_API_PATTERNS=(
+    "org/gradle/*.class"
+    "org/gradle/api/**/*.class"
+    "org/gradle/authentication/**/*.class"
+    "org/gradle/build/**/*.class"
+    "org/gradle/buildconfiguration/**/*.class"
+    "org/gradle/buildinit/**/*.class"
+    "org/gradle/caching/**/*.class"
+    "org/gradle/concurrent/**/*.class"
+    "org/gradle/deployment/**/*.class"
+    "org/gradle/external/javadoc/**/*.class"
+    "org/gradle/ide/**/*.class"
+    "org/gradle/ivy/**/*.class"
+    "org/gradle/jvm/**/*.class"
+    "org/gradle/language/**/*.class"
+    "org/gradle/maven/**/*.class"
+    "org/gradle/model/**/*.class"
+    "org/gradle/nativeplatform/**/*.class"
+    "org/gradle/normalization/**/*.class"
+    "org/gradle/platform/**/*.class"
+    "org/gradle/plugin/devel/**/*.class"
+    "org/gradle/plugin/use/*.class"
+    "org/gradle/plugin/management/*.class"
+    "org/gradle/plugins/**/*.class"
+    "org/gradle/process/**/*.class"
+    "org/gradle/swiftpm/**/*.class"
+    "org/gradle/testing/**/*.class"
+    "org/gradle/testfixtures/**/*.class"
+    "org/gradle/testkit/**/*.class"
+    "org/gradle/tooling/**/*.class"
+    "org/gradle/util/**/*.class"
+    "org/gradle/vcs/**/*.class"
+    "org/gradle/work/**/*.class"
+    "org/gradle/workers/**/*.class"
+)
+
 find "$G10_HOME/lib" -name "*.jar" | while read -r jar; do
-    unzip -qo "$jar" "org/gradle/api/*.class" "org/gradle/api/**/*.class" -d "$WORK_DIR/g10-classes" 2>/dev/null || true
+    unzip -qo "$jar" "${PUBLIC_API_PATTERNS[@]}" -d "$WORK_DIR/g10-classes" 2>/dev/null || true
 done
 find "$G94_HOME/lib" -name "*.jar" | while read -r jar; do
-    unzip -qo "$jar" "org/gradle/api/*.class" "org/gradle/api/**/*.class" -d "$WORK_DIR/g94-classes" 2>/dev/null || true
+    unzip -qo "$jar" "${PUBLIC_API_PATTERNS[@]}" -d "$WORK_DIR/g94-classes" 2>/dev/null || true
 done
 
-g10_count=$(find "$WORK_DIR/g10-classes/org/gradle/api" -name "*.class" | wc -l | tr -d ' ')
-g94_count=$(find "$WORK_DIR/g94-classes/org/gradle/api" -name "*.class" | wc -l | tr -d ' ')
+g10_count=$(find "$WORK_DIR/g10-classes/org/gradle" -name "*.class" | wc -l | tr -d ' ')
+g94_count=$(find "$WORK_DIR/g94-classes/org/gradle" -name "*.class" | wc -l | tr -d ' ')
 echo "Classes extracted: g10=$g10_count, g94=$g94_count"
 
 # 4. Find annotated classes
 echo "--- Finding @ReplacesEagerProperty annotations ---"
 cd "$WORK_DIR/g10-classes"
-grep -rla "ReplacesEagerProperty" org/gradle/api --include="*.class" | sort > "$WORK_DIR/annotated-classes.txt"
+grep -rla "ReplacesEagerProperty" org/gradle --include="*.class" | sort > "$WORK_DIR/annotated-classes.txt"
 ann_count=$(wc -l < "$WORK_DIR/annotated-classes.txt" | tr -d ' ')
 echo "Annotated classes found: $ann_count"
 
