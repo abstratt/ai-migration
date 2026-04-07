@@ -6,7 +6,7 @@
   - If a branch is embedded in the URL, that branch is the base for the migration work.
   - Otherwise, the repo's default branch is used.
 - **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see Setup task).
-- **Clone directory**: `<repo-name>` (e.g. `my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
+- **Clone directory**: `migrated/<repo-name>` (e.g. `migrated/my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
 - **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>` (e.g. `gradle-10-migration/20260331-1400`). The timestamp is set at the start of the workflow and reused throughout.
 - **SDKMAN**: Pre-installed in the Docker image at `$HOME/.sdkman`
 
