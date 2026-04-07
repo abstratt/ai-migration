@@ -1,3 +1,18 @@
+### Slash commands
+
+The migration workflow is available as Claude Code slash commands. Run individual steps or the full workflow interactively:
+
+| Command | Description |
+|---|---|
+| `/setup` | Clone repo, create migration branch, install JDK |
+| `/upgrade-gradle-9` | Upgrade Gradle wrapper to 9.4 |
+| `/swap-distribution` | Swap to custom Provider API distribution |
+| `/migrate-build-scripts` | Apply migration rules to build scripts |
+| `/verify-help` | Run `./gradlew help` and fix errors |
+| `/verify-assemble` | Run `./gradlew assemble` and fix errors |
+| `/report` | Generate migration report |
+| `/migrate` | Run full workflow (all tasks in order) |
+
 ### Install podman
 
 ### Build the image
