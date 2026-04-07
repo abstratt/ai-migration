@@ -1,0 +1,88 @@
+# Shared Context
+
+## Environment
+
+- **REPO_URL**: The repository URL (and optionally branch) to migrate (e.g. `https://github.com/owner/repo` or `https://github.com/owner/repo/tree/branch`).
+  - If a branch is embedded in the URL, that branch is the base for the migration work.
+  - Otherwise, the repo's default branch is used.
+- **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see Setup task).
+- **Clone directory**: `<repo-name>` (e.g. `my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
+- **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>` (e.g. `gradle-10-migration/20260331-1400`). The timestamp is set at the start of the workflow and reused throughout.
+- **SDKMAN**: Pre-installed in the Docker image at `$HOME/.sdkman`
+
+## Commit Message Style
+
+- Use present tense verbs (e.g. "Update", "Migrate", "Fix")
+- Describe what was done, not why
+- Skip commits if no code changes are needed (no empty commits)
+
+## Code Change Guidelines
+
+- Avoid eagerly realizing providers
+- Prefer lazy wiring (`taskB.foo.set(taskA.foo)`) over eagerly resolving values
+- Use `.get()` only when the resolved value is needed (e.g., passing to an API that does not accept `Provider`)
+- Add explanatory code comments for non-trivial changes
+- Trivial changes (simple property get/set) do not need comments
+- Ignore deprecations for now
+- Do not change observable functionality — this is basically a refactor
+- Do not make cosmetic changes — no rewording comments, no reformatting code, no renaming variables. Only change what is necessary to complete the migration
+
+## Migration Reference
+
+The complete set of API changes and transformation rules lives in `report-generator/`:
+
+- **`report-generator/migration-data.json`** — structured lookup table with every changed property: class, property name, old type, new type, `kind` (boolean, scalar, dir, file, file_collection, list, set, map, other, read_only), and removed accessors.
+- **`report-generator/MIGRATION_RULES.md`** — one transformation rule per `kind`, covering `.set()`, `.get()`, `.from()`, `.add()`, lazy wiring, conventions, and read-only providers.
+
+**How to use**: look up the class + property in the JSON to get its `kind`, then apply the matching rule.
+
+### Additional patterns not in the migration data
+
+These are patterns not captured by `@ReplacesEagerProperty` but commonly needed:
+
+- **Wrapper properties cleanup**: remove `distributionSha256Sum` (won't match custom distro), set `validateDistributionUrl=false`
+- **`flatMap` instead of `map`**: when chaining providers that return property types (e.g., `generateMavenPom.flatMap(GenerateMavenPom::getDestination)` instead of `.map(...)`)
+- **Third-party plugin issues**: not covered by migration data; fix based on build error output
+
+## Allowed Operations
+
+You will be running under a Docker container.
+
+You are authorized to:
+- Edit, create, and delete files in this repository — but not elsewhere
+- Run git commands (add, commit — but **not push**)
+- Run tests and linters
+- Install dependencies
+
+The following operations are pre-authorized and should be performed without asking for confirmation:
+
+- Fork the repository and clone it into the clone directory
+- Create branches and commit locally (do **not** push or create PRs)
+- Edit build files (e.g. `build.gradle`, `build.gradle.kts`, `settings.gradle`, `settings.gradle.kts`, `gradle.properties`, `gradle-wrapper.properties`, and `buildSrc`/convention plugin sources)
+- Edit Java/Kotlin/Groovy source files that are part of the build tooling (e.g. custom Gradle plugins, tasks, and extensions)
+- Run Gradle commands (`./gradlew help`, `./gradlew assemble`, etc.)
+- Run `gh` CLI commands for forking
+- Run `git` commands (clone, checkout, branch, add, commit, diff, status, log — but **not push**)
+- Run shell commands for inspecting build output, searching for patterns, and reading files
+- Download Gradle distributions (triggered automatically by `./gradlew`), including the custom Provider API build from `https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip`
+- Install JDK versions via SDKMAN (`sdk install java`, `sdk use java`)
+
+## Resume Protocol
+
+Each task begins with a **Resume check** section. Before doing any work:
+
+1. Run the check described in the task's Resume check section
+2. If the check passes (work is already done), report "Task already complete — skipping" and stop
+3. If the check partially passes (some work done), pick up from where it left off
+4. If the check fails (work not started), proceed normally
+
+## Important Notes
+
+- Do NOT sync the fork with upstream; use whatever state the fork is in.
+- Do NOT push to any remote. All commits stay local.
+- Previous migration branches (e.g. `gradle-10-migration/20260320-1430`) may exist. Ignore them — the timestamped branch name ensures no collision.
+
+## What to do if a previous migration has already been attempted?
+
+- Previous migration branches may exist. Ignore them — the timestamped branch name ensures no collision, in case of collision, do not proceed.
+- Do not skip any steps because a previous migration exists. Always start fresh.

@@ -1,0 +1,34 @@
+# Task: Upgrade to Gradle 9.4
+
+@tasks/CONTEXT.md
+
+## Preconditions
+
+- Clone directory exists with the fork checked out on the migration branch
+- JAVA_HOME is set to a working JDK
+
+## Resume check
+
+1. Check the current Gradle version by reading `gradle/wrapper/gradle-wrapper.properties` for the distribution URL
+2. If the version is already 9.x or higher (but not the custom Provider API distribution), this task is already complete
+3. Also check `git log` for a commit message matching "Upgrade Gradle wrapper to 9.4"
+
+If the Gradle version is already 9.x+, skip this task entirely.
+
+## Instructions
+
+This task is **conditional** — only needed if the repository is not already on Gradle 9.x.
+
+1. Run `./gradlew wrapper --gradle-version 9.4` to update the wrapper and distribution
+
+2. Run `./gradlew help` and fix any issues caused by the major version upgrade
+
+3. **Commit**: "Upgrade Gradle wrapper to 9.4.0"
+
+Note: Always use the `wrapper` task for standard Gradle version upgrades. Only manually edit `gradle-wrapper.properties` for the custom Provider API distribution URL (that happens in the next task).
+
+## Done when
+
+- `gradle/wrapper/gradle-wrapper.properties` references Gradle 9.4.x (or was already 9.x+)
+- `./gradlew help` succeeds
+- Changes are committed (or no commit needed if already on 9.x)
