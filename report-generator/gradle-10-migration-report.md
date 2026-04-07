@@ -1,3 +1,4 @@
+Wrote 396 entries to /Users/rafael/sources/other/provider-api-testing/ai-migration/report-generator/migration-data.json
 # Gradle 10 Lazy Property Migration Report
 
 Properties annotated with `@ReplacesEagerProperty` in Gradle 10 preview (`gradle-provider-api-20260204140400`), compared against Gradle 9.4.0.
@@ -116,7 +117,33 @@ The migration to lazy properties is **not** just a mechanical `getFoo()` → `fo
 | 56 | `TestLogging` | 10 |
 | 57 | `TestNGOptions` | 16 |
 | 58 | `Wrapper` | 12 |
-| | **Total** | **243** |
+| 59 | `InitBuild` | 8 |
+| 60 | `BuildCache` | 2 |
+| 61 | `HttpBuildCache` | 4 |
+| 62 | `DirectoryBuildCache` | 1 |
+| 63 | `MinimalJavadocOptions` | 20 |
+| 64 | `StandardJavadocDocletOptions` | 32 |
+| 65 | `CreateStartScripts` | 9 |
+| 66 | `Jar` | 1 |
+| 67 | `BaseScalaCompileOptions` | 11 |
+| 68 | `PluginDeclaration` | 4 |
+| 69 | `Ear` | 1 |
+| 70 | `DeploymentDescriptor` | 9 |
+| 71 | `EarModule` | 2 |
+| 72 | `EarSecurityRole` | 2 |
+| 73 | `EarWebModule` | 1 |
+| 74 | `BaseExecSpec` | 5 |
+| 75 | `ExecSpec` | 3 |
+| 76 | `JavaExecSpec` | 4 |
+| 77 | `JavaForkOptions` | 10 |
+| 78 | `ProcessForkOptions` | 3 |
+| 79 | `JacocoPluginExtension` | 1 |
+| 80 | `JacocoTaskExtension` | 14 |
+| 81 | `JacocoBase` | 1 |
+| 82 | `VersionControlRepository` | 1 |
+| 83 | `VersionControlSpec` | 3 |
+| 84 | `GitVersionControlSpec` | 1 |
+| | **Total** | **396** |
 
 ---
 
@@ -1376,6 +1403,630 @@ task.archiveBase.set(otherTask.archiveBase)  // lazy wiring
 
 // Read-only (batchScript, propertiesFile) — no .set(); pass the Provider to consumers:
 otherTask.someInput.set(task.batchScript)
+```
+
+---
+
+### `org.gradle.buildinit.tasks.InitBuild`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `availableBuildTypes` | `List<String>` | `Provider<List<String>>` | — |
+| `availableDSLs` | `List<String>` | `Provider<List<String>>` | — |
+| `availableTestFrameworks` | `List<String>` | `Provider<List<String>>` | — |
+| `dsl` | `String` | `Property<String>` | `setDsl(String)` |
+| `packageName` | `String` | `Property<String>` | `setPackageName(String)` |
+| `projectName` | `String` | `Property<String>` | `setProjectName(String)` |
+| `testFramework` | `String` | `Property<String>` | `setTestFramework(String)` |
+| `type` | `String` | `Property<String>` | `setType(String)` |
+
+**Migration examples:**
+
+```groovy
+task.dsl.set("value")  // also: packageName, projectName, testFramework, type
+task.dsl.set(provider { computeValue() })
+task.dsl.set(otherTask.dsl)  // lazy wiring
+
+// Read-only (availableBuildTypes, availableDSLs, availableTestFrameworks) — no .set(); pass the Provider to consumers:
+otherTask.someInput.set(task.availableBuildTypes)
+```
+
+---
+
+### `org.gradle.caching.configuration.BuildCache`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `enabled` | `boolean` | `Property<Boolean>` | `setEnabled(boolean)`, `isEnabled()` |
+| `push` | `boolean` | `Property<Boolean>` | `setPush(boolean)`, `isPush()` |
+
+**Migration examples:**
+
+```groovy
+task.enabled.set(true)  // also: push
+task.enabled.set(otherTask.enabled)  // lazy wiring
+```
+
+---
+
+### `org.gradle.caching.http.HttpBuildCache`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `allowInsecureProtocol` | `boolean` | `Property<Boolean>` | `setAllowInsecureProtocol(boolean)`, `isAllowInsecureProtocol()` |
+| `allowUntrustedServer` | `boolean` | `Property<Boolean>` | `setAllowUntrustedServer(boolean)`, `isAllowUntrustedServer()` |
+| `url` | `URI` | `Property<URI>` | `setUrl(String)`, `setUrl(URI)` |
+| `useExpectContinue` | `boolean` | `Property<Boolean>` | `setUseExpectContinue(boolean)`, `isUseExpectContinue()` |
+
+**Migration examples:**
+
+```groovy
+task.allowInsecureProtocol.set(true)  // also: allowUntrustedServer, useExpectContinue
+task.allowInsecureProtocol.set(otherTask.allowInsecureProtocol)  // lazy wiring
+task.url.set(someValue)
+task.url.set(otherTask.url)  // lazy wiring
+```
+
+---
+
+### `org.gradle.caching.local.DirectoryBuildCache`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `directory` | `Object` | `DirectoryProperty` | `setDirectory(Object)` |
+
+**Migration examples:**
+
+```groovy
+task.directory.set(layout.projectDirectory.dir("src"))
+task.directory.set(otherTask.directory)  // lazy wiring
+```
+
+---
+
+### `org.gradle.external.javadoc.MinimalJavadocOptions`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `bootClasspath` | `List<File>` | `ConfigurableFileCollection` | `setBootClasspath(List<File>)` |
+| `breakIterator` | `boolean` | `Property<Boolean>` | `setBreakIterator(boolean)`, `isBreakIterator()` |
+| `classpath` | `List<File>` | `ConfigurableFileCollection` | `setClasspath(List<File>)` |
+| `destinationDirectory` | `File` | `DirectoryProperty` | `setDestinationDirectory(File)` |
+| `doclet` | `String` | `Property<String>` | `setDoclet(String)` |
+| `docletpath` | `List<File>` | `ConfigurableFileCollection` | `setDocletpath(List<File>)` |
+| `encoding` | `String` | `Property<String>` | `setEncoding(String)` |
+| `extDirs` | `List<File>` | `ConfigurableFileCollection` | `setExtDirs(List<File>)` |
+| `header` | `String` | `Property<String>` | `setHeader(String)` |
+| `jFlags` | `List<String>` | `ListProperty<String>` | `setJFlags(List<String>)` |
+| `locale` | `String` | `Property<String>` | `setLocale(String)` |
+| `memberLevel` | `JavadocMemberLevel` | `Property<JavadocMemberLevel>` | `setMemberLevel(JavadocMemberLevel)` |
+| `modulePath` | `List<File>` | `ConfigurableFileCollection` | `setModulePath(List<File>)` |
+| `optionFiles` | `List<File>` | `ConfigurableFileCollection` | `setOptionFiles(List<File>)` |
+| `outputLevel` | `JavadocOutputLevel` | `Property<JavadocOutputLevel>` | `setOutputLevel(JavadocOutputLevel)` |
+| `overview` | `String` | `Property<String>` | `setOverview(String)` |
+| `source` | `String` | `Property<String>` | `setSource(String)` |
+| `sourceNames` | `List<String>` | `ListProperty<String>` | `setSourceNames(List<String>)` |
+| `verbose` | `boolean` | `Provider<Boolean>` | `isVerbose()` |
+| `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)` |
+
+**Migration examples:**
+
+```groovy
+task.breakIterator.set(true)
+task.breakIterator.set(otherTask.breakIterator)  // lazy wiring
+task.doclet.set("value")  // also: encoding, header, locale, overview, source, windowTitle
+task.doclet.set(provider { computeValue() })
+task.doclet.set(otherTask.doclet)  // lazy wiring
+task.destinationDirectory.set(layout.projectDirectory.dir("src"))
+task.destinationDirectory.set(otherTask.destinationDirectory)  // lazy wiring
+task.bootClasspath.from(configurations.someConfig)  // also: classpath, docletpath, extDirs, modulePath, optionFiles
+task.bootClasspath.from(otherTask.bootClasspath)  // lazy wiring
+task.jFlags.add("item")  // also: sourceNames
+task.jFlags.addAll(otherTask.jFlags)  // lazy wiring
+task.memberLevel.set(someValue)  // also: outputLevel
+task.memberLevel.set(otherTask.memberLevel)  // lazy wiring
+
+// Read-only (verbose) — no .set(); pass the Provider to consumers:
+otherTask.someInput.set(task.verbose)
+```
+
+---
+
+### `org.gradle.external.javadoc.StandardJavadocDocletOptions`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `author` | `boolean` | `Property<Boolean>` | `setAuthor(boolean)`, `isAuthor()` |
+| `bottom` | `String` | `Property<String>` | `setBottom(String)` |
+| `charSet` | `String` | `Property<String>` | `setCharSet(String)` |
+| `docEncoding` | `String` | `Property<String>` | `setDocEncoding(String)` |
+| `docFilesSubDirs` | `boolean` | `Property<Boolean>` | `setDocFilesSubDirs(boolean)`, `isDocFilesSubDirs()` |
+| `docTitle` | `String` | `Property<String>` | `setDocTitle(String)` |
+| `excludeDocFilesSubDir` | `List<String>` | `ListProperty<String>` | `setExcludeDocFilesSubDir(List<String>)` |
+| `footer` | `String` | `Property<String>` | `setFooter(String)` |
+| `groups` | `Map<String, List<String>>` | `MapProperty<String, List<String>>` | `setGroups(Map<String, List<String>>)` |
+| `helpFile` | `File` | `RegularFileProperty` | `setHelpFile(File)` |
+| `keyWords` | `boolean` | `Property<Boolean>` | `setKeyWords(boolean)`, `isKeyWords()` |
+| `linkSource` | `boolean` | `Property<Boolean>` | `setLinkSource(boolean)`, `isLinkSource()` |
+| `links` | `List<String>` | `ListProperty<String>` | `setLinks(List<String>)` |
+| `linksOffline` | `List<JavadocOfflineLink>` | `ListProperty<JavadocOfflineLink>` | `setLinksOffline(List<JavadocOfflineLink>)` |
+| `noComment` | `boolean` | `Property<Boolean>` | `setNoComment(boolean)`, `isNoComment()` |
+| `noDeprecated` | `boolean` | `Property<Boolean>` | `setNoDeprecated(boolean)`, `isNoDeprecated()` |
+| `noDeprecatedList` | `boolean` | `Property<Boolean>` | `setNoDeprecatedList(boolean)`, `isNoDeprecatedList()` |
+| `noHelp` | `boolean` | `Property<Boolean>` | `setNoHelp(boolean)`, `isNoHelp()` |
+| `noIndex` | `boolean` | `Property<Boolean>` | `setNoIndex(boolean)`, `isNoIndex()` |
+| `noNavBar` | `boolean` | `Property<Boolean>` | `setNoNavBar(boolean)`, `isNoNavBar()` |
+| `noQualifiers` | `List<String>` | `ListProperty<String>` | `setNoQualifiers(List<String>)` |
+| `noSince` | `boolean` | `Property<Boolean>` | `setNoSince(boolean)`, `isNoSince()` |
+| `noTimestamp` | `boolean` | `Property<Boolean>` | `setNoTimestamp(boolean)`, `isNoTimestamp()` |
+| `noTree` | `boolean` | `Property<Boolean>` | `setNoTree(boolean)`, `isNoTree()` |
+| `serialWarn` | `boolean` | `Property<Boolean>` | `setSerialWarn(boolean)`, `isSerialWarn()` |
+| `splitIndex` | `boolean` | `Property<Boolean>` | `setSplitIndex(boolean)`, `isSplitIndex()` |
+| `stylesheetFile` | `File` | `RegularFileProperty` | `setStylesheetFile(File)` |
+| `tagletPath` | `List<File>` | `ConfigurableFileCollection` | `setTagletPath(List<File>)` |
+| `taglets` | `List<String>` | `ListProperty<String>` | `setTaglets(List<String>)` |
+| `tags` | `List<String>` | `ListProperty<String>` | `setTags(List<String>)` |
+| `use` | `boolean` | `Property<Boolean>` | `setUse(boolean)`, `isUse()` |
+| `version` | `boolean` | `Property<Boolean>` | `setVersion(boolean)`, `isVersion()` |
+
+**Migration examples:**
+
+```groovy
+task.author.set(true)  // also: docFilesSubDirs, keyWords, linkSource, noComment, noDeprecated, noDeprecatedList, noHelp, noIndex, noNavBar, noSince, noTimestamp, noTree, serialWarn, splitIndex, use, version
+task.author.set(otherTask.author)  // lazy wiring
+task.bottom.set("value")  // also: charSet, docEncoding, docTitle, footer
+task.bottom.set(provider { computeValue() })
+task.bottom.set(otherTask.bottom)  // lazy wiring
+task.helpFile.set(layout.buildDirectory.file("output.txt"))  // also: stylesheetFile
+task.helpFile.set(otherTask.helpFile)  // lazy wiring
+task.tagletPath.from(configurations.someConfig)
+task.tagletPath.from(otherTask.tagletPath)  // lazy wiring
+task.excludeDocFilesSubDir.add("item")  // also: links, linksOffline, noQualifiers, taglets, tags
+task.excludeDocFilesSubDir.addAll(otherTask.excludeDocFilesSubDir)  // lazy wiring
+task.groups.put("key", "value")
+task.groups.putAll(otherTask.groups)  // lazy wiring
+```
+
+---
+
+### `org.gradle.jvm.application.tasks.CreateStartScripts`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `applicationName` | `String` | `Property<String>` | `setApplicationName(String)` |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
+| `defaultJvmOpts` | `Iterable<String>` | `ListProperty<String>` | `setDefaultJvmOpts(Iterable<String>)` |
+| `executableDir` | `String` | `Property<String>` | `setExecutableDir(String)` |
+| `exitEnvironmentVar` | `String` | `Property<String>` | `setExitEnvironmentVar(String)` |
+| `optsEnvironmentVar` | `String` | `Property<String>` | `setOptsEnvironmentVar(String)` |
+| `outputDir` | `File` | `DirectoryProperty` | `setOutputDir(File)` |
+| `unixScript` | `File` | `RegularFileProperty` | — |
+| `windowsScript` | `File` | `RegularFileProperty` | — |
+
+**Migration examples:**
+
+```groovy
+task.applicationName.set("value")  // also: executableDir, exitEnvironmentVar, optsEnvironmentVar
+task.applicationName.set(provider { computeValue() })
+task.applicationName.set(otherTask.applicationName)  // lazy wiring
+task.outputDir.set(layout.projectDirectory.dir("src"))
+task.outputDir.set(otherTask.outputDir)  // lazy wiring
+task.unixScript.set(layout.buildDirectory.file("output.txt"))  // also: windowsScript
+task.unixScript.set(otherTask.unixScript)  // lazy wiring
+task.classpath.from(configurations.someConfig)
+task.classpath.from(otherTask.classpath)  // lazy wiring
+task.defaultJvmOpts.add("item")
+task.defaultJvmOpts.addAll(otherTask.defaultJvmOpts)  // lazy wiring
+```
+
+---
+
+### `org.gradle.jvm.tasks.Jar`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `manifestContentCharset` | `String` | `Property<String>` | `setManifestContentCharset(String)` |
+
+**Migration examples:**
+
+```groovy
+task.manifestContentCharset.set("value")
+task.manifestContentCharset.set(provider { computeValue() })
+task.manifestContentCharset.set(otherTask.manifestContentCharset)  // lazy wiring
+```
+
+---
+
+### `org.gradle.language.scala.tasks.BaseScalaCompileOptions`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `additionalParameters` | `List<String>` | `ListProperty<String>` | `setAdditionalParameters(List<String>)` |
+| `debugLevel` | `String` | `Property<String>` | `setDebugLevel(String)` |
+| `deprecation` | `boolean` | `Property<Boolean>` | `setDeprecation(boolean)`, `isDeprecation()` |
+| `encoding` | `String` | `Property<String>` | `setEncoding(String)` |
+| `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
+| `force` | `boolean` | `Property<Boolean>` | `setForce(boolean)`, `isForce()` |
+| `listFiles` | `boolean` | `Property<Boolean>` | `setListFiles(boolean)`, `isListFiles()` |
+| `loggingLevel` | `String` | `Property<String>` | `setLoggingLevel(String)` |
+| `loggingPhases` | `List<String>` | `ListProperty<String>` | `setLoggingPhases(List<String>)` |
+| `optimize` | `boolean` | `Property<Boolean>` | `setOptimize(boolean)`, `isOptimize()` |
+| `unchecked` | `boolean` | `Property<Boolean>` | `setUnchecked(boolean)`, `isUnchecked()` |
+
+**Migration examples:**
+
+```groovy
+task.deprecation.set(true)  // also: failOnError, force, listFiles, optimize, unchecked
+task.deprecation.set(otherTask.deprecation)  // lazy wiring
+task.debugLevel.set("value")  // also: encoding, loggingLevel
+task.debugLevel.set(provider { computeValue() })
+task.debugLevel.set(otherTask.debugLevel)  // lazy wiring
+task.additionalParameters.add("item")  // also: loggingPhases
+task.additionalParameters.addAll(otherTask.additionalParameters)  // lazy wiring
+```
+
+---
+
+### `org.gradle.plugin.devel.PluginDeclaration`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `description` | `String` | `Property<String>` | `setDescription(String)` |
+| `displayName` | `String` | `Property<String>` | `setDisplayName(String)` |
+| `id` | `String` | `Property<String>` | `setId(String)` |
+| `implementationClass` | `String` | `Property<String>` | `setImplementationClass(String)` |
+
+**Migration examples:**
+
+```groovy
+task.description.set("value")  // also: displayName, id, implementationClass
+task.description.set(provider { computeValue() })
+task.description.set(otherTask.description)  // lazy wiring
+```
+
+---
+
+### `org.gradle.plugins.ear.Ear`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `libDirName` | `String` | `Property<String>` | `setLibDirName(String)` |
+
+**Migration examples:**
+
+```groovy
+task.libDirName.set("value")
+task.libDirName.set(provider { computeValue() })
+task.libDirName.set(otherTask.libDirName)  // lazy wiring
+```
+
+---
+
+### `org.gradle.plugins.ear.descriptor.DeploymentDescriptor`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `applicationName` | `String` | `Property<String>` | `setApplicationName(String)` |
+| `description` | `String` | `Property<String>` | `setDescription(String)` |
+| `displayName` | `String` | `Property<String>` | `setDisplayName(String)` |
+| `initializeInOrder` | `Boolean` | `Property<Boolean>` | `setInitializeInOrder(Boolean)` |
+| `libraryDirectory` | `String` | `Property<String>` | `setLibraryDirectory(String)` |
+| `moduleTypeMappings` | `Map<String, String>` | `MapProperty<String, String>` | `setModuleTypeMappings(Map<String, String>)` |
+| `modules` | `Set<EarModule>` | `SetProperty<EarModule>` | `setModules(Set<EarModule>)` |
+| `securityRoles` | `Set<EarSecurityRole>` | `SetProperty<EarSecurityRole>` | `setSecurityRoles(Set<EarSecurityRole>)` |
+| `version` | `String` | `Property<String>` | `setVersion(String)` |
+
+**Migration examples:**
+
+```groovy
+task.applicationName.set("value")  // also: description, displayName, libraryDirectory, version
+task.applicationName.set(provider { computeValue() })
+task.applicationName.set(otherTask.applicationName)  // lazy wiring
+task.modules.add(item)  // also: securityRoles
+task.modules.addAll(otherTask.modules)  // lazy wiring
+task.moduleTypeMappings.put("key", "value")
+task.moduleTypeMappings.putAll(otherTask.moduleTypeMappings)  // lazy wiring
+task.initializeInOrder.set(someValue)
+task.initializeInOrder.set(otherTask.initializeInOrder)  // lazy wiring
+```
+
+---
+
+### `org.gradle.plugins.ear.descriptor.EarModule`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `altDeployDescriptor` | `String` | `Property<String>` | `setAltDeployDescriptor(String)` |
+| `path` | `String` | `Property<String>` | `setPath(String)` |
+
+**Migration examples:**
+
+```groovy
+task.altDeployDescriptor.set("value")  // also: path
+task.altDeployDescriptor.set(provider { computeValue() })
+task.altDeployDescriptor.set(otherTask.altDeployDescriptor)  // lazy wiring
+```
+
+---
+
+### `org.gradle.plugins.ear.descriptor.EarSecurityRole`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `description` | `String` | `Property<String>` | `setDescription(String)` |
+| `roleName` | `String` | `Property<String>` | `setRoleName(String)` |
+
+**Migration examples:**
+
+```groovy
+task.description.set("value")  // also: roleName
+task.description.set(provider { computeValue() })
+task.description.set(otherTask.description)  // lazy wiring
+```
+
+---
+
+### `org.gradle.plugins.ear.descriptor.EarWebModule`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `contextRoot` | `String` | `Property<String>` | `setContextRoot(String)` |
+
+**Migration examples:**
+
+```groovy
+task.contextRoot.set("value")
+task.contextRoot.set(provider { computeValue() })
+task.contextRoot.set(otherTask.contextRoot)  // lazy wiring
+```
+
+---
+
+### `org.gradle.process.BaseExecSpec`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `commandLine` | `List<String>` | `Provider<List<String>>` | — |
+| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)` |
+| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
+| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)` |
+| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)` |
+
+**Migration examples:**
+
+```groovy
+task.ignoreExitValue.set(true)
+task.ignoreExitValue.set(otherTask.ignoreExitValue)  // lazy wiring
+task.errorOutput.set(someValue)  // also: standardInput, standardOutput
+task.errorOutput.set(otherTask.errorOutput)  // lazy wiring
+
+// Read-only (commandLine) — no .set(); pass the Provider to consumers:
+otherTask.someInput.set(task.commandLine)
+```
+
+---
+
+### `org.gradle.process.ExecSpec`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)` |
+| `argumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | — |
+| `commandLine` | `Provider<List<String>>` | `Provider<List<String>>` | `setCommandLine(List<String>)`, `setCommandLine(Object...)`, `setCommandLine(Iterable<?>)` |
+
+**Migration examples:**
+
+```groovy
+task.args.add("item")  // also: argumentProviders
+task.args.addAll(otherTask.args)  // lazy wiring
+
+// Read-only (commandLine) — no .set(); pass the Provider to consumers:
+otherTask.someInput.set(task.commandLine)
+```
+
+---
+
+### `org.gradle.process.JavaExecSpec`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)` |
+| `argumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | — |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
+| `mainClass` | `Property<String>` | `Property<String>` | — |
+
+**Migration examples:**
+
+```groovy
+task.classpath.from(configurations.someConfig)
+task.classpath.from(otherTask.classpath)  // lazy wiring
+task.args.add("item")  // also: argumentProviders
+task.args.addAll(otherTask.args)  // lazy wiring
+task.mainClass.set(someValue)
+task.mainClass.set(otherTask.mainClass)  // lazy wiring
+```
+
+---
+
+### `org.gradle.process.JavaForkOptions`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `allJvmArgs` | `List<String>` | `Provider<List<String>>` | `setAllJvmArgs(List<String>)`, `setAllJvmArgs(Iterable<?>)` |
+| `bootstrapClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setBootstrapClasspath(FileCollection)` |
+| `debug` | `boolean` | `Property<Boolean>` | `setDebug(boolean)` |
+| `defaultCharacterEncoding` | `String` | `Property<String>` | `setDefaultCharacterEncoding(String)` |
+| `enableAssertions` | `boolean` | `Property<Boolean>` | `setEnableAssertions(boolean)` |
+| `jvmArgs` | `List<String>` | `ListProperty<String>` | `setJvmArgs(List<String>)`, `setJvmArgs(Iterable<?>)` |
+| `jvmArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | — |
+| `maxHeapSize` | `String` | `Property<String>` | `setMaxHeapSize(String)` |
+| `minHeapSize` | `String` | `Property<String>` | `setMinHeapSize(String)` |
+| `systemProperties` | `Map<String, Object>` | `MapProperty<String, Object>` | `setSystemProperties(Map<String, ? extends Object>)` |
+
+**Migration examples:**
+
+```groovy
+task.debug.set(true)  // also: enableAssertions
+task.debug.set(otherTask.debug)  // lazy wiring
+task.defaultCharacterEncoding.set("value")  // also: maxHeapSize, minHeapSize
+task.defaultCharacterEncoding.set(provider { computeValue() })
+task.defaultCharacterEncoding.set(otherTask.defaultCharacterEncoding)  // lazy wiring
+task.bootstrapClasspath.from(configurations.someConfig)
+task.bootstrapClasspath.from(otherTask.bootstrapClasspath)  // lazy wiring
+task.jvmArgs.add("item")  // also: jvmArgumentProviders
+task.jvmArgs.addAll(otherTask.jvmArgs)  // lazy wiring
+task.systemProperties.put("key", "value")
+task.systemProperties.putAll(otherTask.systemProperties)  // lazy wiring
+
+// Read-only (allJvmArgs) — no .set(); pass the Provider to consumers:
+otherTask.someInput.set(task.allJvmArgs)
+```
+
+---
+
+### `org.gradle.process.ProcessForkOptions`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `environment` | `Map<String, Object>` | `MapProperty<String, Object>` | `setEnvironment(Map<String, ?>)` |
+| `executable` | `String` | `Property<String>` | `setExecutable(String)`, `setExecutable(Object)` |
+| `workingDir` | `File` | `DirectoryProperty` | `setWorkingDir(File)`, `setWorkingDir(Object)` |
+
+**Migration examples:**
+
+```groovy
+task.executable.set("value")
+task.executable.set(provider { computeValue() })
+task.executable.set(otherTask.executable)  // lazy wiring
+task.workingDir.set(layout.projectDirectory.dir("src"))
+task.workingDir.set(otherTask.workingDir)  // lazy wiring
+task.environment.put("key", "value")
+task.environment.putAll(otherTask.environment)  // lazy wiring
+```
+
+---
+
+### `org.gradle.testing.jacoco.plugins.JacocoPluginExtension`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `toolVersion` | `String` | `Property<String>` | `setToolVersion(String)` |
+
+**Migration examples:**
+
+```groovy
+task.toolVersion.set("value")
+task.toolVersion.set(provider { computeValue() })
+task.toolVersion.set(otherTask.toolVersion)  // lazy wiring
+```
+
+---
+
+### `org.gradle.testing.jacoco.plugins.JacocoTaskExtension`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `address` | `String` | `Property<String>` | `setAddress(String)` |
+| `asJvmArg` | `String` | `Provider<String>` | — |
+| `classDumpDir` | `File` | `DirectoryProperty` | `setClassDumpDir(File)` |
+| `destinationFile` | `File` | `RegularFileProperty` | `setDestinationFile(Provider<File>)`, `setDestinationFile(File)` |
+| `dumpOnExit` | `boolean` | `Property<Boolean>` | `setDumpOnExit(boolean)`, `isDumpOnExit()` |
+| `enabled` | `boolean` | `Property<Boolean>` | `setEnabled(boolean)`, `isEnabled()` |
+| `excludeClassLoaders` | `List<String>` | `ListProperty<String>` | `setExcludeClassLoaders(List<String>)` |
+| `excludes` | `List<String>` | `ListProperty<String>` | `setExcludes(List<String>)` |
+| `includeNoLocationClasses` | `boolean` | `Property<Boolean>` | `setIncludeNoLocationClasses(boolean)`, `isIncludeNoLocationClasses()` |
+| `includes` | `List<String>` | `ListProperty<String>` | `setIncludes(List<String>)` |
+| `jmx` | `boolean` | `Property<Boolean>` | `setJmx(boolean)`, `isJmx()` |
+| `output` | `JacocoTaskExtension$Output` | `Property<JacocoTaskExtension$Output>` | `setOutput(JacocoTaskExtension$Output)` |
+| `port` | `int` | `Property<Integer>` | `setPort(int)` |
+| `sessionId` | `String` | `Property<String>` | `setSessionId(String)` |
+
+**Migration examples:**
+
+```groovy
+task.dumpOnExit.set(true)  // also: enabled, includeNoLocationClasses, jmx
+task.dumpOnExit.set(otherTask.dumpOnExit)  // lazy wiring
+task.address.set("value")  // also: port, sessionId
+task.address.set(provider { computeValue() })
+task.address.set(otherTask.address)  // lazy wiring
+task.classDumpDir.set(layout.projectDirectory.dir("src"))
+task.classDumpDir.set(otherTask.classDumpDir)  // lazy wiring
+task.destinationFile.set(layout.buildDirectory.file("output.txt"))
+task.destinationFile.set(otherTask.destinationFile)  // lazy wiring
+task.excludeClassLoaders.add("item")  // also: excludes, includes
+task.excludeClassLoaders.addAll(otherTask.excludeClassLoaders)  // lazy wiring
+task.output.set(someValue)
+task.output.set(otherTask.output)  // lazy wiring
+
+// Read-only (asJvmArg) — no .set(); pass the Provider to consumers:
+otherTask.someInput.set(task.asJvmArg)
+```
+
+---
+
+### `org.gradle.testing.jacoco.tasks.JacocoBase`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `jacocoClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setJacocoClasspath(FileCollection)` |
+
+**Migration examples:**
+
+```groovy
+task.jacocoClasspath.from(configurations.someConfig)
+task.jacocoClasspath.from(otherTask.jacocoClasspath)  // lazy wiring
+```
+
+---
+
+### `org.gradle.vcs.VersionControlRepository`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `rootDir` | `String` | `Property<String>` | `setRootDir(String)` |
+
+**Migration examples:**
+
+```groovy
+task.rootDir.set("value")
+task.rootDir.set(provider { computeValue() })
+task.rootDir.set(otherTask.rootDir)  // lazy wiring
+```
+
+---
+
+### `org.gradle.vcs.VersionControlSpec`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `repoName` | `String` | `Provider<String>` | — |
+| `rootDir` | `String` | `Property<String>` | `setRootDir(String)` |
+| `uniqueId` | `String` | `Provider<String>` | — |
+
+**Migration examples:**
+
+```groovy
+task.rootDir.set("value")
+task.rootDir.set(provider { computeValue() })
+task.rootDir.set(otherTask.rootDir)  // lazy wiring
+
+// Read-only (repoName, uniqueId) — no .set(); pass the Provider to consumers:
+otherTask.someInput.set(task.repoName)
+```
+
+---
+
+### `org.gradle.vcs.git.GitVersionControlSpec`
+
+| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
+|----------|----------------|----------------|-------------------|
+| `url` | `URI` | `Property<URI>` | — |
+
+**Migration examples:**
+
+```groovy
+task.url.set(someValue)
+task.url.set(otherTask.url)  // lazy wiring
 ```
 
 ---

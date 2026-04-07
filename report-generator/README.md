@@ -1,11 +1,17 @@
 # Gradle 10 Migration Report Generator
 
-Generates `gradle-10-migration-report.md` by comparing a Gradle 10 preview distribution against Gradle 9.4.0 to find all `@ReplacesEagerProperty`-annotated properties under `org.gradle.api.*`.
+Generates `gradle-10-migration-report.md` by comparing a Gradle 10 preview distribution against Gradle 9.4.0 to find all `@ReplacesEagerProperty`-annotated properties across all [public API packages](https://docs.gradle.org/current/userguide/public_apis.html).
+
+## Prerequisites
+
+- **Java 21+** — required for `javap` to read Gradle 10 class files. Use [SDKMAN](https://sdkman.io/) to install/switch: `sdk use java 21.0.10-tem`
+- **Python 3** — for `generate_report.py`
+- **curl**, **unzip** — for downloading and extracting distributions
 
 ## How it works
 
 1. **Download** both distributions
-2. **Extract** all `org.gradle.api.*` classes from every JAR (including `lib/plugins/`)
+2. **Extract** classes from all public API packages out of every JAR (including `lib/plugins/`)
 3. **Binary grep** (`grep -rla`) the `.class` files for the string `ReplacesEagerProperty` to identify annotated classes
 4. **`javap -v`** on annotated classes to get annotation details (Gradle 10)
 5. **`javap -public`** on the same classes in both versions to get clean method signatures for comparison

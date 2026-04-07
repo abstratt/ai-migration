@@ -12,6 +12,10 @@ For AI-driven migrations, use `migration-data.json` (the lookup table) together 
 
 To iterate, edit `generate_report.py` and re-run — the cached javap data means no downloads needed.
 
+## Prerequisites
+
+- **Java 21+** for `javap` to read Gradle 10 class files. Install/switch via SDKMAN: `sdk use java 21.0.10-tem`
+
 ## Source distributions
 
 Default URLs are in `extract_data.sh`. They can be overridden via positional arguments:
