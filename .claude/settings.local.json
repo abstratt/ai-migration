@@ -33,7 +33,10 @@
       "WebFetch(domain:docs.gradle.org)",
       "Bash(bash extract_data.sh)",
       "Bash(python3 generate_report.py)",
-      "Bash(python3 -c \"import json; d=json.load\\(open\\(''migration-data.json''\\)\\); print\\(f''{len\\(d\\)} entries''\\) if isinstance\\(d, list\\) else print\\(f''{len\\(d\\)} classes, {sum\\(len\\(v\\) for v in d.values\\(\\)\\)} properties''\\)\")"
+      "Bash(python3 -c \"import json; d=json.load\\(open\\(''migration-data.json''\\)\\); print\\(f''{len\\(d\\)} entries''\\) if isinstance\\(d, list\\) else print\\(f''{len\\(d\\)} classes, {sum\\(len\\(v\\) for v in d.values\\(\\)\\)} properties''\\)\")",
+      "Bash(rm -rf /tmp/test-clone-parent)",
+      "Bash(git clone:*)",
+      "Bash(git rm:*)"
     ]
   }
 }
