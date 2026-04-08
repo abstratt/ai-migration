@@ -35,11 +35,12 @@
    - Skips comment lines and method declarations
    - Skips Category B for test source directories (too many generic-name false positives)
    - Skips common Task-only accessors like `setDescription`, `setGroup` (not lazy-migrated in Gradle 10)
+   - Annotates each hit with `[CONFIRMED: ClassName]` when a relevant Gradle type is found in the file's imports, or `[unconfirmed - check type]` when no import match was found
 
    **Review each hit** and decide if it is a real migration site:
-   - A hit is real when the receiver object is a Gradle API type listed in the `class` or `also_known_as` of the matched entry.
-   - Common false positives: the accessor name matches a Gradle API property but is called on a non-Gradle type (e.g. `ZipEntry.getName()`, `Project.setVersion()`, a custom task with its own setter).
-   - When in doubt, check the import statements and variable type at the call site.
+   - **`[CONFIRMED]` hits**: the file imports a Gradle API type that owns the property. Almost always real — fix them. The only exception is if the method name is called on a *different* local variable of a non-Gradle type (check the receiver at the call site).
+   - **`[unconfirmed]` hits**: no import match found. Likely false positives, but still check: the type might be used via a static import, an inner class, or accessed through a method call chain (e.g. `task.getOptions().setEncoding(...)`). If the receiver is clearly a non-Gradle type (e.g. `ZipOutputStream`, `Project.setVersion()`, a custom POJO), skip it.
+   - When in doubt, check the import statements and the declared type of the receiver variable.
 
 3. **Apply transformations** by looking up each real hit in `migration-data.json` to get its `kind`, then applying the corresponding rule from `MIGRATION_RULES.md`:
    - Prefer lazy wiring (`taskB.foo.set(taskA.foo)`) over eagerly resolving values

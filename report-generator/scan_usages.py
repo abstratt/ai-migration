@@ -177,6 +177,40 @@ def find_files(root: Path) -> tuple[list[Path], set[Path], set[Path]]:
 # Single-pass file scanner
 # ------------------------------------------------------------------
 
+IMPORT_RE = re.compile(r"^\s*import\s+(org\.gradle[\w.]+)")
+
+
+def extract_gradle_imports(lines: list[str]) -> set[str]:
+    """Return set of fully-qualified org.gradle class names imported by the file."""
+    imports = set()
+    for line in lines:
+        m = IMPORT_RE.match(line)
+        if m:
+            imports.add(m.group(1).rstrip(";"))
+    return imports
+
+
+def confirmed_classes(entries: list[dict], gradle_imports: set[str]) -> list[str]:
+    """
+    Return simple class names from the entries whose FQN (or that of a
+    known_also_as subtype) appears in the file's gradle imports.
+
+    An empty list means no import match was found — hit is likely a
+    false positive, but still show it for human review.
+    """
+    confirmed = []
+    for e in entries:
+        cls = e["class"]
+        candidates = [cls] + e.get("also_known_as", [])
+        for c in candidates:
+            if c in gradle_imports:
+                simple = cls.rsplit(".", 1)[-1]
+                if simple not in confirmed:
+                    confirmed.append(simple)
+                break
+    return confirmed
+
+
 def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
               removed_accessors, getter_names, dsl_props,
               is_dsl: bool, is_test: bool = False):
@@ -188,6 +222,7 @@ def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
         return hits_a, hits_b, hits_c
 
     lines = content.splitlines()
+    gradle_imports = extract_gradle_imports(lines) if not is_dsl else set()
 
     for lineno, line in enumerate(lines, 1):
         stripped = line.rstrip()
@@ -204,6 +239,7 @@ def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
                     continue
                 entries = removed_accessors.get(name, [])
                 if entries:
+                    confirmed = confirmed_classes(entries, gradle_imports)
                     hits_a.append({
                         "category": "A",
                         "file": path,
@@ -211,6 +247,7 @@ def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
                         "text": stripped,
                         "method": name,
                         "entries": entries,
+                        "confirmed": confirmed,
                     })
 
         # Category B: changed-return-type getters — skip declarations and test files
@@ -222,6 +259,7 @@ def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
                     after = line[m.end():]
                     if PROVIDER_CHAIN_RE.match(after):
                         continue  # already chained — ok
+                    confirmed = confirmed_classes(entries, gradle_imports)
                     hits_b.append({
                         "category": "B",
                         "file": path,
@@ -229,6 +267,7 @@ def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
                         "text": stripped,
                         "method": name,
                         "entries": entries,
+                        "confirmed": confirmed,
                     })
 
         # Category C: DSL operator mutations (only in DSL files)
@@ -244,6 +283,7 @@ def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
                         "text": stripped,
                         "method": name,
                         "entries": entries,
+                        "confirmed": [],  # DSL files don't have typed imports
                     })
 
     return hits_a, hits_b, hits_c
@@ -280,7 +320,11 @@ def print_hits(hits: list[dict], project_root: Path):
     for rel_path in sorted(by_file):
         print(f"\n  {rel_path}")
         for h in sorted(by_file[rel_path], key=lambda x: x["line"]):
+            confirmed = h.get("confirmed", [])
+            # Mark confirmed hits (import found) vs unconfirmed (possible false positive)
+            marker = f"[CONFIRMED: {', '.join(confirmed)}]" if confirmed else "[unconfirmed - check type]"
             print(f"    line {h['line']:4d}: {h['text'].strip()}")
+            print(f"             {marker}")
             print(f"             → {format_context(h['entries'])}")
 
 
