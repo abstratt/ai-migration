@@ -39,7 +39,8 @@
 
    **Review each hit** and decide if it is a real migration site:
    - **`[CONFIRMED]` hits**: the file imports a Gradle API type that owns the property. Almost always real — fix them. The only exception is if the method name is called on a *different* local variable of a non-Gradle type (check the receiver at the call site).
-   - **`[unconfirmed]` hits**: no import match found. Likely false positives, but still check: the type might be used via a static import, an inner class, or accessed through a method call chain (e.g. `task.getOptions().setEncoding(...)`). If the receiver is clearly a non-Gradle type (e.g. `ZipOutputStream`, `Project.setVersion()`, a custom POJO), skip it.
+   - **`[unconfirmed]` hits in production source** (`buildSrc/src/main/java/`, `build-plugin/...src/main/java/`): the type may be accessed through a method chain rather than imported directly (e.g. `compile.getOptions().setEncoding(...)` where `CompileOptions` is returned by `getOptions()` but not imported; `publication.pom((pom) -> pom.setPackaging(...))` where `MavenPom` is a lambda parameter). **Treat these as real** and apply the fix — unless you can positively identify the receiver as a non-Gradle type (check the variable declaration or method chain).
+   - **`[unconfirmed]` hits in test source or DSL files**: more likely to be false positives. Still check the receiver type before skipping.
    - When in doubt, check the import statements and the declared type of the receiver variable.
 
 3. **Apply transformations** by looking up each real hit in `migration-data.json` to get its `kind`, then applying the corresponding rule from `MIGRATION_RULES.md`:
