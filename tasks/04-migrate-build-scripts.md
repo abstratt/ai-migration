@@ -19,31 +19,29 @@
    - `report-generator/migration-data.json` — lookup table of every changed property (class, old type, new type, kind, removed accessors)
    - `report-generator/MIGRATION_RULES.md` — transformation rules for each property kind
 
-2. **Identify all files that need migration.** The scan must cover two categories:
+2. **Run the automated usage scanner** to get a comprehensive, pre-filtered list of every candidate change site:
 
-   **Build scripts** (Groovy/Kotlin DSL):
-   - `build.gradle`, `build.gradle.kts`
-   - `settings.gradle`, `settings.gradle.kts`
-   - Any `*.gradle` or `*.gradle.kts` files anywhere in the project
+   ```bash
+   python3 ../report-generator/scan_usages.py . 2>&1 | tee /tmp/scan-results.txt
+   ```
 
-   **Java/Kotlin/Groovy sources that use the Gradle API:**
-   - `buildSrc/` sources
-   - Convention plugins
-   - Any subproject whose source files import Gradle API types (e.g. `org.gradle.api.*`). These are typically Gradle plugins, custom tasks, or extensions shipped as part of the project (e.g. a `build-plugin/` or `gradle-plugin/` subproject)
+   The scanner produces three sections:
+   - **Cat-A** — removed accessors (`set*` / `is*` methods listed in `removed_accessors`)
+   - **Cat-B** — changed-return-type getters (`get<Prop>()` used without `.get()` / `.set(` / etc.)
+   - **Cat-C** — Groovy DSL operator mutations (`-=`, `+=`, `<<` on lazy `list`/`set`/`map` properties)
 
-   To find these, extract the class names from `migration-data.json` — both the `class` field **and** every entry in the `also_known_as` array (which lists public API subtypes that inherit the property, e.g. `Test` for `JavaForkOptions.maxHeapSize`, `MavenArtifactRepository` for `UrlArtifactRepository.url`) — and search all `*.java`, `*.kt`, `*.groovy`, `*.gradle`, and `*.gradle.kts` files for the three categories of usage described below.
+   The scanner already:
+   - Restricts Java/Kotlin/Groovy files to those that import `org.gradle` (avoids application code and Maven plugin false positives)
+   - Skips comment lines and method declarations
+   - Skips Category B for test source directories (too many generic-name false positives)
+   - Skips common Task-only accessors like `setDescription`, `setGroup` (not lazy-migrated in Gradle 10)
 
-   **Three categories of usage to search for:**
+   **Review each hit** and decide if it is a real migration site:
+   - A hit is real when the receiver object is a Gradle API type listed in the `class` or `also_known_as` of the matched entry.
+   - Common false positives: the accessor name matches a Gradle API property but is called on a non-Gradle type (e.g. `ZipEntry.getName()`, `Project.setVersion()`, a custom task with its own setter).
+   - When in doubt, check the import statements and variable type at the call site.
 
-   **A. Removed accessors** — search for every name listed in `removed_accessors` across all entries in `migration-data.json`. This includes:
-   - `set*` setters (e.g. `setClasspath`, `setArgs`, `setEncoding`)
-   - `is*` boolean getters (e.g. `isPreserveFileTimestamps`, `isFork`, `isEnabled`) — these are removed for `boolean` kind properties and replaced by `getX()` returning `Property<Boolean>`
-
-   **B. Getters whose return type changed** — for every entry in `migration-data.json`, derive the getter name as `get` + capitalised property name (e.g. `property: "args"` → `getArgs()`, `property: "metadataCharset"` → `getMetadataCharset()`). These getters are **not** listed in `removed_accessors` because the method name is unchanged, but their return type changes from `T` / `List<T>` / `Set<T>` etc. to `Property<T>` / `ListProperty<T>` / `SetProperty<T>` etc. Search for these getter names and flag every site where the result is used as the old type — i.e. where the call is **not** immediately chained with a `Property` API method such as `.get()`, `.set(`, `.from(`, `.add(`, `.addAll(`, `.isPresent()`, `.map(`, `.flatMap(`, or `.orElse(`.
-
-   **C. Groovy DSL bare property access** — in `*.gradle` and `*.gradle.kts` files, Groovy/Kotlin DSL can access properties without `get`/`set` prefixes, and list/set properties can be mutated with operators. For every `list`, `set`, or `map` kind entry in `migration-data.json`, search `*.gradle` / `*.gradle.kts` files for the bare property name (e.g. `compilerArgs`, `jvmArgs`, `links`) and check for operator-style mutations (`-=`, `+=`, `<<`) which no longer work on lazy `ListProperty` / `SetProperty` / `MapProperty`.
-
-3. **Apply transformations** by looking up each usage in `migration-data.json` to get its `kind`, then applying the corresponding rule from `MIGRATION_RULES.md`:
+3. **Apply transformations** by looking up each real hit in `migration-data.json` to get its `kind`, then applying the corresponding rule from `MIGRATION_RULES.md`:
    - Prefer lazy wiring (`taskB.foo.set(taskA.foo)`) over eagerly resolving values
    - Use `.get()` only when the resolved value is needed (e.g., passing to an API that does not accept `Provider`)
    - Add a code comment explaining the reason for each non-trivial change
