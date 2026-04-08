@@ -14,7 +14,7 @@
 
 ## Instructions
 
-Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) under the root of this repository (the ai-migration directory, not the clone directory) containing:
+Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) under the `migrated/` directory of this repository (i.e. alongside the clone directory, not at the repo root — `migrated/` is `.gitignore`d so reports are never committed) containing:
 
 1. **Summary**: The repository, its migration status (migrated, skipped, failed), and the local branch name
 
@@ -26,4 +26,4 @@ Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) under the
 
 ## Done when
 
-- `REPORT-<YYYYMMDD-HHMM>.md` exists with accurate content reflecting the migration outcome
+- `migrated/REPORT-<YYYYMMDD-HHMM>.md` exists with accurate content reflecting the migration outcome
