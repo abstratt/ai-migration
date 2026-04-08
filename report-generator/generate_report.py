@@ -7,6 +7,69 @@ import re
 import sys
 from collections import OrderedDict
 
+def build_hierarchy(filepath):
+    """Parse hierarchy-v2.txt to build a type hierarchy of all public API classes.
+
+    Each line is a javap class declaration like:
+      public abstract class org.gradle.api.tasks.testing.Test extends org.gradle.api.tasks.testing.AbstractTestTask {
+      public interface org.gradle.api.artifacts.repositories.MavenArtifactRepository extends org.gradle.api.artifacts.repositories.ArtifactRepository,org.gradle.api.artifacts.repositories.UrlArtifactRepository {
+
+    Returns:
+      parents: {class_fqn: set(direct_supertype_fqns)}
+      children: {class_fqn: set(direct_subtype_fqns)}  (inverted graph)
+    """
+    parents = {}   # class -> set of direct supertypes
+    children = {}  # class -> set of direct subtypes
+
+    with open(filepath) as f:
+        for line in f:
+            line = line.strip().rstrip('{').strip()
+            if not line:
+                continue
+
+            # Extract the class/interface name
+            # Pattern: public [abstract|final] (class|interface) FQCN [extends X] [implements Y,Z]
+            m = re.match(
+                r'public\s+(?:abstract\s+|final\s+)*(?:class|interface)\s+'
+                r'([\w.]+)'
+                r'(?:\s+extends\s+([\w.,\s<>?]+?))?'
+                r'(?:\s+implements\s+([\w.,\s<>?]+?))?$',
+                line
+            )
+            if not m:
+                continue
+
+            cls = m.group(1)
+            supertypes = set()
+
+            for group in (m.group(2), m.group(3)):
+                if group:
+                    for t in group.split(','):
+                        t = t.strip()
+                        # Strip generic params for hierarchy purposes
+                        t = re.sub(r'<.*>', '', t)
+                        if t and t.startswith('org.gradle.'):
+                            supertypes.add(t)
+
+            parents[cls] = supertypes
+            for sup in supertypes:
+                children.setdefault(sup, set()).add(cls)
+
+    return parents, children
+
+
+def find_all_subtypes(cls, children_map):
+    """Walk the children graph transitively to find all subtypes of cls."""
+    result = set()
+    queue = list(children_map.get(cls, []))
+    while queue:
+        child = queue.pop()
+        if child not in result:
+            result.add(child)
+            queue.extend(children_map.get(child, []))
+    return result
+
+
 def parse_simple_javap(filepath):
     """Parse simple javap output (javap -public) to get method signatures per class."""
     with open(filepath) as f:
@@ -22,7 +85,7 @@ def parse_simple_javap(filepath):
         if not class_name:
             continue
 
-        for version in ("G94", "G10"):
+        for version in ("BASE", "G10"):
             marker = f"--- {version} ---"
             start = body.find(marker)
             if start == -1:
@@ -176,6 +239,7 @@ def infer_eager_type(g10_type, original_type_override):
     return t
 
 
+
 def property_name_from_getter(getter_name):
     """Convert getXxx to xxx."""
     if getter_name.startswith("get") and len(getter_name) > 3:
@@ -189,6 +253,14 @@ def main():
     comparison = parse_simple_javap(os.path.join(script_dir, 'comparison-v2.txt'))
     annotated = find_annotated_methods(os.path.join(script_dir, 'g10-javap-v2.txt'))
 
+    # Load class hierarchy for also_known_as computation
+    hierarchy_path = os.path.join(script_dir, 'hierarchy-v2.txt')
+    if os.path.exists(hierarchy_path):
+        _parents, children_map = build_hierarchy(hierarchy_path)
+    else:
+        _parents, children_map = {}, {}
+        print("WARNING: hierarchy-v2.txt not found, also_known_as will be empty. Run extract_data.sh first.", file=sys.stderr)
+
     sorted_classes = sorted(annotated.keys())
 
     # Collect all entries for the report
@@ -196,16 +268,16 @@ def main():
 
     for cls in sorted_classes:
         ann_methods = annotated[cls]
-        g94_meths = comparison.get((cls, "G94"), [])
+        base_meths = comparison.get((cls, "BASE"), [])
         g10_meths = comparison.get((cls, "G10"), [])
 
-        # Build lookup by name for G94 and G10
-        g94_by_name = {}
-        for m in g94_meths:
+        # Build lookup by name for both versions
+        base_by_name = {}
+        for m in base_meths:
             key = m['name']
-            if key not in g94_by_name:
-                g94_by_name[key] = []
-            g94_by_name[key].append(m)
+            if key not in base_by_name:
+                base_by_name[key] = []
+            base_by_name[key].append(m)
 
         g10_by_name = {}
         for m in g10_meths:
@@ -228,24 +300,24 @@ def main():
 
             g10_simple = simplify(g10_type)
 
-            # G94 type
-            g94_type = None
-            for m in g94_by_name.get(method_name, []):
+            # baseline type
+            base_type = None
+            for m in base_by_name.get(method_name, []):
                 if not m['params']:
-                    g94_type = m['return_type']
+                    base_type = m['return_type']
                     break
 
             # Check is* variant for booleans
-            if g94_type is None and method_name.startswith("get"):
+            if base_type is None and method_name.startswith("get"):
                 prop = method_name[3:]
                 is_name = f"is{prop}"
-                for m in g94_by_name.get(is_name, []):
+                for m in base_by_name.get(is_name, []):
                     if not m['params']:
-                        g94_type = m['return_type']
+                        base_type = m['return_type']
                         break
 
             eager_type = infer_eager_type(g10_type, original_type)
-            g94_simple = simplify(g94_type) if g94_type else eager_type
+            base_simple = simplify(base_type) if base_type else eager_type
 
             # Find removed accessors
             removed = []
@@ -253,12 +325,12 @@ def main():
                 prop = method_name[3:]
                 # Check setters
                 setter_name = f"set{prop}"
-                if setter_name in g94_by_name and setter_name not in g10_by_name:
-                    for m in g94_by_name[setter_name]:
+                if setter_name in base_by_name and setter_name not in g10_by_name:
+                    for m in base_by_name[setter_name]:
                         removed.append(f"`{setter_name}({simplify(m['params'])})`")
                 # Check is* getter
                 is_name = f"is{prop}"
-                if is_name in g94_by_name and is_name not in g10_by_name:
+                if is_name in base_by_name and is_name not in g10_by_name:
                     removed.append(f"`{is_name}()`")
 
             removed_str = ", ".join(removed) if removed else ""
@@ -266,7 +338,7 @@ def main():
             entries.append({
                 'method': method_name,
                 'prop': property_name_from_getter(method_name),
-                'g94': g94_simple,
+                'base': base_simple,
                 'g10': g10_simple,
                 'removed': removed_str,
             })
@@ -279,7 +351,7 @@ def main():
 
     def classify_kind(e):
         g10 = e['g10']
-        g94 = e['g94']
+        base = e["base"]
         if g10.startswith('Provider<'):
             return 'read_only'
         if g10 == 'DirectoryProperty':
@@ -294,9 +366,9 @@ def main():
             return 'set'
         if 'MapProperty' in g10:
             return 'map'
-        if g94 == 'boolean':
+        if base == 'boolean':
             return 'boolean'
-        if g94 in ('String', 'int', 'long'):
+        if base in ('String', 'int', 'long'):
             return 'scalar'
         return 'other'
 
@@ -304,17 +376,24 @@ def main():
         """Strip markdown backticks from removed accessor strings."""
         return [s.strip().strip('`') for s in removed_str.split(',') if s.strip()] if removed_str else []
 
+    # Precompute subtypes for each annotated class (public API only, exclude internal)
+    subtypes_cache = {}
+    for cls in sorted_classes:
+        all_subs = find_all_subtypes(cls, children_map)
+        subtypes_cache[cls] = sorted(s for s in all_subs if '.internal.' not in s)
+
     json_entries = []
     for cls, entries in all_entries:
         for e in entries:
             json_entries.append({
                 'class': cls,
                 'property': e['prop'],
-                'old_type': e['g94'],
+                'old_type': e["base"],
                 'new_type': e['g10'],
                 'kind': classify_kind(e),
                 'read_only': e['g10'].startswith('Provider<'),
                 'removed_accessors': clean_removed(e['removed']),
+                'also_known_as': subtypes_cache.get(cls, []),
             })
 
     json_path = os.path.join(script_dir, 'migration-data.json')
@@ -409,7 +488,7 @@ def main():
         print("|----------|----------------|----------------|-------------------|")
         for e in entries:
             removed = e['removed'] if e['removed'] else "—"
-            print(f"| `{e['prop']}` | `{e['g94']}` | `{e['g10']}` | {removed} |")
+            print(f"| `{e['prop']}` | `{e["base"]}` | `{e['g10']}` | {removed} |")
         print()
 
         # Generate migration examples: one per property-type category, concise
@@ -433,8 +512,8 @@ def main():
                 others = [e['prop'] for e in matches[1:]]
                 categories.append((rep, others, key))
 
-        categorize(lambda e: e['g94'] == 'boolean', 'boolean')
-        categorize(lambda e: e['g94'] in ('String', 'int', 'long') and 'Property<' in e['g10'], 'scalar')
+        categorize(lambda e: e["base"] == 'boolean', 'boolean')
+        categorize(lambda e: e["base"] in ('String', 'int', 'long') and 'Property<' in e['g10'], 'scalar')
         categorize(lambda e: e['g10'] == 'DirectoryProperty', 'dir')
         categorize(lambda e: e['g10'] == 'RegularFileProperty', 'file')
         categorize(lambda e: e['g10'] == 'ConfigurableFileCollection', 'filecoll')
@@ -455,7 +534,7 @@ def main():
                 print(f"task.{prop}.set(true){also}")
                 print(f"task.{prop}.set(otherTask.{prop})  // lazy wiring")
             elif cat == 'scalar':
-                eager_val = '"value"' if rep['g94'] == 'String' else '4'
+                eager_val = '"value"' if rep['base'] == 'String' else '4'
                 print(f'task.{prop}.set({eager_val}){also}')
                 print(f'task.{prop}.set(provider {{ computeValue() }})')
                 print(f'task.{prop}.set(otherTask.{prop})  // lazy wiring')

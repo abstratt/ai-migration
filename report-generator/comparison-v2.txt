@@ -1,5 +1,5 @@
 ########## org.gradle.api.artifacts.repositories.MavenArtifactRepository ##########
---- G94 ---
+--- BASE ---
 Compiled from "MavenArtifactRepository.java"
 public interface org.gradle.api.artifacts.repositories.MavenArtifactRepository extends org.gradle.api.artifacts.repositories.ArtifactRepository,org.gradle.api.artifacts.repositories.UrlArtifactRepository,org.gradle.api.artifacts.repositories.AuthenticationSupported,org.gradle.api.artifacts.repositories.MetadataSupplierAware {
   public abstract java.net.URI getUrl();
@@ -26,7 +26,7 @@ public interface org.gradle.api.artifacts.repositories.MavenArtifactRepository e
 }
 
 ########## org.gradle.api.artifacts.repositories.UrlArtifactRepository ##########
---- G94 ---
+--- BASE ---
 Compiled from "UrlArtifactRepository.java"
 public interface org.gradle.api.artifacts.repositories.UrlArtifactRepository {
   public abstract java.net.URI getUrl();
@@ -47,7 +47,7 @@ public interface org.gradle.api.artifacts.repositories.UrlArtifactRepository {
 }
 
 ########## org.gradle.api.file.DeleteSpec ##########
---- G94 ---
+--- BASE ---
 Compiled from "DeleteSpec.java"
 public interface org.gradle.api.file.DeleteSpec {
   public abstract org.gradle.api.file.DeleteSpec delete(java.lang.Object...);
@@ -61,7 +61,7 @@ public interface org.gradle.api.file.DeleteSpec {
 }
 
 ########## org.gradle.api.internal.tasks.testing.filter.DefaultTestFilter ##########
---- G94 ---
+--- BASE ---
 Compiled from "DefaultTestFilter.java"
 public class org.gradle.api.internal.tasks.testing.filter.DefaultTestFilter implements org.gradle.api.tasks.testing.TestFilter {
   public org.gradle.api.internal.tasks.testing.filter.DefaultTestFilter();
@@ -99,7 +99,7 @@ public abstract class org.gradle.api.internal.tasks.testing.filter.DefaultTestFi
 }
 
 ########## org.gradle.api.plugins.JavaApplication ##########
---- G94 ---
+--- BASE ---
 Compiled from "JavaApplication.java"
 public interface org.gradle.api.plugins.JavaApplication {
   public abstract java.lang.String getApplicationName();
@@ -126,7 +126,7 @@ public interface org.gradle.api.plugins.JavaApplication {
 }
 
 ########## org.gradle.api.plugins.antlr.AntlrTask ##########
---- G94 ---
+--- BASE ---
 Compiled from "AntlrTask.java"
 public abstract class org.gradle.api.plugins.antlr.AntlrTask extends org.gradle.api.tasks.SourceTask {
   public org.gradle.api.plugins.antlr.AntlrTask();
@@ -175,7 +175,7 @@ public abstract class org.gradle.api.plugins.antlr.AntlrTask extends org.gradle.
 }
 
 ########## org.gradle.api.plugins.quality.Checkstyle ##########
---- G94 ---
+--- BASE ---
 Compiled from "Checkstyle.java"
 public abstract class org.gradle.api.plugins.quality.Checkstyle extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.CheckstyleReports> {
   public org.gradle.api.plugins.quality.Checkstyle();
@@ -236,7 +236,7 @@ public abstract class org.gradle.api.plugins.quality.Checkstyle extends org.grad
 }
 
 ########## org.gradle.api.plugins.quality.CheckstyleExtension ##########
---- G94 ---
+--- BASE ---
 Compiled from "CheckstyleExtension.java"
 public abstract class org.gradle.api.plugins.quality.CheckstyleExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
   public org.gradle.api.plugins.quality.CheckstyleExtension(org.gradle.api.Project);
@@ -273,7 +273,7 @@ public abstract class org.gradle.api.plugins.quality.CheckstyleExtension extends
 }
 
 ########## org.gradle.api.plugins.quality.CodeNarc ##########
---- G94 ---
+--- BASE ---
 Compiled from "CodeNarc.java"
 public abstract class org.gradle.api.plugins.quality.CodeNarc extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.CodeNarcReports> {
   public org.gradle.api.plugins.quality.CodeNarc();
@@ -324,7 +324,7 @@ public abstract class org.gradle.api.plugins.quality.CodeNarc extends org.gradle
 }
 
 ########## org.gradle.api.plugins.quality.CodeNarcExtension ##########
---- G94 ---
+--- BASE ---
 Compiled from "CodeNarcExtension.java"
 public abstract class org.gradle.api.plugins.quality.CodeNarcExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
   public org.gradle.api.plugins.quality.CodeNarcExtension(org.gradle.api.Project);
@@ -356,7 +356,7 @@ public abstract class org.gradle.api.plugins.quality.CodeNarcExtension extends o
 }
 
 ########## org.gradle.api.plugins.quality.CodeQualityExtension ##########
---- G94 ---
+--- BASE ---
 Compiled from "CodeQualityExtension.java"
 public abstract class org.gradle.api.plugins.quality.CodeQualityExtension {
   public org.gradle.api.plugins.quality.CodeQualityExtension();
@@ -381,7 +381,7 @@ public abstract class org.gradle.api.plugins.quality.CodeQualityExtension {
 }
 
 ########## org.gradle.api.plugins.quality.Pmd ##########
---- G94 ---
+--- BASE ---
 Compiled from "Pmd.java"
 public abstract class org.gradle.api.plugins.quality.Pmd extends org.gradle.api.plugins.quality.AbstractCodeQualityTask implements org.gradle.api.reporting.Reporting<org.gradle.api.plugins.quality.PmdReports> {
   public org.gradle.api.plugins.quality.Pmd();
@@ -446,7 +446,7 @@ public abstract class org.gradle.api.plugins.quality.Pmd extends org.gradle.api.
 }
 
 ########## org.gradle.api.plugins.quality.PmdExtension ##########
---- G94 ---
+--- BASE ---
 Compiled from "PmdExtension.java"
 public abstract class org.gradle.api.plugins.quality.PmdExtension extends org.gradle.api.plugins.quality.CodeQualityExtension {
   public org.gradle.api.plugins.quality.PmdExtension(org.gradle.api.Project);
@@ -488,7 +488,7 @@ public abstract class org.gradle.api.plugins.quality.PmdExtension extends org.gr
 }
 
 ########## org.gradle.api.publish.PublicationArtifact ##########
---- G94 ---
+--- BASE ---
 Compiled from "PublicationArtifact.java"
 public interface org.gradle.api.publish.PublicationArtifact extends org.gradle.api.Buildable {
   public abstract java.io.File getFile();
@@ -502,7 +502,7 @@ public interface org.gradle.api.publish.PublicationArtifact extends org.gradle.a
 }
 
 ########## org.gradle.api.publish.ivy.IvyArtifact ##########
---- G94 ---
+--- BASE ---
 Compiled from "IvyArtifact.java"
 public interface org.gradle.api.publish.ivy.IvyArtifact extends org.gradle.api.publish.PublicationArtifact {
   public abstract java.lang.String getName();
@@ -527,7 +527,7 @@ public interface org.gradle.api.publish.ivy.IvyArtifact extends org.gradle.api.p
 }
 
 ########## org.gradle.api.publish.ivy.IvyModuleDescriptorSpec ##########
---- G94 ---
+--- BASE ---
 Compiled from "IvyModuleDescriptorSpec.java"
 public interface org.gradle.api.publish.ivy.IvyModuleDescriptorSpec {
   public abstract void withXml(org.gradle.api.Action<? super org.gradle.api.XmlProvider>);
@@ -555,7 +555,7 @@ public interface org.gradle.api.publish.ivy.IvyModuleDescriptorSpec {
 }
 
 ########## org.gradle.api.publish.ivy.IvyPublication ##########
---- G94 ---
+--- BASE ---
 Compiled from "IvyPublication.java"
 public interface org.gradle.api.publish.ivy.IvyPublication extends org.gradle.api.publish.Publication {
   public abstract org.gradle.api.publish.ivy.IvyModuleDescriptorSpec getDescriptor();
@@ -598,7 +598,7 @@ public interface org.gradle.api.publish.ivy.IvyPublication extends org.gradle.ap
 }
 
 ########## org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor ##########
---- G94 ---
+--- BASE ---
 Compiled from "GenerateIvyDescriptor.java"
 public abstract class org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor extends org.gradle.api.DefaultTask {
   public org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor();
@@ -620,7 +620,7 @@ public abstract class org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor ext
 }
 
 ########## org.gradle.api.publish.maven.MavenArtifact ##########
---- G94 ---
+--- BASE ---
 Compiled from "MavenArtifact.java"
 public interface org.gradle.api.publish.maven.MavenArtifact extends org.gradle.api.publish.PublicationArtifact {
   public abstract java.lang.String getExtension();
@@ -636,7 +636,7 @@ public interface org.gradle.api.publish.maven.MavenArtifact extends org.gradle.a
 }
 
 ########## org.gradle.api.publish.maven.MavenPom ##########
---- G94 ---
+--- BASE ---
 Compiled from "MavenPom.java"
 public interface org.gradle.api.publish.maven.MavenPom {
   public abstract java.lang.String getPackaging();
@@ -679,7 +679,7 @@ public interface org.gradle.api.publish.maven.MavenPom {
 }
 
 ########## org.gradle.api.publish.maven.MavenPublication ##########
---- G94 ---
+--- BASE ---
 Compiled from "MavenPublication.java"
 public interface org.gradle.api.publish.maven.MavenPublication extends org.gradle.api.publish.Publication {
   public abstract org.gradle.api.publish.maven.MavenPom getPom();
@@ -718,7 +718,7 @@ public interface org.gradle.api.publish.maven.MavenPublication extends org.gradl
 }
 
 ########## org.gradle.api.publish.maven.tasks.GenerateMavenPom ##########
---- G94 ---
+--- BASE ---
 Compiled from "GenerateMavenPom.java"
 public abstract class org.gradle.api.publish.maven.tasks.GenerateMavenPom extends org.gradle.api.DefaultTask {
   public org.gradle.api.publish.maven.tasks.GenerateMavenPom();
@@ -740,7 +740,7 @@ public abstract class org.gradle.api.publish.maven.tasks.GenerateMavenPom extend
 }
 
 ########## org.gradle.api.tasks.AbstractExecTask ##########
---- G94 ---
+--- BASE ---
 Compiled from "AbstractExecTask.java"
 public abstract class org.gradle.api.tasks.AbstractExecTask<T extends org.gradle.api.tasks.AbstractExecTask> extends org.gradle.api.internal.ConventionTask implements org.gradle.process.ExecSpec {
   public org.gradle.api.tasks.AbstractExecTask(java.lang.Class<T>);
@@ -831,7 +831,7 @@ public abstract class org.gradle.api.tasks.AbstractExecTask<T extends org.gradle
 }
 
 ########## org.gradle.api.tasks.Delete ##########
---- G94 ---
+--- BASE ---
 Compiled from "Delete.java"
 public abstract class org.gradle.api.tasks.Delete extends org.gradle.api.internal.ConventionTask implements org.gradle.api.file.DeleteSpec {
   public org.gradle.api.tasks.Delete();
@@ -858,7 +858,7 @@ public abstract class org.gradle.api.tasks.Delete extends org.gradle.api.interna
 }
 
 ########## org.gradle.api.tasks.Exec ##########
---- G94 ---
+--- BASE ---
 Compiled from "Exec.java"
 public abstract class org.gradle.api.tasks.Exec extends org.gradle.api.tasks.AbstractExecTask<org.gradle.api.tasks.Exec> {
   public org.gradle.api.tasks.Exec();
@@ -898,7 +898,7 @@ public abstract class org.gradle.api.tasks.Exec extends org.gradle.api.tasks.Abs
 }
 
 ########## org.gradle.api.tasks.JavaExec ##########
---- G94 ---
+--- BASE ---
 Compiled from "JavaExec.java"
 public abstract class org.gradle.api.tasks.JavaExec extends org.gradle.api.internal.ConventionTask implements org.gradle.process.JavaExecSpec {
   public org.gradle.api.tasks.JavaExec();
@@ -1059,7 +1059,7 @@ public abstract class org.gradle.api.tasks.JavaExec extends org.gradle.api.inter
 }
 
 ########## org.gradle.api.tasks.WriteProperties ##########
---- G94 ---
+--- BASE ---
 Compiled from "WriteProperties.java"
 public abstract class org.gradle.api.tasks.WriteProperties extends org.gradle.api.DefaultTask {
   public org.gradle.api.tasks.WriteProperties();
@@ -1092,7 +1092,7 @@ public abstract class org.gradle.api.tasks.WriteProperties extends org.gradle.ap
 }
 
 ########## org.gradle.api.tasks.ant.AntTarget ##########
---- G94 ---
+--- BASE ---
 Compiled from "AntTarget.java"
 public abstract class org.gradle.api.tasks.ant.AntTarget extends org.gradle.api.internal.ConventionTask {
   public org.gradle.api.tasks.ant.AntTarget();
@@ -1114,7 +1114,7 @@ public abstract class org.gradle.api.tasks.ant.AntTarget extends org.gradle.api.
 }
 
 ########## org.gradle.api.tasks.bundling.AbstractArchiveTask ##########
---- G94 ---
+--- BASE ---
 Compiled from "AbstractArchiveTask.java"
 public abstract class org.gradle.api.tasks.bundling.AbstractArchiveTask extends org.gradle.api.tasks.AbstractCopyTask {
   public org.gradle.api.tasks.bundling.AbstractArchiveTask();
@@ -1168,7 +1168,7 @@ public abstract class org.gradle.api.tasks.bundling.AbstractArchiveTask extends 
 }
 
 ########## org.gradle.api.tasks.bundling.Tar ##########
---- G94 ---
+--- BASE ---
 Compiled from "Tar.java"
 public abstract class org.gradle.api.tasks.bundling.Tar extends org.gradle.api.tasks.bundling.AbstractArchiveTask {
   public org.gradle.api.tasks.bundling.Tar();
@@ -1183,7 +1183,7 @@ public abstract class org.gradle.api.tasks.bundling.Tar extends org.gradle.api.t
 }
 
 ########## org.gradle.api.tasks.bundling.War ##########
---- G94 ---
+--- BASE ---
 Compiled from "War.java"
 public abstract class org.gradle.api.tasks.bundling.War extends org.gradle.api.tasks.bundling.Jar {
   public static final java.lang.String WAR_EXTENSION;
@@ -1216,7 +1216,7 @@ public abstract class org.gradle.api.tasks.bundling.War extends org.gradle.api.t
 }
 
 ########## org.gradle.api.tasks.bundling.Zip ##########
---- G94 ---
+--- BASE ---
 Compiled from "Zip.java"
 public abstract class org.gradle.api.tasks.bundling.Zip extends org.gradle.api.tasks.bundling.AbstractArchiveTask {
   public static final java.lang.String ZIP_EXTENSION;
@@ -1240,7 +1240,7 @@ public abstract class org.gradle.api.tasks.bundling.Zip extends org.gradle.api.t
 }
 
 ########## org.gradle.api.tasks.compile.AbstractCompile ##########
---- G94 ---
+--- BASE ---
 Compiled from "AbstractCompile.java"
 public abstract class org.gradle.api.tasks.compile.AbstractCompile extends org.gradle.api.tasks.SourceTask {
   public org.gradle.api.tasks.compile.AbstractCompile();
@@ -1265,7 +1265,7 @@ public abstract class org.gradle.api.tasks.compile.AbstractCompile extends org.g
 }
 
 ########## org.gradle.api.tasks.compile.BaseForkOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "BaseForkOptions.java"
 public class org.gradle.api.tasks.compile.BaseForkOptions implements java.io.Serializable {
   public org.gradle.api.tasks.compile.BaseForkOptions();
@@ -1286,7 +1286,7 @@ public abstract class org.gradle.api.tasks.compile.BaseForkOptions implements ja
 }
 
 ########## org.gradle.api.tasks.compile.CompileOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "CompileOptions.java"
 public abstract class org.gradle.api.tasks.compile.CompileOptions implements java.io.Serializable {
   public org.gradle.api.tasks.compile.CompileOptions(org.gradle.api.model.ObjectFactory);
@@ -1372,7 +1372,7 @@ public abstract class org.gradle.api.tasks.compile.CompileOptions implements jav
 }
 
 ########## org.gradle.api.tasks.compile.DebugOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "DebugOptions.java"
 public class org.gradle.api.tasks.compile.DebugOptions implements java.io.Serializable {
   public org.gradle.api.tasks.compile.DebugOptions();
@@ -1387,7 +1387,7 @@ public abstract class org.gradle.api.tasks.compile.DebugOptions implements java.
 }
 
 ########## org.gradle.api.tasks.compile.ForkOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "ForkOptions.java"
 public abstract class org.gradle.api.tasks.compile.ForkOptions extends org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions {
   public org.gradle.api.tasks.compile.ForkOptions();
@@ -1409,7 +1409,7 @@ public abstract class org.gradle.api.tasks.compile.ForkOptions extends org.gradl
 }
 
 ########## org.gradle.api.tasks.compile.GroovyCompile ##########
---- G94 ---
+--- BASE ---
 Compiled from "GroovyCompile.java"
 public abstract class org.gradle.api.tasks.compile.GroovyCompile extends org.gradle.api.tasks.compile.AbstractCompile implements org.gradle.api.internal.tasks.compile.HasCompileOptions {
   public org.gradle.api.tasks.compile.GroovyCompile();
@@ -1436,7 +1436,7 @@ public abstract class org.gradle.api.tasks.compile.GroovyCompile extends org.gra
 }
 
 ########## org.gradle.api.tasks.compile.GroovyCompileOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "GroovyCompileOptions.java"
 public abstract class org.gradle.api.tasks.compile.GroovyCompileOptions implements java.io.Serializable {
   public org.gradle.api.tasks.compile.GroovyCompileOptions();
@@ -1497,7 +1497,7 @@ public abstract class org.gradle.api.tasks.compile.GroovyCompileOptions implemen
 }
 
 ########## org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "ProviderAwareCompilerDaemonForkOptions.java"
 public class org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions extends org.gradle.api.tasks.compile.BaseForkOptions {
   public org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions();
@@ -1513,7 +1513,7 @@ public abstract class org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonFo
 }
 
 ########## org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask ##########
---- G94 ---
+--- BASE ---
 Compiled from "AbstractDependencyReportTask.java"
 public abstract class org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask extends org.gradle.api.tasks.diagnostics.AbstractProjectBasedReportTask<org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask$DependencyReportModel> {
   public org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask();
@@ -1535,7 +1535,7 @@ public abstract class org.gradle.api.tasks.diagnostics.AbstractDependencyReportT
 }
 
 ########## org.gradle.api.tasks.diagnostics.ConventionReportTask ##########
---- G94 ---
+--- BASE ---
 Compiled from "ConventionReportTask.java"
 public abstract class org.gradle.api.tasks.diagnostics.ConventionReportTask extends org.gradle.api.internal.ConventionTask {
   public org.gradle.api.file.DirectoryProperty getProjectReportDirectory();
@@ -1553,7 +1553,7 @@ public abstract class org.gradle.api.tasks.diagnostics.ConventionReportTask exte
 }
 
 ########## org.gradle.api.tasks.diagnostics.DependencyInsightReportTask ##########
---- G94 ---
+--- BASE ---
 Compiled from "DependencyInsightReportTask.java"
 public abstract class org.gradle.api.tasks.diagnostics.DependencyInsightReportTask extends org.gradle.api.DefaultTask {
   public org.gradle.api.tasks.diagnostics.DependencyInsightReportTask();
@@ -1586,7 +1586,7 @@ public abstract class org.gradle.api.tasks.diagnostics.DependencyInsightReportTa
 }
 
 ########## org.gradle.api.tasks.diagnostics.PropertyReportTask ##########
---- G94 ---
+--- BASE ---
 Compiled from "PropertyReportTask.java"
 public abstract class org.gradle.api.tasks.diagnostics.PropertyReportTask extends org.gradle.api.tasks.diagnostics.AbstractProjectBasedReportTask<org.gradle.api.tasks.diagnostics.PropertyReportTask$PropertyReportModel> {
   public org.gradle.api.tasks.diagnostics.PropertyReportTask();
@@ -1603,7 +1603,7 @@ public abstract class org.gradle.api.tasks.diagnostics.PropertyReportTask extend
 }
 
 ########## org.gradle.api.tasks.diagnostics.TaskReportTask ##########
---- G94 ---
+--- BASE ---
 Compiled from "TaskReportTask.java"
 public abstract class org.gradle.api.tasks.diagnostics.TaskReportTask extends org.gradle.api.tasks.diagnostics.ConventionReportTask {
   public org.gradle.api.tasks.diagnostics.TaskReportTask();
@@ -1630,7 +1630,7 @@ public abstract class org.gradle.api.tasks.diagnostics.TaskReportTask extends or
 }
 
 ########## org.gradle.api.tasks.javadoc.Groovydoc ##########
---- G94 ---
+--- BASE ---
 Compiled from "Groovydoc.java"
 public abstract class org.gradle.api.tasks.javadoc.Groovydoc extends org.gradle.api.tasks.SourceTask {
   public org.gradle.api.tasks.javadoc.Groovydoc();
@@ -1694,7 +1694,7 @@ public abstract class org.gradle.api.tasks.javadoc.Groovydoc extends org.gradle.
 }
 
 ########## org.gradle.api.tasks.javadoc.Javadoc ##########
---- G94 ---
+--- BASE ---
 Compiled from "Javadoc.java"
 public abstract class org.gradle.api.tasks.javadoc.Javadoc extends org.gradle.api.tasks.SourceTask {
   public org.gradle.api.tasks.javadoc.Javadoc();
@@ -1739,7 +1739,7 @@ public abstract class org.gradle.api.tasks.javadoc.Javadoc extends org.gradle.ap
 }
 
 ########## org.gradle.api.tasks.scala.ScalaCompile ##########
---- G94 ---
+--- BASE ---
 Compiled from "ScalaCompile.java"
 public abstract class org.gradle.api.tasks.scala.ScalaCompile extends org.gradle.language.scala.tasks.AbstractScalaCompile {
   public org.gradle.api.tasks.scala.ScalaCompile();
@@ -1766,7 +1766,7 @@ public abstract class org.gradle.api.tasks.scala.ScalaCompile extends org.gradle
 }
 
 ########## org.gradle.api.tasks.scala.ScalaDoc ##########
---- G94 ---
+--- BASE ---
 Compiled from "ScalaDoc.java"
 public abstract class org.gradle.api.tasks.scala.ScalaDoc extends org.gradle.api.tasks.SourceTask {
   public org.gradle.api.tasks.scala.ScalaDoc();
@@ -1802,7 +1802,7 @@ public abstract class org.gradle.api.tasks.scala.ScalaDoc extends org.gradle.api
 }
 
 ########## org.gradle.api.tasks.scala.ScalaDocOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "ScalaDocOptions.java"
 public abstract class org.gradle.api.tasks.scala.ScalaDocOptions implements java.io.Serializable {
   public org.gradle.api.tasks.scala.ScalaDocOptions();
@@ -1843,7 +1843,7 @@ public abstract class org.gradle.api.tasks.scala.ScalaDocOptions implements java
 }
 
 ########## org.gradle.api.tasks.testing.JUnitXmlReport ##########
---- G94 ---
+--- BASE ---
 Compiled from "JUnitXmlReport.java"
 public interface org.gradle.api.tasks.testing.JUnitXmlReport extends org.gradle.api.reporting.DirectoryReport {
   public abstract boolean isOutputPerTestCase();
@@ -1863,7 +1863,7 @@ public interface org.gradle.api.tasks.testing.JUnitXmlReport extends org.gradle.
 }
 
 ########## org.gradle.api.tasks.testing.Test ##########
---- G94 ---
+--- BASE ---
 Compiled from "Test.java"
 public abstract class org.gradle.api.tasks.testing.Test extends org.gradle.api.tasks.testing.AbstractTestTask implements org.gradle.process.JavaForkOptions,org.gradle.api.tasks.util.PatternFilterable {
   public org.gradle.api.tasks.testing.Test();
@@ -2076,7 +2076,7 @@ public abstract class org.gradle.api.tasks.testing.Test extends org.gradle.api.t
 }
 
 ########## org.gradle.api.tasks.testing.TestFilter ##########
---- G94 ---
+--- BASE ---
 Compiled from "TestFilter.java"
 public interface org.gradle.api.tasks.testing.TestFilter {
   public abstract org.gradle.api.tasks.testing.TestFilter includeTestsMatching(java.lang.String);
@@ -2104,7 +2104,7 @@ public interface org.gradle.api.tasks.testing.TestFilter {
 }
 
 ########## org.gradle.api.tasks.testing.TestReport ##########
---- G94 ---
+--- BASE ---
 Compiled from "TestReport.java"
 public abstract class org.gradle.api.tasks.testing.TestReport extends org.gradle.api.DefaultTask {
   public org.gradle.api.tasks.testing.TestReport();
@@ -2120,7 +2120,7 @@ public abstract class org.gradle.api.tasks.testing.TestReport extends org.gradle
 }
 
 ########## org.gradle.api.tasks.testing.junit.JUnitOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "JUnitOptions.java"
 public abstract class org.gradle.api.tasks.testing.junit.JUnitOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
   public org.gradle.api.tasks.testing.junit.JUnitOptions();
@@ -2144,7 +2144,7 @@ public abstract class org.gradle.api.tasks.testing.junit.JUnitOptions extends or
 }
 
 ########## org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "JUnitPlatformOptions.java"
 public abstract class org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
   public org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions();
@@ -2178,7 +2178,7 @@ public abstract class org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOp
 }
 
 ########## org.gradle.api.tasks.testing.logging.TestLogging ##########
---- G94 ---
+--- BASE ---
 Compiled from "TestLogging.java"
 public interface org.gradle.api.tasks.testing.logging.TestLogging {
   public abstract java.util.Set<org.gradle.api.tasks.testing.logging.TestLogEvent> getEvents();
@@ -2225,7 +2225,7 @@ public interface org.gradle.api.tasks.testing.logging.TestLogging {
 }
 
 ########## org.gradle.api.tasks.testing.testng.TestNGOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "TestNGOptions.java"
 public abstract class org.gradle.api.tasks.testing.testng.TestNGOptions extends org.gradle.api.tasks.testing.TestFrameworkOptions {
   public static final java.lang.String DEFAULT_CONFIG_FAILURE_POLICY;
@@ -2317,7 +2317,7 @@ public abstract class org.gradle.api.tasks.testing.testng.TestNGOptions extends 
 }
 
 ########## org.gradle.api.tasks.wrapper.Wrapper ##########
---- G94 ---
+--- BASE ---
 Compiled from "Wrapper.java"
 public abstract class org.gradle.api.tasks.wrapper.Wrapper extends org.gradle.api.DefaultTask {
   public static final java.lang.String DEFAULT_DISTRIBUTION_PARENT_NAME;
@@ -2373,7 +2373,7 @@ public abstract class org.gradle.api.tasks.wrapper.Wrapper extends org.gradle.ap
 }
 
 ########## org.gradle.buildinit.tasks.InitBuild ##########
---- G94 ---
+--- BASE ---
 Compiled from "InitBuild.java"
 public abstract class org.gradle.buildinit.tasks.InitBuild extends org.gradle.api.DefaultTask {
   public org.gradle.buildinit.tasks.InitBuild();
@@ -2425,7 +2425,7 @@ public abstract class org.gradle.buildinit.tasks.InitBuild extends org.gradle.ap
 }
 
 ########## org.gradle.caching.configuration.BuildCache ##########
---- G94 ---
+--- BASE ---
 Compiled from "BuildCache.java"
 public interface org.gradle.caching.configuration.BuildCache {
   public abstract boolean isEnabled();
@@ -2443,7 +2443,7 @@ public interface org.gradle.caching.configuration.BuildCache {
 }
 
 ########## org.gradle.caching.http.HttpBuildCache ##########
---- G94 ---
+--- BASE ---
 Compiled from "HttpBuildCache.java"
 public abstract class org.gradle.caching.http.HttpBuildCache extends org.gradle.caching.configuration.AbstractBuildCache {
   public org.gradle.caching.http.HttpBuildCache();
@@ -2477,7 +2477,7 @@ public abstract class org.gradle.caching.http.HttpBuildCache extends org.gradle.
 }
 
 ########## org.gradle.caching.local.DirectoryBuildCache ##########
---- G94 ---
+--- BASE ---
 Compiled from "DirectoryBuildCache.java"
 public abstract class org.gradle.caching.local.DirectoryBuildCache extends org.gradle.caching.configuration.AbstractBuildCache {
   public org.gradle.caching.local.DirectoryBuildCache();
@@ -2492,7 +2492,7 @@ public abstract class org.gradle.caching.local.DirectoryBuildCache extends org.g
 }
 
 ########## org.gradle.external.javadoc.MinimalJavadocOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "MinimalJavadocOptions.java"
 public interface org.gradle.external.javadoc.MinimalJavadocOptions {
   public abstract java.lang.String getOverview();
@@ -2619,7 +2619,7 @@ public interface org.gradle.external.javadoc.MinimalJavadocOptions {
 }
 
 ########## org.gradle.external.javadoc.StandardJavadocDocletOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "StandardJavadocDocletOptions.java"
 public class org.gradle.external.javadoc.StandardJavadocDocletOptions extends org.gradle.external.javadoc.CoreJavadocOptions implements org.gradle.external.javadoc.MinimalJavadocOptions {
   public final org.gradle.external.javadoc.JavadocOptionFileOption<java.lang.Boolean> noTimestamp;
@@ -2889,7 +2889,7 @@ public abstract class org.gradle.external.javadoc.StandardJavadocDocletOptions e
 }
 
 ########## org.gradle.internal.execution.model.annotations.ModifierAnnotationCategory ##########
---- G94 ---
+--- BASE ---
 Compiled from "ModifierAnnotationCategory.java"
 public final class org.gradle.internal.execution.model.annotations.ModifierAnnotationCategory extends java.lang.Enum<org.gradle.internal.execution.model.annotations.ModifierAnnotationCategory> implements org.gradle.internal.reflect.annotations.AnnotationCategory {
   public static final org.gradle.internal.execution.model.annotations.ModifierAnnotationCategory INCREMENTAL;
@@ -2921,7 +2921,7 @@ public final class org.gradle.internal.execution.model.annotations.ModifierAnnot
 }
 
 ########## org.gradle.internal.instrumentation.api.annotations.ReplacedAccessor ##########
---- G94 ---
+--- BASE ---
 Compiled from "ReplacedAccessor.java"
 public interface org.gradle.internal.instrumentation.api.annotations.ReplacedAccessor extends java.lang.annotation.Annotation {
   public abstract org.gradle.internal.instrumentation.api.annotations.ReplacedAccessor$AccessorType value();
@@ -2939,7 +2939,7 @@ public interface org.gradle.internal.instrumentation.api.annotations.ReplacedAcc
 }
 
 ########## org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty$BinaryCompatibility ##########
---- G94 ---
+--- BASE ---
 Compiled from "ReplacesEagerProperty.java"
 public final class org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty$BinaryCompatibility extends java.lang.Enum<org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty$BinaryCompatibility> {
   public static final org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty$BinaryCompatibility ACCESSORS_REMOVED;
@@ -2957,7 +2957,7 @@ public final class org.gradle.internal.instrumentation.api.annotations.ReplacesE
 }
 
 ########## org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty$DefaultValue ##########
---- G94 ---
+--- BASE ---
 Compiled from "ReplacesEagerProperty.java"
 public interface org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty$DefaultValue {
 }
@@ -2967,7 +2967,7 @@ public interface org.gradle.internal.instrumentation.api.annotations.ReplacesEag
 }
 
 ########## org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty ##########
---- G94 ---
+--- BASE ---
 Compiled from "ReplacesEagerProperty.java"
 public interface org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty extends java.lang.annotation.Annotation {
   public abstract java.lang.Class<?> originalType();
@@ -2989,7 +2989,7 @@ public interface org.gradle.internal.instrumentation.api.annotations.ReplacesEag
 }
 
 ########## org.gradle.internal.properties.annotations.NoOpPropertyAnnotationHandler ##########
---- G94 ---
+--- BASE ---
 Compiled from "NoOpPropertyAnnotationHandler.java"
 public class org.gradle.internal.properties.annotations.NoOpPropertyAnnotationHandler extends org.gradle.internal.properties.annotations.AbstractPropertyAnnotationHandler {
   public org.gradle.internal.properties.annotations.NoOpPropertyAnnotationHandler(java.lang.Class<? extends java.lang.annotation.Annotation>);
@@ -3005,7 +3005,7 @@ public class org.gradle.internal.properties.annotations.NoOpPropertyAnnotationHa
 }
 
 ########## org.gradle.internal.properties.bean.DefaultPropertyWalker$1 ##########
---- G94 ---
+--- BASE ---
 Compiled from "DefaultPropertyWalker.java"
 class org.gradle.internal.properties.bean.DefaultPropertyWalker$1 implements org.gradle.internal.properties.annotations.TypeMetadataWalker$InstanceMetadataVisitor {
   public void visitRoot(org.gradle.internal.properties.annotations.TypeMetadata, java.lang.Object);
@@ -3023,7 +3023,7 @@ class org.gradle.internal.properties.bean.DefaultPropertyWalker$1 implements org
 }
 
 ########## org.gradle.internal.service.scopes.ExecutionGlobalServices ##########
---- G94 ---
+--- BASE ---
 Compiled from "ExecutionGlobalServices.java"
 public class org.gradle.internal.service.scopes.ExecutionGlobalServices implements org.gradle.internal.service.ServiceRegistrationProvider {
   public static final com.google.common.collect.ImmutableSet<java.lang.Class<? extends java.lang.annotation.Annotation>> PROPERTY_TYPE_ANNOTATIONS;
@@ -3043,7 +3043,7 @@ public class org.gradle.internal.service.scopes.ExecutionGlobalServices implemen
 }
 
 ########## org.gradle.jvm.application.tasks.CreateStartScripts ##########
---- G94 ---
+--- BASE ---
 Compiled from "CreateStartScripts.java"
 public abstract class org.gradle.jvm.application.tasks.CreateStartScripts extends org.gradle.api.internal.ConventionTask {
   public org.gradle.jvm.application.tasks.CreateStartScripts();
@@ -3098,7 +3098,7 @@ public abstract class org.gradle.jvm.application.tasks.CreateStartScripts extend
 }
 
 ########## org.gradle.jvm.tasks.Jar ##########
---- G94 ---
+--- BASE ---
 Compiled from "Jar.java"
 public abstract class org.gradle.jvm.tasks.Jar extends org.gradle.api.tasks.bundling.Zip {
   public static final java.lang.String DEFAULT_EXTENSION;
@@ -3132,7 +3132,7 @@ public abstract class org.gradle.jvm.tasks.Jar extends org.gradle.api.tasks.bund
 }
 
 ########## org.gradle.language.scala.tasks.BaseScalaCompileOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "BaseScalaCompileOptions.java"
 public abstract class org.gradle.language.scala.tasks.BaseScalaCompileOptions implements java.io.Serializable {
   public org.gradle.language.scala.tasks.BaseScalaCompileOptions();
@@ -3193,7 +3193,7 @@ public abstract class org.gradle.language.scala.tasks.BaseScalaCompileOptions im
 }
 
 ########## org.gradle.plugin.devel.PluginDeclaration ##########
---- G94 ---
+--- BASE ---
 Compiled from "PluginDeclaration.java"
 public abstract class org.gradle.plugin.devel.PluginDeclaration implements org.gradle.api.Named {
   public org.gradle.plugin.devel.PluginDeclaration(java.lang.String);
@@ -3221,7 +3221,7 @@ public abstract class org.gradle.plugin.devel.PluginDeclaration implements org.g
 }
 
 ########## org.gradle.plugins.ear.Ear ##########
---- G94 ---
+--- BASE ---
 Compiled from "Ear.java"
 public abstract class org.gradle.plugins.ear.Ear extends org.gradle.api.tasks.bundling.Jar {
   public static final java.lang.String EAR_EXTENSION;
@@ -3256,7 +3256,7 @@ public abstract class org.gradle.plugins.ear.Ear extends org.gradle.api.tasks.bu
 }
 
 ########## org.gradle.plugins.ear.descriptor.DeploymentDescriptor ##########
---- G94 ---
+--- BASE ---
 Compiled from "DeploymentDescriptor.java"
 public interface org.gradle.plugins.ear.descriptor.DeploymentDescriptor {
   public abstract java.lang.String getFileName();
@@ -3321,7 +3321,7 @@ public interface org.gradle.plugins.ear.descriptor.DeploymentDescriptor {
 }
 
 ########## org.gradle.plugins.ear.descriptor.EarModule ##########
---- G94 ---
+--- BASE ---
 Compiled from "EarModule.java"
 public interface org.gradle.plugins.ear.descriptor.EarModule {
   public abstract java.lang.String getPath();
@@ -3339,7 +3339,7 @@ public interface org.gradle.plugins.ear.descriptor.EarModule {
 }
 
 ########## org.gradle.plugins.ear.descriptor.EarSecurityRole ##########
---- G94 ---
+--- BASE ---
 Compiled from "EarSecurityRole.java"
 public interface org.gradle.plugins.ear.descriptor.EarSecurityRole {
   public abstract java.lang.String getDescription();
@@ -3355,7 +3355,7 @@ public interface org.gradle.plugins.ear.descriptor.EarSecurityRole {
 }
 
 ########## org.gradle.plugins.ear.descriptor.EarWebModule ##########
---- G94 ---
+--- BASE ---
 Compiled from "EarWebModule.java"
 public interface org.gradle.plugins.ear.descriptor.EarWebModule extends org.gradle.plugins.ear.descriptor.EarModule {
   public abstract java.lang.String getContextRoot();
@@ -3368,7 +3368,7 @@ public interface org.gradle.plugins.ear.descriptor.EarWebModule extends org.grad
 }
 
 ########## org.gradle.process.BaseExecSpec ##########
---- G94 ---
+--- BASE ---
 Compiled from "BaseExecSpec.java"
 public interface org.gradle.process.BaseExecSpec extends org.gradle.process.ProcessForkOptions {
   public abstract org.gradle.process.BaseExecSpec setIgnoreExitValue(boolean);
@@ -3393,7 +3393,7 @@ public interface org.gradle.process.BaseExecSpec extends org.gradle.process.Proc
 }
 
 ########## org.gradle.process.ExecSpec ##########
---- G94 ---
+--- BASE ---
 Compiled from "ExecSpec.java"
 public interface org.gradle.process.ExecSpec extends org.gradle.process.BaseExecSpec {
   public abstract void setCommandLine(java.util.List<java.lang.String>);
@@ -3421,7 +3421,7 @@ public interface org.gradle.process.ExecSpec extends org.gradle.process.BaseExec
 }
 
 ########## org.gradle.process.JavaExecSpec ##########
---- G94 ---
+--- BASE ---
 Compiled from "JavaExecSpec.java"
 public interface org.gradle.process.JavaExecSpec extends org.gradle.process.JavaForkOptions,org.gradle.process.BaseExecSpec {
   public abstract org.gradle.api.provider.ListProperty<java.lang.String> getJvmArguments();
@@ -3454,7 +3454,7 @@ public interface org.gradle.process.JavaExecSpec extends org.gradle.process.Java
 }
 
 ########## org.gradle.process.JavaForkOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "JavaForkOptions.java"
 public interface org.gradle.process.JavaForkOptions extends org.gradle.process.ProcessForkOptions {
   public abstract java.util.Map<java.lang.String, java.lang.Object> getSystemProperties();
@@ -3511,7 +3511,7 @@ public interface org.gradle.process.JavaForkOptions extends org.gradle.process.P
 }
 
 ########## org.gradle.process.ProcessForkOptions ##########
---- G94 ---
+--- BASE ---
 Compiled from "ProcessForkOptions.java"
 public interface org.gradle.process.ProcessForkOptions {
   public abstract java.lang.String getExecutable();
@@ -3542,7 +3542,7 @@ public interface org.gradle.process.ProcessForkOptions {
 }
 
 ########## org.gradle.testing.jacoco.plugins.JacocoPluginExtension ##########
---- G94 ---
+--- BASE ---
 Compiled from "JacocoPluginExtension.java"
 public abstract class org.gradle.testing.jacoco.plugins.JacocoPluginExtension {
   public static final java.lang.String TASK_EXTENSION_NAME;
@@ -3565,7 +3565,7 @@ public abstract class org.gradle.testing.jacoco.plugins.JacocoPluginExtension {
 }
 
 ########## org.gradle.testing.jacoco.plugins.JacocoTaskExtension ##########
---- G94 ---
+--- BASE ---
 Compiled from "JacocoTaskExtension.java"
 public abstract class org.gradle.testing.jacoco.plugins.JacocoTaskExtension {
   public org.gradle.testing.jacoco.plugins.JacocoTaskExtension(org.gradle.api.model.ObjectFactory, org.gradle.internal.jacoco.JacocoAgentJar, org.gradle.process.JavaForkOptions);
@@ -3625,7 +3625,7 @@ public abstract class org.gradle.testing.jacoco.plugins.JacocoTaskExtension {
 }
 
 ########## org.gradle.testing.jacoco.tasks.JacocoBase ##########
---- G94 ---
+--- BASE ---
 Compiled from "JacocoBase.java"
 public abstract class org.gradle.testing.jacoco.tasks.JacocoBase extends org.gradle.api.DefaultTask {
   public org.gradle.testing.jacoco.tasks.JacocoBase();
@@ -3640,7 +3640,7 @@ public abstract class org.gradle.testing.jacoco.tasks.JacocoBase extends org.gra
 }
 
 ########## org.gradle.vcs.VersionControlRepository ##########
---- G94 ---
+--- BASE ---
 Compiled from "VersionControlRepository.java"
 public interface org.gradle.vcs.VersionControlRepository {
   public abstract void producesModule(java.lang.String);
@@ -3657,7 +3657,7 @@ public interface org.gradle.vcs.VersionControlRepository {
 }
 
 ########## org.gradle.vcs.VersionControlSpec ##########
---- G94 ---
+--- BASE ---
 Compiled from "VersionControlSpec.java"
 public interface org.gradle.vcs.VersionControlSpec extends org.gradle.api.Describable {
   public abstract java.lang.String getUniqueId();
@@ -3676,7 +3676,7 @@ public interface org.gradle.vcs.VersionControlSpec extends org.gradle.api.Descri
 }
 
 ########## org.gradle.vcs.git.GitVersionControlSpec ##########
---- G94 ---
+--- BASE ---
 Compiled from "GitVersionControlSpec.java"
 public interface org.gradle.vcs.git.GitVersionControlSpec extends org.gradle.vcs.VersionControlSpec {
   public abstract java.net.URI getUrl();

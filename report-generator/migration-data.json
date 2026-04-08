@@ -9,7 +9,8 @@
     "removed_accessors": [
       "setArtifactUrls(Set<URI>)",
       "setArtifactUrls(Iterable<?>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.artifacts.repositories.UrlArtifactRepository",
@@ -21,6 +22,10 @@
     "removed_accessors": [
       "setAllowInsecureProtocol(boolean)",
       "isAllowInsecureProtocol()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.artifacts.repositories.IvyArtifactRepository",
+      "org.gradle.api.artifacts.repositories.MavenArtifactRepository"
     ]
   },
   {
@@ -30,7 +35,11 @@
     "new_type": "Property<URI>",
     "kind": "other",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.artifacts.repositories.IvyArtifactRepository",
+      "org.gradle.api.artifacts.repositories.MavenArtifactRepository"
+    ]
   },
   {
     "class": "org.gradle.api.file.DeleteSpec",
@@ -41,6 +50,9 @@
     "read_only": false,
     "removed_accessors": [
       "setFollowSymlinks(boolean)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.Delete"
     ]
   },
   {
@@ -52,7 +64,8 @@
     "read_only": false,
     "removed_accessors": [
       "setApplicationDefaultJvmArgs(Iterable<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.JavaApplication",
@@ -63,7 +76,8 @@
     "read_only": false,
     "removed_accessors": [
       "setApplicationName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.JavaApplication",
@@ -74,7 +88,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExecutableDir(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.antlr.AntlrTask",
@@ -83,7 +98,8 @@
     "new_type": "ConfigurableFileCollection",
     "kind": "file_collection",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.antlr.AntlrTask",
@@ -94,7 +110,8 @@
     "read_only": false,
     "removed_accessors": [
       "setArguments(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.antlr.AntlrTask",
@@ -105,7 +122,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxHeapSize(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.antlr.AntlrTask",
@@ -116,7 +134,8 @@
     "read_only": false,
     "removed_accessors": [
       "setOutputDirectory(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.antlr.AntlrTask",
@@ -128,7 +147,8 @@
     "removed_accessors": [
       "setTrace(boolean)",
       "isTrace()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.antlr.AntlrTask",
@@ -140,7 +160,8 @@
     "removed_accessors": [
       "setTraceLexer(boolean)",
       "isTraceLexer()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.antlr.AntlrTask",
@@ -152,7 +173,8 @@
     "removed_accessors": [
       "setTraceParser(boolean)",
       "isTraceParser()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.antlr.AntlrTask",
@@ -164,7 +186,8 @@
     "removed_accessors": [
       "setTraceTreeWalker(boolean)",
       "isTraceTreeWalker()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Checkstyle",
@@ -175,7 +198,8 @@
     "read_only": false,
     "removed_accessors": [
       "setCheckstyleClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Checkstyle",
@@ -186,7 +210,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Checkstyle",
@@ -198,7 +223,8 @@
     "removed_accessors": [
       "setConfigProperties(Map<String",
       "Object>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Checkstyle",
@@ -207,7 +233,8 @@
     "new_type": "Property<Boolean>",
     "kind": "boolean",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Checkstyle",
@@ -218,7 +245,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxErrors(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Checkstyle",
@@ -229,7 +257,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxWarnings(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Checkstyle",
@@ -241,7 +270,8 @@
     "removed_accessors": [
       "setShowViolations(boolean)",
       "isShowViolations()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
@@ -253,7 +283,8 @@
     "removed_accessors": [
       "setConfigProperties(Map<String",
       "Object>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
@@ -264,7 +295,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxErrors(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
@@ -275,7 +307,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxWarnings(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
@@ -287,7 +320,8 @@
     "removed_accessors": [
       "setShowViolations(boolean)",
       "isShowViolations()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarc",
@@ -298,7 +332,8 @@
     "read_only": false,
     "removed_accessors": [
       "setCodenarcClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarc",
@@ -309,7 +344,8 @@
     "read_only": false,
     "removed_accessors": [
       "setCompilationClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarc",
@@ -320,7 +356,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxPriority1Violations(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarc",
@@ -331,7 +368,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxPriority2Violations(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarc",
@@ -342,7 +380,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxPriority3Violations(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
@@ -353,7 +392,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxPriority1Violations(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
@@ -364,7 +404,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxPriority2Violations(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
@@ -375,7 +416,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxPriority3Violations(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
@@ -386,7 +428,8 @@
     "read_only": false,
     "removed_accessors": [
       "setReportFormat(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.CodeQualityExtension",
@@ -398,6 +441,11 @@
     "removed_accessors": [
       "setIgnoreFailures(boolean)",
       "isIgnoreFailures()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.plugins.quality.CheckstyleExtension",
+      "org.gradle.api.plugins.quality.CodeNarcExtension",
+      "org.gradle.api.plugins.quality.PmdExtension"
     ]
   },
   {
@@ -409,6 +457,11 @@
     "read_only": false,
     "removed_accessors": [
       "setReportsDir(File)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.plugins.quality.CheckstyleExtension",
+      "org.gradle.api.plugins.quality.CodeNarcExtension",
+      "org.gradle.api.plugins.quality.PmdExtension"
     ]
   },
   {
@@ -420,6 +473,11 @@
     "read_only": false,
     "removed_accessors": [
       "setSourceSets(java.util.Collection<SourceSet>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.plugins.quality.CheckstyleExtension",
+      "org.gradle.api.plugins.quality.CodeNarcExtension",
+      "org.gradle.api.plugins.quality.PmdExtension"
     ]
   },
   {
@@ -431,6 +489,11 @@
     "read_only": false,
     "removed_accessors": [
       "setToolVersion(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.plugins.quality.CheckstyleExtension",
+      "org.gradle.api.plugins.quality.CodeNarcExtension",
+      "org.gradle.api.plugins.quality.PmdExtension"
     ]
   },
   {
@@ -442,7 +505,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Pmd",
@@ -454,7 +518,8 @@
     "removed_accessors": [
       "setConsoleOutput(boolean)",
       "isConsoleOutput()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Pmd",
@@ -463,7 +528,8 @@
     "new_type": "Provider<RegularFile>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Pmd",
@@ -474,7 +540,8 @@
     "read_only": false,
     "removed_accessors": [
       "setPmdClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Pmd",
@@ -485,7 +552,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRuleSetFiles(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Pmd",
@@ -496,7 +564,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRuleSets(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.Pmd",
@@ -507,7 +576,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTargetJdk(TargetJdk)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.PmdExtension",
@@ -519,7 +589,8 @@
     "removed_accessors": [
       "setConsoleOutput(boolean)",
       "isConsoleOutput()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.PmdExtension",
@@ -530,7 +601,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRuleSetFiles(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.PmdExtension",
@@ -541,7 +613,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRuleSets(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.plugins.quality.PmdExtension",
@@ -553,7 +626,8 @@
     "removed_accessors": [
       "setTargetJdk(TargetJdk)",
       "setTargetJdk(Object)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.PublicationArtifact",
@@ -562,7 +636,11 @@
     "new_type": "Provider<RegularFile>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.publish.ivy.IvyArtifact",
+      "org.gradle.api.publish.maven.MavenArtifact"
+    ]
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyArtifact",
@@ -573,7 +651,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClassifier(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyArtifact",
@@ -584,7 +663,8 @@
     "read_only": false,
     "removed_accessors": [
       "setConf(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyArtifact",
@@ -595,7 +675,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExtension(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyArtifact",
@@ -606,7 +687,8 @@
     "read_only": false,
     "removed_accessors": [
       "setName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyArtifact",
@@ -617,7 +699,8 @@
     "read_only": false,
     "removed_accessors": [
       "setType(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyModuleDescriptorSpec",
@@ -628,7 +711,8 @@
     "read_only": false,
     "removed_accessors": [
       "setBranch(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyModuleDescriptorSpec",
@@ -639,7 +723,8 @@
     "read_only": false,
     "removed_accessors": [
       "setStatus(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyPublication",
@@ -650,7 +735,8 @@
     "read_only": false,
     "removed_accessors": [
       "setModule(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyPublication",
@@ -661,7 +747,8 @@
     "read_only": false,
     "removed_accessors": [
       "setOrganisation(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.IvyPublication",
@@ -672,7 +759,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRevision(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.ivy.tasks.GenerateIvyDescriptor",
@@ -684,7 +772,8 @@
     "removed_accessors": [
       "setDestination(File)",
       "setDestination(Object)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.maven.MavenArtifact",
@@ -695,7 +784,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClassifier(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.maven.MavenArtifact",
@@ -706,7 +796,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExtension(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.maven.MavenPom",
@@ -717,7 +808,8 @@
     "read_only": false,
     "removed_accessors": [
       "setPackaging(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.maven.MavenPublication",
@@ -728,7 +820,8 @@
     "read_only": false,
     "removed_accessors": [
       "setArtifactId(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.maven.MavenPublication",
@@ -739,7 +832,8 @@
     "read_only": false,
     "removed_accessors": [
       "setGroupId(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.maven.MavenPublication",
@@ -750,7 +844,8 @@
     "read_only": false,
     "removed_accessors": [
       "setVersion(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.publish.maven.tasks.GenerateMavenPom",
@@ -762,7 +857,8 @@
     "removed_accessors": [
       "setDestination(File)",
       "setDestination(Object)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.AbstractExecTask",
@@ -776,6 +872,10 @@
       "setArgs(Iterable<?>)",
       "setArgs(Iterable)",
       "setArgs(List)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.Exec",
+      "org.gradle.nativeplatform.test.tasks.RunTestExecutable"
     ]
   },
   {
@@ -788,6 +888,10 @@
     "removed_accessors": [
       "setErrorOutput(OutputStream)",
       "setErrorOutput(OutputStream)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.Exec",
+      "org.gradle.nativeplatform.test.tasks.RunTestExecutable"
     ]
   },
   {
@@ -801,6 +905,10 @@
       "setIgnoreExitValue(boolean)",
       "setIgnoreExitValue(boolean)",
       "isIgnoreExitValue()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.Exec",
+      "org.gradle.nativeplatform.test.tasks.RunTestExecutable"
     ]
   },
   {
@@ -813,6 +921,10 @@
     "removed_accessors": [
       "setStandardInput(InputStream)",
       "setStandardInput(InputStream)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.Exec",
+      "org.gradle.nativeplatform.test.tasks.RunTestExecutable"
     ]
   },
   {
@@ -825,6 +937,10 @@
     "removed_accessors": [
       "setStandardOutput(OutputStream)",
       "setStandardOutput(OutputStream)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.Exec",
+      "org.gradle.nativeplatform.test.tasks.RunTestExecutable"
     ]
   },
   {
@@ -837,7 +953,8 @@
     "removed_accessors": [
       "setFollowSymlinks(boolean)",
       "isFollowSymlinks()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.Delete",
@@ -846,7 +963,8 @@
     "new_type": "ConfigurableFileCollection",
     "kind": "file_collection",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.Exec",
@@ -862,7 +980,8 @@
       "setArgs(List)",
       "setArgs(Iterable)",
       "setArgs(List)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.Exec",
@@ -875,7 +994,8 @@
       "setErrorOutput(OutputStream)",
       "setErrorOutput(OutputStream)",
       "setErrorOutput(OutputStream)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.Exec",
@@ -889,7 +1009,8 @@
       "setIgnoreExitValue(boolean)",
       "setIgnoreExitValue(boolean)",
       "isIgnoreExitValue()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.Exec",
@@ -902,7 +1023,8 @@
       "setStandardInput(InputStream)",
       "setStandardInput(InputStream)",
       "setStandardInput(InputStream)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.Exec",
@@ -915,7 +1037,8 @@
       "setStandardOutput(OutputStream)",
       "setStandardOutput(OutputStream)",
       "setStandardOutput(OutputStream)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.JavaExec",
@@ -929,7 +1052,8 @@
       "setArgs(Iterable<?>)",
       "setArgs(Iterable)",
       "setArgs(List)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.JavaExec",
@@ -941,7 +1065,8 @@
     "removed_accessors": [
       "setClasspath(FileCollection)",
       "setClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.JavaExec",
@@ -953,7 +1078,8 @@
     "removed_accessors": [
       "setErrorOutput(OutputStream)",
       "setErrorOutput(OutputStream)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.JavaExec",
@@ -966,7 +1092,8 @@
       "setIgnoreExitValue(boolean)",
       "setIgnoreExitValue(boolean)",
       "isIgnoreExitValue()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.JavaExec",
@@ -975,7 +1102,8 @@
     "new_type": "Provider<JavaVersion>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.JavaExec",
@@ -987,7 +1115,8 @@
     "removed_accessors": [
       "setStandardInput(InputStream)",
       "setStandardInput(InputStream)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.JavaExec",
@@ -999,7 +1128,8 @@
     "removed_accessors": [
       "setStandardOutput(OutputStream)",
       "setStandardOutput(OutputStream)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.WriteProperties",
@@ -1010,7 +1140,8 @@
     "read_only": false,
     "removed_accessors": [
       "setComment(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.WriteProperties",
@@ -1021,7 +1152,8 @@
     "read_only": false,
     "removed_accessors": [
       "setEncoding(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.WriteProperties",
@@ -1032,7 +1164,8 @@
     "read_only": false,
     "removed_accessors": [
       "setLineSeparator(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.WriteProperties",
@@ -1044,7 +1177,8 @@
     "removed_accessors": [
       "setProperties(Map<String",
       "Object>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.ant.AntTarget",
@@ -1055,7 +1189,8 @@
     "read_only": false,
     "removed_accessors": [
       "setBaseDir(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.ant.AntTarget",
@@ -1066,7 +1201,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTarget(org.apache.tools.ant.Target)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.bundling.AbstractArchiveTask",
@@ -1078,6 +1214,14 @@
     "removed_accessors": [
       "setPreserveFileTimestamps(boolean)",
       "isPreserveFileTimestamps()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.Tar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.api.tasks.bundling.Zip",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
     ]
   },
   {
@@ -1090,6 +1234,14 @@
     "removed_accessors": [
       "setReproducibleFileOrder(boolean)",
       "isReproducibleFileOrder()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.Tar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.api.tasks.bundling.Zip",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
     ]
   },
   {
@@ -1101,7 +1253,8 @@
     "read_only": false,
     "removed_accessors": [
       "setCompression(Compression)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.bundling.War",
@@ -1113,7 +1266,8 @@
     "removed_accessors": [
       "setClasspath(FileCollection)",
       "setClasspath(Object)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.bundling.War",
@@ -1124,7 +1278,8 @@
     "read_only": false,
     "removed_accessors": [
       "setWebXml(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.bundling.Zip",
@@ -1135,6 +1290,12 @@
     "read_only": false,
     "removed_accessors": [
       "setEntryCompression(ZipEntryCompression)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
     ]
   },
   {
@@ -1146,6 +1307,12 @@
     "read_only": false,
     "removed_accessors": [
       "setMetadataCharset(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
     ]
   },
   {
@@ -1158,6 +1325,12 @@
     "removed_accessors": [
       "setZip64(boolean)",
       "isZip64()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
     ]
   },
   {
@@ -1169,6 +1342,12 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.compile.GroovyCompile",
+      "org.gradle.api.tasks.compile.JavaCompile",
+      "org.gradle.api.tasks.scala.ScalaCompile",
+      "org.gradle.language.scala.tasks.AbstractScalaCompile"
     ]
   },
   {
@@ -1178,7 +1357,13 @@
     "new_type": "DirectoryProperty",
     "kind": "dir",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.compile.GroovyCompile",
+      "org.gradle.api.tasks.compile.JavaCompile",
+      "org.gradle.api.tasks.scala.ScalaCompile",
+      "org.gradle.language.scala.tasks.AbstractScalaCompile"
+    ]
   },
   {
     "class": "org.gradle.api.tasks.compile.BaseForkOptions",
@@ -1189,6 +1374,12 @@
     "read_only": false,
     "removed_accessors": [
       "setJvmArgs(List<String>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
     ]
   },
   {
@@ -1200,6 +1391,12 @@
     "read_only": false,
     "removed_accessors": [
       "setMemoryInitialSize(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
     ]
   },
   {
@@ -1211,6 +1408,12 @@
     "read_only": false,
     "removed_accessors": [
       "setMemoryMaximumSize(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
     ]
   },
   {
@@ -1220,7 +1423,8 @@
     "new_type": "Provider<List<String>>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1231,7 +1435,8 @@
     "read_only": false,
     "removed_accessors": [
       "setAnnotationProcessorPath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1242,7 +1447,8 @@
     "read_only": false,
     "removed_accessors": [
       "setBootstrapClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1253,7 +1459,8 @@
     "read_only": false,
     "removed_accessors": [
       "setCompilerArgs(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1262,7 +1469,8 @@
     "new_type": "ListProperty<CommandLineArgumentProvider>",
     "kind": "list",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1274,7 +1482,8 @@
     "removed_accessors": [
       "setDebug(boolean)",
       "isDebug()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1286,7 +1495,8 @@
     "removed_accessors": [
       "setDeprecation(boolean)",
       "isDeprecation()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1297,7 +1507,8 @@
     "read_only": false,
     "removed_accessors": [
       "setEncoding(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1308,7 +1519,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExtensionDirs(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1320,7 +1532,8 @@
     "removed_accessors": [
       "setFailOnError(boolean)",
       "isFailOnError()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1332,7 +1545,8 @@
     "removed_accessors": [
       "setFork(boolean)",
       "isFork()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1341,7 +1555,8 @@
     "new_type": "DirectoryProperty",
     "kind": "dir",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1353,7 +1568,8 @@
     "removed_accessors": [
       "setIncremental(boolean)",
       "isIncremental()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1365,7 +1581,8 @@
     "removed_accessors": [
       "setListFiles(boolean)",
       "isListFiles()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1376,7 +1593,8 @@
     "read_only": false,
     "removed_accessors": [
       "setSourcepath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1388,7 +1606,8 @@
     "removed_accessors": [
       "setVerbose(boolean)",
       "isVerbose()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.CompileOptions",
@@ -1400,7 +1619,8 @@
     "removed_accessors": [
       "setWarnings(boolean)",
       "isWarnings()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.DebugOptions",
@@ -1411,7 +1631,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDebugLevel(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.ForkOptions",
@@ -1422,7 +1643,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExecutable(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.ForkOptions",
@@ -1433,7 +1655,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTempDir(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompile",
@@ -1444,7 +1667,8 @@
     "read_only": false,
     "removed_accessors": [
       "setGroovyClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1455,7 +1679,8 @@
     "read_only": false,
     "removed_accessors": [
       "setConfigurationScript(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1466,7 +1691,8 @@
     "read_only": false,
     "removed_accessors": [
       "setEncoding(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1478,7 +1704,8 @@
     "removed_accessors": [
       "setFailOnError(boolean)",
       "isFailOnError()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1489,7 +1716,8 @@
     "read_only": false,
     "removed_accessors": [
       "setFileExtensions(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1501,7 +1729,8 @@
     "removed_accessors": [
       "setFork(boolean)",
       "isFork()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1513,7 +1742,8 @@
     "removed_accessors": [
       "setJavaAnnotationProcessing(boolean)",
       "isJavaAnnotationProcessing()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1525,7 +1755,8 @@
     "removed_accessors": [
       "setKeepStubs(boolean)",
       "isKeepStubs()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1537,7 +1768,8 @@
     "removed_accessors": [
       "setListFiles(boolean)",
       "isListFiles()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1549,7 +1781,8 @@
     "removed_accessors": [
       "setOptimizationOptions(Map<String",
       "Boolean>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1561,7 +1794,8 @@
     "removed_accessors": [
       "setParameters(boolean)",
       "isParameters()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1572,7 +1806,8 @@
     "read_only": false,
     "removed_accessors": [
       "setStubDir(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
@@ -1584,7 +1819,8 @@
     "removed_accessors": [
       "setVerbose(boolean)",
       "isVerbose()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
@@ -1593,7 +1829,12 @@
     "new_type": "Provider<List<String>>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
+    ]
   },
   {
     "class": "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
@@ -1602,7 +1843,12 @@
     "new_type": "ListProperty<CommandLineArgumentProvider>",
     "kind": "list",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
+    ]
   },
   {
     "class": "org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask",
@@ -1613,6 +1859,10 @@
     "read_only": false,
     "removed_accessors": [
       "setConfigurations(Set<Configuration>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.reporting.dependencies.HtmlDependencyReportTask",
+      "org.gradle.api.tasks.diagnostics.DependencyReportTask"
     ]
   },
   {
@@ -1624,6 +1874,10 @@
     "read_only": false,
     "removed_accessors": [
       "setRenderer(DependencyReportRenderer)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.reporting.dependencies.HtmlDependencyReportTask",
+      "org.gradle.api.tasks.diagnostics.DependencyReportTask"
     ]
   },
   {
@@ -1635,6 +1889,10 @@
     "read_only": false,
     "removed_accessors": [
       "setOutputFile(File)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.diagnostics.ProjectBasedReportTask",
+      "org.gradle.api.tasks.diagnostics.TaskReportTask"
     ]
   },
   {
@@ -1646,6 +1904,10 @@
     "read_only": false,
     "removed_accessors": [
       "setProjects(Set<Project>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.diagnostics.ProjectBasedReportTask",
+      "org.gradle.api.tasks.diagnostics.TaskReportTask"
     ]
   },
   {
@@ -1655,7 +1917,8 @@
     "new_type": "Property<Configuration>",
     "kind": "other",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.diagnostics.DependencyInsightReportTask",
@@ -1664,7 +1927,8 @@
     "new_type": "Property<String>",
     "kind": "scalar",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.diagnostics.DependencyInsightReportTask",
@@ -1676,7 +1940,8 @@
     "removed_accessors": [
       "setShowSinglePathToDependency(boolean)",
       "isShowSinglePathToDependency()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.diagnostics.PropertyReportTask",
@@ -1687,7 +1952,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRenderer(PropertyReportRenderer)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.diagnostics.TaskReportTask",
@@ -1698,7 +1964,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDisplayGroup(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.diagnostics.TaskReportTask",
@@ -1709,7 +1976,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRenderer(TaskReportRenderer)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.diagnostics.TaskReportTask",
@@ -1720,7 +1988,8 @@
     "read_only": false,
     "removed_accessors": [
       "setShowDetail(boolean)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1731,7 +2000,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1742,7 +2012,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDestinationDir(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1753,7 +2024,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDocTitle(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1764,7 +2036,8 @@
     "read_only": false,
     "removed_accessors": [
       "setFooter(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1775,7 +2048,8 @@
     "read_only": false,
     "removed_accessors": [
       "setGroovyClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1786,7 +2060,8 @@
     "read_only": false,
     "removed_accessors": [
       "setHeader(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1797,7 +2072,8 @@
     "read_only": false,
     "removed_accessors": [
       "setLinks(Set<Groovydoc$Link>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1809,7 +2085,8 @@
     "removed_accessors": [
       "setNoTimestamp(boolean)",
       "isNoTimestamp()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1821,7 +2098,8 @@
     "removed_accessors": [
       "setNoVersionStamp(boolean)",
       "isNoVersionStamp()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1833,7 +2111,8 @@
     "removed_accessors": [
       "setUse(boolean)",
       "isUse()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Groovydoc",
@@ -1844,7 +2123,8 @@
     "read_only": false,
     "removed_accessors": [
       "setWindowTitle(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Javadoc",
@@ -1855,7 +2135,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Javadoc",
@@ -1866,7 +2147,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDestinationDir(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Javadoc",
@@ -1877,7 +2159,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExecutable(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Javadoc",
@@ -1889,7 +2172,8 @@
     "removed_accessors": [
       "setFailOnError(boolean)",
       "isFailOnError()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Javadoc",
@@ -1900,7 +2184,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxMemory(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Javadoc",
@@ -1909,7 +2194,8 @@
     "new_type": "Provider<RegularFile>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.javadoc.Javadoc",
@@ -1920,7 +2206,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTitle(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaCompile",
@@ -1931,7 +2218,8 @@
     "read_only": false,
     "removed_accessors": [
       "setScalaClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaCompile",
@@ -1942,7 +2230,8 @@
     "read_only": false,
     "removed_accessors": [
       "setScalaCompilerPlugins(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaCompile",
@@ -1953,7 +2242,8 @@
     "read_only": false,
     "removed_accessors": [
       "setZincClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDoc",
@@ -1964,7 +2254,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDoc",
@@ -1975,7 +2266,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDestinationDir(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDoc",
@@ -1986,7 +2278,8 @@
     "read_only": false,
     "removed_accessors": [
       "setScalaClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDoc",
@@ -1997,7 +2290,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTitle(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2008,7 +2302,8 @@
     "read_only": false,
     "removed_accessors": [
       "setAdditionalParameters(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2019,7 +2314,8 @@
     "read_only": false,
     "removed_accessors": [
       "setBottom(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2031,7 +2327,8 @@
     "removed_accessors": [
       "setDeprecation(boolean)",
       "isDeprecation()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2042,7 +2339,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDocTitle(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2053,7 +2351,8 @@
     "read_only": false,
     "removed_accessors": [
       "setFooter(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2064,7 +2363,8 @@
     "read_only": false,
     "removed_accessors": [
       "setHeader(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2075,7 +2375,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTop(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2087,7 +2388,8 @@
     "removed_accessors": [
       "setUnchecked(boolean)",
       "isUnchecked()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
@@ -2098,7 +2400,8 @@
     "read_only": false,
     "removed_accessors": [
       "setWindowTitle(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.JUnitXmlReport",
@@ -2110,7 +2413,8 @@
     "removed_accessors": [
       "setOutputPerTestCase(boolean)",
       "isOutputPerTestCase()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.Test",
@@ -2121,7 +2425,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.Test",
@@ -2132,7 +2437,8 @@
     "read_only": false,
     "removed_accessors": [
       "setForkEvery(long)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.Test",
@@ -2141,7 +2447,8 @@
     "new_type": "Provider<JavaVersion>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.Test",
@@ -2152,7 +2459,8 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxParallelForks(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.Test",
@@ -2164,7 +2472,8 @@
     "removed_accessors": [
       "setScanForTestClasses(boolean)",
       "isScanForTestClasses()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.Test",
@@ -2175,7 +2484,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTestClassesDirs(FileCollection)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.Test",
@@ -2184,7 +2494,8 @@
     "new_type": "Property<TestFramework>",
     "kind": "other",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.TestFilter",
@@ -2195,7 +2506,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExcludePatterns(String...)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.TestFilter",
@@ -2207,7 +2519,8 @@
     "removed_accessors": [
       "setFailOnNoMatchingTests(boolean)",
       "isFailOnNoMatchingTests()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.TestFilter",
@@ -2218,7 +2531,8 @@
     "read_only": false,
     "removed_accessors": [
       "setIncludePatterns(String...)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.TestReport",
@@ -2227,7 +2541,8 @@
     "new_type": "DirectoryProperty",
     "kind": "dir",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.junit.JUnitOptions",
@@ -2238,7 +2553,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExcludeCategories(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.junit.JUnitOptions",
@@ -2249,7 +2565,8 @@
     "read_only": false,
     "removed_accessors": [
       "setIncludeCategories(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
@@ -2260,7 +2577,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExcludeEngines(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
@@ -2271,7 +2589,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExcludeTags(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
@@ -2282,7 +2601,8 @@
     "read_only": false,
     "removed_accessors": [
       "setIncludeEngines(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
@@ -2293,7 +2613,8 @@
     "read_only": false,
     "removed_accessors": [
       "setIncludeTags(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.logging.TestLogging",
@@ -2304,6 +2625,9 @@
     "read_only": false,
     "removed_accessors": [
       "setDisplayGranularity(int)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2316,6 +2640,9 @@
     "removed_accessors": [
       "setEvents(Set<TestLogEvent>)",
       "setEvents(Iterable<?>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2328,6 +2655,9 @@
     "removed_accessors": [
       "setExceptionFormat(TestExceptionFormat)",
       "setExceptionFormat(Object)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2339,6 +2669,9 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxGranularity(int)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2350,6 +2683,9 @@
     "read_only": false,
     "removed_accessors": [
       "setMinGranularity(int)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2361,6 +2697,9 @@
     "read_only": false,
     "removed_accessors": [
       "setShowCauses(boolean)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2372,6 +2711,9 @@
     "read_only": false,
     "removed_accessors": [
       "setShowExceptions(boolean)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2383,6 +2725,9 @@
     "read_only": false,
     "removed_accessors": [
       "setShowStackTraces(boolean)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2394,6 +2739,9 @@
     "read_only": false,
     "removed_accessors": [
       "setShowStandardStreams(boolean)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2406,6 +2754,9 @@
     "removed_accessors": [
       "setStackTraceFilters(Set<TestStackTraceFilter>)",
       "setStackTraceFilters(Iterable<?>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
     ]
   },
   {
@@ -2417,7 +2768,8 @@
     "read_only": false,
     "removed_accessors": [
       "setConfigFailurePolicy(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2428,7 +2780,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExcludeGroups(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2440,7 +2793,8 @@
     "removed_accessors": [
       "setGroupByInstances(boolean)",
       "isGroupByInstances()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2451,7 +2805,8 @@
     "read_only": false,
     "removed_accessors": [
       "setIncludeGroups(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2462,7 +2817,8 @@
     "read_only": false,
     "removed_accessors": [
       "setListeners(Set<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2473,7 +2829,8 @@
     "read_only": false,
     "removed_accessors": [
       "setOutputDirectory(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2484,7 +2841,8 @@
     "read_only": false,
     "removed_accessors": [
       "setParallel(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2496,7 +2854,8 @@
     "removed_accessors": [
       "setPreserveOrder(boolean)",
       "isPreserveOrder()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2507,7 +2866,8 @@
     "read_only": false,
     "removed_accessors": [
       "setSuiteName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2518,7 +2878,8 @@
     "read_only": false,
     "removed_accessors": [
       "setSuiteXmlBuilder(groovy.xml.MarkupBuilder)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2529,7 +2890,8 @@
     "read_only": false,
     "removed_accessors": [
       "setSuiteXmlFiles(List<File>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2540,7 +2902,8 @@
     "read_only": false,
     "removed_accessors": [
       "setSuiteXmlWriter(java.io.StringWriter)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2551,7 +2914,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTestName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2562,7 +2926,8 @@
     "read_only": false,
     "removed_accessors": [
       "setThreadCount(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2573,7 +2938,8 @@
     "read_only": false,
     "removed_accessors": [
       "setThreadPoolFactoryClass(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
@@ -2585,7 +2951,8 @@
     "removed_accessors": [
       "setUseDefaultListeners(boolean)",
       "isUseDefaultListeners()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2596,7 +2963,8 @@
     "read_only": false,
     "removed_accessors": [
       "setArchiveBase(Wrapper$PathBase)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2607,7 +2975,8 @@
     "read_only": false,
     "removed_accessors": [
       "setArchivePath(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2616,7 +2985,8 @@
     "new_type": "Provider<RegularFile>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2627,7 +2997,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDistributionBase(Wrapper$PathBase)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2638,7 +3009,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDistributionPath(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2649,7 +3021,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDistributionSha256Sum(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2660,7 +3033,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDistributionType(Wrapper$DistributionType)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2671,7 +3045,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDistributionUrl(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2682,7 +3057,8 @@
     "read_only": false,
     "removed_accessors": [
       "setGradleVersion(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2694,7 +3070,8 @@
     "removed_accessors": [
       "setJarFile(File)",
       "setJarFile(Object)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2703,7 +3080,8 @@
     "new_type": "Provider<RegularFile>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.api.tasks.wrapper.Wrapper",
@@ -2715,7 +3093,8 @@
     "removed_accessors": [
       "setScriptFile(File)",
       "setScriptFile(Object)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.buildinit.tasks.InitBuild",
@@ -2724,7 +3103,8 @@
     "new_type": "Provider<List<String>>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.buildinit.tasks.InitBuild",
@@ -2733,7 +3113,8 @@
     "new_type": "Provider<List<String>>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.buildinit.tasks.InitBuild",
@@ -2742,7 +3123,8 @@
     "new_type": "Provider<List<String>>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.buildinit.tasks.InitBuild",
@@ -2753,7 +3135,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDsl(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.buildinit.tasks.InitBuild",
@@ -2764,7 +3147,8 @@
     "read_only": false,
     "removed_accessors": [
       "setPackageName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.buildinit.tasks.InitBuild",
@@ -2775,7 +3159,8 @@
     "read_only": false,
     "removed_accessors": [
       "setProjectName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.buildinit.tasks.InitBuild",
@@ -2786,7 +3171,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTestFramework(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.buildinit.tasks.InitBuild",
@@ -2797,7 +3183,8 @@
     "read_only": false,
     "removed_accessors": [
       "setType(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.caching.configuration.BuildCache",
@@ -2809,6 +3196,11 @@
     "removed_accessors": [
       "setEnabled(boolean)",
       "isEnabled()"
+    ],
+    "also_known_as": [
+      "org.gradle.caching.configuration.AbstractBuildCache",
+      "org.gradle.caching.http.HttpBuildCache",
+      "org.gradle.caching.local.DirectoryBuildCache"
     ]
   },
   {
@@ -2821,6 +3213,11 @@
     "removed_accessors": [
       "setPush(boolean)",
       "isPush()"
+    ],
+    "also_known_as": [
+      "org.gradle.caching.configuration.AbstractBuildCache",
+      "org.gradle.caching.http.HttpBuildCache",
+      "org.gradle.caching.local.DirectoryBuildCache"
     ]
   },
   {
@@ -2833,7 +3230,8 @@
     "removed_accessors": [
       "setAllowInsecureProtocol(boolean)",
       "isAllowInsecureProtocol()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.caching.http.HttpBuildCache",
@@ -2845,7 +3243,8 @@
     "removed_accessors": [
       "setAllowUntrustedServer(boolean)",
       "isAllowUntrustedServer()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.caching.http.HttpBuildCache",
@@ -2857,7 +3256,8 @@
     "removed_accessors": [
       "setUrl(String)",
       "setUrl(URI)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.caching.http.HttpBuildCache",
@@ -2869,7 +3269,8 @@
     "removed_accessors": [
       "setUseExpectContinue(boolean)",
       "isUseExpectContinue()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.caching.local.DirectoryBuildCache",
@@ -2880,7 +3281,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDirectory(Object)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
@@ -2891,6 +3293,10 @@
     "read_only": false,
     "removed_accessors": [
       "setBootClasspath(List<File>)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2903,6 +3309,10 @@
     "removed_accessors": [
       "setBreakIterator(boolean)",
       "isBreakIterator()"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2914,6 +3324,10 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(List<File>)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2925,6 +3339,10 @@
     "read_only": false,
     "removed_accessors": [
       "setDestinationDirectory(File)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2936,6 +3354,10 @@
     "read_only": false,
     "removed_accessors": [
       "setDoclet(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2947,6 +3369,10 @@
     "read_only": false,
     "removed_accessors": [
       "setDocletpath(List<File>)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2958,6 +3384,10 @@
     "read_only": false,
     "removed_accessors": [
       "setEncoding(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2969,6 +3399,10 @@
     "read_only": false,
     "removed_accessors": [
       "setExtDirs(List<File>)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2980,6 +3414,10 @@
     "read_only": false,
     "removed_accessors": [
       "setHeader(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -2991,6 +3429,10 @@
     "read_only": false,
     "removed_accessors": [
       "setJFlags(List<String>)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3002,6 +3444,10 @@
     "read_only": false,
     "removed_accessors": [
       "setLocale(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3013,6 +3459,10 @@
     "read_only": false,
     "removed_accessors": [
       "setMemberLevel(JavadocMemberLevel)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3024,6 +3474,10 @@
     "read_only": false,
     "removed_accessors": [
       "setModulePath(List<File>)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3035,6 +3489,10 @@
     "read_only": false,
     "removed_accessors": [
       "setOptionFiles(List<File>)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3046,6 +3504,10 @@
     "read_only": false,
     "removed_accessors": [
       "setOutputLevel(JavadocOutputLevel)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3057,6 +3519,10 @@
     "read_only": false,
     "removed_accessors": [
       "setOverview(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3068,6 +3534,10 @@
     "read_only": false,
     "removed_accessors": [
       "setSource(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3079,6 +3549,10 @@
     "read_only": false,
     "removed_accessors": [
       "setSourceNames(List<String>)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3090,6 +3564,10 @@
     "read_only": true,
     "removed_accessors": [
       "isVerbose()"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3101,6 +3579,10 @@
     "read_only": false,
     "removed_accessors": [
       "setWindowTitle(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
     ]
   },
   {
@@ -3113,7 +3595,8 @@
     "removed_accessors": [
       "setAuthor(boolean)",
       "isAuthor()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3124,7 +3607,8 @@
     "read_only": false,
     "removed_accessors": [
       "setBottom(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3135,7 +3619,8 @@
     "read_only": false,
     "removed_accessors": [
       "setCharSet(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3146,7 +3631,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDocEncoding(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3158,7 +3644,8 @@
     "removed_accessors": [
       "setDocFilesSubDirs(boolean)",
       "isDocFilesSubDirs()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3169,7 +3656,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDocTitle(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3180,7 +3668,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExcludeDocFilesSubDir(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3191,7 +3680,8 @@
     "read_only": false,
     "removed_accessors": [
       "setFooter(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3203,7 +3693,8 @@
     "removed_accessors": [
       "setGroups(Map<String",
       "List<String>>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3214,7 +3705,8 @@
     "read_only": false,
     "removed_accessors": [
       "setHelpFile(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3226,7 +3718,8 @@
     "removed_accessors": [
       "setKeyWords(boolean)",
       "isKeyWords()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3238,7 +3731,8 @@
     "removed_accessors": [
       "setLinkSource(boolean)",
       "isLinkSource()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3249,7 +3743,8 @@
     "read_only": false,
     "removed_accessors": [
       "setLinks(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3260,7 +3755,8 @@
     "read_only": false,
     "removed_accessors": [
       "setLinksOffline(List<JavadocOfflineLink>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3272,7 +3768,8 @@
     "removed_accessors": [
       "setNoComment(boolean)",
       "isNoComment()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3284,7 +3781,8 @@
     "removed_accessors": [
       "setNoDeprecated(boolean)",
       "isNoDeprecated()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3296,7 +3794,8 @@
     "removed_accessors": [
       "setNoDeprecatedList(boolean)",
       "isNoDeprecatedList()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3308,7 +3807,8 @@
     "removed_accessors": [
       "setNoHelp(boolean)",
       "isNoHelp()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3320,7 +3820,8 @@
     "removed_accessors": [
       "setNoIndex(boolean)",
       "isNoIndex()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3332,7 +3833,8 @@
     "removed_accessors": [
       "setNoNavBar(boolean)",
       "isNoNavBar()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3343,7 +3845,8 @@
     "read_only": false,
     "removed_accessors": [
       "setNoQualifiers(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3355,7 +3858,8 @@
     "removed_accessors": [
       "setNoSince(boolean)",
       "isNoSince()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3367,7 +3871,8 @@
     "removed_accessors": [
       "setNoTimestamp(boolean)",
       "isNoTimestamp()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3379,7 +3884,8 @@
     "removed_accessors": [
       "setNoTree(boolean)",
       "isNoTree()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3391,7 +3897,8 @@
     "removed_accessors": [
       "setSerialWarn(boolean)",
       "isSerialWarn()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3403,7 +3910,8 @@
     "removed_accessors": [
       "setSplitIndex(boolean)",
       "isSplitIndex()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3414,7 +3922,8 @@
     "read_only": false,
     "removed_accessors": [
       "setStylesheetFile(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3425,7 +3934,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTagletPath(List<File>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3436,7 +3946,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTaglets(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3447,7 +3958,8 @@
     "read_only": false,
     "removed_accessors": [
       "setTags(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3459,7 +3971,8 @@
     "removed_accessors": [
       "setUse(boolean)",
       "isUse()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
@@ -3471,7 +3984,8 @@
     "removed_accessors": [
       "setVersion(boolean)",
       "isVersion()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.jvm.application.tasks.CreateStartScripts",
@@ -3482,6 +3996,9 @@
     "read_only": false,
     "removed_accessors": [
       "setApplicationName(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
     ]
   },
   {
@@ -3493,6 +4010,9 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
     ]
   },
   {
@@ -3504,6 +4024,9 @@
     "read_only": false,
     "removed_accessors": [
       "setDefaultJvmOpts(Iterable<String>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
     ]
   },
   {
@@ -3515,6 +4038,9 @@
     "read_only": false,
     "removed_accessors": [
       "setExecutableDir(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
     ]
   },
   {
@@ -3526,6 +4052,9 @@
     "read_only": false,
     "removed_accessors": [
       "setExitEnvironmentVar(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
     ]
   },
   {
@@ -3537,6 +4066,9 @@
     "read_only": false,
     "removed_accessors": [
       "setOptsEnvironmentVar(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
     ]
   },
   {
@@ -3548,6 +4080,9 @@
     "read_only": false,
     "removed_accessors": [
       "setOutputDir(File)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
     ]
   },
   {
@@ -3557,7 +4092,10 @@
     "new_type": "RegularFileProperty",
     "kind": "file",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
+    ]
   },
   {
     "class": "org.gradle.jvm.application.tasks.CreateStartScripts",
@@ -3566,7 +4104,10 @@
     "new_type": "RegularFileProperty",
     "kind": "file",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
+    ]
   },
   {
     "class": "org.gradle.jvm.tasks.Jar",
@@ -3577,6 +4118,11 @@
     "read_only": false,
     "removed_accessors": [
       "setManifestContentCharset(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.plugins.ear.Ear"
     ]
   },
   {
@@ -3588,6 +4134,9 @@
     "read_only": false,
     "removed_accessors": [
       "setAdditionalParameters(List<String>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3599,6 +4148,9 @@
     "read_only": false,
     "removed_accessors": [
       "setDebugLevel(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3611,6 +4163,9 @@
     "removed_accessors": [
       "setDeprecation(boolean)",
       "isDeprecation()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3622,6 +4177,9 @@
     "read_only": false,
     "removed_accessors": [
       "setEncoding(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3634,6 +4192,9 @@
     "removed_accessors": [
       "setFailOnError(boolean)",
       "isFailOnError()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3646,6 +4207,9 @@
     "removed_accessors": [
       "setForce(boolean)",
       "isForce()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3658,6 +4222,9 @@
     "removed_accessors": [
       "setListFiles(boolean)",
       "isListFiles()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3669,6 +4236,9 @@
     "read_only": false,
     "removed_accessors": [
       "setLoggingLevel(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3680,6 +4250,9 @@
     "read_only": false,
     "removed_accessors": [
       "setLoggingPhases(List<String>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3692,6 +4265,9 @@
     "removed_accessors": [
       "setOptimize(boolean)",
       "isOptimize()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3704,6 +4280,9 @@
     "removed_accessors": [
       "setUnchecked(boolean)",
       "isUnchecked()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
     ]
   },
   {
@@ -3715,7 +4294,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDescription(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugin.devel.PluginDeclaration",
@@ -3726,7 +4306,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDisplayName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugin.devel.PluginDeclaration",
@@ -3737,7 +4318,8 @@
     "read_only": false,
     "removed_accessors": [
       "setId(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugin.devel.PluginDeclaration",
@@ -3748,7 +4330,8 @@
     "read_only": false,
     "removed_accessors": [
       "setImplementationClass(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.Ear",
@@ -3759,7 +4342,8 @@
     "read_only": false,
     "removed_accessors": [
       "setLibDirName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3770,7 +4354,8 @@
     "read_only": false,
     "removed_accessors": [
       "setApplicationName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3781,7 +4366,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDescription(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3792,7 +4378,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDisplayName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3803,7 +4390,8 @@
     "read_only": false,
     "removed_accessors": [
       "setInitializeInOrder(Boolean)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3814,7 +4402,8 @@
     "read_only": false,
     "removed_accessors": [
       "setLibraryDirectory(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3826,7 +4415,8 @@
     "removed_accessors": [
       "setModuleTypeMappings(Map<String",
       "String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3837,7 +4427,8 @@
     "read_only": false,
     "removed_accessors": [
       "setModules(Set<EarModule>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3848,7 +4439,8 @@
     "read_only": false,
     "removed_accessors": [
       "setSecurityRoles(Set<EarSecurityRole>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
@@ -3859,7 +4451,8 @@
     "read_only": false,
     "removed_accessors": [
       "setVersion(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.EarModule",
@@ -3870,6 +4463,9 @@
     "read_only": false,
     "removed_accessors": [
       "setAltDeployDescriptor(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.plugins.ear.descriptor.EarWebModule"
     ]
   },
   {
@@ -3881,6 +4477,9 @@
     "read_only": false,
     "removed_accessors": [
       "setPath(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.plugins.ear.descriptor.EarWebModule"
     ]
   },
   {
@@ -3892,7 +4491,8 @@
     "read_only": false,
     "removed_accessors": [
       "setDescription(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.EarSecurityRole",
@@ -3903,7 +4503,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRoleName(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.plugins.ear.descriptor.EarWebModule",
@@ -3914,7 +4515,8 @@
     "read_only": false,
     "removed_accessors": [
       "setContextRoot(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.process.BaseExecSpec",
@@ -3923,7 +4525,12 @@
     "new_type": "Provider<List<String>>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
+    ]
   },
   {
     "class": "org.gradle.process.BaseExecSpec",
@@ -3934,6 +4541,11 @@
     "read_only": false,
     "removed_accessors": [
       "setErrorOutput(OutputStream)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -3946,6 +4558,11 @@
     "removed_accessors": [
       "setIgnoreExitValue(boolean)",
       "isIgnoreExitValue()"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -3957,6 +4574,11 @@
     "read_only": false,
     "removed_accessors": [
       "setStandardInput(InputStream)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -3968,6 +4590,11 @@
     "read_only": false,
     "removed_accessors": [
       "setStandardOutput(OutputStream)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -3980,7 +4607,8 @@
     "removed_accessors": [
       "setArgs(List<String>)",
       "setArgs(Iterable<?>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.process.ExecSpec",
@@ -3989,7 +4617,8 @@
     "new_type": "ListProperty<CommandLineArgumentProvider>",
     "kind": "list",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.process.ExecSpec",
@@ -4002,7 +4631,8 @@
       "setCommandLine(List<String>)",
       "setCommandLine(Object...)",
       "setCommandLine(Iterable<?>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.process.JavaExecSpec",
@@ -4014,6 +4644,9 @@
     "removed_accessors": [
       "setArgs(List<String>)",
       "setArgs(Iterable<?>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec"
     ]
   },
   {
@@ -4023,7 +4656,10 @@
     "new_type": "ListProperty<CommandLineArgumentProvider>",
     "kind": "list",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec"
+    ]
   },
   {
     "class": "org.gradle.process.JavaExecSpec",
@@ -4034,6 +4670,9 @@
     "read_only": false,
     "removed_accessors": [
       "setClasspath(FileCollection)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec"
     ]
   },
   {
@@ -4043,7 +4682,10 @@
     "new_type": "Property<String>",
     "kind": "other",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec"
+    ]
   },
   {
     "class": "org.gradle.process.JavaForkOptions",
@@ -4055,6 +4697,11 @@
     "removed_accessors": [
       "setAllJvmArgs(List<String>)",
       "setAllJvmArgs(Iterable<?>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4066,6 +4713,11 @@
     "read_only": false,
     "removed_accessors": [
       "setBootstrapClasspath(FileCollection)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4077,6 +4729,11 @@
     "read_only": false,
     "removed_accessors": [
       "setDebug(boolean)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4088,6 +4745,11 @@
     "read_only": false,
     "removed_accessors": [
       "setDefaultCharacterEncoding(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4099,6 +4761,11 @@
     "read_only": false,
     "removed_accessors": [
       "setEnableAssertions(boolean)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4111,6 +4778,11 @@
     "removed_accessors": [
       "setJvmArgs(List<String>)",
       "setJvmArgs(Iterable<?>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4120,7 +4792,12 @@
     "new_type": "ListProperty<CommandLineArgumentProvider>",
     "kind": "list",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
+    ]
   },
   {
     "class": "org.gradle.process.JavaForkOptions",
@@ -4131,6 +4808,11 @@
     "read_only": false,
     "removed_accessors": [
       "setMaxHeapSize(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4142,6 +4824,11 @@
     "read_only": false,
     "removed_accessors": [
       "setMinHeapSize(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4154,6 +4841,11 @@
     "removed_accessors": [
       "setSystemProperties(Map<String",
       "? extends Object>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.JavaExecSpec"
     ]
   },
   {
@@ -4166,6 +4858,14 @@
     "removed_accessors": [
       "setEnvironment(Map<String",
       "?>)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.BaseExecSpec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec",
+      "org.gradle.process.JavaForkOptions"
     ]
   },
   {
@@ -4178,6 +4878,14 @@
     "removed_accessors": [
       "setExecutable(String)",
       "setExecutable(Object)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.BaseExecSpec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec",
+      "org.gradle.process.JavaForkOptions"
     ]
   },
   {
@@ -4190,6 +4898,14 @@
     "removed_accessors": [
       "setWorkingDir(File)",
       "setWorkingDir(Object)"
+    ],
+    "also_known_as": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.api.tasks.testing.Test",
+      "org.gradle.process.BaseExecSpec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec",
+      "org.gradle.process.JavaForkOptions"
     ]
   },
   {
@@ -4201,7 +4917,8 @@
     "read_only": false,
     "removed_accessors": [
       "setToolVersion(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4212,7 +4929,8 @@
     "read_only": false,
     "removed_accessors": [
       "setAddress(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4221,7 +4939,8 @@
     "new_type": "Provider<String>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4232,7 +4951,8 @@
     "read_only": false,
     "removed_accessors": [
       "setClassDumpDir(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4244,7 +4964,8 @@
     "removed_accessors": [
       "setDestinationFile(Provider<File>)",
       "setDestinationFile(File)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4256,7 +4977,8 @@
     "removed_accessors": [
       "setDumpOnExit(boolean)",
       "isDumpOnExit()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4268,7 +4990,8 @@
     "removed_accessors": [
       "setEnabled(boolean)",
       "isEnabled()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4279,7 +5002,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExcludeClassLoaders(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4290,7 +5014,8 @@
     "read_only": false,
     "removed_accessors": [
       "setExcludes(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4302,7 +5027,8 @@
     "removed_accessors": [
       "setIncludeNoLocationClasses(boolean)",
       "isIncludeNoLocationClasses()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4313,7 +5039,8 @@
     "read_only": false,
     "removed_accessors": [
       "setIncludes(List<String>)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4325,7 +5052,8 @@
     "removed_accessors": [
       "setJmx(boolean)",
       "isJmx()"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4336,7 +5064,8 @@
     "read_only": false,
     "removed_accessors": [
       "setOutput(JacocoTaskExtension$Output)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4347,7 +5076,8 @@
     "read_only": false,
     "removed_accessors": [
       "setPort(int)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
@@ -4358,7 +5088,8 @@
     "read_only": false,
     "removed_accessors": [
       "setSessionId(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.testing.jacoco.tasks.JacocoBase",
@@ -4369,6 +5100,11 @@
     "read_only": false,
     "removed_accessors": [
       "setJacocoClasspath(FileCollection)"
+    ],
+    "also_known_as": [
+      "org.gradle.testing.jacoco.tasks.JacocoCoverageVerification",
+      "org.gradle.testing.jacoco.tasks.JacocoReport",
+      "org.gradle.testing.jacoco.tasks.JacocoReportBase"
     ]
   },
   {
@@ -4380,7 +5116,8 @@
     "read_only": false,
     "removed_accessors": [
       "setRootDir(String)"
-    ]
+    ],
+    "also_known_as": []
   },
   {
     "class": "org.gradle.vcs.VersionControlSpec",
@@ -4389,7 +5126,10 @@
     "new_type": "Provider<String>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.vcs.git.GitVersionControlSpec"
+    ]
   },
   {
     "class": "org.gradle.vcs.VersionControlSpec",
@@ -4400,6 +5140,9 @@
     "read_only": false,
     "removed_accessors": [
       "setRootDir(String)"
+    ],
+    "also_known_as": [
+      "org.gradle.vcs.git.GitVersionControlSpec"
     ]
   },
   {
@@ -4409,7 +5152,10 @@
     "new_type": "Provider<String>",
     "kind": "read_only",
     "read_only": true,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": [
+      "org.gradle.vcs.git.GitVersionControlSpec"
+    ]
   },
   {
     "class": "org.gradle.vcs.git.GitVersionControlSpec",
@@ -4418,6 +5164,7 @@
     "new_type": "Property<URI>",
     "kind": "other",
     "read_only": false,
-    "removed_accessors": []
+    "removed_accessors": [],
+    "also_known_as": []
   }
 ]

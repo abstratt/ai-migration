@@ -54,6 +54,7 @@ Default URLs are in `extract_data.sh`. They can be overridden via positional arg
 annotated-classes-v2.txt   (which classes to look at)
 g10-javap-v2.txt           (Gradle 10 annotation details — javap -v)
 comparison-v2.txt          (9.4 vs 10 public signatures — javap -public)
+hierarchy-v2.txt           (class declarations for ALL public API classes — for inheritance)
         │
         ▼
   generate_report.py
@@ -69,5 +70,7 @@ The `.txt` files are cached intermediate data. Re-running `extract_data.sh` over
 ## For AI migration sessions
 
 Load these two files into context:
-1. `migration-data.json` — look up class + property to get `kind`, `old_type`, `new_type`, `removed_accessors`
+1. `migration-data.json` — look up class + property to get `kind`, `old_type`, `new_type`, `removed_accessors`, `also_known_as`
 2. `MIGRATION_RULES.md` — apply the rule matching the `kind` field
+
+The `also_known_as` field lists public API subtypes that inherit the property (e.g. `JavaForkOptions.maxHeapSize` lists `Test`, `JavaExec`, etc.). When scanning user code, search for imports of both `class` and all `also_known_as` entries.
