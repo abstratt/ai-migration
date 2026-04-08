@@ -102,7 +102,7 @@ find "$BASE_HOME/lib" -name "*.jar" | while read -r jar; do
 done
 
 g10_count=$(find "$WORK_DIR/g10-classes/org/gradle" -name "*.class" | wc -l | tr -d ' ')
-base_count=$(find "/base-classes/org/gradle" -name "*.class" | wc -l | tr -d ' ')
+base_count=$(find "$WORK_DIR/base-classes/org/gradle" -name "*.class" | wc -l | tr -d ' ')
 echo "Classes extracted: g10=$g10_count, base=$base_count"
 
 # 4. Find annotated classes
