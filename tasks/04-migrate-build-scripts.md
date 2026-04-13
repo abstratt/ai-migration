@@ -8,6 +8,12 @@
 - `gradle-wrapper.properties` points to the custom Provider API distribution
 - JAVA_HOME is set to a working JDK
 
+## Hard rule: no Gradle execution in this task
+
+This task is a **static, data-driven transformation**. Do **not** run `./gradlew`, `gradle`, `gradle help`, `gradle assemble`, `gradle build`, `gradle tasks`, or any other Gradle invocation at any point during this task — not for validation, not for sanity checks, not to "see what breaks", not to iterate on fixes. Build validation is the job of tasks 05 and 06; running Gradle here will produce failures that you must not react to.
+
+If you feel the urge to run Gradle to check your work, stop and commit what you have instead. Any iteration loop driven by Gradle output belongs in task 05 or later, never here.
+
 ## Resume check
 
 1. Check `git log` for a commit message matching "Migrate build scripts" or similar migration-data-driven commit
@@ -58,10 +64,10 @@
 
 4. **Commit current changes** with a present tense message (e.g. "Migrate build scripts to Gradle 10 lazy property API")
 
-   Do **not** try to validate changes using `./gradlew` yet. The build would potentially still fail. We want only changes derivable from `migration-data.json` in this changeset.
+   Do **not** run `./gradlew` (or any other Gradle invocation) to validate the changes. See the "Hard rule" at the top of this task. We want only changes derivable from `migration-data.json` in this changeset; build validation and iteration happen in tasks 05 and 06.
 
 ## Done when
 
 - All build scripts **and** all Java/Kotlin/Groovy source files that use Gradle API types have been scanned and transformed according to `migration-data.json`
 - Changes are committed
-- No `./gradlew` validation has been run (that's the next task)
+- No Gradle command was executed during this task (validation belongs to tasks 05 and 06)

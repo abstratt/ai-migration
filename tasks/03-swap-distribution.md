@@ -22,7 +22,17 @@
    ```
    Also remove `distributionSha256Sum` if present, and set `validateDistributionUrl=false`.
 
-2. Validate with `./gradlew help` **only** to ensure Gradle actually runs. The build will probably fail — do not do anything about it yet.
+2. Run `./gradlew help` **once** to confirm that the custom distribution downloads and Gradle starts up. That is the only goal here.
+
+   **Success criterion is invocation, not build success.** The build is expected to fail at this point. As long as the wrapper was able to fetch the distribution and Gradle began executing (you see Gradle output, configuration starts, etc.), this step is done — even if `./gradlew help` exits non-zero.
+
+   Do **not**:
+   - Re-run `./gradlew` to see if it passes
+   - Try to fix build errors, deprecation warnings, or configuration failures reported by this run
+   - Iterate on any output from this command
+   - Run any other Gradle task (`assemble`, `build`, `tasks`, etc.)
+
+   Fixing the build is the job of task 04 (static transformations) followed by tasks 05 and 06 (validation and iteration).
 
 3. **Commit**: present tense message (e.g. "Update Gradle distribution to custom Provider API build")
 
@@ -31,5 +41,5 @@
 - `gradle-wrapper.properties` points to the custom Provider API distribution
 - `distributionSha256Sum` is removed (if it was present)
 - `validateDistributionUrl=false` is set
-- `./gradlew help` was run (it may fail — that's expected)
+- `./gradlew help` was invoked exactly once, the distribution downloaded, and Gradle started executing (pass/fail of the `help` task itself is irrelevant)
 - Changes are committed
