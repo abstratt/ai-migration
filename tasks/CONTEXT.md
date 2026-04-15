@@ -23,6 +23,13 @@ Example:
 - Use present tense verbs (e.g. "Update", "Migrate", "Fix")
 - Describe what was done, not why
 - Skip commits if no code changes are needed (no empty commits)
+- End every AI-assisted commit with an `Assistant:` trailer identifying the tool and the exact model identifier, separated by ` / `. Example:
+
+      Migrate build scripts to Gradle 10 lazy property API
+
+      Assistant: Claude Code / claude-opus-4-6
+
+  Use the exact model ID (e.g. `claude-opus-4-6`), not a friendly display name, so commits from different models remain distinguishable.
 
 ## Code Change Guidelines
 
