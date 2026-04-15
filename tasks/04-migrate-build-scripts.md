@@ -47,7 +47,19 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - **`[CONFIRMED]` hits**: the file imports a Gradle API type that owns the property. Almost always real — fix them. The only exception is if the method name is called on a *different* local variable of a non-Gradle type (check the receiver at the call site).
    - **`[unconfirmed]` hits in production source** (`buildSrc/src/main/java/`, `build-plugin/...src/main/java/`): the type may be accessed through a method chain rather than imported directly (e.g. `compile.getOptions().setEncoding(...)` where `CompileOptions` is returned by `getOptions()` but not imported; `publication.pom((pom) -> pom.setPackaging(...))` where `MavenPom` is a lambda parameter). **Treat these as real** and apply the fix — unless you can positively identify the receiver as a non-Gradle type (check the variable declaration or method chain).
    - **`[unconfirmed]` hits in test source or DSL files**: more likely to be false positives. Still check the receiver type before skipping.
-   - When in doubt, check the import statements and the declared type of the receiver variable.
+
+   **Receiver-type decision procedure.** For each hit where the owning type is not obvious, walk this ladder in order and stop at the first matching step:
+
+   > **Intent:** convert the ambiguous "is this call on a Gradle type?" judgment into a mechanical check that produces the same answer every time.
+
+   1. Is the method name in the Task-only list (`setDescription`, `setGroup`, `setEnabled`, `setDependsOn`, `setOnlyIf`, `setActions`, `setFinalizedBy`, `setMustRunAfter`, `setShouldRunAfter`, `setTimeout`, `setDidWork`)? → **skip** (not migrated in Gradle 10).
+   2. Does the file `import` a class that appears in `migration-data.json` and owns this property? → **apply** the transformation.
+   3. Is the receiver a local variable? Find its declaration.
+      - Declared type is in `migration-data.json`? → **apply**.
+      - Declared type is in a non-`org.gradle` package? → **skip**.
+   4. Is the receiver a method chain (`a.b().c()`)? Find `b()`'s declared return type. If that return type is in `migration-data.json` (directly or via `also_known_as`), → **apply**.
+   5. Is the receiver a lambda parameter (e.g. `publication.pom(pom -> pom.setX(...))`)? Check the enclosing method's signature — the parameter's type is usually a Gradle configuration type. → **apply** if found in the JSON.
+   6. None of the above → **leave unchanged and note in a comment for review**.
 
 3. **Apply transformations** by looking up each real hit in `migration-data.json` to get its `kind`, then applying the corresponding rule from `MIGRATION_RULES.md`:
    - Prefer lazy wiring (`taskB.foo.set(taskA.foo)`) over eagerly resolving values
