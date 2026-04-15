@@ -22,6 +22,7 @@
    - Third-party plugin incompatibilities
    - Custom build logic that uses removed APIs
    - Look up fixes in `migration-data.json` first, then fix manually based on error output
+   - If `MIGRATION_NOTES.md` exists at the repo root, inspect it: each entry flags a hit that task 04 could not confidently transform. Use the build errors from this task to resolve them, then remove the corresponding entry from `MIGRATION_NOTES.md`.
 
    **Common compile-error → fix mapping.**
 

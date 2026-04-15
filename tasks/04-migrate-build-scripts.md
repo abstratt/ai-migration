@@ -92,6 +92,17 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - **Groovy DSL operator mutations**: replace `prop -= [value]` / `prop += [value]` with `prop.set(prop.get() - [value])` / `prop.add(value)` respectively.
    - **`file_collection` kind**: replace `task.setX(fc)` with `task.getX().setFrom(fc)`. Use `.setFrom()` (not `.from()`) when replacing the entire collection. Watch for circular references: if the new value references the same property, snapshot first with `.getFiles()`: `task.getX().setFrom(project.files(extra, task.getX().getFiles()).filter(...))`.
 
+   **Defer-and-record escape hatch.** If a hit cannot be confidently transformed — the owning type is ambiguous after walking the receiver-type ladder, the `kind` does not match any rule, or the surrounding code would require a non-trivial restructure — record it in a `MIGRATION_NOTES.md` file at the root of the migrated repo and move on.
+
+   > **Intent:** give each hit a legitimate "punt" outcome so that uncertain sites are flagged for follow-up in task 05/06 (where build errors and compile-error mappings are available) rather than being silently skipped or guessed at.
+
+   Each entry in `MIGRATION_NOTES.md` should include:
+   - File path and line number
+   - The scanner-reported class + property (so the entry can be looked up in `migration-data.json` later)
+   - A one-line description of the reason for deferral (e.g. "receiver type unclear: chained through third-party plugin API")
+
+   Commit `MIGRATION_NOTES.md` together with the transformed files. Task 05/06 will consult it when resolving build failures.
+
 4. **Self-check before commit.** Re-run the scanner on the transformed tree:
 
    ```bash
