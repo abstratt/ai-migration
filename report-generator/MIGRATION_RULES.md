@@ -174,6 +174,56 @@ otherTask.someInput.set(task.javaVersion) // pass the Provider
 JavaVersion ver = task.javaVersion.get()
 ```
 
+## Language-specific syntax
+
+> **Intent:** map the Groovy DSL examples above to the two other call-site languages migrations frequently touch — Kotlin DSL and Java — so transformations in each language use its native property-access syntax rather than a transliteration of Groovy.
+
+All examples below assume the `scalar` rule applied to `CompileOptions.encoding`.
+
+### Groovy DSL (`build.gradle`)
+
+```groovy
+// old
+compileJava.options.encoding = "UTF-8"
+compileJava.options.setEncoding("UTF-8")
+// new
+compileJava.options.encoding.set("UTF-8")
+```
+
+### Kotlin DSL (`build.gradle.kts`)
+
+```kotlin
+// old
+tasks.compileJava {
+    options.encoding = "UTF-8"
+}
+// new — .set() is required; direct assignment via `=` does NOT work on Property<T>
+tasks.compileJava {
+    options.encoding.set("UTF-8")
+}
+```
+
+### Java (`buildSrc/src/main/java`, custom plugins)
+
+```java
+// old
+compileTask.getOptions().setEncoding("UTF-8");
+String enc = compileTask.getOptions().getEncoding();
+// new — no property-access shorthand in Java, everything goes through the getter
+compileTask.getOptions().getEncoding().set("UTF-8");
+String enc = compileTask.getOptions().getEncoding().get();
+```
+
+### Per-kind quick reference across languages
+
+| Kind | Groovy DSL | Kotlin DSL | Java |
+|---|---|---|---|
+| `scalar` | `task.x.set("v")` | `task.x.set("v")` | `task.getX().set("v")` |
+| `boolean` | `task.fork.set(true)` | `task.fork.set(true)` | `task.getFork().set(true)` |
+| `list` | `task.args.add("-v")` | `task.args.add("-v")` | `task.getArgs().add("-v")` |
+| `file_collection` | `task.classpath.from(fc)` | `task.classpath.from(fc)` | `task.getClasspath().from(fc)` |
+| `dir` | `task.dir.set(layout.projectDirectory.dir("x"))` | `task.dir.set(layout.projectDirectory.dir("x"))` | `task.getDir().set(layout.getProjectDirectory().dir("x"))` |
+
 ## Cross-cutting concerns
 
 - **Lazy wiring**: `taskB.foo.set(taskA.foo)` passes the `Provider` itself, not its value. Gradle infers the task dependency. Prefer this over `taskB.foo.set(taskA.foo.get())`.
