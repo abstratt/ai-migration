@@ -180,3 +180,63 @@ JavaVersion ver = task.javaVersion.get()
 - **`.get()` resolves the value**. Use it inside task actions, or when passing to any API that does not accept `Provider`.
 - **`.convention()` vs `.set()`**: `.convention()` sets a default that `.set()` can override. Both are lazy. Use `.convention()` in plugins, `.set()` in build scripts.
 - **`Property` extends `Provider`**: anywhere a `Provider<T>` is accepted, a `Property<T>` works.
+
+## Anti-patterns
+
+> **Intent:** surface rewrites that are syntactically valid after migration but semantically wrong, so they can be distinguished from the correct pattern when both forms are available.
+
+### Eager resolution where lazy wiring is available
+
+```groovy
+// WRONG — resolves otherTask.encoding at configuration time, loses task dependency
+task.encoding.set(otherTask.getEncoding())
+task.encoding.set(otherTask.encoding.get())
+
+// RIGHT — passes the Provider, Gradle infers the dependency
+task.encoding.set(otherTask.encoding)
+```
+
+### `.setFrom(.get())` on file collections
+
+```groovy
+// WRONG — eagerly resolves the source file collection
+task.classpath.setFrom(otherTask.classpath.get())
+
+// RIGHT — pass the lazy collection directly
+task.classpath.from(otherTask.classpath)
+```
+
+### `.map { }` where the lambda returns a Provider
+
+```groovy
+// WRONG — yields Provider<Provider<File>>, not Provider<File>
+def pom = generateMavenPom.map { it.getDestination() }
+
+// RIGHT — flatMap unwraps the inner Provider
+def pom = generateMavenPom.flatMap { it.getDestination() }
+```
+
+### Mechanical `setX` → `.x.set()` on Task-only accessors
+
+```groovy
+// WRONG — setDescription is on org.gradle.api.Task and is NOT lazy-migrated
+task.description.set("my task")
+
+// RIGHT — leave Task-only accessors unchanged
+task.setDescription("my task")
+```
+
+### Calling `.get()` on a configuration-time `Property` inside a task action
+
+```groovy
+// WRONG — captures the value at configuration time, before it may be set
+task.doLast {
+    def value = myProperty.get()  // where myProperty was captured from outer scope
+    // ...
+}
+
+// RIGHT — resolve inside the action body so the value is current
+task.doLast {
+    def value = task.myProperty.get()
+}
+```
