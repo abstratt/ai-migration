@@ -19,21 +19,32 @@ Generates `gradle-10-migration-report.md` by comparing a Gradle 10 preview distr
 
 ## Files
 
+This directory (`generator/`) holds only pipeline source — the hand-written scripts and docs.
+
 | File | Description |
 |------|-------------|
-| `extract_data.sh` | Downloads Gradle distributions and extracts javap data |
-| `generate_report.py` | Python script that parses javap data and produces the report |
-| `gradle-10-migration-report.md` | The generated output |
+| `extract_data.sh` | Downloads Gradle distributions and extracts javap data into `../migration-reference/` |
+| `generate_report.py` | Parses the javap data in `../migration-reference/` and produces the report + JSON there |
+
+All generated outputs and consumer-side artifacts live in the sibling `../migration-reference/` directory:
+
+| File | Description |
+|------|-------------|
+| `gradle-10-migration-report.md` | Generated human-readable report |
+| `migration-data.json` | Generated structured lookup table (consumed by migration runs) |
+| `MIGRATION_RULES.md` | Hand-written transformation rules (consumed by migration runs) |
+| `scan_usages.py` | Hand-written scanner invoked by task 04 |
 | `g10-javap-v2.txt` | Cached `javap -v` output for annotated classes in Gradle 10 |
 | `comparison-v2.txt` | Cached `javap -public` output for both versions side-by-side |
-| `annotated-classes-v2.txt` | List of annotated `.class` files |
+| `annotated-classes-v2.txt` | Cached list of annotated `.class` files |
+| `hierarchy-v2.txt` | Cached class declarations for all public API classes |
 
 ## Regenerating the report from cached data
 
 If you only need to tweak the report format or examples:
 
 ```bash
-python3 generate_report.py > gradle-10-migration-report.md
+python3 generate_report.py > ../migration-reference/gradle-10-migration-report.md
 ```
 
 ## Regenerating from scratch (new Gradle versions)
@@ -49,5 +60,5 @@ python3 generate_report.py > gradle-10-migration-report.md
 ./extract_data.sh "https://new-g10-url.zip" "https://downloads.gradle.org/distributions/gradle-9.5.0-bin.zip"
 
 # Then regenerate the report
-python3 generate_report.py > gradle-10-migration-report.md
+python3 generate_report.py > ../migration-reference/gradle-10-migration-report.md
 ```

@@ -4,11 +4,11 @@
 
 A report generator that compares Gradle 10 preview vs 9.4.0 to catalog every `@ReplacesEagerProperty`-annotated property under all public API packages (see https://docs.gradle.org/current/userguide/public_apis.html).
 
-Outputs (both produced by `generate_report.py`):
-- `gradle-10-migration-report.md` — for human readers
+Outputs (both produced by `generate_report.py`, both written to the sibling `../migration-reference/` directory):
+- `gradle-10-migration-report.md` — human-readable report (captured via stdout redirect)
 - `migration-data.json` — structured lookup table for AI migration sessions
 
-For AI-driven migrations, use `migration-data.json` (the lookup table) together with `MIGRATION_RULES.md` (transformation rules by property kind). The human report is not needed.
+For AI-driven migrations, load `../migration-reference/migration-data.json` (the lookup table) together with `../migration-reference/MIGRATION_RULES.md` (transformation rules by property kind). The human report is not needed. This directory (`generator/`) holds only hand-written pipeline source (`extract_data.sh`, `generate_report.py`, docs). All generated artifacts — including the javap caches — live in `../migration-reference/`.
 
 To iterate, edit `generate_report.py` and re-run — the cached javap data means no downloads needed.
 
@@ -46,31 +46,35 @@ Default URLs are in `extract_data.sh`. They can be overridden via positional arg
 
 ## Data flow
 
+All generated artifacts live in `../migration-reference/`. The source scripts live here.
+
 ```
-  extract_data.sh [g10-url] [g94-url]
+  generator/extract_data.sh [g10-url] [g94-url]
         │
         │  downloads, extracts JARs, runs javap
         ▼
-annotated-classes-v2.txt   (which classes to look at)
-g10-javap-v2.txt           (Gradle 10 annotation details — javap -v)
-comparison-v2.txt          (9.4 vs 10 public signatures — javap -public)
-hierarchy-v2.txt           (class declarations for ALL public API classes — for inheritance)
+  ../migration-reference/
+    annotated-classes-v2.txt   (which classes to look at)
+    g10-javap-v2.txt           (Gradle 10 annotation details — javap -v)
+    comparison-v2.txt          (9.4 vs 10 public signatures — javap -public)
+    hierarchy-v2.txt           (class declarations for ALL public API classes — for inheritance)
         │
         ▼
-  generate_report.py
+  generator/generate_report.py   (reads the four .txt files above)
         │
-        ├──▶ gradle-10-migration-report.md   (human report, stdout)
-        └──▶ migration-data.json              (structured data, written to disk)
+        ├──▶ ../migration-reference/gradle-10-migration-report.md  (stdout redirect, human)
+        └──▶ ../migration-reference/migration-data.json            (structured, written directly)
 
-  MIGRATION_RULES.md   (hand-written, transformation rules by kind)
+  ../migration-reference/MIGRATION_RULES.md   (hand-written, transformation rules by kind)
+  ../migration-reference/scan_usages.py       (hand-written scanner used by task 04)
 ```
 
-The `.txt` files are cached intermediate data. Re-running `extract_data.sh` overwrites them.
+The `.txt` files are cached intermediate data. Re-running `extract_data.sh` overwrites them in `../migration-reference/`.
 
 ## For AI migration sessions
 
-Load these two files into context:
-1. `migration-data.json` — look up class + property to get `kind`, `old_type`, `new_type`, `removed_accessors`, `also_known_as`
-2. `MIGRATION_RULES.md` — apply the rule matching the `kind` field
+Load these two files into context from the `migration-reference/` sibling directory:
+1. `migration-reference/migration-data.json` — look up class + property to get `kind`, `old_type`, `new_type`, `removed_accessors`, `also_known_as`
+2. `migration-reference/MIGRATION_RULES.md` — apply the rule matching the `kind` field
 
 The `also_known_as` field lists public API subtypes that inherit the property (e.g. `JavaForkOptions.maxHeapSize` lists `Test`, `JavaExec`, etc.). When scanning user code, search for imports of both `class` and all `also_known_as` entries.

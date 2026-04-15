@@ -250,11 +250,12 @@ def property_name_from_getter(getter_name):
 def main():
     import os
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    comparison = parse_simple_javap(os.path.join(script_dir, 'comparison-v2.txt'))
-    annotated = find_annotated_methods(os.path.join(script_dir, 'g10-javap-v2.txt'))
+    ref_dir = os.path.join(script_dir, '..', 'migration-reference')
+    comparison = parse_simple_javap(os.path.join(ref_dir, 'comparison-v2.txt'))
+    annotated = find_annotated_methods(os.path.join(ref_dir, 'g10-javap-v2.txt'))
 
     # Load class hierarchy for also_known_as computation
-    hierarchy_path = os.path.join(script_dir, 'hierarchy-v2.txt')
+    hierarchy_path = os.path.join(ref_dir, 'hierarchy-v2.txt')
     if os.path.exists(hierarchy_path):
         _parents, children_map = build_hierarchy(hierarchy_path)
     else:
@@ -396,7 +397,7 @@ def main():
                 'also_known_as': subtypes_cache.get(cls, []),
             })
 
-    json_path = os.path.join(script_dir, 'migration-data.json')
+    json_path = os.path.join(ref_dir, 'migration-data.json')
     with open(json_path, 'w') as f:
         json.dump(json_entries, f, indent=2)
     print(f"Wrote {len(json_entries)} entries to {json_path}", file=sys.stderr)

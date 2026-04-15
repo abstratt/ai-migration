@@ -9,6 +9,7 @@ G10_URL="${1:-$DEFAULT_G10_URL}"
 BASE_URL="${2:-$DEFAULT_BASE_URL}"
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+OUT_DIR="$(cd "$SCRIPT_DIR/../migration-reference" && pwd)"
 WORK_DIR="$(mktemp -d)"
 
 cleanup() {
@@ -158,19 +159,19 @@ find org/gradle -name "*.class" ! -name '*$*' -print0 \
 hier_count=$(wc -l < "$WORK_DIR/hierarchy.txt" | tr -d ' ')
 echo "Class declarations extracted: $hier_count"
 
-# 9. Copy results to script directory
-echo "--- Copying results to $SCRIPT_DIR ---"
-cp "$WORK_DIR/annotated-classes.txt" "$SCRIPT_DIR/annotated-classes-v2.txt"
-cp "$WORK_DIR/g10-javap.txt" "$SCRIPT_DIR/g10-javap-v2.txt"
-cp "$WORK_DIR/comparison.txt" "$SCRIPT_DIR/comparison-v2.txt"
-cp "$WORK_DIR/hierarchy.txt" "$SCRIPT_DIR/hierarchy-v2.txt"
+# 9. Copy results to migration-reference/
+echo "--- Copying results to $OUT_DIR ---"
+cp "$WORK_DIR/annotated-classes.txt" "$OUT_DIR/annotated-classes-v2.txt"
+cp "$WORK_DIR/g10-javap.txt" "$OUT_DIR/g10-javap-v2.txt"
+cp "$WORK_DIR/comparison.txt" "$OUT_DIR/comparison-v2.txt"
+cp "$WORK_DIR/hierarchy.txt" "$OUT_DIR/hierarchy-v2.txt"
 
 echo ""
 echo "=== Done ==="
 echo "Updated files:"
-echo "  $SCRIPT_DIR/annotated-classes-v2.txt ($ann_count classes)"
-echo "  $SCRIPT_DIR/g10-javap-v2.txt ($(wc -l < "$SCRIPT_DIR/g10-javap-v2.txt" | tr -d ' ') lines)"
-echo "  $SCRIPT_DIR/comparison-v2.txt ($(wc -l < "$SCRIPT_DIR/comparison-v2.txt" | tr -d ' ') lines)"
-echo "  $SCRIPT_DIR/hierarchy-v2.txt ($hier_count class declarations)"
+echo "  $OUT_DIR/annotated-classes-v2.txt ($ann_count classes)"
+echo "  $OUT_DIR/g10-javap-v2.txt ($(wc -l < "$OUT_DIR/g10-javap-v2.txt" | tr -d ' ') lines)"
+echo "  $OUT_DIR/comparison-v2.txt ($(wc -l < "$OUT_DIR/comparison-v2.txt" | tr -d ' ') lines)"
+echo "  $OUT_DIR/hierarchy-v2.txt ($hier_count class declarations)"
 echo ""
-echo "Now run:  python3 generate_report.py > gradle-10-migration-report.md"
+echo "Now run:  python3 generate_report.py > ../migration-reference/gradle-10-migration-report.md"

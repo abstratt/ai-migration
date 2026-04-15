@@ -21,9 +21,9 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
 ## Instructions
 
-1. **Load the migration reference files** from `report-generator/`:
-   - `report-generator/migration-data.json` — lookup table of every changed property (class, old type, new type, kind, removed accessors)
-   - `report-generator/MIGRATION_RULES.md` — transformation rules for each property kind
+1. **Load the migration reference files** from `migration-reference/`:
+   - `migration-reference/migration-data.json` — lookup table of every changed property (class, old type, new type, kind, removed accessors)
+   - `migration-reference/MIGRATION_RULES.md` — transformation rules for each property kind
 
    **Leave-alone list.** The following constructs are outside the scope of this migration and must be kept as-is even if they superficially resemble a scan hit:
 
@@ -40,7 +40,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 2. **Run the automated usage scanner** to get a comprehensive, pre-filtered list of every candidate change site:
 
    ```bash
-   python3 ../report-generator/scan_usages.py . 2>&1 | tee /tmp/scan-results.txt
+   python3 ../migration-reference/scan_usages.py . 2>&1 | tee /tmp/scan-results.txt
    ```
 
    The scanner produces three sections:
@@ -106,7 +106,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 4. **Self-check before commit.** Re-run the scanner on the transformed tree:
 
    ```bash
-   python3 ../report-generator/scan_usages.py . 2>&1 | tee /tmp/scan-results-after.txt
+   python3 ../migration-reference/scan_usages.py . 2>&1 | tee /tmp/scan-results-after.txt
    ```
 
    > **Intent:** provide a deterministic pass/fail signal that the migration covered every site the scanner can detect, without relying on Gradle execution (which is forbidden in this task).

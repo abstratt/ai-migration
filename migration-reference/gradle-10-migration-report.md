@@ -1,4 +1,3 @@
-Wrote 396 entries to /Users/rafael/sources/other/provider-api-testing/ai-migration/report-generator/migration-data.json
 # Gradle 10 Lazy Property Migration Report
 
 Properties annotated with `@ReplacesEagerProperty` in Gradle 10 preview (`gradle-provider-api-20260204140400`), compared against Gradle 9.4.0.

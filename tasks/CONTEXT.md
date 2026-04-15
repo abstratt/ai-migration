@@ -44,10 +44,10 @@ Example:
 
 ## Migration Reference
 
-The complete set of API changes and transformation rules lives in `report-generator/`:
+The complete set of API changes and transformation rules lives in `migration-reference/`:
 
-- **`report-generator/migration-data.json`** — structured lookup table with every changed property: class, property name, old type, new type, `kind` (boolean, scalar, dir, file, file_collection, list, set, map, other, read_only), and removed accessors.
-- **`report-generator/MIGRATION_RULES.md`** — one transformation rule per `kind`, covering `.set()`, `.get()`, `.from()`, `.add()`, lazy wiring, conventions, and read-only providers.
+- **`migration-reference/migration-data.json`** — structured lookup table with every changed property: class, property name, old type, new type, `kind` (boolean, scalar, dir, file, file_collection, list, set, map, other, read_only), and removed accessors.
+- **`migration-reference/MIGRATION_RULES.md`** — one transformation rule per `kind`, covering `.set()`, `.get()`, `.from()`, `.add()`, lazy wiring, conventions, and read-only providers.
 
 **How to use**: look up the class + property in the JSON to get its `kind`, then apply the matching rule.
 
