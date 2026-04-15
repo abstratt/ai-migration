@@ -25,6 +25,18 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - `report-generator/migration-data.json` — lookup table of every changed property (class, old type, new type, kind, removed accessors)
    - `report-generator/MIGRATION_RULES.md` — transformation rules for each property kind
 
+   **Leave-alone list.** The following constructs are outside the scope of this migration and must be kept as-is even if they superficially resemble a scan hit:
+
+   > **Intent:** bound the set of code affected by this task to exactly the accessors driven by `migration-data.json`, so unrelated APIs are not modified.
+
+   - `org.gradle.api.Task` accessors: `setDescription`, `setGroup`, `setEnabled`, `setDependsOn`, `setOnlyIf`, `setActions`, `setFinalizedBy`, `setMustRunAfter`, `setShouldRunAfter`, `setTimeout`, `setDidWork` (not lazy-migrated in Gradle 10).
+   - Task lifecycle/wiring APIs: `doFirst`, `doLast`, `dependsOn(…)`, `finalizedBy(…)`, `mustRunAfter(…)`, `shouldRunAfter(…)`.
+   - `Project` methods called on `project` itself (e.g. `project.file(...)`, `project.files(...)`, `project.layout.*`).
+   - Third-party plugin types — any receiver in a non-`org.gradle` package. These are handled in task 05/06 if they produce build errors.
+   - `@Input` / `@InputFile` / `@OutputDirectory` annotated fields on custom task classes declared in `buildSrc` — these require a different migration path (declaring the field as `Property<T>` rather than rewriting call sites) and are out of scope for this task.
+   - Deprecation warnings reported by the scanner or the compiler — ignore them; this task covers removals only.
+   - Comments, KDoc, Javadoc, and string literals that mention removed accessor names — leave them as-is.
+
 2. **Run the automated usage scanner** to get a comprehensive, pre-filtered list of every candidate change site:
 
    ```bash
