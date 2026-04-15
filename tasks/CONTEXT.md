@@ -1,5 +1,13 @@
 # Shared Context
 
+## Reading convention
+
+Throughout these tasks, blockquote blocks prefixed with `**Intent:**` describe what the surrounding instruction is meant to achieve. They are annotations for human readers correlating low-level steps with their goals. Read them for context, but do not treat them as imperative steps — execute only the numbered instructions and bullet-point rules.
+
+Example:
+
+> **Intent:** the following step bounds the search space so that downstream rules can be applied mechanically.
+
 ## Environment
 
 - **REPO_URL**: The repository URL (and optionally branch) to migrate (e.g. `https://github.com/owner/repo` or `https://github.com/owner/repo/tree/branch`).
