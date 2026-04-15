@@ -49,7 +49,9 @@ The complete set of API changes and transformation rules lives in `report-genera
 These are patterns not captured by `@ReplacesEagerProperty` but commonly needed:
 
 - **Wrapper properties cleanup**: remove `distributionSha256Sum` (won't match custom distro), set `validateDistributionUrl=false`
-- **`flatMap` instead of `map`**: when chaining providers that return property types (e.g., `generateMavenPom.flatMap(GenerateMavenPom::getDestination)` instead of `.map(...)`)
+- **`flatMap` instead of `map`**: when chaining providers whose lambda body returns a `Provider` or `Property`, use `.flatMap` so the inner `Provider` is unwrapped. Typical trigger: the lambda ends with a `get<X>()` call on a task whose return type became `Property<T>` / `Provider<T>` after migration — `generateMavenPom.map { it.getDestination() }` yields `Provider<Provider<RegularFile>>`, while `generateMavenPom.flatMap { it.getDestination() }` yields `Provider<RegularFile>`. Check any pre-existing `.map { }` chains in the codebase against this rule after transforming the underlying accessors.
+
+   > **Intent:** ensure existing `.map { }` call sites are rechecked once the accessors inside the lambda have been migrated to return `Provider`/`Property`, since the correct combinator depends on the post-migration return type.
 - **Third-party plugin issues**: not covered by migration data; fix based on build error output
 
 ## Allowed Operations
