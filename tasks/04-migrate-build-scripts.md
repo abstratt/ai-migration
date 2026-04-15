@@ -79,6 +79,12 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - Add a code comment explaining the reason for each non-trivial change
    - Ignore deprecations for now
 
+   **Inheritance lookup via `also_known_as`.** A property may be defined on a base class and inherited by many public-API subtypes (e.g. `maxHeapSize` is on `JavaForkOptions` and inherited by `Test`, `JavaExec`, and others). If a direct class + property lookup returns no entry, search `migration-data.json` for the property name alone and check each match's `also_known_as` field.
+
+   > **Intent:** ensure that inherited properties still resolve to their owning entry so the correct rule is applied instead of treating the hit as unmapped.
+
+   Example: a scan hit against `Test.setMaxHeapSize("2g")` will not find an entry keyed by `class=Test, property=maxHeapSize`. The entry is keyed by `class=JavaForkOptions, property=maxHeapSize`, with `Test` listed under `also_known_as`. Apply the `JavaForkOptions.maxHeapSize` rule to the `Test` call site.
+
    **Additional rules for the new search categories:**
 
    - **`is*` boolean getter sites**: replace `task.isFoo()` with `task.getFoo().get()` (inside task actions or when a resolved value is needed), or wire lazily with `task.getFoo()` (returns `Property<Boolean>`) elsewhere.
