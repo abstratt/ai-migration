@@ -2,6 +2,45 @@
 
 Use with `migration-data.json` to migrate Gradle build scripts. Look up the class + property in the JSON to get `kind`, `old_type`, `new_type`, and `removed_accessors`, then apply the matching rule below.
 
+## End-to-end walkthrough
+
+> **Intent:** demonstrate the complete lookup → decide → rewrite flow on one real example before reading the per-kind rules.
+
+Suppose the scanner emits this hit:
+
+```
+buildSrc/src/main/java/MyBuildPlugin.java
+  line  42: task.setEncoding("UTF-8");
+           [CONFIRMED: JavaCompile]
+           → JavaCompile.options.encoding (kind=scalar)
+```
+
+**Step 1 — Look up the entry in `migration-data.json`:**
+
+```json
+{
+  "class": "CompileOptions",
+  "property": "encoding",
+  "kind": "scalar",
+  "old_type": "String",
+  "new_type": "Property<String>",
+  "removed_accessors": ["setEncoding(String)"]
+}
+```
+
+**Step 2 — Match the `kind` to a rule.** `kind=scalar` maps to the `scalar` rule below. Old `setX(T)` → new `x.set(T)`.
+
+**Step 3 — Rewrite the call site:**
+
+```java
+// before
+task.getOptions().setEncoding("UTF-8");
+// after
+task.getOptions().getEncoding().set("UTF-8");
+```
+
+**Step 4 — Check for a lazy-wiring opportunity.** If the argument were itself another task's property (e.g. `task.getOptions().setEncoding(otherTask.getOptions().getEncoding())`), prefer passing the `Provider` directly: `task.getOptions().getEncoding().set(otherTask.getOptions().getEncoding())` — no `.get()` on the source.
+
 ## Transformation rules by `kind`
 
 ### `boolean`
