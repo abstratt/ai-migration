@@ -74,12 +74,29 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - **Groovy DSL operator mutations**: replace `prop -= [value]` / `prop += [value]` with `prop.set(prop.get() - [value])` / `prop.add(value)` respectively.
    - **`file_collection` kind**: replace `task.setX(fc)` with `task.getX().setFrom(fc)`. Use `.setFrom()` (not `.from()`) when replacing the entire collection. Watch for circular references: if the new value references the same property, snapshot first with `.getFiles()`: `task.getX().setFrom(project.files(extra, task.getX().getFiles()).filter(...))`.
 
-4. **Commit current changes** with a present tense message (e.g. "Migrate build scripts to Gradle 10 lazy property API")
+4. **Self-check before commit.** Re-run the scanner on the transformed tree:
+
+   ```bash
+   python3 ../report-generator/scan_usages.py . 2>&1 | tee /tmp/scan-results-after.txt
+   ```
+
+   > **Intent:** provide a deterministic pass/fail signal that the migration covered every site the scanner can detect, without relying on Gradle execution (which is forbidden in this task).
+
+   Expectations:
+   - **Zero `[CONFIRMED]` Cat-A hits** (removed accessors) should remain — every confirmed hit means a real call site was missed.
+   - **Zero `[CONFIRMED]` Cat-B hits** (changed-return-type getters without `.get()`/`.set(`) should remain.
+   - **Zero `[CONFIRMED]` Cat-C hits** (DSL operator mutations) should remain.
+   - `[unconfirmed]` hits may remain; these were already judged non-applicable during step 3.
+
+   If any confirmed hits remain, return to step 3 and address them before committing.
+
+5. **Commit current changes** with a present tense message (e.g. "Migrate build scripts to Gradle 10 lazy property API")
 
    Do **not** run `./gradlew` (or any other Gradle invocation) to validate the changes. See the "Hard rule" at the top of this task. We want only changes derivable from `migration-data.json` in this changeset; build validation and iteration happen in tasks 05 and 06.
 
 ## Done when
 
 - All build scripts **and** all Java/Kotlin/Groovy source files that use Gradle API types have been scanned and transformed according to `migration-data.json`
+- Re-running `scan_usages.py` shows zero confirmed hits in any category
 - Changes are committed
 - No Gradle command was executed during this task (validation belongs to tasks 05 and 06)
