@@ -1,5 +1,7 @@
 # Context for AI sessions
 
+> **Scope:** this file is for sessions working **on the generator itself** — editing `extract_data.sh` or `generate_report.py`, or rerunning the pipeline against new Gradle distributions. It is **not** for Gradle-10 migration sessions; those should load `../tasks/CONTEXT.md` plus `../migration-reference/migration-data.json` and `../migration-reference/MIGRATION_RULES.md` instead. If you arrived here during a migration run, back out — nothing under `generator/` is part of the migration workflow.
+
 ## What this is
 
 A report generator that compares Gradle 10 preview vs 9.4.0 to catalog every `@ReplacesEagerProperty`-annotated property under all public API packages (see https://docs.gradle.org/current/userguide/public_apis.html).
