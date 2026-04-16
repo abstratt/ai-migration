@@ -14,7 +14,8 @@ A fresh migration branch is created on every run of this task, so branch existen
 
 1. Check if the clone directory (derived from `REPO_URL`) exists and contains a git repository — if so, the clone step can be skipped.
 2. Check that `JAVA_HOME` is set, starts with `$HOME/.sdkman/candidates/java/`, and `java -version` reports the expected major version from a Temurin build — if so, the JDK install step can be skipped.
-3. Branch creation (step 7 below) always runs; it creates a new timestamped branch off the base branch. **Never** check out or reuse any pre-existing `gradle-10-migration/*` branch, regardless of its timestamp.
+3. **If the repo is currently on a `gradle-10-migration/*` branch**, switch back to the base branch (`git checkout <base-branch>`) before proceeding. That old migration branch belongs to a previous run and must not be reused.
+4. Branch creation (step 7 below) always runs; it creates a new timestamped branch off the base branch. **Never** check out or reuse any pre-existing `gradle-10-migration/*` branch, regardless of its timestamp.
 
 If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/vendor, resume from JDK detection and installation — do not accept it as-is.
 
