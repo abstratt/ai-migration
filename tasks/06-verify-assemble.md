@@ -28,7 +28,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 3. **Iterate** until `./gradlew assemble` succeeds
 
-4. **Commit only if changes were made**: present tense message (e.g. "Fix remaining build issues for `./gradlew assemble`") — include the `Assistant:` trailer (see CONTEXT.md)
+4. **Commit only if changes were made** — include the `Assistant:` trailer (see CONTEXT.md). The commit message **must** contain the literal string `./gradlew assemble` so it is clear these fixes were driven by `assemble` failures. Example: `Fix build issues found by ./gradlew assemble`.
 
 ## Done when
 

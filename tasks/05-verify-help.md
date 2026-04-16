@@ -45,7 +45,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 3. **Iterate** until `./gradlew help` succeeds
 
-4. **Commit only if changes were made**: present tense message (e.g. "Fix remaining build issues for `./gradlew help`") — include the `Assistant:` trailer (see CONTEXT.md)
+4. **Commit only if changes were made** — include the `Assistant:` trailer (see CONTEXT.md). The commit message **must** contain the literal string `./gradlew help` so it is clear these fixes were driven by `help` failures. Example: `Fix build issues found by ./gradlew help`.
 
 ## Done when
 
