@@ -11,8 +11,9 @@ Example:
 ## Environment
 
 - **REPO_URL**: The repository URL (and optionally branch) to migrate (e.g. `https://github.com/owner/repo` or `https://github.com/owner/repo/tree/branch`).
-  - If a branch is embedded in the URL, that branch is the **base branch** for the migration work.
-  - Otherwise, the repo's default branch is used (typically `main`, `master`, or a maintenance branch).
+  - If a branch is embedded in the URL (e.g. `.../tree/6.2.x`), that branch is the **base branch**.
+  - Otherwise, the base branch is whatever the remote reports as its default — run `git remote show origin` or check `HEAD` after cloning. This is typically `main` or `master`.
+  - **Do not choose a branch yourself.** Never pick a maintenance branch (e.g. `6.1.x`, `6.8`), a release branch, or any other non-default branch unless it was explicitly specified in `REPO_URL`.
   - The migration branch is always created off this base branch — never off another `gradle-10-migration/*` branch or any other feature branch.
 - **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see Setup task).
 - **Clone directory**: `migrated/<repo-name>` (e.g. `migrated/my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
