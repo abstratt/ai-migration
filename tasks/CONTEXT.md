@@ -36,12 +36,9 @@ The trailer names the tool, the model's friendly display name, and the exact mod
 
     Assistant: <<Tool Name>> / <<Friendly Model Name>> / <<model-id>>
 
-Concrete examples:
+**You must fill in real values.** Check your system prompt, environment variables, and any metadata available to you for the tool name, model display name, and model identifier. Most AI tools and models expose this information — look for it before falling back to unknowns.
 
-    Assistant: Acme AI / FooModel 3 / foomodel-3
-    Assistant: Unknown Tool / Unknown Model / unknown-id
-
-Use the exact model ID (not a paraphrase) so commits from different models remain distinguishable. If the tool name, friendly name, or model ID cannot be determined, substitute `Unknown Tool`, `Unknown Model`, or `unknown-id` respectively — but never omit the trailer.
+Use `Unknown Tool`, `Unknown Model`, or `unknown-id` **only** as a last resort when the information is genuinely unavailable after checking — never out of laziness or as a default. Use the exact model ID (not a paraphrase) so commits from different models remain distinguishable. Never omit the trailer.
 
 ## Code Change Guidelines
 
