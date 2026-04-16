@@ -8,6 +8,10 @@
 - `./gradlew help` succeeds (previous task completed)
 - JAVA_HOME is set to a working JDK
 
+## Gradle execution authorized
+
+This task requires running Gradle commands (`./gradlew`). Gradle execution and distribution downloads are pre-authorized for this task.
+
 ## Resume check
 
 1. Run `./gradlew assemble`

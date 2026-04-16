@@ -8,6 +8,10 @@
 - Gradle version is 9.x (either already was, or upgraded by the previous task)
 - JAVA_HOME is set to a working JDK
 
+## Gradle execution authorized
+
+This task requires running Gradle commands (`./gradlew`). Gradle execution and distribution downloads are pre-authorized for this task.
+
 ## Resume check
 
 1. Read `gradle/wrapper/gradle-wrapper.properties`

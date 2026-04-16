@@ -89,11 +89,10 @@ The following operations are pre-authorized and should be performed without aski
 - Create branches and commit locally (do **not** push or create PRs)
 - Edit build files (e.g. `build.gradle`, `build.gradle.kts`, `settings.gradle`, `settings.gradle.kts`, `gradle.properties`, `gradle-wrapper.properties`, and `buildSrc`/convention plugin sources)
 - Edit Java/Kotlin/Groovy source files that are part of the build tooling (e.g. custom Gradle plugins, tasks, and extensions)
-- Run Gradle commands (`./gradlew help`, `./gradlew assemble`, etc.)
 - Run `gh` CLI commands for forking
 - Run `git` commands (clone, checkout, branch, add, commit, diff, status, log — but **not push**)
 - Run shell commands for inspecting build output, searching for patterns, and reading files
-- Download Gradle distributions (triggered automatically by `./gradlew`), including the custom Provider API build from `https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip`
+- Download Gradle distributions when a task authorizes Gradle execution, including the custom Provider API build from `https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip`
 - Install JDK versions via SDKMAN (`sdk install java`, `sdk use java`)
 
 ## Resume Protocol

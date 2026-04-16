@@ -7,6 +7,10 @@
 - Clone directory exists with the fork checked out on the migration branch
 - JAVA_HOME is set to a working JDK
 
+## Gradle execution authorized
+
+This task requires running Gradle commands (`./gradlew`). Gradle execution and distribution downloads are pre-authorized for this task.
+
 ## Resume check
 
 1. Check the current Gradle version by reading `gradle/wrapper/gradle-wrapper.properties` for the distribution URL
