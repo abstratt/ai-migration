@@ -25,17 +25,23 @@ Example:
 - Use present tense verbs (e.g. "Update", "Migrate", "Fix")
 - Describe what was done, not why
 - Skip commits if no code changes are needed (no empty commits)
-- **Every** commit made inside the repository being migrated (i.e. under `migrated/<repo-name>/`) must end with an `Assistant:` trailer naming the tool, the model's friendly display name, and the exact model identifier, each separated by ` / `. This requirement applies only to the migrated repo, **not** to commits in the root migration-tooling repository. Format:
 
-      Migrate build scripts to Gradle 10 lazy property API
+## Assistant Trailer (mandatory for migrated repo commits)
 
-      Assistant: <<Tool Name>> / <<Friendly Model Name>> / <<model-id>>
+**Every** commit made inside the repository being migrated (i.e. under `migrated/<repo-name>/`) must end with an `Assistant:` trailer. This requirement applies only to the migrated repo, **not** to commits in the root migration-tooling repository.
 
-  Concrete example:
+The trailer names the tool, the model's friendly display name, and the exact model identifier, each separated by ` / `. Format:
 
-      Assistant: Unknown Tool / Unknown Model / unknown-id
+    Migrate build scripts to Gradle 10 lazy property API
 
-  Use the exact model ID (not a paraphrase) so commits from different models remain distinguishable. If the tool name, friendly name, or model ID cannot be determined, substitute `Unknown Tool`, `Unknown Model`, or `unknown-id` respectively — but never omit the trailer.
+    Assistant: <<Tool Name>> / <<Friendly Model Name>> / <<model-id>>
+
+Concrete examples:
+
+    Assistant: Acme AI / FooModel 3 / foomodel-3
+    Assistant: Unknown Tool / Unknown Model / unknown-id
+
+Use the exact model ID (not a paraphrase) so commits from different models remain distinguishable. If the tool name, friendly name, or model ID cannot be determined, substitute `Unknown Tool`, `Unknown Model`, or `unknown-id` respectively — but never omit the trailer.
 
 ## Code Change Guidelines
 

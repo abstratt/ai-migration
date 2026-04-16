@@ -41,7 +41,7 @@
 
 3. **Iterate** until `./gradlew help` succeeds
 
-4. **Commit only if changes were made**: present tense message (e.g. "Fix remaining build issues for `./gradlew help`")
+4. **Commit only if changes were made**: present tense message (e.g. "Fix remaining build issues for `./gradlew help`") — include the `Assistant:` trailer (see CONTEXT.md)
 
 ## Done when
 

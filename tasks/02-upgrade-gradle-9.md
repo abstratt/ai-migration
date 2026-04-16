@@ -23,7 +23,7 @@ This task is **conditional** — only needed if the repository is not already on
 
 2. Run `./gradlew help` and fix any issues caused by the major version upgrade
 
-3. **Commit**: "Upgrade Gradle wrapper to 9.4.0"
+3. **Commit**: "Upgrade Gradle wrapper to 9.4.0" — include the `Assistant:` trailer (see CONTEXT.md)
 
 Note: Always use the `wrapper` task for standard Gradle version upgrades. Only manually edit `gradle-wrapper.properties` for the custom Provider API distribution URL (that happens in the next task).
 

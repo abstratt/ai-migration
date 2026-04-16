@@ -24,7 +24,7 @@
 
 3. **Iterate** until `./gradlew assemble` succeeds
 
-4. **Commit only if changes were made**: present tense message (e.g. "Fix remaining build issues for `./gradlew assemble`")
+4. **Commit only if changes were made**: present tense message (e.g. "Fix remaining build issues for `./gradlew assemble`") — include the `Assistant:` trailer (see CONTEXT.md)
 
 ## Done when
 

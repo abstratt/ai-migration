@@ -34,7 +34,7 @@
 
    Fixing the build is the job of task 04 (static transformations) followed by tasks 05 and 06 (validation and iteration).
 
-3. **Commit**: present tense message (e.g. "Update Gradle distribution to custom Provider API build")
+3. **Commit**: present tense message (e.g. "Update Gradle distribution to custom Provider API build") — include the `Assistant:` trailer (see CONTEXT.md)
 
 ## Done when
 

@@ -119,7 +119,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
    If any confirmed hits remain, return to step 3 and address them before committing.
 
-5. **Commit current changes** with a present tense message (e.g. "Migrate build scripts to Gradle 10 lazy property API")
+5. **Commit current changes** with a present tense message (e.g. "Migrate build scripts to Gradle 10 lazy property API") — include the `Assistant:` trailer (see CONTEXT.md)
 
    Do **not** run `./gradlew` (or any other Gradle invocation) to validate the changes. See the "Hard rule" at the top of this task. We want only changes derivable from `migration-data.json` in this changeset; build validation and iteration happen in tasks 05 and 06.
 
