@@ -33,7 +33,7 @@ Example:
 
   Concrete example:
 
-      Assistant: Claude Code / Claude Opus 4.6 / claude-opus-4-6
+      Assistant: Unknown Tool / Unknown Model / unknown-id
 
   Use the exact model ID (not a paraphrase) so commits from different models remain distinguishable. If the tool name, friendly name, or model ID cannot be determined, substitute `Unknown Tool`, `Unknown Model`, or `unknown-id` respectively — but never omit the trailer.
 
