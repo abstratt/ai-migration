@@ -23,7 +23,7 @@ Example:
 - Use present tense verbs (e.g. "Update", "Migrate", "Fix")
 - Describe what was done, not why
 - Skip commits if no code changes are needed (no empty commits)
-- **Every** AI-assisted commit produced by this workflow — no exceptions, regardless of which task or step — must end with an `Assistant:` trailer naming the tool, the model's friendly display name, and the exact model identifier, each separated by ` / `. Format:
+- **Every** commit made inside the repository being migrated (i.e. under `migrated/<repo-name>/`) must end with an `Assistant:` trailer naming the tool, the model's friendly display name, and the exact model identifier, each separated by ` / `. This requirement applies only to the migrated repo, **not** to commits in the root migration-tooling repository. Format:
 
       Migrate build scripts to Gradle 10 lazy property API
 
