@@ -22,15 +22,15 @@ If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/ven
 
 1. **Parse `REPO_URL`** to extract the `owner/repo`, repo name, and optional branch.
 
-2. **Determine clone directory**: `<repo-name>`. If it already exists, delete it first.
+2. **Determine clone directory**: `migrated/<repo-name>` (e.g. `migrated/spring-framework`), relative to the working directory. Create the `migrated/` parent directory if it does not exist. If the clone directory already exists, delete it first.
 
 3. **Fork or reuse**: If a fork already exists on your GitHub account, use it; otherwise fork with `gh repo fork`.
 
-4. **Clone** the fork into the clone directory, fetching only the target branch:
+4. **Clone** the fork into the clone directory (`migrated/<repo-name>`), fetching only the target branch:
    ```bash
-   git clone --depth 1 --single-branch --branch <branch> <fork-url> <repo-name>
+   git clone --depth 1 --single-branch --branch <branch> <fork-url> migrated/<repo-name>
    ```
-   Use the branch from the URL, or omit `--branch` for the default branch.
+   Use the branch from the URL, or omit `--branch` for the default branch. **Do not** clone to the working-directory root — the clone must land under `migrated/`.
 
 5. **Determine required Java version** from the build configuration (e.g. `toolchain { languageVersion }`, `sourceCompatibility`, `targetCompatibility`, `JAVA_HOME` hints in CI files). Default to 21 if unclear.
 
