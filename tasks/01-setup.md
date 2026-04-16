@@ -10,12 +10,12 @@
 
 ## Resume check
 
-1. Check if the clone directory (derived from `REPO_URL`) exists and contains a git repository
-2. Check if the migration branch (`gradle-10-migration/<YYYYMMDD-HHMM>`) already exists locally
-3. Check that `JAVA_HOME` is set, starts with `$HOME/.sdkman/candidates/java/`, and `java -version` reports the expected major version from a Temurin build
-4. If all of the above are true, this task is already complete
+A fresh migration branch is created on every run of this task, so branch existence is never a reason to skip. The only parts of this task that can be resumed are the clone and the JDK install.
 
-If the clone directory exists but the migration branch does not, resume from branch creation.
+1. Check if the clone directory (derived from `REPO_URL`) exists and contains a git repository — if so, the clone step can be skipped.
+2. Check that `JAVA_HOME` is set, starts with `$HOME/.sdkman/candidates/java/`, and `java -version` reports the expected major version from a Temurin build — if so, the JDK install step can be skipped.
+3. Branch creation (step 7 below) always runs; it creates a new timestamped branch off the base branch. **Never** check out or reuse any pre-existing `gradle-10-migration/*` branch, regardless of its timestamp.
+
 If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/vendor, resume from JDK detection and installation — do not accept it as-is.
 
 ## Instructions
@@ -58,7 +58,7 @@ If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/ven
    - Substitute a different major version than the one determined in step 5
    - Proceed to later tasks if `JAVA_HOME` is unset or points outside `$HOME/.sdkman/candidates/java/` — stop and report to the user instead
 
-7. **Create the migration branch**: Generate the branch name using the current timestamp (e.g. `gradle-10-migration/20260331-1400`). If a branch with this exact name already exists locally or on the remote, **abort with an error** — do not reset or reuse it. Create the branch off the base branch.
+7. **Create the migration branch**: Generate the branch name using the current timestamp (e.g. `gradle-10-migration/20260331-1400`). Always create a **fresh** branch on every run — never check out, reset, or otherwise reuse any pre-existing `gradle-10-migration/*` branch, even one created earlier today. If a branch with this exact name already exists locally or on the remote, **abort with an error**; wait a minute and retry so the timestamp changes. Create the branch off the base branch.
 
 ## Done when
 
