@@ -11,8 +11,9 @@ Example:
 ## Environment
 
 - **REPO_URL**: The repository URL (and optionally branch) to migrate (e.g. `https://github.com/owner/repo` or `https://github.com/owner/repo/tree/branch`).
-  - If a branch is embedded in the URL, that branch is the base for the migration work.
-  - Otherwise, the repo's default branch is used.
+  - If a branch is embedded in the URL, that branch is the **base branch** for the migration work.
+  - Otherwise, the repo's default branch is used (typically `main`, `master`, or a maintenance branch).
+  - The migration branch is always created off this base branch — never off another `gradle-10-migration/*` branch or any other feature branch.
 - **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see Setup task).
 - **Clone directory**: `migrated/<repo-name>` (e.g. `migrated/my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
 - **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>` (e.g. `gradle-10-migration/20260331-1400`). The timestamp is set at the start of the workflow and reused throughout.
