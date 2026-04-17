@@ -98,9 +98,11 @@ The following operations are pre-authorized and should be performed without aski
 Each task begins with a **Resume check** section. Before doing any work:
 
 1. Run the check described in the task's Resume check section
-2. If the check passes (work is already done), report "Task already complete — skipping" and stop
+2. If the check passes (work is already done), report "Task already complete — skipping" and move on to the next task in the workflow
 3. If the check partially passes (some work done), pick up from where it left off
 4. If the check fails (work not started), proceed normally
+
+"Stop" in this protocol **never** means "stop the workflow" — it only means "stop executing the current task's instructions". Always continue to the next task unless an explicit abort instruction fires (e.g. SDKMAN unavailable in task 01).
 
 ## Important Notes
 
