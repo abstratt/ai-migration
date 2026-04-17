@@ -15,7 +15,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 1. Check the current Gradle version by reading `gradle/wrapper/gradle-wrapper.properties` for the distribution URL
 2. If the version is already 9.x or higher (but not the custom Provider API distribution), this task is already complete
-3. Also check `git log` for a commit message matching "Upgrade Gradle wrapper to 9.4"
+3. Also check `git log` for a commit message matching "Upgrade to Gradle 9.4" (the task title)
 
 If the Gradle version is already 9.x+, skip this task entirely.
 
@@ -27,7 +27,7 @@ This task is **conditional** — only needed if the repository is not already on
 
 2. Run `./gradlew help` and fix any issues caused by the major version upgrade
 
-3. **Commit**: "Upgrade Gradle wrapper to 9.4.0" — include the `Assistant:` trailer (see CONTEXT.md)
+3. **Commit**: use the task title "Upgrade to Gradle 9.4" as the commit message subject — include the `Assistant:` trailer (see CONTEXT.md)
 
 Note: Always use the `wrapper` task for standard Gradle version upgrades. Only manually edit `gradle-wrapper.properties` for the custom Provider API distribution URL (that happens in the next task).
 

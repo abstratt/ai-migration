@@ -16,7 +16,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 1. Run `./gradlew assemble`
 2. If it succeeds on the first attempt with no changes needed, this task is already complete
-3. Also check `git log` for a commit message matching "Fix remaining build issues for `./gradlew assemble`" or similar
+3. Also check `git log` for a commit message matching "Verify with `./gradlew assemble`" (the task title)
 
 ## Instructions
 
@@ -28,7 +28,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 3. **Iterate** until `./gradlew assemble` succeeds
 
-4. **Commit only if changes were made** — include the `Assistant:` trailer (see CONTEXT.md). The commit message **must** contain the literal string `./gradlew assemble` so it is clear these fixes were driven by `assemble` failures. Example: `Fix build issues found by ./gradlew assemble`.
+4. **Commit only if changes were made** — use the task title "Verify with `./gradlew assemble`" as the commit message subject (the task title contains the literal `./gradlew assemble` so it is clear these fixes were driven by `assemble` failures). Include the `Assistant:` trailer (see CONTEXT.md).
 
 ## Done when
 

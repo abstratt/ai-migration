@@ -22,6 +22,7 @@ Example:
 
 ## Commit Message Style
 
+- **Use the task's title as the commit message subject line**, exactly as it appears in the `# Task: …` heading at the top of the task file (drop the `Task: ` prefix). This keeps commit messages aligned with task identities and makes resume checks mechanical.
 - Use present tense verbs (e.g. "Update", "Migrate", "Fix")
 - Describe what was done, not why
 - Skip commits if no code changes are needed (no empty commits)

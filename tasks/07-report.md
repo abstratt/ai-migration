@@ -25,7 +25,7 @@ Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) at the **
    - Any manual fixes beyond the migration data
    - Any known limitations or issues
 
-3. **Commit the report** to the migration branch with a present tense message (e.g. "Add Gradle 10 migration report") — include the `Assistant:` trailer (see CONTEXT.md). The report is an artifact of the migration and is kept on the branch.
+3. **Commit the report** to the migration branch using the task title "Generate Report" as the commit message subject — include the `Assistant:` trailer (see CONTEXT.md). The report is an artifact of the migration and is kept on the branch.
 
 ## Done when
 

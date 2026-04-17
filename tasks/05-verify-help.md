@@ -16,7 +16,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 1. Run `./gradlew help`
 2. If it succeeds on the first attempt with no changes needed, this task is already complete
-3. Also check `git log` for a commit message matching "Fix remaining" or similar post-migration fix commit after the migration commit
+3. Also check `git log` for a commit message matching "Verify with `./gradlew help`" (the task title)
 
 ## Instructions
 
@@ -45,7 +45,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 3. **Iterate** until `./gradlew help` succeeds
 
-4. **Commit only if changes were made** — include the `Assistant:` trailer (see CONTEXT.md). The commit message **must** contain the literal string `./gradlew help` so it is clear these fixes were driven by `help` failures. Example: `Fix build issues found by ./gradlew help`.
+4. **Commit only if changes were made** — use the task title "Verify with `./gradlew help`" as the commit message subject (the task title contains the literal `./gradlew help` so it is clear these fixes were driven by `help` failures). Include the `Assistant:` trailer (see CONTEXT.md).
 
 ## Done when
 

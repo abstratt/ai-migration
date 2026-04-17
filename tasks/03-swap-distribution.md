@@ -16,7 +16,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 1. Read `gradle/wrapper/gradle-wrapper.properties`
 2. If `distributionUrl` already points to `https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip`, this task is already complete
-3. Also check `git log` for a commit message matching "Update Gradle distribution"
+3. Also check `git log` for a commit message matching "Swap Gradle Distribution" (the task title)
 
 ## Instructions
 
@@ -38,7 +38,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
    Fixing the build is the job of task 04 (static transformations) followed by tasks 05 and 06 (validation and iteration).
 
-3. **Commit**: present tense message (e.g. "Update Gradle distribution to custom Provider API build") — include the `Assistant:` trailer (see CONTEXT.md)
+3. **Commit**: use the task title "Swap Gradle Distribution" as the commit message subject — include the `Assistant:` trailer (see CONTEXT.md)
 
 ## Done when
 
