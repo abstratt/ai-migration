@@ -28,9 +28,17 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 3. **Iterate** until `./gradlew assemble` succeeds
 
-4. **Commit only if changes were made** — use the task title "Verify with `./gradlew assemble`" as the commit message subject (the task title contains the literal `./gradlew assemble` so it is clear these fixes were driven by `assemble` failures). Include the `Assistant:` trailer (see CONTEXT.md).
+## Commit checkpoint (mandatory before moving on)
+
+Before starting task 07, resolve this task's changes:
+
+- If the task made changes, commit them with subject `` Verify with `./gradlew assemble` `` (the task title — the backticks around `./gradlew assemble` make it clear these fixes were driven by `assemble` failures). Include the `Assistant:` trailer (see CONTEXT.md).
+- If `./gradlew assemble` passed on the first try with no edits, skip the commit — but only if `git status` is already clean.
+- Either way, run `git status` before starting task 07 and confirm the working tree is clean.
+
+See the "Commit Discipline" section in CONTEXT.md.
 
 ## Done when
 
 - `./gradlew assemble` exits 0
-- Any fixes are committed (or no commit needed if assemble passed without changes)
+- Either a commit with subject `` Verify with `./gradlew assemble` `` exists on the migration branch, or no changes were needed; in both cases `git status` is clean

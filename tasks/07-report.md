@@ -25,9 +25,17 @@ Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) at the **
    - Any manual fixes beyond the migration data
    - Any known limitations or issues
 
-3. **Commit the report** to the migration branch using the task title "Generate Report" as the commit message subject — include the `Assistant:` trailer (see CONTEXT.md). The report is an artifact of the migration and is kept on the branch.
+## Commit checkpoint (mandatory — final commit of the workflow)
+
+Commit the report to the migration branch:
+
+- Subject: `Generate Report` (the task title)
+- Include the `Assistant:` trailer (see CONTEXT.md)
+- After committing, run `git status` and confirm the working tree is clean
+
+The report is an artifact of the migration and is kept on the branch. See the "Commit Discipline" section in CONTEXT.md.
 
 ## Done when
 
 - `REPORT-<YYYYMMDD-HHMM>.md` exists at the root of the cloned repo with accurate content reflecting the migration outcome
-- The report is committed to the migration branch
+- A commit with subject `Generate Report` exists on the migration branch and `git status` is clean

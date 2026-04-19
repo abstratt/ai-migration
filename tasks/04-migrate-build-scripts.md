@@ -119,13 +119,22 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
    If any confirmed hits remain, return to step 3 and address them before committing.
 
-5. **Commit current changes** using the task title "Migrate Build Scripts and Gradle API Usages" as the commit message subject — include the `Assistant:` trailer (see CONTEXT.md)
+## Commit checkpoint (mandatory before moving on)
 
-   Do **not** run `./gradlew` (or any other Gradle invocation) to validate the changes. See the "Hard rule" at the top of this task. We want only changes derivable from `migration-data.json` in this changeset; build validation and iteration happen in tasks 05 and 06.
+Before starting task 05, commit the changes from this task:
+
+- Subject: `Migrate Build Scripts and Gradle API Usages` (the task title)
+- Include the `Assistant:` trailer (see CONTEXT.md)
+- If `MIGRATION_NOTES.md` was written, stage it alongside the transformed files in this same commit
+- After committing, run `git status` and confirm the working tree is clean
+
+Do **not** run `./gradlew` (or any other Gradle invocation) to validate the changes. See the "Hard rule" at the top of this task. We want only changes derivable from `migration-data.json` in this changeset; build validation and iteration happen in tasks 05 and 06.
+
+Do not combine these changes with a later task's commit. See the "Commit Discipline" section in CONTEXT.md.
 
 ## Done when
 
 - All build scripts **and** all Java/Kotlin/Groovy source files that use Gradle API types have been scanned and transformed according to `migration-data.json`
 - Re-running `scan_usages.py` shows zero confirmed hits in any category
-- Changes are committed
+- A commit with subject `Migrate Build Scripts and Gradle API Usages` exists on the migration branch and `git status` is clean
 - No Gradle command was executed during this task (validation belongs to tasks 05 and 06)

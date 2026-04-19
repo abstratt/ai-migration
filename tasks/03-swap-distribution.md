@@ -38,7 +38,15 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
    Fixing the build is the job of task 04 (static transformations) followed by tasks 05 and 06 (validation and iteration).
 
-3. **Commit**: use the task title "Swap Gradle Distribution" as the commit message subject — include the `Assistant:` trailer (see CONTEXT.md)
+## Commit checkpoint (mandatory before moving on)
+
+Before starting task 04, commit the changes from this task:
+
+- Subject: `Swap Gradle Distribution` (the task title)
+- Include the `Assistant:` trailer (see CONTEXT.md)
+- After committing, run `git status` and confirm the working tree is clean
+
+Do not combine these changes with a later task's commit. See the "Commit Discipline" section in CONTEXT.md.
 
 ## Done when
 
@@ -46,4 +54,4 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 - `distributionSha256Sum` is removed (if it was present)
 - `validateDistributionUrl=false` is set
 - `./gradlew help` was invoked exactly once, the distribution downloaded, and Gradle started executing (pass/fail of the `help` task itself is irrelevant)
-- Changes are committed
+- A commit with subject `Swap Gradle Distribution` exists on the migration branch and `git status` is clean

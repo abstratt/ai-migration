@@ -27,12 +27,20 @@ This task is **conditional** — only needed if the repository is not already on
 
 2. Run `./gradlew help` and fix any issues caused by the major version upgrade
 
-3. **Commit**: use the task title "Upgrade to Gradle 9.4" as the commit message subject — include the `Assistant:` trailer (see CONTEXT.md)
-
 Note: Always use the `wrapper` task for standard Gradle version upgrades. Only manually edit `gradle-wrapper.properties` for the custom Provider API distribution URL (that happens in the next task).
+
+## Commit checkpoint (mandatory before moving on)
+
+Before starting task 03, commit the changes from this task:
+
+- Subject: `Upgrade to Gradle 9.4` (the task title)
+- Include the `Assistant:` trailer (see CONTEXT.md)
+- After committing, run `git status` and confirm the working tree is clean
+
+Do not combine these changes with a later task's commit. See the "Commit Discipline" section in CONTEXT.md.
 
 ## Done when
 
 - `gradle/wrapper/gradle-wrapper.properties` references Gradle 9.4.x (or was already 9.x+)
 - `./gradlew help` succeeds
-- Changes are committed (or no commit needed if already on 9.x)
+- A commit with subject `Upgrade to Gradle 9.4` exists on the migration branch (or the repo was already on 9.x, no changes were made, and `git status` is clean)

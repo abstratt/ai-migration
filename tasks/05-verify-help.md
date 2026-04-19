@@ -45,9 +45,17 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 3. **Iterate** until `./gradlew help` succeeds
 
-4. **Commit only if changes were made** — use the task title "Verify with `./gradlew help`" as the commit message subject (the task title contains the literal `./gradlew help` so it is clear these fixes were driven by `help` failures). Include the `Assistant:` trailer (see CONTEXT.md).
+## Commit checkpoint (mandatory before moving on)
+
+Before starting task 06, resolve this task's changes:
+
+- If the task made changes, commit them with subject `` Verify with `./gradlew help` `` (the task title — the backticks around `./gradlew help` make it clear these fixes were driven by `help` failures). Include the `Assistant:` trailer (see CONTEXT.md).
+- If `./gradlew help` passed on the first try with no edits, skip the commit — but only if `git status` is already clean.
+- Either way, run `git status` before starting task 06 and confirm the working tree is clean. Do not carry uncommitted fixes forward into task 06's commit.
+
+See the "Commit Discipline" section in CONTEXT.md.
 
 ## Done when
 
 - `./gradlew help` exits 0
-- Any fixes are committed (or no commit needed if help passed without changes)
+- Either a commit with subject `` Verify with `./gradlew help` `` exists on the migration branch, or no changes were needed; in both cases `git status` is clean
