@@ -1,3 +1,3 @@
 Run the following task:
 
-@tasks/03-install-jdk.md
+@tasks/02-install-jdk.md

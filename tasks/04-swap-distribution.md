@@ -40,7 +40,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 ## Commit checkpoint (mandatory before moving on)
 
-Before starting task 06, commit the changes from this task:
+Before starting task 05, commit the changes from this task:
 
 - Subject: `Swap Gradle Distribution` (the task title)
 - Include the `Assistant:` trailer (see CONTEXT.md)

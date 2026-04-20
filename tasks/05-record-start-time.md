@@ -4,11 +4,11 @@
 
 ## Preconditions
 
-- Task 01 has completed: the clone directory exists and the migration branch is checked out
+- Tasks 01–04 have completed: clone exists, JDK is installed, Gradle 9.x wrapper is in place, and the custom Provider API distribution URL is configured
 
 ## Resume check
 
-This task has no resume check — it **always runs** and **always overwrites** the start-time file. The whole point is to capture *this run's* start time (after task 01 has made the repo contents available); reusing a timestamp from an earlier run would make task 09's elapsed-time report meaningless.
+This task has no resume check — it **always runs** and **always overwrites** the start-time file. It sits here, *after* the plumbing tasks (clone, JDK, wrapper upgrade, distribution swap), so the duration reported in task 09 measures only the migration work proper (tasks 06–09) and excludes setup time that varies with network/cache. Reusing a timestamp from an earlier run would make the elapsed-time report meaningless.
 
 ## Instructions
 
