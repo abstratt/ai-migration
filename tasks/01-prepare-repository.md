@@ -4,7 +4,6 @@
 
 ## Preconditions
 
-- `migrated/.migration-start-time` has been written by task 01
 - `REPO_URL` environment variable is set
 - Network access to GitHub is available
 

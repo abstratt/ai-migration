@@ -15,7 +15,7 @@ Example:
   - Otherwise, the base branch is whatever the remote reports as its default — run `git remote show origin` or check `HEAD` after cloning. This is typically `main` or `master`.
   - **Do not choose a branch yourself.** Never pick a maintenance branch (e.g. `6.1.x`, `6.8`), a release branch, or any other non-default branch unless it was explicitly specified in `REPO_URL`.
   - The migration branch is always created off this base branch — never off another `gradle-10-migration/*` branch or any other feature branch.
-- **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see Setup task).
+- **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see task 03, Install JDK).
 - **Clone directory**: `migrated/<repo-name>` (e.g. `migrated/my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
 - **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>` (e.g. `gradle-10-migration/20260331-1400`). The timestamp is set at the start of the workflow and reused throughout.
 - **SDKMAN**: Pre-installed in the Docker image at `$HOME/.sdkman`
@@ -54,8 +54,8 @@ Use `Unknown Tool`, `Unknown Model`, or `unknown-id` **only** as a last resort w
 
 Per-task commit expectations when the task actually runs (i.e. its resume check did not skip it):
 
-- **Task 01** — no commit inside the migrated repo (it only writes `migrated/.migration-start-time`, which lives outside the clone).
-- **Task 02** — no commit inside the migrated repo (it only clones and branches).
+- **Task 01** — no commit inside the migrated repo (it only clones and branches).
+- **Task 02** — no commit inside the migrated repo (it only writes a timestamp to `migrated/<repo-name>/.git/migration-start-time`, which lives inside the clone's `.git/` directory and never reaches the working tree).
 - **Task 03** — no commit inside the migrated repo (it only installs a JDK via SDKMAN).
 - **Tasks 04, 05, 06, 09** — commit is **mandatory**. If the working tree is clean at the commit checkpoint, something earlier in the task was missed.
 - **Tasks 07, 08** — commit only if the task made changes. If no changes were needed, `git status` must already be clean before leaving the task.
@@ -123,7 +123,7 @@ Each task begins with a **Resume check** section. Before doing any work:
 3. If the check partially passes (some work done), pick up from where it left off
 4. If the check fails (work not started), proceed normally
 
-Some tasks (e.g. task 01) explicitly declare they have **no resume check** — those always run to completion, every time.
+Some tasks (e.g. task 02) explicitly declare they have **no resume check** — those always run to completion, every time.
 
 "Stop" in this protocol **never** means "stop the workflow" — it only means "stop executing the current task's instructions". Always continue to the next task unless an explicit abort instruction fires (e.g. SDKMAN unavailable in task 03).
 

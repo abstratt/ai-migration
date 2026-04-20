@@ -8,8 +8,8 @@ The repository to migrate is provided via the `REPO_URL` environment variable (e
 
 Run all tasks in order, end-to-end, as a **single autonomous workflow**. Each task has a resume check — if work is already done, it will be skipped automatically.
 
-1. @tasks/01-record-start-time.md
-2. @tasks/02-prepare-repository.md
+1. @tasks/01-prepare-repository.md
+2. @tasks/02-record-start-time.md
 3. @tasks/03-install-jdk.md
 4. @tasks/04-upgrade-gradle-9.md
 5. @tasks/05-swap-distribution.md

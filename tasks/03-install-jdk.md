@@ -4,7 +4,7 @@
 
 ## Preconditions
 
-- Task 02 has completed: the clone directory exists with the fork checked out on the migration branch
+- Task 01 has completed: the clone directory exists with the fork checked out on the migration branch
 - SDKMAN is installed at `$HOME/.sdkman` (this is a hard requirement — see step 2)
 
 ## Resume check

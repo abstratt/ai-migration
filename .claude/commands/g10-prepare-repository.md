@@ -2,4 +2,4 @@ The repository to migrate is: $ARGUMENTS
 
 Run the following task:
 
-@tasks/02-prepare-repository.md
+@tasks/01-prepare-repository.md
