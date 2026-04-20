@@ -122,6 +122,8 @@ Each task begins with a **Resume check** section. Before doing any work:
 3. If the check partially passes (some work done), pick up from where it left off
 4. If the check fails (work not started), proceed normally
 
+Some tasks (e.g. task 01) explicitly declare they have **no resume check** — those always run to completion, every time.
+
 "Stop" in this protocol **never** means "stop the workflow" — it only means "stop executing the current task's instructions". Always continue to the next task unless an explicit abort instruction fires (e.g. SDKMAN unavailable in task 02).
 
 ## Important Notes
