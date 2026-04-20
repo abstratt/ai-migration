@@ -10,9 +10,9 @@
 
 ## Hard rule: no Gradle execution in this task
 
-This task is a **static, data-driven transformation**. Do **not** run `./gradlew`, `gradle`, `gradle help`, `gradle assemble`, `gradle build`, `gradle tasks`, or any other Gradle invocation at any point during this task — not for validation, not for sanity checks, not to "see what breaks", not to iterate on fixes. Build validation is the job of tasks 06 and 07; running Gradle here will produce failures that you must not react to.
+This task is a **static, data-driven transformation**. Do **not** run `./gradlew`, `gradle`, `gradle help`, `gradle assemble`, `gradle build`, `gradle tasks`, or any other Gradle invocation at any point during this task — not for validation, not for sanity checks, not to "see what breaks", not to iterate on fixes. Build validation is the job of tasks 07 and 08; running Gradle here will produce failures that you must not react to.
 
-If you feel the urge to run Gradle to check your work, stop and commit what you have instead. Any iteration loop driven by Gradle output belongs in task 06 or later, never here.
+If you feel the urge to run Gradle to check your work, stop and commit what you have instead. Any iteration loop driven by Gradle output belongs in task 07 or later, never here.
 
 ## Resume check
 
@@ -32,7 +32,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - `org.gradle.api.Task` accessors: `setDescription`, `setGroup`, `setEnabled`, `setDependsOn`, `setOnlyIf`, `setActions`, `setFinalizedBy`, `setMustRunAfter`, `setShouldRunAfter`, `setTimeout`, `setDidWork` (not lazy-migrated in Gradle 10).
    - Task lifecycle/wiring APIs: `doFirst`, `doLast`, `dependsOn(…)`, `finalizedBy(…)`, `mustRunAfter(…)`, `shouldRunAfter(…)`.
    - `Project` methods called on `project` itself (e.g. `project.file(...)`, `project.files(...)`, `project.layout.*`).
-   - Third-party plugin types — any receiver in a non-`org.gradle` package. These are handled in task 06/07 if they produce build errors.
+   - Third-party plugin types — any receiver in a non-`org.gradle` package. These are handled in task 07/08 if they produce build errors.
    - `@Input` / `@InputFile` / `@OutputDirectory` annotated fields on custom task classes declared in `buildSrc` — these require a different migration path (declaring the field as `Property<T>` rather than rewriting call sites) and are out of scope for this task.
    - Deprecation warnings reported by the scanner or the compiler — ignore them; this task covers removals only.
    - Comments, KDoc, Javadoc, and string literals that mention removed accessor names — leave them as-is.
@@ -94,14 +94,14 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
    **Defer-and-record escape hatch.** If a hit cannot be confidently transformed — the owning type is ambiguous after walking the receiver-type ladder, the `kind` does not match any rule, or the surrounding code would require a non-trivial restructure — record it in a `MIGRATION_NOTES.md` file at the root of the migrated repo and move on.
 
-   > **Intent:** give each hit a legitimate "punt" outcome so that uncertain sites are flagged for follow-up in task 06/07 (where build errors and compile-error mappings are available) rather than being silently skipped or guessed at.
+   > **Intent:** give each hit a legitimate "punt" outcome so that uncertain sites are flagged for follow-up in task 07/08 (where build errors and compile-error mappings are available) rather than being silently skipped or guessed at.
 
    Each entry in `MIGRATION_NOTES.md` should include:
    - File path and line number
    - The scanner-reported class + property (so the entry can be looked up in `migration-data.json` later)
    - A one-line description of the reason for deferral (e.g. "receiver type unclear: chained through third-party plugin API")
 
-   Commit `MIGRATION_NOTES.md` together with the transformed files. Task 06/07 will consult it when resolving build failures.
+   Commit `MIGRATION_NOTES.md` together with the transformed files. Task 07/08 will consult it when resolving build failures.
 
 4. **Self-check before commit.** Re-run the scanner on the transformed tree:
 
@@ -121,14 +121,14 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
 ## Commit checkpoint (mandatory before moving on)
 
-Before starting task 06, commit the changes from this task:
+Before starting task 07, commit the changes from this task:
 
 - Subject: `Migrate Build Scripts and Gradle API Usages` (the task title)
 - Include the `Assistant:` trailer (see CONTEXT.md)
 - If `MIGRATION_NOTES.md` was written, stage it alongside the transformed files in this same commit
 - After committing, run `git status` and confirm the working tree is clean
 
-Do **not** run `./gradlew` (or any other Gradle invocation) to validate the changes. See the "Hard rule" at the top of this task. We want only changes derivable from `migration-data.json` in this changeset; build validation and iteration happen in tasks 06 and 07.
+Do **not** run `./gradlew` (or any other Gradle invocation) to validate the changes. See the "Hard rule" at the top of this task. We want only changes derivable from `migration-data.json` in this changeset; build validation and iteration happen in tasks 07 and 08.
 
 Do not combine these changes with a later task's commit. See the "Commit Discipline" section in CONTEXT.md.
 
@@ -137,4 +137,4 @@ Do not combine these changes with a later task's commit. See the "Commit Discipl
 - All build scripts **and** all Java/Kotlin/Groovy source files that use Gradle API types have been scanned and transformed according to `migration-data.json`
 - Re-running `scan_usages.py` shows zero confirmed hits in any category
 - A commit with subject `Migrate Build Scripts and Gradle API Usages` exists on the migration branch and `git status` is clean
-- No Gradle command was executed during this task (validation belongs to tasks 06 and 07)
+- No Gradle command was executed during this task (validation belongs to tasks 07 and 08)

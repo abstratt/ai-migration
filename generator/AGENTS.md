@@ -68,7 +68,7 @@ All generated artifacts live in `../migration-reference/`. The source scripts li
         └──▶ ../migration-reference/migration-data.json            (structured, written directly)
 
   ../migration-reference/MIGRATION_RULES.md   (hand-written, transformation rules by kind)
-  ../migration-reference/scan_usages.py       (hand-written scanner used by task 05)
+  ../migration-reference/scan_usages.py       (hand-written scanner used by task 06)
 ```
 
 The `.txt` files are cached intermediate data. Re-running `extract_data.sh` overwrites them in `../migration-reference/`.

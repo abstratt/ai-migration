@@ -1,3 +1,3 @@
 Run the following task:
 
-@tasks/07-verify-help.md
+@tasks/03-install-jdk.md

@@ -36,11 +36,11 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
    - Iterate on any output from this command
    - Run any other Gradle task (`assemble`, `build`, `tasks`, etc.)
 
-   Fixing the build is the job of task 05 (static transformations) followed by tasks 06 and 07 (validation and iteration).
+   Fixing the build is the job of task 06 (static transformations) followed by tasks 07 and 08 (validation and iteration).
 
 ## Commit checkpoint (mandatory before moving on)
 
-Before starting task 05, commit the changes from this task:
+Before starting task 06, commit the changes from this task:
 
 - Subject: `Swap Gradle Distribution` (the task title)
 - Include the `Assistant:` trailer (see CONTEXT.md)

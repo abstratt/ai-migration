@@ -1,3 +1,3 @@
 Run the following task:
 
-@tasks/07-verify-assemble.md
+@tasks/08-verify-assemble.md

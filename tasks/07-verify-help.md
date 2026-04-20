@@ -26,7 +26,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
    - Third-party plugin incompatibilities
    - Custom build logic that uses removed APIs
    - Look up fixes in `migration-data.json` first, then fix manually based on error output
-   - If `MIGRATION_NOTES.md` exists at the repo root, inspect it: each entry flags a hit that task 05 could not confidently transform. Use the build errors from this task to resolve them, then remove the corresponding entry from `MIGRATION_NOTES.md`.
+   - If `MIGRATION_NOTES.md` exists at the repo root, inspect it: each entry flags a hit that task 06 could not confidently transform. Use the build errors from this task to resolve them, then remove the corresponding entry from `MIGRATION_NOTES.md`.
 
    **Common compile-error → fix mapping.**
 
@@ -47,11 +47,11 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 ## Commit checkpoint (mandatory before moving on)
 
-Before starting task 07, resolve this task's changes:
+Before starting task 08, resolve this task's changes:
 
 - If the task made changes, commit them with subject `` Verify with `./gradlew help` `` (the task title — the backticks around `./gradlew help` make it clear these fixes were driven by `help` failures). Include the `Assistant:` trailer (see CONTEXT.md).
 - If `./gradlew help` passed on the first try with no edits, skip the commit — but only if `git status` is already clean.
-- Either way, run `git status` before starting task 07 and confirm the working tree is clean. Do not carry uncommitted fixes forward into task 07's commit.
+- Either way, run `git status` before starting task 08 and confirm the working tree is clean. Do not carry uncommitted fixes forward into task 08's commit.
 
 See the "Commit Discipline" section in CONTEXT.md.
 

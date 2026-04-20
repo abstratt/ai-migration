@@ -31,7 +31,7 @@ Note: Always use the `wrapper` task for standard Gradle version upgrades. Only m
 
 ## Commit checkpoint (mandatory before moving on)
 
-Before starting task 04, commit the changes from this task:
+Before starting task 05, commit the changes from this task:
 
 - Subject: `Upgrade to Gradle 9.4` (the task title)
 - Include the `Assistant:` trailer (see CONTEXT.md)

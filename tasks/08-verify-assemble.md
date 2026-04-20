@@ -30,11 +30,11 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 ## Commit checkpoint (mandatory before moving on)
 
-Before starting task 08, resolve this task's changes:
+Before starting task 09, resolve this task's changes:
 
 - If the task made changes, commit them with subject `` Verify with `./gradlew assemble` `` (the task title — the backticks around `./gradlew assemble` make it clear these fixes were driven by `assemble` failures). Include the `Assistant:` trailer (see CONTEXT.md).
 - If `./gradlew assemble` passed on the first try with no edits, skip the commit — but only if `git status` is already clean.
-- Either way, run `git status` before starting task 08 and confirm the working tree is clean.
+- Either way, run `git status` before starting task 09 and confirm the working tree is clean.
 
 See the "Commit Discipline" section in CONTEXT.md.
 

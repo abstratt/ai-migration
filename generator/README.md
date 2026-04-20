@@ -33,7 +33,7 @@ All generated outputs and consumer-side artifacts live in the sibling `../migrat
 | `gradle-10-migration-report.md` | Generated human-readable report |
 | `migration-data.json` | Generated structured lookup table (consumed by migration runs) |
 | `MIGRATION_RULES.md` | Hand-written transformation rules (consumed by migration runs) |
-| `scan_usages.py` | Hand-written scanner invoked by task 05 |
+| `scan_usages.py` | Hand-written scanner invoked by task 06 |
 | `g10-javap-v2.txt` | Cached `javap -v` output for annotated classes in Gradle 10 |
 | `comparison-v2.txt` | Cached `javap -public` output for both versions side-by-side |
 | `annotated-classes-v2.txt` | Cached list of annotated `.class` files |
