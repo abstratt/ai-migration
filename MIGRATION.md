@@ -8,17 +8,18 @@ The repository to migrate is provided via the `REPO_URL` environment variable (e
 
 Run all tasks in order, end-to-end, as a **single autonomous workflow**. Each task has a resume check — if work is already done, it will be skipped automatically.
 
-1. @tasks/01-setup.md
-2. @tasks/02-upgrade-gradle-9.md
-3. @tasks/03-swap-distribution.md
-4. @tasks/04-migrate-build-scripts.md
-5. @tasks/05-verify-help.md
-6. @tasks/06-verify-assemble.md
-7. @tasks/07-report.md
+1. @tasks/01-record-start-time.md
+2. @tasks/02-setup.md
+3. @tasks/03-upgrade-gradle-9.md
+4. @tasks/04-swap-distribution.md
+5. @tasks/05-migrate-build-scripts.md
+6. @tasks/06-verify-help.md
+7. @tasks/07-verify-assemble.md
+8. @tasks/08-report.md
 
-**Do not pause between tasks.** After finishing one task, immediately start the next one without asking the user whether to continue, without waiting for confirmation, and without summarizing progress mid-workflow. The workflow is complete only after task 07 finishes (or a task hits an explicit abort condition — e.g. SDKMAN unavailable in task 01). "Task already complete — skipping" is not a stopping point; it means move on to the next task.
+**Do not pause between tasks.** After finishing one task, immediately start the next one without asking the user whether to continue, without waiting for confirmation, and without summarizing progress mid-workflow. The workflow is complete only after task 08 finishes (or a task hits an explicit abort condition — e.g. SDKMAN unavailable in task 02). "Task already complete — skipping" is not a stopping point; it means move on to the next task.
 
-Each task can also be run individually by referencing its file directly — but when invoked from this workflow, run all seven without stopping.
+Each task can also be run individually by referencing its file directly — but when invoked from this workflow, run all eight without stopping.
 
 ## Shared Context
 

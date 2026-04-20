@@ -50,13 +50,14 @@ Use `Unknown Tool`, `Unknown Model`, or `unknown-id` **only** as a last resort w
 - Do not move to the next task with a dirty working tree.
 - After committing (or after confirming no commit is needed), run `git status` and verify the working tree is clean before starting the next task.
 
-> **Intent:** resume checks in tasks 02–07 match commit subjects against task titles (see each task's "Resume check"). Bundling or skipping commits breaks resume detection — on a re-run, completed work looks undone and will be redone, or undone work looks completed and will be skipped.
+> **Intent:** resume checks in tasks 03–08 match commit subjects against task titles (see each task's "Resume check"). Bundling or skipping commits breaks resume detection — on a re-run, completed work looks undone and will be redone, or undone work looks completed and will be skipped.
 
 Per-task commit expectations when the task actually runs (i.e. its resume check did not skip it):
 
-- **Task 01** — no commit inside the migrated repo (it only clones and branches; the one file it writes, `migrated/.migration-start-time`, lives outside the clone).
-- **Tasks 02, 03, 04, 07** — commit is **mandatory**. If the working tree is clean at the commit checkpoint, something earlier in the task was missed.
-- **Tasks 05, 06** — commit only if the task made changes. If no changes were needed, `git status` must already be clean before leaving the task.
+- **Task 01** — no commit inside the migrated repo (it only writes `migrated/.migration-start-time`, which lives outside the clone).
+- **Task 02** — no commit inside the migrated repo (it only clones and branches).
+- **Tasks 03, 04, 05, 08** — commit is **mandatory**. If the working tree is clean at the commit checkpoint, something earlier in the task was missed.
+- **Tasks 06, 07** — commit only if the task made changes. If no changes were needed, `git status` must already be clean before leaving the task.
 
 In every case the commit subject must be the task's title verbatim (see Commit Message Style) and must include the `Assistant:` trailer. One task = one commit: never a commit that spans task boundaries.
 
@@ -121,7 +122,7 @@ Each task begins with a **Resume check** section. Before doing any work:
 3. If the check partially passes (some work done), pick up from where it left off
 4. If the check fails (work not started), proceed normally
 
-"Stop" in this protocol **never** means "stop the workflow" — it only means "stop executing the current task's instructions". Always continue to the next task unless an explicit abort instruction fires (e.g. SDKMAN unavailable in task 01).
+"Stop" in this protocol **never** means "stop the workflow" — it only means "stop executing the current task's instructions". Always continue to the next task unless an explicit abort instruction fires (e.g. SDKMAN unavailable in task 02).
 
 ## Important Notes
 

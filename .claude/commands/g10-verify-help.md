@@ -1,3 +1,3 @@
 Run the following task:
 
-@tasks/05-verify-help.md
+@tasks/06-verify-help.md

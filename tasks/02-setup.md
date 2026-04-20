@@ -4,9 +4,10 @@
 
 ## Preconditions
 
+- `migrated/.migration-start-time` has been written by task 01
 - `REPO_URL` environment variable is set
 - Network access to GitHub is available
-- SDKMAN is installed at `$HOME/.sdkman` (this is a hard requirement — see step 6)
+- SDKMAN is installed at `$HOME/.sdkman` (this is a hard requirement — see step 5)
 
 ## Resume check
 
@@ -21,13 +22,11 @@ If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/ven
 
 ## Instructions
 
-1. **Record start time**: Capture the current timestamp in ISO 8601 with timezone (e.g. `2026-04-15T15:24:00-03:00`). Write it to `migrated/.migration-start-time` so the report task can read it later.
+1. **Parse `REPO_URL`** to extract the `owner/repo`, repo name, and optional branch.
 
-2. **Parse `REPO_URL`** to extract the `owner/repo`, repo name, and optional branch.
+2. **Determine clone directory**: `migrated/<repo-name>` (e.g. `migrated/spring-framework`), relative to the working directory. Create the `migrated/` parent directory if it does not exist.
 
-3. **Determine clone directory**: `migrated/<repo-name>` (e.g. `migrated/spring-framework`), relative to the working directory. Create the `migrated/` parent directory if it does not exist.
-
-4. **Reuse existing clone or create a fresh one**:
+3. **Reuse existing clone or create a fresh one**:
 
    - **If `migrated/<repo-name>` already exists and is a valid git repository**, reuse it. Do **not** delete it — other work may live there. Instead, get it back to a clean state on the base branch:
      ```bash
@@ -37,7 +36,7 @@ If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/ven
      git checkout <base-branch>       # base branch = branch from REPO_URL, or the repo's default branch
      git pull --ff-only               # optional: bring base branch up to date; skip on network errors
      ```
-     The **base branch** is the branch from `REPO_URL` if one was specified, otherwise the repo's default branch (typically `main` or `master`). **Never** pick a maintenance or release branch yourself. If the repo is currently on a `gradle-10-migration/*` branch, checking out the base branch is sufficient — do not delete the old migration branch (step 7 creates a fresh timestamped branch off the base branch regardless).
+     The **base branch** is the branch from `REPO_URL` if one was specified, otherwise the repo's default branch (typically `main` or `master`). **Never** pick a maintenance or release branch yourself. If the repo is currently on a `gradle-10-migration/*` branch, checking out the base branch is sufficient — do not delete the old migration branch (step 6 creates a fresh timestamped branch off the base branch regardless).
 
    - **Otherwise** (directory does not exist, or exists but is not a git repo), do a fresh fork + clone:
      1. **Fork or reuse**: If a fork already exists on your GitHub account, use it; otherwise fork with `gh repo fork`.
@@ -47,9 +46,9 @@ If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/ven
         ```
         Use the branch from the URL if one was specified, or omit `--branch` to get the repo's default branch. **Do not** pick a branch yourself — never use a maintenance branch (e.g. `6.1.x`, `6.8`), release branch, or any non-default branch unless it was explicitly part of `REPO_URL`. **Do not** clone to the working-directory root — the clone must land under `migrated/`.
 
-5. **Determine required Java version** from the build configuration (e.g. `toolchain { languageVersion }`, `sourceCompatibility`, `targetCompatibility`, `JAVA_HOME` hints in CI files). Default to 21 if unclear.
+4. **Determine required Java version** from the build configuration (e.g. `toolchain { languageVersion }`, `sourceCompatibility`, `targetCompatibility`, `JAVA_HOME` hints in CI files). Default to 21 if unclear.
 
-6. **Install and activate the JDK via SDKMAN — this is the only supported path.**
+5. **Install and activate the JDK via SDKMAN — this is the only supported path.**
 
    First, verify SDKMAN is available. If this fails, **abort the task immediately** and report the error to the user. Do not attempt to install SDKMAN yourself, and do not fall back to another JDK source.
    ```bash
@@ -70,14 +69,14 @@ If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/ven
    - Install a JDK through Homebrew, apt, yum, `/usr/libexec/java_home`, manual tarball download, or any non-SDKMAN mechanism
    - Use a pre-existing system JDK even if `java -version` already works and happens to match
    - Substitute a different vendor (`-zulu`, `-oracle`, `-graal`, `-amzn`, etc.) for `-tem`
-   - Substitute a different major version than the one determined in step 5
+   - Substitute a different major version than the one determined in step 4
    - Proceed to later tasks if `JAVA_HOME` is unset or points outside `$HOME/.sdkman/candidates/java/` — stop and report to the user instead
 
-7. **Create the migration branch**: Generate the branch name using the current timestamp (e.g. `gradle-10-migration/20260331-1400`). Always create a **fresh** branch on every run — never check out, reset, or otherwise reuse any pre-existing `gradle-10-migration/*` branch, even one created earlier today. If a branch with this exact name already exists locally or on the remote, **abort with an error**; wait a minute and retry so the timestamp changes. Create the branch off the **base branch** — that is, the branch from `REPO_URL` if one was specified, or the repo's default branch (typically `main` or `master`). Never branch from a maintenance branch (e.g. `6.1.x`, `6.8`) unless it was explicitly in `REPO_URL`. Do **not** branch from another `gradle-10-migration/*` branch or from any other feature/topic branch.
+6. **Create the migration branch**: Generate the branch name using the current timestamp (e.g. `gradle-10-migration/20260331-1400`). Always create a **fresh** branch on every run — never check out, reset, or otherwise reuse any pre-existing `gradle-10-migration/*` branch, even one created earlier today. If a branch with this exact name already exists locally or on the remote, **abort with an error**; wait a minute and retry so the timestamp changes. Create the branch off the **base branch** — that is, the branch from `REPO_URL` if one was specified, or the repo's default branch (typically `main` or `master`). Never branch from a maintenance branch (e.g. `6.1.x`, `6.8`) unless it was explicitly in `REPO_URL`. Do **not** branch from another `gradle-10-migration/*` branch or from any other feature/topic branch.
 
 ## Done when
 
 - The clone directory exists with the fork checked out
 - The migration branch is created and checked out
 - `JAVA_HOME` is set and its path starts with `$HOME/.sdkman/candidates/java/`
-- `java -version` succeeds, reports the exact major version determined in step 5, and identifies the build as Temurin
+- `java -version` succeeds, reports the exact major version determined in step 4, and identifies the build as Temurin
