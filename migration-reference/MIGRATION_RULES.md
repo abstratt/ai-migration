@@ -98,14 +98,22 @@ File f = task.outputFile.get().asFile
 
 ### `file_collection`
 Old: `FileCollection getX()` / `setX(FileCollection)` | New: `ConfigurableFileCollection getX()`
+
+`ConfigurableFileCollection` exposes two mutators with different semantics:
+- `.setFrom(...)` **replaces** all entries — this is the behavior-preserving migration of `setX(FileCollection)`.
+- `.from(...)` **appends** entries to what is already there.
+
+Default to `.setFrom(...)` when migrating a call site that used the old setter. Only use `.from(...)` when the call site's intent is to add to an existing collection (e.g. a plugin layering more entries onto a user-configured classpath).
+
 ```groovy
 // old
 task.setClasspath(files("a.jar", "b.jar"))
 FileCollection cp = task.getClasspath()
-// new — configuration
-task.classpath.from("a.jar", "b.jar")
+// new — configuration (replaces, matching the old setter)
+task.classpath.setFrom("a.jar", "b.jar")
+task.classpath.setFrom(otherTask.classpath) // lazy wiring
+// append instead of replace — only when that is the intent
 task.classpath.from(configurations.compileClasspath)
-task.classpath.from(otherTask.classpath) // lazy wiring
 // new — when a resolved value is needed (iteration)
 task.classpath.files.each { ... }
 ```
@@ -221,7 +229,7 @@ String enc = compileTask.getOptions().getEncoding().get();
 | `scalar` | `task.x.set("v")` | `task.x.set("v")` | `task.getX().set("v")` |
 | `boolean` | `task.fork.set(true)` | `task.fork.set(true)` | `task.getFork().set(true)` |
 | `list` | `task.args.add("-v")` | `task.args.add("-v")` | `task.getArgs().add("-v")` |
-| `file_collection` | `task.classpath.from(fc)` | `task.classpath.from(fc)` | `task.getClasspath().from(fc)` |
+| `file_collection` | `task.classpath.setFrom(fc)` | `task.classpath.setFrom(fc)` | `task.getClasspath().setFrom(fc)` |
 | `dir` | `task.dir.set(layout.projectDirectory.dir("x"))` | `task.dir.set(layout.projectDirectory.dir("x"))` | `task.getDir().set(layout.getProjectDirectory().dir("x"))` |
 
 ## Cross-cutting concerns
@@ -246,14 +254,24 @@ task.encoding.set(otherTask.encoding.get())
 task.encoding.set(otherTask.encoding)
 ```
 
-### `.setFrom(.get())` on file collections
+### Eager `.get()` when wiring file collections
 
 ```groovy
-// WRONG — eagerly resolves the source file collection
+// WRONG — eagerly resolves the source file collection, loses task dependency
 task.classpath.setFrom(otherTask.classpath.get())
 
 // RIGHT — pass the lazy collection directly
-task.classpath.from(otherTask.classpath)
+task.classpath.setFrom(otherTask.classpath)
+```
+
+### `.from(...)` where `.setFrom(...)` preserves semantics
+
+```groovy
+// WRONG — appends to whatever classpath already contains, diverging from the old setter
+task.classpath.from(files("a.jar", "b.jar"))
+
+// RIGHT — replaces, matching the behavior of the removed setClasspath(...)
+task.classpath.setFrom(files("a.jar", "b.jar"))
 ```
 
 ### `.map { }` where the lambda returns a Provider

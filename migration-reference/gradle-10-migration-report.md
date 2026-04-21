@@ -1,3 +1,4 @@
+Wrote 396 entries to /Users/rafael/sources/other/provider-api-testing/ai-migration/generator/../migration-reference/migration-data.json
 # Gradle 10 Lazy Property Migration Report
 
 Properties annotated with `@ReplacesEagerProperty` in Gradle 10 preview (`gradle-provider-api-20260204140400`), compared against Gradle 9.4.0.
@@ -239,8 +240,8 @@ task.maxHeapSize.set(provider { computeValue() })
 task.maxHeapSize.set(otherTask.maxHeapSize)  // lazy wiring
 task.outputDirectory.set(layout.projectDirectory.dir("src"))
 task.outputDirectory.set(otherTask.outputDirectory)  // lazy wiring
-task.antlrClasspath.from(configurations.someConfig)
-task.antlrClasspath.from(otherTask.antlrClasspath)  // lazy wiring
+task.antlrClasspath.setFrom(configurations.someConfig)
+task.antlrClasspath.setFrom(otherTask.antlrClasspath)  // lazy wiring
 task.arguments.add("item")
 task.arguments.addAll(otherTask.arguments)  // lazy wiring
 ```
@@ -267,8 +268,8 @@ task.isIgnoreFailures.set(otherTask.isIgnoreFailures)  // lazy wiring
 task.maxErrors.set(4)  // also: maxWarnings
 task.maxErrors.set(provider { computeValue() })
 task.maxErrors.set(otherTask.maxErrors)  // lazy wiring
-task.checkstyleClasspath.from(configurations.someConfig)  // also: classpath
-task.checkstyleClasspath.from(otherTask.checkstyleClasspath)  // lazy wiring
+task.checkstyleClasspath.setFrom(configurations.someConfig)  // also: classpath
+task.checkstyleClasspath.setFrom(otherTask.checkstyleClasspath)  // lazy wiring
 task.configProperties.put("key", "value")
 task.configProperties.putAll(otherTask.configProperties)  // lazy wiring
 ```
@@ -314,8 +315,8 @@ task.configProperties.putAll(otherTask.configProperties)  // lazy wiring
 task.maxPriority1Violations.set(4)  // also: maxPriority2Violations, maxPriority3Violations
 task.maxPriority1Violations.set(provider { computeValue() })
 task.maxPriority1Violations.set(otherTask.maxPriority1Violations)  // lazy wiring
-task.codenarcClasspath.from(configurations.someConfig)  // also: compilationClasspath
-task.codenarcClasspath.from(otherTask.codenarcClasspath)  // lazy wiring
+task.codenarcClasspath.setFrom(configurations.someConfig)  // also: compilationClasspath
+task.codenarcClasspath.setFrom(otherTask.codenarcClasspath)  // lazy wiring
 ```
 
 ---
@@ -381,8 +382,8 @@ task.sourceSets.addAll(otherTask.sourceSets)  // lazy wiring
 ```groovy
 task.consoleOutput.set(true)
 task.consoleOutput.set(otherTask.consoleOutput)  // lazy wiring
-task.classpath.from(configurations.someConfig)  // also: pmdClasspath, ruleSetFiles
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)  // also: pmdClasspath, ruleSetFiles
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 task.ruleSets.add("item")
 task.ruleSets.addAll(otherTask.ruleSets)  // lazy wiring
 task.targetJdk.set(someValue)
@@ -408,8 +409,8 @@ otherTask.someInput.set(task.incrementalCacheFile)
 ```groovy
 task.consoleOutput.set(true)
 task.consoleOutput.set(otherTask.consoleOutput)  // lazy wiring
-task.ruleSetFiles.from(configurations.someConfig)
-task.ruleSetFiles.from(otherTask.ruleSetFiles)  // lazy wiring
+task.ruleSetFiles.setFrom(configurations.someConfig)
+task.ruleSetFiles.setFrom(otherTask.ruleSetFiles)  // lazy wiring
 task.ruleSets.add("item")
 task.ruleSets.addAll(otherTask.ruleSets)  // lazy wiring
 task.targetJdk.set(someValue)
@@ -604,8 +605,8 @@ task.errorOutput.set(otherTask.errorOutput)  // lazy wiring
 ```groovy
 task.followSymlinks.set(true)
 task.followSymlinks.set(otherTask.followSymlinks)  // lazy wiring
-task.targetFiles.from(configurations.someConfig)
-task.targetFiles.from(otherTask.targetFiles)  // lazy wiring
+task.targetFiles.setFrom(configurations.someConfig)
+task.targetFiles.setFrom(otherTask.targetFiles)  // lazy wiring
 ```
 
 ---
@@ -650,8 +651,8 @@ task.errorOutput.set(otherTask.errorOutput)  // lazy wiring
 ```groovy
 task.ignoreExitValue.set(true)
 task.ignoreExitValue.set(otherTask.ignoreExitValue)  // lazy wiring
-task.classpath.from(configurations.someConfig)
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 task.args.add("item")
 task.args.addAll(otherTask.args)  // lazy wiring
 task.errorOutput.set(someValue)  // also: standardInput, standardOutput
@@ -745,8 +746,8 @@ task.compression.set(otherTask.compression)  // lazy wiring
 ```groovy
 task.webXml.set(layout.buildDirectory.file("output.txt"))
 task.webXml.set(otherTask.webXml)  // lazy wiring
-task.classpath.from(configurations.someConfig)
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 ```
 
 ---
@@ -785,8 +786,8 @@ task.entryCompression.set(otherTask.entryCompression)  // lazy wiring
 ```groovy
 task.destinationDirectory.set(layout.projectDirectory.dir("src"))
 task.destinationDirectory.set(otherTask.destinationDirectory)  // lazy wiring
-task.classpath.from(configurations.someConfig)
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 ```
 
 ---
@@ -843,8 +844,8 @@ task.encoding.set(provider { computeValue() })
 task.encoding.set(otherTask.encoding)  // lazy wiring
 task.generatedSourceOutputDirectory.set(layout.projectDirectory.dir("src"))
 task.generatedSourceOutputDirectory.set(otherTask.generatedSourceOutputDirectory)  // lazy wiring
-task.annotationProcessorPath.from(configurations.someConfig)  // also: bootstrapClasspath, sourcepath
-task.annotationProcessorPath.from(otherTask.annotationProcessorPath)  // lazy wiring
+task.annotationProcessorPath.setFrom(configurations.someConfig)  // also: bootstrapClasspath, sourcepath
+task.annotationProcessorPath.setFrom(otherTask.annotationProcessorPath)  // lazy wiring
 task.compilerArgs.add("item")  // also: compilerArgumentProviders
 task.compilerArgs.addAll(otherTask.compilerArgs)  // lazy wiring
 
@@ -896,8 +897,8 @@ task.executable.set(otherTask.executable)  // lazy wiring
 **Migration examples:**
 
 ```groovy
-task.groovyClasspath.from(configurations.someConfig)
-task.groovyClasspath.from(otherTask.groovyClasspath)  // lazy wiring
+task.groovyClasspath.setFrom(configurations.someConfig)
+task.groovyClasspath.setFrom(otherTask.groovyClasspath)  // lazy wiring
 ```
 
 ---
@@ -1079,8 +1080,8 @@ task.docTitle.set(provider { computeValue() })
 task.docTitle.set(otherTask.docTitle)  // lazy wiring
 task.destinationDir.set(layout.projectDirectory.dir("src"))
 task.destinationDir.set(otherTask.destinationDir)  // lazy wiring
-task.classpath.from(configurations.someConfig)  // also: groovyClasspath
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)  // also: groovyClasspath
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 task.links.add(item)
 task.links.addAll(otherTask.links)  // lazy wiring
 ```
@@ -1109,8 +1110,8 @@ task.executable.set(provider { computeValue() })
 task.executable.set(otherTask.executable)  // lazy wiring
 task.destinationDir.set(layout.projectDirectory.dir("src"))
 task.destinationDir.set(otherTask.destinationDir)  // lazy wiring
-task.classpath.from(configurations.someConfig)
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 
 // Read-only (optionsFile) — no .set(); pass the Provider to consumers:
 otherTask.someInput.set(task.optionsFile)
@@ -1129,8 +1130,8 @@ otherTask.someInput.set(task.optionsFile)
 **Migration examples:**
 
 ```groovy
-task.scalaClasspath.from(configurations.someConfig)  // also: scalaCompilerPlugins, zincClasspath
-task.scalaClasspath.from(otherTask.scalaClasspath)  // lazy wiring
+task.scalaClasspath.setFrom(configurations.someConfig)  // also: scalaCompilerPlugins, zincClasspath
+task.scalaClasspath.setFrom(otherTask.scalaClasspath)  // lazy wiring
 ```
 
 ---
@@ -1152,8 +1153,8 @@ task.title.set(provider { computeValue() })
 task.title.set(otherTask.title)  // lazy wiring
 task.destinationDir.set(layout.projectDirectory.dir("src"))
 task.destinationDir.set(otherTask.destinationDir)  // lazy wiring
-task.classpath.from(configurations.someConfig)  // also: scalaClasspath
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)  // also: scalaClasspath
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 ```
 
 ---
@@ -1221,8 +1222,8 @@ task.scanForTestClasses.set(otherTask.scanForTestClasses)  // lazy wiring
 task.forkEvery.set(4)  // also: maxParallelForks
 task.forkEvery.set(provider { computeValue() })
 task.forkEvery.set(otherTask.forkEvery)  // lazy wiring
-task.classpath.from(configurations.someConfig)  // also: testClassesDirs
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)  // also: testClassesDirs
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 task.testFramework.set(someValue)
 task.testFramework.set(otherTask.testFramework)  // lazy wiring
 
@@ -1362,8 +1363,8 @@ task.configFailurePolicy.set(provider { computeValue() })
 task.configFailurePolicy.set(otherTask.configFailurePolicy)  // lazy wiring
 task.outputDirectory.set(layout.projectDirectory.dir("src"))
 task.outputDirectory.set(otherTask.outputDirectory)  // lazy wiring
-task.suiteXmlFiles.from(configurations.someConfig)
-task.suiteXmlFiles.from(otherTask.suiteXmlFiles)  // lazy wiring
+task.suiteXmlFiles.setFrom(configurations.someConfig)
+task.suiteXmlFiles.setFrom(otherTask.suiteXmlFiles)  // lazy wiring
 task.excludeGroups.add(item)  // also: includeGroups, listeners
 task.excludeGroups.addAll(otherTask.excludeGroups)  // lazy wiring
 task.suiteXmlBuilder.set(someValue)  // also: suiteXmlWriter
@@ -1518,8 +1519,8 @@ task.doclet.set(provider { computeValue() })
 task.doclet.set(otherTask.doclet)  // lazy wiring
 task.destinationDirectory.set(layout.projectDirectory.dir("src"))
 task.destinationDirectory.set(otherTask.destinationDirectory)  // lazy wiring
-task.bootClasspath.from(configurations.someConfig)  // also: classpath, docletpath, extDirs, modulePath, optionFiles
-task.bootClasspath.from(otherTask.bootClasspath)  // lazy wiring
+task.bootClasspath.setFrom(configurations.someConfig)  // also: classpath, docletpath, extDirs, modulePath, optionFiles
+task.bootClasspath.setFrom(otherTask.bootClasspath)  // lazy wiring
 task.jFlags.add("item")  // also: sourceNames
 task.jFlags.addAll(otherTask.jFlags)  // lazy wiring
 task.memberLevel.set(someValue)  // also: outputLevel
@@ -1578,8 +1579,8 @@ task.bottom.set(provider { computeValue() })
 task.bottom.set(otherTask.bottom)  // lazy wiring
 task.helpFile.set(layout.buildDirectory.file("output.txt"))  // also: stylesheetFile
 task.helpFile.set(otherTask.helpFile)  // lazy wiring
-task.tagletPath.from(configurations.someConfig)
-task.tagletPath.from(otherTask.tagletPath)  // lazy wiring
+task.tagletPath.setFrom(configurations.someConfig)
+task.tagletPath.setFrom(otherTask.tagletPath)  // lazy wiring
 task.excludeDocFilesSubDir.add("item")  // also: links, linksOffline, noQualifiers, taglets, tags
 task.excludeDocFilesSubDir.addAll(otherTask.excludeDocFilesSubDir)  // lazy wiring
 task.groups.put("key", "value")
@@ -1612,8 +1613,8 @@ task.outputDir.set(layout.projectDirectory.dir("src"))
 task.outputDir.set(otherTask.outputDir)  // lazy wiring
 task.unixScript.set(layout.buildDirectory.file("output.txt"))  // also: windowsScript
 task.unixScript.set(otherTask.unixScript)  // lazy wiring
-task.classpath.from(configurations.someConfig)
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 task.defaultJvmOpts.add("item")
 task.defaultJvmOpts.addAll(otherTask.defaultJvmOpts)  // lazy wiring
 ```
@@ -1837,8 +1838,8 @@ otherTask.someInput.set(task.commandLine)
 **Migration examples:**
 
 ```groovy
-task.classpath.from(configurations.someConfig)
-task.classpath.from(otherTask.classpath)  // lazy wiring
+task.classpath.setFrom(configurations.someConfig)
+task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 task.args.add("item")  // also: argumentProviders
 task.args.addAll(otherTask.args)  // lazy wiring
 task.mainClass.set(someValue)
@@ -1870,8 +1871,8 @@ task.debug.set(otherTask.debug)  // lazy wiring
 task.defaultCharacterEncoding.set("value")  // also: maxHeapSize, minHeapSize
 task.defaultCharacterEncoding.set(provider { computeValue() })
 task.defaultCharacterEncoding.set(otherTask.defaultCharacterEncoding)  // lazy wiring
-task.bootstrapClasspath.from(configurations.someConfig)
-task.bootstrapClasspath.from(otherTask.bootstrapClasspath)  // lazy wiring
+task.bootstrapClasspath.setFrom(configurations.someConfig)
+task.bootstrapClasspath.setFrom(otherTask.bootstrapClasspath)  // lazy wiring
 task.jvmArgs.add("item")  // also: jvmArgumentProviders
 task.jvmArgs.addAll(otherTask.jvmArgs)  // lazy wiring
 task.systemProperties.put("key", "value")
@@ -1972,8 +1973,8 @@ otherTask.someInput.set(task.asJvmArg)
 **Migration examples:**
 
 ```groovy
-task.jacocoClasspath.from(configurations.someConfig)
-task.jacocoClasspath.from(otherTask.jacocoClasspath)  // lazy wiring
+task.jacocoClasspath.setFrom(configurations.someConfig)
+task.jacocoClasspath.setFrom(otherTask.jacocoClasspath)  // lazy wiring
 ```
 
 ---
@@ -2043,6 +2044,6 @@ task.url.set(otherTask.url)  // lazy wiring
 | `task.getFoo()` → `List<T>` | `task.foo.add(item)` / `.addAll(provider)` | `task.foo.get()` in a task action |
 | `task.getFoo()` → `Set<T>` | `task.foo.add(item)` / `.addAll(provider)` | `task.foo.get()` in a task action |
 | `task.getFoo()` → `Map<K,V>` | `task.foo.put(k, v)` / `.putAll(provider)` | `task.foo.get()` in a task action |
-| `task.getFoo()` → `FileCollection` | `task.foo.from(source)` | Iterate in a task action |
+| `task.getFoo()` → `FileCollection` | `task.foo.setFrom(source)` (use `.from(...)` only to append) | Iterate in a task action |
 
 > **Key principle**: `Property` extends `Provider`. Anywhere a `Provider<T>` is accepted, you can pass the `Property<T>` directly — no `.get()` needed. Reserve `.get()` for task actions and `doLast {}` blocks where you need the resolved value.

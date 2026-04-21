@@ -546,8 +546,8 @@ def main():
                 print(f'task.{prop}.set(layout.buildDirectory.file("output.txt")){also}')
                 print(f'task.{prop}.set(otherTask.{prop})  // lazy wiring')
             elif cat == 'filecoll':
-                print(f'task.{prop}.from(configurations.someConfig){also}')
-                print(f'task.{prop}.from(otherTask.{prop})  // lazy wiring')
+                print(f'task.{prop}.setFrom(configurations.someConfig){also}')
+                print(f'task.{prop}.setFrom(otherTask.{prop})  // lazy wiring')
             elif cat == 'list':
                 print(f'task.{prop}.add("item"){also}')
                 print(f'task.{prop}.addAll(otherTask.{prop})  // lazy wiring')
@@ -589,7 +589,7 @@ def main():
     print("| `task.getFoo()` → `List<T>` | `task.foo.add(item)` / `.addAll(provider)` | `task.foo.get()` in a task action |")
     print("| `task.getFoo()` → `Set<T>` | `task.foo.add(item)` / `.addAll(provider)` | `task.foo.get()` in a task action |")
     print("| `task.getFoo()` → `Map<K,V>` | `task.foo.put(k, v)` / `.putAll(provider)` | `task.foo.get()` in a task action |")
-    print("| `task.getFoo()` → `FileCollection` | `task.foo.from(source)` | Iterate in a task action |")
+    print("| `task.getFoo()` → `FileCollection` | `task.foo.setFrom(source)` (use `.from(...)` only to append) | Iterate in a task action |")
     print()
     print("> **Key principle**: `Property` extends `Provider`. Anywhere a `Provider<T>` is accepted, you can pass the `Property<T>` directly — no `.get()` needed. Reserve `.get()` for task actions and `doLast {}` blocks where you need the resolved value.")
 
