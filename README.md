@@ -31,6 +31,31 @@ Runs all tasks in order. The repository URL (and optional branch) is passed as a
 
 Tasks after `/g10-prepare-repository` operate on the already-cloned repository and don't require additional arguments.
 
+### Running the migrations in an unattended mode
+
+#### Using Claude default cloud-based model
+
+
+Notice `--permission-mode auto`, use at your own peril.
+
+```
+claude --permission-mode auto "/g10-migrate https://github.com/abstratt/spring-boot.git"
+```
+
+#### Using Ollama+Claude to leverage a local model
+
+(requires installing Ollama and pulling the local model beforehand)
+
+
+Notice `--dangerously-skip-permissions`, use at your own peril.
+```
+ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4 -- \
+    --dangerously-skip-permissions \
+    "/g10-migrate https://github.com/abstratt/spring-boot.git"
+```
+
+
+
 ### Benchmarking
 
 ```
