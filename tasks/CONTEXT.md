@@ -78,7 +78,7 @@ In every case the commit subject must be the task's title verbatim (see Commit M
 The complete set of API changes and transformation rules lives in `migration-reference/`:
 
 - **`migration-reference/migration-data.json`** — structured lookup table with every changed property: class, property name, old type, new type, `kind` (boolean, scalar, dir, file, file_collection, list, set, map, other, read_only), and removed accessors.
-- **`migration-reference/MIGRATION_RULES.md`** — one transformation rule per `kind`, covering `.set()`, `.get()`, `.from()`, `.add()`, lazy wiring, conventions, and read-only providers.
+- **`migration-reference/MIGRATION_RULES.md`** — one transformation rule per `kind`, covering `.set()`, `.get()`, `.setFrom()`, `.add()`, lazy wiring, conventions, and read-only providers.
 
 **How to use**: look up the class + property in the JSON to get its `kind`, then apply the matching rule.
 

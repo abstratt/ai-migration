@@ -456,8 +456,8 @@ def main():
     print("   task.compilerArgs.add(\"-Xlint\")")
     print("   task.compilerArgs.addAll(otherTask.compilerArgs)")
     print("   task.properties.put(\"key\", provider { computeValue() })")
-    print("   task.classpath.from(configurations.compileClasspath)")
     print("   ```")
+    print("   For `ConfigurableFileCollection` properties migrated from `setX(FileCollection)`, use `.setFrom(...)` to replace — `.from(...)` appends and is not a migration for the old setter.")
     print()
     print("---")
     print()
@@ -589,7 +589,7 @@ def main():
     print("| `task.getFoo()` → `List<T>` | `task.foo.add(item)` / `.addAll(provider)` | `task.foo.get()` in a task action |")
     print("| `task.getFoo()` → `Set<T>` | `task.foo.add(item)` / `.addAll(provider)` | `task.foo.get()` in a task action |")
     print("| `task.getFoo()` → `Map<K,V>` | `task.foo.put(k, v)` / `.putAll(provider)` | `task.foo.get()` in a task action |")
-    print("| `task.getFoo()` → `FileCollection` | `task.foo.setFrom(source)` (use `.from(...)` only to append) | Iterate in a task action |")
+    print("| `task.getFoo()` → `FileCollection` | `task.foo.setFrom(source)` | Iterate in a task action |")
     print()
     print("> **Key principle**: `Property` extends `Provider`. Anywhere a `Provider<T>` is accepted, you can pass the `Property<T>` directly — no `.get()` needed. Reserve `.get()` for task actions and `doLast {}` blocks where you need the resolved value.")
 

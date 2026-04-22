@@ -99,11 +99,7 @@ File f = task.outputFile.get().asFile
 ### `file_collection`
 Old: `FileCollection getX()` / `setX(FileCollection)` | New: `ConfigurableFileCollection getX()`
 
-`ConfigurableFileCollection` exposes two mutators with different semantics:
-- `.setFrom(...)` **replaces** all entries — this is the behavior-preserving migration of `setX(FileCollection)`.
-- `.from(...)` **appends** entries to what is already there.
-
-Default to `.setFrom(...)` when migrating a call site that used the old setter. Only use `.from(...)` when the call site's intent is to add to an existing collection (e.g. a plugin layering more entries onto a user-configured classpath).
+The replacement for `setX(FileCollection)` is `.setFrom(...)`, which **replaces** all entries and matches the old setter's behavior. `ConfigurableFileCollection` also exposes `.from(...)`, which **appends** — that is a distinct operation and is **not** a migration for the old setter. If a call site used `setX(...)`, always rewrite it as `.setFrom(...)`.
 
 ```groovy
 // old
@@ -112,8 +108,6 @@ FileCollection cp = task.getClasspath()
 // new — configuration (replaces, matching the old setter)
 task.classpath.setFrom("a.jar", "b.jar")
 task.classpath.setFrom(otherTask.classpath) // lazy wiring
-// append instead of replace — only when that is the intent
-task.classpath.from(configurations.compileClasspath)
 // new — when a resolved value is needed (iteration)
 task.classpath.files.each { ... }
 ```

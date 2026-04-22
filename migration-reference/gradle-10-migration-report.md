@@ -50,8 +50,8 @@ The migration to lazy properties is **not** just a mechanical `getFoo()` → `fo
    task.compilerArgs.add("-Xlint")
    task.compilerArgs.addAll(otherTask.compilerArgs)
    task.properties.put("key", provider { computeValue() })
-   task.classpath.from(configurations.compileClasspath)
    ```
+   For `ConfigurableFileCollection` properties migrated from `setX(FileCollection)`, use `.setFrom(...)` to replace — `.from(...)` appends and is not a migration for the old setter.
 
 ---
 
@@ -2044,6 +2044,6 @@ task.url.set(otherTask.url)  // lazy wiring
 | `task.getFoo()` → `List<T>` | `task.foo.add(item)` / `.addAll(provider)` | `task.foo.get()` in a task action |
 | `task.getFoo()` → `Set<T>` | `task.foo.add(item)` / `.addAll(provider)` | `task.foo.get()` in a task action |
 | `task.getFoo()` → `Map<K,V>` | `task.foo.put(k, v)` / `.putAll(provider)` | `task.foo.get()` in a task action |
-| `task.getFoo()` → `FileCollection` | `task.foo.setFrom(source)` (use `.from(...)` only to append) | Iterate in a task action |
+| `task.getFoo()` → `FileCollection` | `task.foo.setFrom(source)` | Iterate in a task action |
 
 > **Key principle**: `Property` extends `Provider`. Anywhere a `Provider<T>` is accepted, you can pass the `Property<T>` directly — no `.get()` needed. Reserve `.get()` for task actions and `doLast {}` blocks where you need the resolved value.
