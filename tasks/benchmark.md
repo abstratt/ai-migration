@@ -70,17 +70,12 @@ If the output file already exists, overwrite it.
 
 8. **Evaluate against the primary criteria** from `tasks/CONTEXT.md` §"Code Change Guidelines":
 
-   **(1) Behavior preservation.** Flag each occurrence of:
-   - Groovy DSL syntax errors introduced by mechanical rewrites of `<<` / `+=` / `-=` (e.g. dropped closing `)` on converted `.add(...)` calls).
-   - `from(...)` used where `setFrom(...)` was semantically required (original was a setter on a `ConfigurableFileCollection` — `from` appends, `setFrom` replaces).
-   - `.get()` or `.set(...)` applied to non-`Property` types. Common false-positive targets: `ZipArchiveOutputStream`, `ZipArchiveEntry`, `java.util.zip.ZipEntry`, `ModuleComponentIdentifier`, `Project.getName()`/`getVersion()`, enum helpers, `SourceSetOutput`, `CompileOptions` itself, `JarModeLibrary`.
-   - Changed null-check idioms on now-`Property`-typed accessors (`x == null` must become `x.getOrNull() == null` because a `Property` reference is non-null when unset).
-   - Dead-code left behind (e.g. `setX(getX())` that became `getX().set(getX().get())` — should be deleted, not translated).
+   **(1) Behavior preservation.** The rule is the one stated in `tasks/CONTEXT.md` §"Code Change Guidelines": the migrated code must not change observable functionality, and must not make cosmetic changes outside what the migration requires. `migration-reference/MIGRATION_RULES.md` defines what each `kind` should rewrite to. Read both, then flag any regression a diff introduces against them — syntax errors, semantic changes (e.g. replace → append), misapplied rules to types the rules don't cover, dropped defaults/conventions, changed resolution timing, dead code left behind, or drive-by edits unrelated to the migration.
 
    **(2) Lazy vs eager.** Flag each occurrence of:
    - `.get()` inside a configuration block or task wiring where `Provider.map` / `.flatMap` / `.zip` would keep the chain lazy.
    - `Property.set(otherProvider.get())` instead of `Property.set(otherProvider)`.
-   - `ConfigurableFileCollection.from(other.get())` / `.from(other.getFiles())` instead of passing the live collection (`.getFiles()` is correct only to break an explicit self-reference — if so, require a comment explaining it).
+   - `ConfigurableFileCollection.setFrom(other.get())` / `.setFrom(other.getFiles())` instead of passing the live collection (`.getFiles()` is correct only to break an explicit self-reference — if so, require a comment explaining it).
    - Self-referential `.set(.get())` on the same property.
 
    **(3) Coverage.** Does each branch migrate `buildSrc/`? (The default scanner excludes directories named `build`, which silently hides `org.springframework.boot.build`-style package trees inside `buildSrc`. A good run will have noticed and worked around this.) List files each branch missed entirely vs. files the other covered.
