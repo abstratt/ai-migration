@@ -95,38 +95,41 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
    > **Intent:** remove the mechanical bulk of rewrites from the model's per-site `Edit` loop (faster and more reproducible than hand-edits), while keeping every judgment call — receiver-type disambiguation, Cat-B/C decisions, multi-line restructures, circular-ref handling — in the model's hands via `MIGRATION_NOTES.md`.
 
-4. **Review `MIGRATION_NOTES.md` and the remaining scanner hits**. For each deferred entry and each `[CONFIRMED]` hit the tool did not touch, apply the rule from `migration-data.json` + `MIGRATION_RULES.md` by hand:
+   **The tool's `MIGRATION_NOTES.md` output is NOT a deliverable — it is the input to step 4.** Expect it to contain hundreds of entries with boilerplate reason strings like `category B is out of scope for this tool`, `unconfirmed receiver — no matching import`, and `kind '…' has no mechanical rewrite`. Those reasons mean *"the tool declined to guess"*, not *"this is a confirmed false positive"*. Committing this file unchanged — with its raw boilerplate reason strings intact — is a **task failure**; step 5 includes a hard audit that will force a rollback if it detects unprocessed tool output.
+
+4. **Process every entry in `MIGRATION_NOTES.md`, line by line.** This is the core of the task. Open the file. For each entry, decide one of three outcomes, and act on the decision before moving to the next entry:
+
+   **(a) Real rewrite.** Apply the rule from `migration-data.json` + `MIGRATION_RULES.md` via an `Edit` call, then **delete the entry from `MIGRATION_NOTES.md`**. Guidelines for the rewrite itself:
    - Prefer lazy wiring (`taskB.foo.set(taskA.foo)`) over eagerly resolving values
    - Use `.get()` only when the resolved value is needed (e.g., passing to an API that does not accept `Provider`)
    - Add a code comment explaining the reason for each non-trivial change
    - Ignore deprecations for now
-   - After applying each deferred entry, **remove it from `MIGRATION_NOTES.md`**. The file is the punch list for this task; it should shrink as the task progresses. Anything still in the file at commit time is a legitimate carry-over for tasks 07/08 to address with compile-error context.
 
-   **Inheritance lookup via `also_known_as`.** A property may be defined on a base class and inherited by many public-API subtypes (e.g. `maxHeapSize` is on `JavaForkOptions` and inherited by `Test`, `JavaExec`, and others). If a direct class + property lookup returns no entry, search `migration-data.json` for the property name alone and check each match's `also_known_as` field.
+   **(b) Confirmed false positive.** Walk the receiver-type ladder below. If the receiver is not a migrated Gradle type, **rewrite the entry's `reason` string** to a one-line explanation of *why* it is a false positive (e.g. `receiver is user-defined ResolveMainClassName with own setClasspath(Object)`, or `third-party io.spring.javaformat.Format.setEncoding, not a Gradle accessor`). Replace the tool's boilerplate reason. Group related false positives under headings like `### User-defined task types with their own setters` so the final file reads as a curated analysis, not a dump.
 
-   > **Intent:** ensure that inherited properties still resolve to their owning entry so the correct rule is applied instead of treating the hit as unmapped.
+   **(c) Cannot decide yet.** If the fix requires compile-error context (e.g. multi-line restructure whose correctness depends on which overload the compiler picks), leave the entry but **still rewrite its `reason` string** to name the specific uncertainty (e.g. `defer to task 07: overload selection depends on compile output`). Do not leave boilerplate strings like `category B is out of scope for this tool` in place.
 
-   Example: a scan hit against `Test.setMaxHeapSize("2g")` will not find an entry keyed by `class=Test, property=maxHeapSize`. The entry is keyed by `class=JavaForkOptions, property=maxHeapSize`, with `Test` listed under `also_known_as`. Apply the `JavaForkOptions.maxHeapSize` rule to the `Test` call site.
+   **Entries you must always process, never skip wholesale:**
+   - **Category C hits on `.gradle` / `.gradle.kts` files** are almost always real — the scanner marks them "unconfirmed" only because DSL files have no typed imports for it to match against. `jvmArgs += [...]`, `compilerArgs << "..."`, `prop -= [...]` on `ListProperty`/`SetProperty`/`MapProperty` all need rewriting. Do **not** defer these as "unconfirmed."
+   - **Category B `[CONFIRMED]` hits** require manual review — they were deferred only because auto-rewriting return-type-changed getters without knowing the consumer context is unsafe, not because they're false positives.
+   - **Category A hits with `kind '<X>' has no mechanical rewrite`** reasons mean the kind is `read_only` or an unhandled kind — inspect each one.
 
-   **Additional rules for the new search categories:**
+   Use the **Receiver-type decision procedure** from step 2 (the numbered ladder above) to classify each entry. Also recall:
+
+   **Inheritance lookup via `also_known_as`.** A property may be defined on a base class and inherited by many public-API subtypes (e.g. `maxHeapSize` is on `JavaForkOptions` and inherited by `Test`, `JavaExec`, and others). If a direct class + property lookup returns no entry, search `migration-data.json` for the property name alone and check each match's `also_known_as` field. Example: `Test.setMaxHeapSize("2g")` resolves via `JavaForkOptions.maxHeapSize` (with `Test` under `also_known_as`).
+
+   **Per-category rewrite rules for the hand-applied subset:**
 
    - **`is*` boolean getter sites**: replace `task.isFoo()` with `task.getFoo().get()` (inside task actions or when a resolved value is needed), or wire lazily with `task.getFoo()` (returns `Property<Boolean>`) elsewhere.
-   - **Changed-return-type getter sites**: when `getX()` is used as the old plain type, add `.get()` to resolve it: `task.getArgs()` → `task.getArgs().get()`. When it is passed to an API that accepts `Provider<T>`, no `.get()` is needed.
-   - **Groovy DSL operator mutations**: replace `prop -= [value]` / `prop += [value]` with `prop.set(prop.get() - [value])` / `prop.add(value)` respectively.
+   - **Changed-return-type getter sites (Cat-B)**: when `getX()` is used as the old plain type, add `.get()` to resolve it: `task.getArgs()` → `task.getArgs().get()`. When it is passed to an API that accepts `Provider<T>`, no `.get()` is needed.
+   - **Groovy DSL operator mutations (Cat-C)**: replace `prop -= [value]` / `prop += [value]` with `prop.set(prop.get() - [value])` / `prop.add(value)` respectively. `prop << value` → `prop.add(value)`.
    - **`file_collection` kind**: replace `task.setX(fc)` with `task.getX().setFrom(fc)`. `.from(...)` appends and is not a migration for `setX(...)` — never use it to rewrite an old setter. Watch for circular references: if the new value references the same property, snapshot first with `.getFiles()`: `task.getX().setFrom(project.files(extra, task.getX().getFiles()).filter(...))`.
 
-   **Defer-and-record escape hatch.** If a hit cannot be confidently transformed — the owning type is ambiguous after walking the receiver-type ladder, the `kind` does not match any rule, or the surrounding code would require a non-trivial restructure — record it in a `MIGRATION_NOTES.md` file at the root of the migrated repo and move on.
+   **The shape of a completed `MIGRATION_NOTES.md`.** After step 4, the file should either be empty (delete it) or read like a curated false-positive analysis: entries grouped by receiver-type category, each with a one-line human reason. A file that still looks like `apply_migrations.py`'s raw output — hundreds of entries with identical boilerplate reason strings — means step 4 was not done. Commit the file only if it passes step 5's audit.
 
-   > **Intent:** give each hit a legitimate "punt" outcome so that uncertain sites are flagged for follow-up in task 07/08 (where build errors and compile-error mappings are available) rather than being silently skipped or guessed at.
+5. **Self-check before commit — two audits.**
 
-   Each entry in `MIGRATION_NOTES.md` should include:
-   - File path and line number
-   - The scanner-reported class + property (so the entry can be looked up in `migration-data.json` later)
-   - A one-line description of the reason for deferral (e.g. "receiver type unclear: chained through third-party plugin API")
-
-   Commit `MIGRATION_NOTES.md` together with the transformed files (if any entries remain after step 4). Task 07/08 will consult it when resolving build failures.
-
-5. **Self-check before commit.** Re-run the scanner on the transformed tree:
+   **(a) Scanner audit.** Re-run the scanner on the transformed tree:
 
    ```bash
    python3 ../migration-reference/scan_usages.py . 2>&1 | tee /tmp/scan-results-after.txt
@@ -137,10 +140,25 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    Expectations:
    - **Zero `[CONFIRMED]` Cat-A hits** (removed accessors) should remain — every confirmed hit means a real call site was missed.
    - **Zero `[CONFIRMED]` Cat-B hits** (changed-return-type getters without `.get()`/`.set(`) should remain.
-   - **Zero `[CONFIRMED]` Cat-C hits** (DSL operator mutations) should remain.
-   - `[unconfirmed]` hits may remain; these were already judged non-applicable during step 4.
+   - **Zero Cat-C hits on `.gradle` / `.gradle.kts` files, confirmed or unconfirmed.** DSL files have no typed imports, so the scanner cannot confirm their receivers; nearly every Cat-C hit in a DSL file is a real `jvmArgs += ...` / `compilerArgs << ...` / `prop -= ...` that needs rewriting. Do not exempt these because they say "unconfirmed."
+   - `[unconfirmed]` hits in `.java` / `.kt` / `.groovy` files may remain if step 4 recorded them as false positives; each must be reflected in `MIGRATION_NOTES.md` with a specific human reason.
 
-   If any confirmed hits remain, return to step 4 and address them before committing.
+   If any of the above fail, return to step 4 and address them before committing.
+
+   **(b) `MIGRATION_NOTES.md` audit.** If the file exists after step 4, inspect it:
+
+   ```bash
+   grep -cE "category [BC] is out of scope for this tool|unconfirmed receiver|kind '[a-z_]+' has no mechanical rewrite|boolean read: context-dependent rewrite|possible circular ref|ambiguous receiver \(matched|setter call not found or spans multiple lines|read_only property has no setter" MIGRATION_NOTES.md || true
+   ```
+
+   > **Intent:** detect raw `apply_migrations.py` boilerplate reason strings that indicate step 4 was skipped. Every entry that remains in the file must carry a human-written reason, not a tool-generated one.
+
+   Read the **numeric count**, not the exit code — `grep -c` exits non-zero when the count is `0`, which is the pass state here. The `|| true` above normalizes that.
+
+   - The count must be **zero**. Every boilerplate reason left intact means an entry was not processed: either the tool's classification was accepted without receiver-type analysis (failure mode A), or the entry is a real rewrite that was not applied (failure mode B).
+   - If the count is non-zero, return to step 4 and process the remaining entries. Do not commit.
+   - If `MIGRATION_NOTES.md` has zero entries or only a small curated set of grouped false positives with specific receiver-type reasons, good — proceed to the commit checkpoint.
+   - If the file ends up empty, delete it. It should not be committed with no body.
 
 ## Commit checkpoint (mandatory before moving on)
 
@@ -148,7 +166,7 @@ Before starting task 07, commit the changes from this task:
 
 - Subject: `Migrate Build Scripts and Gradle API Usages` (the task title)
 - Include the `Assistant:` trailer (see CONTEXT.md)
-- If `MIGRATION_NOTES.md` was written, stage it alongside the transformed files in this same commit
+- If `MIGRATION_NOTES.md` has any entries after step 4, stage it alongside the transformed files — but **only after** both step 5 audits have passed. A `MIGRATION_NOTES.md` that still contains raw `apply_migrations.py` boilerplate reasons must not be committed.
 - After committing, run `git status` and confirm the working tree is clean
 
 Do **not** run `./gradlew` (or any other Gradle invocation) to validate the changes. See the "Hard rule" at the top of this task. We want only changes derivable from `migration-data.json` in this changeset; build validation and iteration happen in tasks 07 and 08.
@@ -158,6 +176,7 @@ Do not combine these changes with a later task's commit. See the "Commit Discipl
 ## Done when
 
 - All build scripts **and** all Java/Kotlin/Groovy source files that use Gradle API types have been scanned and transformed according to `migration-data.json`
-- Re-running `scan_usages.py` shows zero confirmed hits in any category
+- Re-running `scan_usages.py` shows zero `[CONFIRMED]` Cat-A / Cat-B hits and zero Cat-C hits in `.gradle` / `.gradle.kts` files
+- `MIGRATION_NOTES.md` has either been deleted (no remaining deferrals) or contains only human-curated entries with specific receiver-type reasons — no raw `apply_migrations.py` boilerplate remains
 - A commit with subject `Migrate Build Scripts and Gradle API Usages` exists on the migration branch and `git status` is clean
 - No Gradle command was executed during this task (validation belongs to tasks 07 and 08)
