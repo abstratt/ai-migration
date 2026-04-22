@@ -6,6 +6,10 @@
 
 - Tasks 01–04 have completed: clone exists, JDK is installed, Gradle 9.x wrapper is in place, and the custom Provider API distribution URL is configured
 
+## Pre-start check: clean working tree
+
+Before doing anything else, run `git -C migrated/<repo-name> status --porcelain`. If the output is **non-empty**, **STOP THE ENTIRE WORKFLOW** — do not commit the changes yourself, do not run the Resume check, do not continue to the next task. Report the dirty paths and exit. Uncommitted changes at this point mean an earlier task skipped its commit checkpoint; proceeding would break resume detection on a subsequent run and compound the bookkeeping error.
+
 ## Resume check
 
 This task has no resume check — it **always runs** and **always overwrites** the start-time file. It sits here, *after* the plumbing tasks (clone, JDK, wrapper upgrade, distribution swap), so the duration reported in task 09 measures only the migration work proper (tasks 06–09) and excludes setup time that varies with network/cache. Reusing a timestamp from an earlier run would make the elapsed-time report meaningless.

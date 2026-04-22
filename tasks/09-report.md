@@ -7,6 +7,10 @@
 - Migration is complete (all previous tasks finished)
 - On the migration branch with all commits in place
 
+## Pre-start check: clean working tree
+
+Before doing anything else, run `git -C migrated/<repo-name> status --porcelain`. If the output is **non-empty**, **STOP THE ENTIRE WORKFLOW** — do not commit the changes yourself, do not run the Resume check, do not continue to the next task. Report the dirty paths and exit. Uncommitted changes at this point mean an earlier task skipped its commit checkpoint; proceeding would break resume detection on a subsequent run and compound the bookkeeping error.
+
 ## Resume check
 
 1. Check if a `REPORT-<YYYYMMDD-HHMM>.md` file already exists at the root of the cloned repo matching the current migration branch timestamp
