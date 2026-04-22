@@ -12,10 +12,10 @@ This task has no resume check — it **always runs** and **always overwrites** t
 
 ## Instructions
 
-1. **Record start time**: Capture the current timestamp in ISO 8601 with timezone (e.g. `2026-04-15T15:24:00-03:00`). Write it to `migrated/<repo-name>/.git/migration-start-time` (inside the clone's `.git/` directory), **unconditionally overwriting any existing file**. The report task (task 09) will read this file to compute the migration duration.
+1. **Record start time**: Capture the current timestamp in ISO 8601 with timezone (e.g. `2026-04-15T15:24:00-03:00`). Write it to `migrated/<repo-name>.migration-start-time` — a **sibling file** alongside the clone directory, not inside it — **unconditionally overwriting any existing file**. The report task (task 09) will read this file to compute the migration duration and then delete it.
 
-   > **Intent:** storing the timestamp inside `.git/` keeps it with the clone it belongs to (per-repo, not shared across migrations), while staying out of the working tree so `git status` assertions in later tasks remain clean and so `git reset --hard` / `git clean -fd` from a subsequent run's task 01 won't wipe it before it's been overwritten with a fresh value.
+   > **Intent:** the timestamp is kept outside the clone so it stays out of the working tree (no `git status` pollution, no risk of accidental staging) and outside `.git/` (agents may have write guards around `.git/` that fire even under permissive permission modes). The per-repo association is preserved via the filename.
 
 ## Done when
 
-- `migrated/<repo-name>/.git/migration-start-time` exists and contains a single ISO 8601 timestamp with timezone
+- `migrated/<repo-name>.migration-start-time` exists and contains a single ISO 8601 timestamp with timezone

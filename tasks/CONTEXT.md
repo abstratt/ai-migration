@@ -86,7 +86,7 @@ Per-task commit expectations when the task actually runs (i.e. its resume check 
 - **Task 01** — no commit inside the migrated repo (it only clones and branches).
 - **Task 02** — no commit inside the migrated repo (it only installs a JDK via SDKMAN).
 - **Tasks 03, 04, 06, 09** — commit is **mandatory**. If the working tree is clean at the commit checkpoint, something earlier in the task was missed.
-- **Task 05** — no commit inside the migrated repo (it only writes a timestamp to `migrated/<repo-name>/.git/migration-start-time`, which lives inside the clone's `.git/` directory and never reaches the working tree).
+- **Task 05** — no commit inside the migrated repo (it only writes a timestamp to `migrated/<repo-name>.migration-start-time`, a sibling file alongside the clone directory — outside the working tree and outside `.git/`).
 - **Tasks 07, 08** — commit only if the task made changes. If no changes were needed, `git status` must already be clean before leaving the task.
 
 In every case the commit subject must be the task's title verbatim (see Commit Message Style) and must include the `Assistant:` trailer. One task = one commit: never a commit that spans task boundaries.
