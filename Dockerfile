@@ -36,7 +36,8 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 SHELL ["/bin/bash", "-c"]
 
 # Bake the migration plan into the image
-COPY MIGRATION.md /MIGRATION.md
+COPY MIGRATION.md /migration-tooling/MIGRATION.md
+COPY tasks/ /migration-tooling/tasks/
 
 RUN chown -R claude:claude /home/claude
 
