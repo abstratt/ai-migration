@@ -29,7 +29,19 @@ from pathlib import Path
 JAVA_EXTS   = (".java", ".kt", ".groovy")
 DSL_EXTS    = (".gradle", ".gradle.kts")
 ALL_EXTS    = JAVA_EXTS + DSL_EXTS
-EXCLUDE_DIRS = {".gradle", "build", ".git", "node_modules", "__pycache__"}
+
+# Exact-name exclusions applied at every depth.
+EXCLUDE_DIRS = {".gradle", ".git", "node_modules", "__pycache__"}
+
+# `build` is a special case: it's a Gradle output directory at the root of a
+# Gradle project, but it's also a legitimate Java package name (e.g.
+# `org.springframework.boot.build` in Spring Boot's buildSrc sources). Exclude
+# it only when the parent directory looks like a Gradle project — i.e. it
+# contains a Gradle build or settings script.
+GRADLE_PROJECT_MARKERS = frozenset({
+    "build.gradle", "build.gradle.kts",
+    "settings.gradle", "settings.gradle.kts",
+})
 
 # Test source path segments — Cat-B is excluded from these (too many false positives
 # from test code calling getOutput(), getName() etc. on non-Gradle types).
@@ -153,7 +165,12 @@ def find_files(root: Path) -> tuple[list[Path], set[Path], set[Path]]:
     test_files = set()
 
     for dirpath, dirnames, filenames in os.walk(root):
-        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
+        is_gradle_project_dir = any(f in GRADLE_PROJECT_MARKERS for f in filenames)
+        dirnames[:] = [
+            d for d in dirnames
+            if d not in EXCLUDE_DIRS
+            and not (d == "build" and is_gradle_project_dir)
+        ]
         for fname in filenames:
             path = Path(dirpath) / fname
             path_str = str(path)

@@ -38,6 +38,7 @@ SHELL ["/bin/bash", "-c"]
 # Bake the migration plan into the image
 COPY MIGRATION.md /migration-tooling/MIGRATION.md
 COPY tasks/ /migration-tooling/tasks/
+COPY migration-reference/ /migration-reference/
 
 RUN chown -R claude:claude /home/claude
 
