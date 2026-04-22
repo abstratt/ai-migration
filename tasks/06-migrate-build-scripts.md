@@ -73,11 +73,30 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    5. Is the receiver a lambda parameter (e.g. `publication.pom(pom -> pom.setX(...))`)? Check the enclosing method's signature — the parameter's type is usually a Gradle configuration type. → **apply** if found in the JSON.
    6. None of the above → **leave unchanged and note in a comment for review**.
 
-3. **Apply transformations** by looking up each real hit in `migration-data.json` to get its `kind`, then applying the corresponding rule from `MIGRATION_RULES.md`:
+3. **Apply mechanical rewrites first with `apply_migrations.py`**:
+
+   ```bash
+   python3 ../migration-reference/apply_migrations.py . 2>&1 | tee /tmp/apply-results.txt
+   ```
+
+   The tool is data-driven from `migration-data.json` and only rewrites the safe, unambiguous cases:
+   - **Category A only** — removed accessors (`setX(...)` call sites)
+   - **`[CONFIRMED]` hits with exactly one matching class** (no ambiguous receivers)
+   - **Kinds it handles**: `boolean`, `scalar`, `list`, `set`, `map`, `dir`, `file`, `file_collection`, `other`
+   - **Rewrite shape**: `obj.setX(arg)` → `obj.getX().set(arg)` (or `.setFrom(arg)` for `file_collection`) — safe in Java, Groovy DSL, and Kotlin DSL
+   - **Single-line only**: multi-line setter calls are deferred
+   - **Circular-ref guard**: `file_collection` setters whose argument references the same property (e.g. `task.setClasspath(files(extra, task.getClasspath().getFiles()))`) are deferred — the `getFiles()` snapshot trick has to be applied by hand
+
+   Everything it does not rewrite — Category B, Category C, `[unconfirmed]` hits, ambiguous multi-match hits, `isX()` boolean reads, `read_only` kinds, multi-line calls, circular-ref file collections — is appended to `MIGRATION_NOTES.md` at the root of the cloned repo with the file, line, class, property, source text, and a reason string.
+
+   > **Intent:** remove the mechanical bulk of rewrites from the model's per-site `Edit` loop (faster and more reproducible than hand-edits), while keeping every judgment call — receiver-type disambiguation, Cat-B/C decisions, multi-line restructures, circular-ref handling — in the model's hands via `MIGRATION_NOTES.md`.
+
+4. **Review `MIGRATION_NOTES.md` and the remaining scanner hits**. For each deferred entry and each `[CONFIRMED]` hit the tool did not touch, apply the rule from `migration-data.json` + `MIGRATION_RULES.md` by hand:
    - Prefer lazy wiring (`taskB.foo.set(taskA.foo)`) over eagerly resolving values
    - Use `.get()` only when the resolved value is needed (e.g., passing to an API that does not accept `Provider`)
    - Add a code comment explaining the reason for each non-trivial change
    - Ignore deprecations for now
+   - After applying each deferred entry, **remove it from `MIGRATION_NOTES.md`**. The file is the punch list for this task; it should shrink as the task progresses. Anything still in the file at commit time is a legitimate carry-over for tasks 07/08 to address with compile-error context.
 
    **Inheritance lookup via `also_known_as`.** A property may be defined on a base class and inherited by many public-API subtypes (e.g. `maxHeapSize` is on `JavaForkOptions` and inherited by `Test`, `JavaExec`, and others). If a direct class + property lookup returns no entry, search `migration-data.json` for the property name alone and check each match's `also_known_as` field.
 
@@ -101,9 +120,9 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - The scanner-reported class + property (so the entry can be looked up in `migration-data.json` later)
    - A one-line description of the reason for deferral (e.g. "receiver type unclear: chained through third-party plugin API")
 
-   Commit `MIGRATION_NOTES.md` together with the transformed files. Task 07/08 will consult it when resolving build failures.
+   Commit `MIGRATION_NOTES.md` together with the transformed files (if any entries remain after step 4). Task 07/08 will consult it when resolving build failures.
 
-4. **Self-check before commit.** Re-run the scanner on the transformed tree:
+5. **Self-check before commit.** Re-run the scanner on the transformed tree:
 
    ```bash
    python3 ../migration-reference/scan_usages.py . 2>&1 | tee /tmp/scan-results-after.txt
@@ -115,9 +134,9 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - **Zero `[CONFIRMED]` Cat-A hits** (removed accessors) should remain — every confirmed hit means a real call site was missed.
    - **Zero `[CONFIRMED]` Cat-B hits** (changed-return-type getters without `.get()`/`.set(`) should remain.
    - **Zero `[CONFIRMED]` Cat-C hits** (DSL operator mutations) should remain.
-   - `[unconfirmed]` hits may remain; these were already judged non-applicable during step 3.
+   - `[unconfirmed]` hits may remain; these were already judged non-applicable during step 4.
 
-   If any confirmed hits remain, return to step 3 and address them before committing.
+   If any confirmed hits remain, return to step 4 and address them before committing.
 
 ## Commit checkpoint (mandatory before moving on)
 

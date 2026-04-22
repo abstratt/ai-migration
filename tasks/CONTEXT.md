@@ -143,6 +143,27 @@ The following operations are pre-authorized and should be performed without aski
 - Download Gradle distributions when a task authorizes Gradle execution, including the custom Provider API build from `https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip`
 - Install JDK versions via SDKMAN (`sdk install java`, `sdk use java`)
 
+## No ad-hoc scripts
+
+Do **not** create non-trivial scripts (Python, shell, or otherwise) to automate migration work. Use the existing tooling under `migration-reference/` — currently `scan_usages.py` and `apply_migrations.py` — and apply remaining rewrites one at a time with your file-editing tools.
+
+"Non-trivial" means anything beyond:
+- A one-liner shell command (grep, find, sed on a single file, etc.)
+- An inline `python3 -c '…'` snippet that fits on a single command line
+- An invocation of a pre-existing script from `migration-reference/`
+
+Concretely, do **not** write new `.py` or `.sh` files to batch-apply transformation rules, parse scanner output, or mass-rewrite source files. Past attempts by weaker models produced scripts with subtle bugs (double-escaped regexes, literal `\n` written to files, partial rule coverage, no receiver-type checks) that silently corrupted source trees.
+
+> **Intent:** keep the mechanical bulk in the reviewed, version-controlled tooling under `migration-reference/`, and keep every other rewrite on the per-site `Edit` path where the judgment steps in MIGRATION_RULES.md and the receiver-type ladder in task 06 actually run. Ad-hoc scripts bypass both.
+
+**If you find yourself needing a capability the existing tooling does not provide — STOP.** Do not work around the gap with a script you write on the fly. Instead, produce a short report describing:
+
+1. The task you were trying to do (specific class/property/rule that tripped you up is fine).
+2. What the existing tooling does not handle.
+3. The contract a new tool would need — inputs, outputs, which rule it would automate.
+
+Then exit the workflow and let a human decide whether to extend `migration-reference/` or have a stronger model add the capability. A missing-capability report is a legitimate, expected outcome; a buggy ad-hoc script is not.
+
 ## Resume Protocol
 
 Each task begins with a **Resume check** section. Before doing any work:
