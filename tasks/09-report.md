@@ -15,7 +15,7 @@
 
 ## Instructions
 
-Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) at the **root of the cloned repo** (i.e. inside `migrated/<repo-name>/`, alongside the repo's own files) containing:
+Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) at the **root of the cloned repo** (i.e. inside `migrated/<repo-name>/`, alongside the repo's own files). Do **not** write this file at the root of the tooling repo, and do **not** name it `BENCHMARK-*.md` — that prefix is reserved for the off-pipeline `/g10-benchmark` task and lives under `benchmarks/`. The report file must contain:
 
 1. **Summary**: The repository, its migration status (migrated, skipped, failed), the local branch name, the **start time**, **end time**, and **elapsed time** of the migration — start is read from `migrated/<repo-name>.migration-start-time` (a sibling file recorded by task 05, after setup/plumbing finishes), end is the current time when writing this report, and elapsed is the wall-clock difference between the two (use ISO 8601 with timezone for start/end, e.g. `2026-04-15T15:24:00-03:00`, and a human-readable duration for elapsed, e.g. `12m 34s`), and the **Assistant identification** — the same three-part trailer used on commit messages, i.e. `<<Tool Name>> / <<Friendly Model Name>> / <<model-id>>` (e.g. `Acme AI / FooModel 3 / foomodel-3` or `Unknown Tool / Unknown Model / unknown-id` if identity cannot be determined). Use `Unknown Tool`, `Unknown Model`, or `unknown-id` for any part that cannot be determined. This line must be present in every report.
 

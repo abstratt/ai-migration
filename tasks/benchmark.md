@@ -23,9 +23,9 @@ If the arguments are missing or malformed, stop and ask the user.
 
 ## Output file
 
-Write to the **project root** (sibling of `MIGRATION.md`, not inside `migrated/`):
+Write to the `benchmarks/` directory at the project root (create it if it does not exist; **not** inside `migrated/`, **not** at the project root itself):
 
-    BENCHMARK-<repo-name>-<YYYYMMDD>-<slug-1>-vs-<slug-2>.md
+    benchmarks/BENCHMARK-<repo-name>-<YYYYMMDD>-<slug-1>-vs-<slug-2>.md
 
 - `<repo-name>` — last path segment of `<repo-url>`, stripped of any trailing `.git`.
 - `<YYYYMMDD>` — today's date (run `date +%Y%m%d`).
@@ -96,7 +96,7 @@ If the output file already exists, overwrite it.
 
 ## Report structure
 
-Match the tone and depth of `BENCHMARK-spring-boot-20260420.md` at the project root (the canonical example produced by hand before this task existed). Required sections, in order:
+Required sections, in order:
 
 1. **Title** — `# Benchmark Report — Gradle 10 Lazy-Property Migration`
 2. **Metadata** — repository (linked), task description, base commit (linked SHA), date.
@@ -110,10 +110,10 @@ Match the tone and depth of `BENCHMARK-spring-boot-20260420.md` at the project r
 ## Commit policy
 
 - Do **not** commit anything inside `migrated/<repo-name>/` — this is a read-only comparison.
-- Do **not** auto-commit the generated `BENCHMARK-*.md` to the tooling repo. Leave it in the working tree for the user to review.
+- Do **not** auto-commit the generated `benchmarks/BENCHMARK-*.md` to the tooling repo. Leave it in the working tree for the user to review.
 
 ## Done when
 
-- `BENCHMARK-<repo-name>-<YYYYMMDD>-<slug-1>-vs-<slug-2>.md` exists at the project root.
+- `benchmarks/BENCHMARK-<repo-name>-<YYYYMMDD>-<slug-1>-vs-<slug-2>.md` exists under the project's `benchmarks/` directory.
 - It contains every section listed under "Report structure" with concrete diff snippets and working links to `<repo-url>`.
 - No changes have been committed to either the migrated repo or the tooling repo.
