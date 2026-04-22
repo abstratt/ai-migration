@@ -19,6 +19,35 @@ Example:
 - **Clone directory**: `migrated/<repo-name>` (e.g. `migrated/my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
 - **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>` (e.g. `gradle-10-migration/20260331-1400`). The timestamp is set at the start of the workflow and reused throughout.
 - **SDKMAN**: Pre-installed in the Docker image at `$HOME/.sdkman`
+- **Host OS**: Before running shell commands, probe the host with `uname -s` (expect `Linux` or `Darwin`) and remember the result for the rest of the workflow. This determines which shell-command dialect is safe — see **Shell Portability** below.
+
+## Shell Portability
+
+Shell commands must work on both Linux (GNU coreutils) and macOS (BSD coreutils). Do not assume GNU-only flags just because they are common on Linux. When in doubt, prefer POSIX-portable constructs or branch on `uname -s`.
+
+Common divergences to watch for:
+
+- `sed -i` — GNU accepts `sed -i 's/a/b/' f`; BSD requires a backup-suffix argument: `sed -i '' 's/a/b/' f`. Portable workaround: write to a temp file and `mv`, or use `perl -i -pe`.
+- `cat -A` — GNU-only (show all non-printing). On BSD use `cat -vet`.
+- `grep -P` (Perl regex) — GNU-only. Use basic/extended regex (`grep -E`) or switch to `perl`/`rg` for PCRE.
+- `readlink -f` — GNU-only. On macOS use `python3 -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' <path>` or install `coreutils` and call `greadlink -f`.
+- `date -d '<expr>'` and `date -u +%s -d ...` — GNU-only. BSD `date` uses `-v` (`date -v-1d`) or `-j -f <format>`.
+- `stat` — flags differ entirely: GNU `stat -c %Y f` vs BSD `stat -f %m f`. If you only need mtime, prefer `ls -l` parsing or a tiny `python3 -c 'import os,sys;print(os.path.getmtime(sys.argv[1]))'`.
+- `find -printf`, `find -regextype` — GNU-only. Stick to POSIX `find` options (`-name`, `-type`, `-exec`).
+- `xargs -r` (skip if empty) — GNU-only. BSD equivalent: `xargs` without `-r` but guard with `[ -n "$input" ]`, or pipe through `| grep . | xargs`.
+- `tar --wildcards`, `tar --xform` — GNU-only. Use `bsdtar`-compatible flags or pre-filter the file list.
+- `base64 -w0` — GNU-only. On BSD, `base64` produces a single line by default; just drop `-w0`.
+- `md5sum` / `sha256sum` — GNU. On BSD use `md5 -q` / `shasum -a 256`.
+
+If a task genuinely needs a GNU-only tool, branch explicitly:
+
+```bash
+if [ "$(uname -s)" = "Darwin" ]; then
+  sed -i '' 's/a/b/' file
+else
+  sed -i 's/a/b/' file
+fi
+```
 
 ## Commit Message Style
 
@@ -94,7 +123,7 @@ These are patterns not captured by `@ReplacesEagerProperty` but commonly needed:
 
 ## Allowed Operations
 
-You will be running under a Docker container.
+You may be running under a Docker container (Linux) or directly on the host (macOS or Linux). See **Shell Portability** below for how to write commands that work in either environment.
 
 You are authorized to:
 - Edit, create, and delete files in this repository — but not elsewhere
