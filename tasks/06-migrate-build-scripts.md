@@ -105,9 +105,21 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    - Add a code comment explaining the reason for each non-trivial change
    - Ignore deprecations for now
 
-   **(b) Confirmed false positive.** Walk the receiver-type ladder below. If the receiver is not a migrated Gradle type, **rewrite the entry's `reason` string** to a one-line explanation of *why* it is a false positive (e.g. `receiver is user-defined ResolveMainClassName with own setClasspath(Object)`, or `third-party io.spring.javaformat.Format.setEncoding, not a Gradle accessor`). Replace the tool's boilerplate reason. Group related false positives under headings like `### User-defined task types with their own setters` so the final file reads as a curated analysis, not a dump.
+   **(b) Confirmed false positive.** Walk the receiver-type ladder below. If the receiver is not a migrated Gradle type, **rewrite the entry's `reason` string** to a **site-specific** explanation of *why this particular receiver* is not a Gradle property. The reason must name the actual type or construct at the call site, not the category of problem. Examples of acceptable vs. unacceptable reasons:
 
-   **(c) Cannot decide yet.** If the fix requires compile-error context (e.g. multi-line restructure whose correctness depends on which overload the compiler picks), leave the entry but **still rewrite its `reason` string** to name the specific uncertainty (e.g. `defer to task 07: overload selection depends on compile output`). Do not leave boilerplate strings like `category B is out of scope for this tool` in place.
+   | Acceptable (site-specific) | Unacceptable (category label or tool-speak) |
+   |---|---|
+   | `receiver is user-defined ResolveMainClassName with own setClasspath(Object)` | `Cat-A setter — receiver is not a migrated Gradle type` |
+   | `io.spring.javaformat.Format.setEncoding, not a Gradle accessor` | `unconfirmed receiver — no matching import` |
+   | `java.util.zip.ZipEntry.setComment — JDK API, not Gradle` | `receiver type not statically confirmable via imports` |
+   | `Project.setVersion — Task-only accessor not lazy-migrated in Gradle 10` | `category A is out of scope for this tool` |
+
+   A good reason mentions the fully-qualified type name or the specific non-Gradle construct at that call site. If the same reason applies to many entries (e.g. several `Sync.setDestinationDir` calls), group them under a `### Heading` and let the heading carry the shared context — the per-entry reason can then be shorter but must still name the specific site (e.g. `Sync in buildSrc MavenPluginPlugin`).
+
+   **(c) Cannot decide yet.** If the fix requires compile-error context (e.g. multi-line restructure whose correctness depends on which overload the compiler picks), leave the entry but **still rewrite its `reason` string** to name the specific uncertainty at *this site* (e.g. `overload selection unclear: MavenPom.setPackaging(String) vs. AbstractBootArchiveTests.setPackaging(Object) — resolve against task 07 compile output`). Do not leave any boilerplate string in place, including:
+
+   - Any canonical `apply_migrations.py` reason (`category B is out of scope for this tool`, `unconfirmed receiver — no matching import`, `kind '…' has no mechanical rewrite`, `setter call not found or spans multiple lines`, `read_only property has no setter to rewrite`, `{method}() boolean read: context-dependent rewrite`, `ambiguous receiver (matched N classes)`, `file_collection argument references same property (possible circular ref)`, `confirmed class has no matching data entry`, `rewrite produced no change`).
+   - **Templated substitutes** that preserve the boilerplate shape with different words — e.g. `defer to task 07: Cat-B getter rewrite depends on downstream usage`, `let compile errors disambiguate`, `verify against compile output`, `multiple candidate Gradle types — pick the right one from compile errors`, or any other category-level-but-generic text reused verbatim across many entries. These are the shape the boilerplate-detector in step 5(b) fails on, and they are indistinguishable from raw tool output for audit purposes.
 
    **Entries you must always process, never skip wholesale:**
    - **Category C hits on `.gradle` / `.gradle.kts` files** are almost always real — the scanner marks them "unconfirmed" only because DSL files have no typed imports for it to match against. `jvmArgs += [...]`, `compilerArgs << "..."`, `prop -= [...]` on `ListProperty`/`SetProperty`/`MapProperty` all need rewriting. Do **not** defer these as "unconfirmed."
@@ -145,19 +157,46 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
    If any of the above fail, return to step 4 and address them before committing.
 
-   **(b) `MIGRATION_NOTES.md` audit.** If the file exists after step 4, inspect it:
+   **(b) `MIGRATION_NOTES.md` audit — two checks.** If the file exists after step 4, run both:
+
+   **(b.1) Canonical-boilerplate check.** Catches any canonical `apply_migrations.py` reason string left intact:
 
    ```bash
-   grep -cE "category [BC] is out of scope for this tool|unconfirmed receiver|kind '[a-z_]+' has no mechanical rewrite|boolean read: context-dependent rewrite|possible circular ref|ambiguous receiver \(matched|setter call not found or spans multiple lines|read_only property has no setter" MIGRATION_NOTES.md || true
+   grep -cE "category [ABC] is out of scope for this tool|unconfirmed receiver — no matching import|kind '[a-z_]+' has no mechanical rewrite|boolean read: context-dependent rewrite|possible circular ref|ambiguous receiver \(matched|setter call not found or spans multiple lines|read_only property has no setter|confirmed class has no matching data entry|rewrite produced no change" MIGRATION_NOTES.md || true
    ```
 
-   > **Intent:** detect raw `apply_migrations.py` boilerplate reason strings that indicate step 4 was skipped. Every entry that remains in the file must carry a human-written reason, not a tool-generated one.
+   The count must be **zero**. Non-zero = raw tool output committed; return to step 4.
 
-   Read the **numeric count**, not the exit code — `grep -c` exits non-zero when the count is `0`, which is the pass state here. The `|| true` above normalizes that.
+   **(b.2) Distinct-reason check.** Catches *templated substitutes* — reason strings that were mass-rewritten into new boilerplate (different words, same shape, still reused across many entries). This is the failure mode that passes (b.1) but still represents zero per-site analysis:
 
-   - The count must be **zero**. Every boilerplate reason left intact means an entry was not processed: either the tool's classification was accepted without receiver-type analysis (failure mode A), or the entry is a real rewrite that was not applied (failure mode B).
-   - If the count is non-zero, return to step 4 and process the remaining entries. Do not commit.
-   - If `MIGRATION_NOTES.md` has zero entries or only a small curated set of grouped false positives with specific receiver-type reasons, good — proceed to the commit checkpoint.
+   ```bash
+   python3 - <<'PY'
+   import re, sys, collections
+   try:
+       text = open("MIGRATION_NOTES.md").read()
+   except FileNotFoundError:
+       sys.exit(0)
+   entries = re.findall(r"^- line \d+.*?— (.+)$", text, re.M)
+   if not entries:
+       sys.exit(0)
+   norm = [re.sub(r"\s+", " ", e).strip().lower() for e in entries]
+   counts = collections.Counter(norm)
+   offenders = [(r, c) for r, c in counts.most_common() if c > 3]
+   if offenders:
+       print(f"FAIL: {len(entries)} entries, {len(counts)} distinct reasons.")
+       print("Reasons repeated >3 times (boilerplate):")
+       for r, c in offenders[:10]:
+           print(f"  {c}× {r[:120]}")
+       sys.exit(1)
+   print(f"OK: {len(entries)} entries, {len(counts)} distinct reasons, max repeat {max(counts.values())}.")
+   PY
+   ```
+
+   > **Intent:** the only honest reason strings name the specific type at the specific call site, so they naturally don't repeat. A reason that appears on more than 3 entries is boilerplate — either a canonical tool-generated string or a mass-rewritten substitute. Legitimate clusters of >3 sibling false positives (e.g. five `setDestinationDir` calls across `buildSrc`) should be grouped under a `### Heading` and given per-entry reasons that name the site (`Sync in buildSrc MavenPluginPlugin`, `Sync in buildSrc RepoConfigurer`, …).
+
+   **Both checks must pass.** If either fails, return to step 4 and process the offending entries. Do not commit.
+
+   - If `MIGRATION_NOTES.md` has zero entries or only a small curated set of grouped false positives with site-specific reasons, good — proceed to the commit checkpoint.
    - If the file ends up empty, delete it. It should not be committed with no body.
 
 ## Commit checkpoint (mandatory before moving on)
@@ -177,6 +216,6 @@ Do not combine these changes with a later task's commit. See the "Commit Discipl
 
 - All build scripts **and** all Java/Kotlin/Groovy source files that use Gradle API types have been scanned and transformed according to `migration-data.json`
 - Re-running `scan_usages.py` shows zero `[CONFIRMED]` Cat-A / Cat-B hits and zero Cat-C hits in `.gradle` / `.gradle.kts` files
-- `MIGRATION_NOTES.md` has either been deleted (no remaining deferrals) or contains only human-curated entries with specific receiver-type reasons — no raw `apply_migrations.py` boilerplate remains
+- `MIGRATION_NOTES.md` has either been deleted (no remaining deferrals) or contains only human-curated entries with site-specific reasons. Both step-5(b) audits pass: the canonical-boilerplate grep returns `0`, and the distinct-reason Python script prints `OK` with no reason repeating more than 3 times
 - A commit with subject `Migrate Build Scripts and Gradle API Usages` exists on the migration branch and `git status` is clean
 - No Gradle command was executed during this task (validation belongs to tasks 07 and 08)
