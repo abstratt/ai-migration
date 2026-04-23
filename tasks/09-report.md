@@ -29,6 +29,8 @@ Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) at the **
    - Any manual fixes beyond the migration data
    - Any known limitations or issues
 
+3. **`MIGRATION_NOTES.md` characterization (only if the file exists on the branch).** Describe the file by what it *actually is*, not by what task 06 aspires to produce. Before writing this section, run the two audits from task 06 step 5(b) against the file on disk and include their exact output (entry count, distinct-reason count, any reasons repeating more than 3 times). Do not use words like "curated", "analyzed", or "per-entry reasoning" unless both audits pass. If the file is mostly machine-generated categorical reasons, say so plainly (e.g. *"596 entries, 7 distinct reason strings; 511 of 596 share the same Cat-B category label — this is a backlog of deferred sites, not per-entry analysis"*). Misdescribing `MIGRATION_NOTES.md` in the REPORT is a self-reporting failure — the file is the only audit trail of what task 06 considered, and its character must be reported truthfully.
+
 ## Commit checkpoint (mandatory — final commit of the workflow)
 
 Commit the report to the migration branch:
