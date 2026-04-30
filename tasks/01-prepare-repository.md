@@ -32,6 +32,7 @@ A fresh migration branch is created on every run of this task, so branch existen
      git pull --ff-only               # optional: bring base branch up to date; skip on network errors
      ```
      The **base branch** is the branch from `REPO_URL` if one was specified, otherwise the repo's default branch (typically `main` or `master`). **Never** pick a maintenance or release branch yourself. If the repo is currently on a `gradle-10-migration/*` branch, checking out the base branch is sufficient — do not delete the old migration branch (step 4 creates a fresh timestamped branch off the base branch regardless).
+     There should be no outgoing changes (staged or not) in the directory.
 
    - **Otherwise** (directory does not exist, or exists but is not a git repo), do a fresh fork + clone:
      1. **Fork or reuse**: If a fork already exists on your GitHub account, use it; otherwise fork with `gh repo fork`.
