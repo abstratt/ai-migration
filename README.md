@@ -15,6 +15,12 @@ The migration workflow is available as Claude Code slash commands.
 
 Runs all tasks in order. The repository URL (and optional branch) is passed as an argument.
 
+#### Example
+
+```
+claude --permission-mode auto  "/g10-migrate https://github.com/abstratt/spring-framework.git
+```
+
 ### Individual tasks
 
 | Command | Description | Arguments |
@@ -48,6 +54,9 @@ claude --permission-mode auto "/g10-migrate https://github.com/abstratt/spring-b
 
 
 Notice `--dangerously-skip-permissions`, use at your own peril.
+
+#### Example
+
 ```
 ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4 -- \
     --dangerously-skip-permissions \
@@ -63,6 +72,12 @@ ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4 -- \
 ```
 
 Off-pipeline command that compares two already-completed migration branches on the same repository and writes a `BENCHMARK-*.md` report to the project root. Does not commit to the migrated repo.
+
+#### Example
+
+```
+claude --permission-mode auto  "/g10-benchmark https://github.com/abstratt/spring-framework.git gradle-10-migration/20260430-1001=v6-opus gradle-10-migration/20260430-1024=v6-qwen3.6:35b-a3b-coding-nvfp"
+```
 
 ## Option 2: Container (headless)
 
