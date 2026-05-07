@@ -1,4 +1,3 @@
-Wrote 396 entries to /Users/rafael/sources/other/provider-api-testing/ai-migration/generator/../migration-reference/migration-data.json
 # Gradle 10 Lazy Property Migration Report
 
 Properties annotated with `@ReplacesEagerProperty` in Gradle 10 preview (`gradle-provider-api-20260204140400`), compared against Gradle 9.4.0.
@@ -153,7 +152,7 @@ The migration to lazy properties is **not** just a mechanical `getFoo()` → `fo
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `artifactUrls` | `Set<URI>` | `SetProperty<URI>` | `setArtifactUrls(Set<URI>)`, `setArtifactUrls(Iterable<?>)` |
+| `artifactUrls` | `Set<URI>` | `SetProperty<URI>` | `setArtifactUrls(Set<URI>)`, `setArtifactUrls(Iterable<?>)`, `getArtifactUrls()` (return type changed) |
 
 **Migration examples:**
 
@@ -169,7 +168,7 @@ task.artifactUrls.addAll(otherTask.artifactUrls)  // lazy wiring
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `allowInsecureProtocol` | `boolean` | `Property<Boolean>` | `setAllowInsecureProtocol(boolean)`, `isAllowInsecureProtocol()` |
-| `url` | `URI` | `Property<URI>` | — |
+| `url` | `URI` | `Property<URI>` | `setUrl(URI)`, `getUrl()` (return type changed) |
 
 **Migration examples:**
 
@@ -186,7 +185,7 @@ task.url.set(otherTask.url)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `followSymlinks` | `boolean` | `Property<Boolean>` | `setFollowSymlinks(boolean)` |
+| `followSymlinks` | `boolean` | `Property<Boolean>` | `setFollowSymlinks(boolean)`, `isFollowSymlinks()` |
 
 **Migration examples:**
 
@@ -201,9 +200,9 @@ task.followSymlinks.set(otherTask.followSymlinks)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `applicationDefaultJvmArgs` | `Iterable<String>` | `ListProperty<String>` | `setApplicationDefaultJvmArgs(Iterable<String>)` |
-| `applicationName` | `String` | `Property<String>` | `setApplicationName(String)` |
-| `executableDir` | `String` | `Property<String>` | `setExecutableDir(String)` |
+| `applicationDefaultJvmArgs` | `Iterable<String>` | `ListProperty<String>` | `setApplicationDefaultJvmArgs(Iterable<String>)`, `getApplicationDefaultJvmArgs()` (return type changed) |
+| `applicationName` | `String` | `Property<String>` | `setApplicationName(String)`, `getApplicationName()` (return type changed) |
+| `executableDir` | `String` | `Property<String>` | `setExecutableDir(String)`, `getExecutableDir()` (return type changed) |
 
 **Migration examples:**
 
@@ -221,10 +220,10 @@ task.applicationDefaultJvmArgs.addAll(otherTask.applicationDefaultJvmArgs)  // l
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `antlrClasspath` | `FileCollection` | `ConfigurableFileCollection` | — |
-| `arguments` | `List<String>` | `ListProperty<String>` | `setArguments(List<String>)` |
-| `maxHeapSize` | `String` | `Property<String>` | `setMaxHeapSize(String)` |
-| `outputDirectory` | `File` | `DirectoryProperty` | `setOutputDirectory(File)` |
+| `antlrClasspath` | `FileCollection` | `ConfigurableFileCollection` | `getAntlrClasspath()` (return type changed) |
+| `arguments` | `List<String>` | `ListProperty<String>` | `setArguments(List<String>)`, `getArguments()` (return type changed) |
+| `maxHeapSize` | `String` | `Property<String>` | `setMaxHeapSize(String)`, `getMaxHeapSize()` (return type changed) |
+| `outputDirectory` | `File` | `DirectoryProperty` | `setOutputDirectory(File)`, `getOutputDirectory()` (return type changed) |
 | `trace` | `boolean` | `Property<Boolean>` | `setTrace(boolean)`, `isTrace()` |
 | `traceLexer` | `boolean` | `Property<Boolean>` | `setTraceLexer(boolean)`, `isTraceLexer()` |
 | `traceParser` | `boolean` | `Property<Boolean>` | `setTraceParser(boolean)`, `isTraceParser()` |
@@ -252,12 +251,12 @@ task.arguments.addAll(otherTask.arguments)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `checkstyleClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setCheckstyleClasspath(FileCollection)` |
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
-| `configProperties` | `Map<String, Object>` | `MapProperty<String, Object>` | `setConfigProperties(Map<String, Object>)` |
+| `checkstyleClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setCheckstyleClasspath(FileCollection)`, `getCheckstyleClasspath()` (return type changed) |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
+| `configProperties` | `Map<String, Object>` | `MapProperty<String, Object>` | `setConfigProperties(Map<String, Object>)`, `getConfigProperties()` (return type changed) |
 | `isIgnoreFailures` | `boolean` | `Property<Boolean>` | — |
-| `maxErrors` | `int` | `Property<Integer>` | `setMaxErrors(int)` |
-| `maxWarnings` | `int` | `Property<Integer>` | `setMaxWarnings(int)` |
+| `maxErrors` | `int` | `Property<Integer>` | `setMaxErrors(int)`, `getMaxErrors()` (return type changed) |
+| `maxWarnings` | `int` | `Property<Integer>` | `setMaxWarnings(int)`, `getMaxWarnings()` (return type changed) |
 | `showViolations` | `boolean` | `Property<Boolean>` | `setShowViolations(boolean)`, `isShowViolations()` |
 
 **Migration examples:**
@@ -280,9 +279,9 @@ task.configProperties.putAll(otherTask.configProperties)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `configProperties` | `Map<String, Object>` | `MapProperty<String, Object>` | `setConfigProperties(Map<String, Object>)` |
-| `maxErrors` | `int` | `Property<Integer>` | `setMaxErrors(int)` |
-| `maxWarnings` | `int` | `Property<Integer>` | `setMaxWarnings(int)` |
+| `configProperties` | `Map<String, Object>` | `MapProperty<String, Object>` | `setConfigProperties(Map<String, Object>)`, `getConfigProperties()` (return type changed) |
+| `maxErrors` | `int` | `Property<Integer>` | `setMaxErrors(int)`, `getMaxErrors()` (return type changed) |
+| `maxWarnings` | `int` | `Property<Integer>` | `setMaxWarnings(int)`, `getMaxWarnings()` (return type changed) |
 | `showViolations` | `boolean` | `Property<Boolean>` | `setShowViolations(boolean)`, `isShowViolations()` |
 
 **Migration examples:**
@@ -303,11 +302,11 @@ task.configProperties.putAll(otherTask.configProperties)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `codenarcClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setCodenarcClasspath(FileCollection)` |
-| `compilationClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setCompilationClasspath(FileCollection)` |
-| `maxPriority1Violations` | `int` | `Property<Integer>` | `setMaxPriority1Violations(int)` |
-| `maxPriority2Violations` | `int` | `Property<Integer>` | `setMaxPriority2Violations(int)` |
-| `maxPriority3Violations` | `int` | `Property<Integer>` | `setMaxPriority3Violations(int)` |
+| `codenarcClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setCodenarcClasspath(FileCollection)`, `getCodenarcClasspath()` (return type changed) |
+| `compilationClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setCompilationClasspath(FileCollection)`, `getCompilationClasspath()` (return type changed) |
+| `maxPriority1Violations` | `int` | `Property<Integer>` | `setMaxPriority1Violations(int)`, `getMaxPriority1Violations()` (return type changed) |
+| `maxPriority2Violations` | `int` | `Property<Integer>` | `setMaxPriority2Violations(int)`, `getMaxPriority2Violations()` (return type changed) |
+| `maxPriority3Violations` | `int` | `Property<Integer>` | `setMaxPriority3Violations(int)`, `getMaxPriority3Violations()` (return type changed) |
 
 **Migration examples:**
 
@@ -325,10 +324,10 @@ task.codenarcClasspath.setFrom(otherTask.codenarcClasspath)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `maxPriority1Violations` | `int` | `Property<Integer>` | `setMaxPriority1Violations(int)` |
-| `maxPriority2Violations` | `int` | `Property<Integer>` | `setMaxPriority2Violations(int)` |
-| `maxPriority3Violations` | `int` | `Property<Integer>` | `setMaxPriority3Violations(int)` |
-| `reportFormat` | `String` | `Property<String>` | `setReportFormat(String)` |
+| `maxPriority1Violations` | `int` | `Property<Integer>` | `setMaxPriority1Violations(int)`, `getMaxPriority1Violations()` (return type changed) |
+| `maxPriority2Violations` | `int` | `Property<Integer>` | `setMaxPriority2Violations(int)`, `getMaxPriority2Violations()` (return type changed) |
+| `maxPriority3Violations` | `int` | `Property<Integer>` | `setMaxPriority3Violations(int)`, `getMaxPriority3Violations()` (return type changed) |
+| `reportFormat` | `String` | `Property<String>` | `setReportFormat(String)`, `getReportFormat()` (return type changed) |
 
 **Migration examples:**
 
@@ -345,9 +344,9 @@ task.maxPriority1Violations.set(otherTask.maxPriority1Violations)  // lazy wirin
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `ignoreFailures` | `boolean` | `Property<Boolean>` | `setIgnoreFailures(boolean)`, `isIgnoreFailures()` |
-| `reportsDir` | `File` | `DirectoryProperty` | `setReportsDir(File)` |
-| `sourceSets` | `java.util.Collection<SourceSet>` | `ListProperty<SourceSet>` | `setSourceSets(java.util.Collection<SourceSet>)` |
-| `toolVersion` | `String` | `Property<String>` | `setToolVersion(String)` |
+| `reportsDir` | `File` | `DirectoryProperty` | `setReportsDir(File)`, `getReportsDir()` (return type changed) |
+| `sourceSets` | `java.util.Collection<SourceSet>` | `ListProperty<SourceSet>` | `setSourceSets(java.util.Collection<SourceSet>)`, `getSourceSets()` (return type changed) |
+| `toolVersion` | `String` | `Property<String>` | `setToolVersion(String)`, `getToolVersion()` (return type changed) |
 
 **Migration examples:**
 
@@ -369,13 +368,13 @@ task.sourceSets.addAll(otherTask.sourceSets)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
 | `consoleOutput` | `boolean` | `Property<Boolean>` | `setConsoleOutput(boolean)`, `isConsoleOutput()` |
-| `incrementalCacheFile` | `File` | `Provider<RegularFile>` | — |
-| `pmdClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setPmdClasspath(FileCollection)` |
-| `ruleSetFiles` | `FileCollection` | `ConfigurableFileCollection` | `setRuleSetFiles(FileCollection)` |
-| `ruleSets` | `List<String>` | `ListProperty<String>` | `setRuleSets(List<String>)` |
-| `targetJdk` | `TargetJdk` | `Property<TargetJdk>` | `setTargetJdk(TargetJdk)` |
+| `incrementalCacheFile` | `File` | `Provider<RegularFile>` | `getIncrementalCacheFile()` (return type changed) |
+| `pmdClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setPmdClasspath(FileCollection)`, `getPmdClasspath()` (return type changed) |
+| `ruleSetFiles` | `FileCollection` | `ConfigurableFileCollection` | `setRuleSetFiles(FileCollection)`, `getRuleSetFiles()` (return type changed) |
+| `ruleSets` | `List<String>` | `ListProperty<String>` | `setRuleSets(List<String>)`, `getRuleSets()` (return type changed) |
+| `targetJdk` | `TargetJdk` | `Property<TargetJdk>` | `setTargetJdk(TargetJdk)`, `getTargetJdk()` (return type changed) |
 
 **Migration examples:**
 
@@ -400,9 +399,9 @@ otherTask.someInput.set(task.incrementalCacheFile)
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `consoleOutput` | `boolean` | `Property<Boolean>` | `setConsoleOutput(boolean)`, `isConsoleOutput()` |
-| `ruleSetFiles` | `FileCollection` | `ConfigurableFileCollection` | `setRuleSetFiles(FileCollection)` |
-| `ruleSets` | `List<String>` | `ListProperty<String>` | `setRuleSets(List<String>)` |
-| `targetJdk` | `TargetJdk` | `Property<TargetJdk>` | `setTargetJdk(TargetJdk)`, `setTargetJdk(Object)` |
+| `ruleSetFiles` | `FileCollection` | `ConfigurableFileCollection` | `setRuleSetFiles(FileCollection)`, `getRuleSetFiles()` (return type changed) |
+| `ruleSets` | `List<String>` | `ListProperty<String>` | `setRuleSets(List<String>)`, `getRuleSets()` (return type changed) |
+| `targetJdk` | `TargetJdk` | `Property<TargetJdk>` | `setTargetJdk(TargetJdk)`, `setTargetJdk(Object)`, `getTargetJdk()` (return type changed) |
 
 **Migration examples:**
 
@@ -423,7 +422,7 @@ task.targetJdk.set(otherTask.targetJdk)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `file` | `File` | `Provider<RegularFile>` | — |
+| `file` | `File` | `Provider<RegularFile>` | `getFile()` (return type changed) |
 
 **Migration examples:**
 
@@ -438,11 +437,11 @@ otherTask.someInput.set(task.file)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classifier` | `String` | `Property<String>` | `setClassifier(String)` |
-| `conf` | `String` | `Property<String>` | `setConf(String)` |
-| `extension` | `String` | `Property<String>` | `setExtension(String)` |
-| `name` | `String` | `Property<String>` | `setName(String)` |
-| `type` | `String` | `Property<String>` | `setType(String)` |
+| `classifier` | `String` | `Property<String>` | `setClassifier(String)`, `getClassifier()` (return type changed) |
+| `conf` | `String` | `Property<String>` | `setConf(String)`, `getConf()` (return type changed) |
+| `extension` | `String` | `Property<String>` | `setExtension(String)`, `getExtension()` (return type changed) |
+| `name` | `String` | `Property<String>` | `setName(String)`, `getName()` (return type changed) |
+| `type` | `String` | `Property<String>` | `setType(String)`, `getType()` (return type changed) |
 
 **Migration examples:**
 
@@ -458,8 +457,8 @@ task.classifier.set(otherTask.classifier)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `branch` | `String` | `Property<String>` | `setBranch(String)` |
-| `status` | `String` | `Property<String>` | `setStatus(String)` |
+| `branch` | `String` | `Property<String>` | `setBranch(String)`, `getBranch()` (return type changed) |
+| `status` | `String` | `Property<String>` | `setStatus(String)`, `getStatus()` (return type changed) |
 
 **Migration examples:**
 
@@ -475,9 +474,9 @@ task.branch.set(otherTask.branch)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `module` | `String` | `Property<String>` | `setModule(String)` |
-| `organisation` | `String` | `Property<String>` | `setOrganisation(String)` |
-| `revision` | `String` | `Property<String>` | `setRevision(String)` |
+| `module` | `String` | `Property<String>` | `setModule(String)`, `getModule()` (return type changed) |
+| `organisation` | `String` | `Property<String>` | `setOrganisation(String)`, `getOrganisation()` (return type changed) |
+| `revision` | `String` | `Property<String>` | `setRevision(String)`, `getRevision()` (return type changed) |
 
 **Migration examples:**
 
@@ -493,7 +492,7 @@ task.module.set(otherTask.module)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `destination` | `File` | `RegularFileProperty` | `setDestination(File)`, `setDestination(Object)` |
+| `destination` | `File` | `RegularFileProperty` | `setDestination(File)`, `setDestination(Object)`, `getDestination()` (return type changed) |
 
 **Migration examples:**
 
@@ -508,8 +507,8 @@ task.destination.set(otherTask.destination)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classifier` | `String` | `Property<String>` | `setClassifier(String)` |
-| `extension` | `String` | `Property<String>` | `setExtension(String)` |
+| `classifier` | `String` | `Property<String>` | `setClassifier(String)`, `getClassifier()` (return type changed) |
+| `extension` | `String` | `Property<String>` | `setExtension(String)`, `getExtension()` (return type changed) |
 
 **Migration examples:**
 
@@ -525,7 +524,7 @@ task.classifier.set(otherTask.classifier)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `packaging` | `String` | `Property<String>` | `setPackaging(String)` |
+| `packaging` | `String` | `Property<String>` | `setPackaging(String)`, `getPackaging()` (return type changed) |
 
 **Migration examples:**
 
@@ -541,9 +540,9 @@ task.packaging.set(otherTask.packaging)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `artifactId` | `String` | `Property<String>` | `setArtifactId(String)` |
-| `groupId` | `String` | `Property<String>` | `setGroupId(String)` |
-| `version` | `String` | `Property<String>` | `setVersion(String)` |
+| `artifactId` | `String` | `Property<String>` | `setArtifactId(String)`, `getArtifactId()` (return type changed) |
+| `groupId` | `String` | `Property<String>` | `setGroupId(String)`, `getGroupId()` (return type changed) |
+| `version` | `String` | `Property<String>` | `setVersion(String)`, `getVersion()` (return type changed) |
 
 **Migration examples:**
 
@@ -559,7 +558,7 @@ task.artifactId.set(otherTask.artifactId)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `destination` | `File` | `RegularFileProperty` | `setDestination(File)`, `setDestination(Object)` |
+| `destination` | `File` | `RegularFileProperty` | `setDestination(File)`, `setDestination(Object)`, `getDestination()` (return type changed) |
 
 **Migration examples:**
 
@@ -574,11 +573,11 @@ task.destination.set(otherTask.destination)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)` |
-| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `setErrorOutput(OutputStream)` |
-| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
-| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `setStandardInput(InputStream)` |
-| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `setStandardOutput(OutputStream)` |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `getArgs()` (return type changed) |
+| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `getErrorOutput()` (return type changed) |
+| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
+| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `getStandardInput()` (return type changed) |
+| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `getStandardOutput()` (return type changed) |
 
 **Migration examples:**
 
@@ -598,7 +597,7 @@ task.errorOutput.set(otherTask.errorOutput)  // lazy wiring
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `followSymlinks` | `boolean` | `Property<Boolean>` | `setFollowSymlinks(boolean)`, `isFollowSymlinks()` |
-| `targetFiles` | `FileCollection` | `ConfigurableFileCollection` | — |
+| `targetFiles` | `FileCollection` | `ConfigurableFileCollection` | `getTargetFiles()` (return type changed) |
 
 **Migration examples:**
 
@@ -615,11 +614,11 @@ task.targetFiles.setFrom(otherTask.targetFiles)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `setArgs(Iterable)`, `setArgs(List)` |
-| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `setErrorOutput(OutputStream)`, `setErrorOutput(OutputStream)` |
-| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `setIgnoreExitValue(boolean)`, `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
-| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `setStandardInput(InputStream)`, `setStandardInput(InputStream)` |
-| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `setStandardOutput(OutputStream)`, `setStandardOutput(OutputStream)` |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `getArgs()` (return type changed) |
+| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `getErrorOutput()` (return type changed) |
+| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
+| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `getStandardInput()` (return type changed) |
+| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `getStandardOutput()` (return type changed) |
 
 **Migration examples:**
 
@@ -638,13 +637,13 @@ task.errorOutput.set(otherTask.errorOutput)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)` |
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `setClasspath(FileCollection)` |
-| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `setErrorOutput(OutputStream)` |
-| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
-| `javaVersion` | `JavaVersion` | `Provider<JavaVersion>` | — |
-| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `setStandardInput(InputStream)` |
-| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `setStandardOutput(OutputStream)` |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `getArgs()` (return type changed) |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
+| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `getErrorOutput()` (return type changed) |
+| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
+| `javaVersion` | `JavaVersion` | `Provider<JavaVersion>` | `getJavaVersion()` (return type changed) |
+| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `getStandardInput()` (return type changed) |
+| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `getStandardOutput()` (return type changed) |
 
 **Migration examples:**
 
@@ -668,10 +667,10 @@ otherTask.someInput.set(task.javaVersion)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `comment` | `String` | `Property<String>` | `setComment(String)` |
-| `encoding` | `String` | `Property<String>` | `setEncoding(String)` |
-| `lineSeparator` | `String` | `Property<String>` | `setLineSeparator(String)` |
-| `properties` | `Map<String, String>` | `MapProperty<String, Object>` | `setProperties(Map<String, Object>)` |
+| `comment` | `String` | `Property<String>` | `setComment(String)`, `getComment()` (return type changed) |
+| `encoding` | `String` | `Property<String>` | `setEncoding(String)`, `getEncoding()` (return type changed) |
+| `lineSeparator` | `String` | `Property<String>` | `setLineSeparator(String)`, `getLineSeparator()` (return type changed) |
+| `properties` | `Map<String, String>` | `MapProperty<String, Object>` | `setProperties(Map<String, Object>)`, `getProperties()` (return type changed) |
 
 **Migration examples:**
 
@@ -689,8 +688,8 @@ task.properties.putAll(otherTask.properties)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `baseDir` | `File` | `DirectoryProperty` | `setBaseDir(File)` |
-| `target` | `org.apache.tools.ant.Target` | `Property<org.apache.tools.ant.Target>` | `setTarget(org.apache.tools.ant.Target)` |
+| `baseDir` | `File` | `DirectoryProperty` | `setBaseDir(File)`, `getBaseDir()` (return type changed) |
+| `target` | `org.apache.tools.ant.Target` | `Property<org.apache.tools.ant.Target>` | `setTarget(org.apache.tools.ant.Target)`, `getTarget()` (return type changed) |
 
 **Migration examples:**
 
@@ -723,7 +722,7 @@ task.preserveFileTimestamps.set(otherTask.preserveFileTimestamps)  // lazy wirin
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `compression` | `Compression` | `Property<Compression>` | `setCompression(Compression)` |
+| `compression` | `Compression` | `Property<Compression>` | `setCompression(Compression)`, `getCompression()` (return type changed) |
 
 **Migration examples:**
 
@@ -738,8 +737,8 @@ task.compression.set(otherTask.compression)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `setClasspath(Object)` |
-| `webXml` | `File` | `RegularFileProperty` | `setWebXml(File)` |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `setClasspath(Object)`, `getClasspath()` (return type changed) |
+| `webXml` | `File` | `RegularFileProperty` | `setWebXml(File)`, `getWebXml()` (return type changed) |
 
 **Migration examples:**
 
@@ -756,8 +755,8 @@ task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `entryCompression` | `ZipEntryCompression` | `Property<ZipEntryCompression>` | `setEntryCompression(ZipEntryCompression)` |
-| `metadataCharset` | `String` | `Property<String>` | `setMetadataCharset(String)` |
+| `entryCompression` | `ZipEntryCompression` | `Property<ZipEntryCompression>` | `setEntryCompression(ZipEntryCompression)`, `getEntryCompression()` (return type changed) |
+| `metadataCharset` | `String` | `Property<String>` | `setMetadataCharset(String)`, `getMetadataCharset()` (return type changed) |
 | `zip64` | `boolean` | `Property<Boolean>` | `setZip64(boolean)`, `isZip64()` |
 
 **Migration examples:**
@@ -778,7 +777,7 @@ task.entryCompression.set(otherTask.entryCompression)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
 | `destinationDirectory` | `DirectoryProperty` | `DirectoryProperty` | — |
 
 **Migration examples:**
@@ -796,9 +795,9 @@ task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `jvmArgs` | `List<String>` | `ListProperty<String>` | `setJvmArgs(List<String>)` |
-| `memoryInitialSize` | `String` | `Property<String>` | `setMemoryInitialSize(String)` |
-| `memoryMaximumSize` | `String` | `Property<String>` | `setMemoryMaximumSize(String)` |
+| `jvmArgs` | `List<String>` | `ListProperty<String>` | `setJvmArgs(List<String>)`, `getJvmArgs()` (return type changed) |
+| `memoryInitialSize` | `String` | `Property<String>` | `setMemoryInitialSize(String)`, `getMemoryInitialSize()` (return type changed) |
+| `memoryMaximumSize` | `String` | `Property<String>` | `setMemoryMaximumSize(String)`, `getMemoryMaximumSize()` (return type changed) |
 
 **Migration examples:**
 
@@ -816,21 +815,21 @@ task.jvmArgs.addAll(otherTask.jvmArgs)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `allCompilerArgs` | `List<String>` | `Provider<List<String>>` | — |
-| `annotationProcessorPath` | `FileCollection` | `ConfigurableFileCollection` | `setAnnotationProcessorPath(FileCollection)` |
-| `bootstrapClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setBootstrapClasspath(FileCollection)` |
-| `compilerArgs` | `List<String>` | `ListProperty<String>` | `setCompilerArgs(List<String>)` |
-| `compilerArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | — |
+| `allCompilerArgs` | `List<String>` | `Provider<List<String>>` | `getAllCompilerArgs()` (return type changed) |
+| `annotationProcessorPath` | `FileCollection` | `ConfigurableFileCollection` | `setAnnotationProcessorPath(FileCollection)`, `getAnnotationProcessorPath()` (return type changed) |
+| `bootstrapClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setBootstrapClasspath(FileCollection)`, `getBootstrapClasspath()` (return type changed) |
+| `compilerArgs` | `List<String>` | `ListProperty<String>` | `setCompilerArgs(List<String>)`, `getCompilerArgs()` (return type changed) |
+| `compilerArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getCompilerArgumentProviders()` (return type changed) |
 | `debug` | `boolean` | `Property<Boolean>` | `setDebug(boolean)`, `isDebug()` |
 | `deprecation` | `boolean` | `Property<Boolean>` | `setDeprecation(boolean)`, `isDeprecation()` |
-| `encoding` | `String` | `Property<String>` | `setEncoding(String)` |
-| `extensionDirs` | `String` | `Property<String>` | `setExtensionDirs(String)` |
+| `encoding` | `String` | `Property<String>` | `setEncoding(String)`, `getEncoding()` (return type changed) |
+| `extensionDirs` | `String` | `Property<String>` | `setExtensionDirs(String)`, `getExtensionDirs()` (return type changed) |
 | `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
 | `fork` | `boolean` | `Property<Boolean>` | `setFork(boolean)`, `isFork()` |
 | `generatedSourceOutputDirectory` | `DirectoryProperty` | `DirectoryProperty` | — |
 | `incremental` | `boolean` | `Property<Boolean>` | `setIncremental(boolean)`, `isIncremental()` |
 | `listFiles` | `boolean` | `Property<Boolean>` | `setListFiles(boolean)`, `isListFiles()` |
-| `sourcepath` | `FileCollection` | `ConfigurableFileCollection` | `setSourcepath(FileCollection)` |
+| `sourcepath` | `FileCollection` | `ConfigurableFileCollection` | `setSourcepath(FileCollection)`, `getSourcepath()` (return type changed) |
 | `verbose` | `boolean` | `Property<Boolean>` | `setVerbose(boolean)`, `isVerbose()` |
 | `warnings` | `boolean` | `Property<Boolean>` | `setWarnings(boolean)`, `isWarnings()` |
 
@@ -859,7 +858,7 @@ otherTask.someInput.set(task.allCompilerArgs)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `debugLevel` | `String` | `Property<String>` | `setDebugLevel(String)` |
+| `debugLevel` | `String` | `Property<String>` | `setDebugLevel(String)`, `getDebugLevel()` (return type changed) |
 
 **Migration examples:**
 
@@ -875,8 +874,8 @@ task.debugLevel.set(otherTask.debugLevel)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `executable` | `String` | `Property<String>` | `setExecutable(String)` |
-| `tempDir` | `String` | `Property<String>` | `setTempDir(String)` |
+| `executable` | `String` | `Property<String>` | `setExecutable(String)`, `getExecutable()` (return type changed) |
+| `tempDir` | `String` | `Property<String>` | `setTempDir(String)`, `getTempDir()` (return type changed) |
 
 **Migration examples:**
 
@@ -892,7 +891,7 @@ task.executable.set(otherTask.executable)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `groovyClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setGroovyClasspath(FileCollection)` |
+| `groovyClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setGroovyClasspath(FileCollection)`, `getGroovyClasspath()` (return type changed) |
 
 **Migration examples:**
 
@@ -907,17 +906,17 @@ task.groovyClasspath.setFrom(otherTask.groovyClasspath)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `configurationScript` | `File` | `RegularFileProperty` | `setConfigurationScript(File)` |
-| `encoding` | `String` | `Property<String>` | `setEncoding(String)` |
+| `configurationScript` | `File` | `RegularFileProperty` | `setConfigurationScript(File)`, `getConfigurationScript()` (return type changed) |
+| `encoding` | `String` | `Property<String>` | `setEncoding(String)`, `getEncoding()` (return type changed) |
 | `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
-| `fileExtensions` | `List<String>` | `ListProperty<String>` | `setFileExtensions(List<String>)` |
+| `fileExtensions` | `List<String>` | `ListProperty<String>` | `setFileExtensions(List<String>)`, `getFileExtensions()` (return type changed) |
 | `fork` | `boolean` | `Property<Boolean>` | `setFork(boolean)`, `isFork()` |
 | `javaAnnotationProcessing` | `boolean` | `Property<Boolean>` | `setJavaAnnotationProcessing(boolean)`, `isJavaAnnotationProcessing()` |
 | `keepStubs` | `boolean` | `Property<Boolean>` | `setKeepStubs(boolean)`, `isKeepStubs()` |
 | `listFiles` | `boolean` | `Property<Boolean>` | `setListFiles(boolean)`, `isListFiles()` |
-| `optimizationOptions` | `Map<String, Boolean>` | `MapProperty<String, Boolean>` | `setOptimizationOptions(Map<String, Boolean>)` |
+| `optimizationOptions` | `Map<String, Boolean>` | `MapProperty<String, Boolean>` | `setOptimizationOptions(Map<String, Boolean>)`, `getOptimizationOptions()` (return type changed) |
 | `parameters` | `boolean` | `Property<Boolean>` | `setParameters(boolean)`, `isParameters()` |
-| `stubDir` | `File` | `DirectoryProperty` | `setStubDir(File)` |
+| `stubDir` | `File` | `DirectoryProperty` | `setStubDir(File)`, `getStubDir()` (return type changed) |
 | `verbose` | `boolean` | `Property<Boolean>` | `setVerbose(boolean)`, `isVerbose()` |
 
 **Migration examples:**
@@ -944,8 +943,8 @@ task.optimizationOptions.putAll(otherTask.optimizationOptions)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `allJvmArgs` | `List<String>` | `Provider<List<String>>` | — |
-| `jvmArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | — |
+| `allJvmArgs` | `List<String>` | `Provider<List<String>>` | `getAllJvmArgs()` (return type changed) |
+| `jvmArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getJvmArgumentProviders()` (return type changed) |
 
 **Migration examples:**
 
@@ -963,8 +962,8 @@ otherTask.someInput.set(task.allJvmArgs)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `configurations` | `Set<Configuration>` | `SetProperty<Configuration>` | `setConfigurations(Set<Configuration>)` |
-| `renderer` | `ReportRenderer` | `Property<DependencyReportRenderer>` | `setRenderer(DependencyReportRenderer)` |
+| `configurations` | `Set<Configuration>` | `SetProperty<Configuration>` | `setConfigurations(Set<Configuration>)`, `getConfigurations()` (return type changed) |
+| `renderer` | `ReportRenderer` | `Property<DependencyReportRenderer>` | `setRenderer(DependencyReportRenderer)`, `getRenderer()` (return type changed) |
 
 **Migration examples:**
 
@@ -981,8 +980,8 @@ task.renderer.set(otherTask.renderer)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `outputFile` | `File` | `RegularFileProperty` | `setOutputFile(File)` |
-| `projects` | `Set<Project>` | `SetProperty<Project>` | `setProjects(Set<Project>)` |
+| `outputFile` | `File` | `RegularFileProperty` | `setOutputFile(File)`, `getOutputFile()` (return type changed) |
+| `projects` | `Set<Project>` | `SetProperty<Project>` | `setProjects(Set<Project>)`, `getProjects()` (return type changed) |
 
 **Migration examples:**
 
@@ -999,7 +998,7 @@ task.projects.addAll(otherTask.projects)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `configuration` | `Configuration` | `Property<Configuration>` | — |
+| `configuration` | `Configuration` | `Property<Configuration>` | `setConfiguration(Configuration)`, `getConfiguration()` (return type changed) |
 | `dependencyNotation` | `String` | `Property<String>` | — |
 | `showSinglePathToDependency` | `boolean` | `Property<Boolean>` | `setShowSinglePathToDependency(boolean)`, `isShowSinglePathToDependency()` |
 
@@ -1021,7 +1020,7 @@ task.configuration.set(otherTask.configuration)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `renderer` | `ReportRenderer` | `Property<PropertyReportRenderer>` | `setRenderer(PropertyReportRenderer)` |
+| `renderer` | `ReportRenderer` | `Property<PropertyReportRenderer>` | `setRenderer(PropertyReportRenderer)`, `getRenderer()` (return type changed) |
 
 **Migration examples:**
 
@@ -1036,9 +1035,9 @@ task.renderer.set(otherTask.renderer)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `displayGroup` | `String` | `Property<String>` | `setDisplayGroup(String)` |
-| `renderer` | `ReportRenderer` | `Property<TaskReportRenderer>` | `setRenderer(TaskReportRenderer)` |
-| `showDetail` | `boolean` | `Property<Boolean>` | `setShowDetail(boolean)` |
+| `displayGroup` | `String` | `Property<String>` | `setDisplayGroup(String)`, `getDisplayGroup()` (return type changed) |
+| `renderer` | `ReportRenderer` | `Property<TaskReportRenderer>` | `setRenderer(TaskReportRenderer)`, `getRenderer()` (return type changed) |
+| `showDetail` | `boolean` | `Property<Boolean>` | `setShowDetail(boolean)`, `isDetail()` |
 
 **Migration examples:**
 
@@ -1058,17 +1057,17 @@ task.renderer.set(otherTask.renderer)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
-| `destinationDir` | `File` | `DirectoryProperty` | `setDestinationDir(File)` |
-| `docTitle` | `String` | `Property<String>` | `setDocTitle(String)` |
-| `footer` | `String` | `Property<String>` | `setFooter(String)` |
-| `groovyClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setGroovyClasspath(FileCollection)` |
-| `header` | `String` | `Property<String>` | `setHeader(String)` |
-| `links` | `Set<Groovydoc$Link>` | `SetProperty<Groovydoc$Link>` | `setLinks(Set<Groovydoc$Link>)` |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
+| `destinationDir` | `File` | `DirectoryProperty` | `setDestinationDir(File)`, `getDestinationDir()` (return type changed) |
+| `docTitle` | `String` | `Property<String>` | `setDocTitle(String)`, `getDocTitle()` (return type changed) |
+| `footer` | `String` | `Property<String>` | `setFooter(String)`, `getFooter()` (return type changed) |
+| `groovyClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setGroovyClasspath(FileCollection)`, `getGroovyClasspath()` (return type changed) |
+| `header` | `String` | `Property<String>` | `setHeader(String)`, `getHeader()` (return type changed) |
+| `links` | `Set<Groovydoc$Link>` | `SetProperty<Groovydoc$Link>` | `setLinks(Set<Groovydoc$Link>)`, `getLinks()` (return type changed) |
 | `noTimestamp` | `boolean` | `Property<Boolean>` | `setNoTimestamp(boolean)`, `isNoTimestamp()` |
 | `noVersionStamp` | `boolean` | `Property<Boolean>` | `setNoVersionStamp(boolean)`, `isNoVersionStamp()` |
 | `use` | `boolean` | `Property<Boolean>` | `setUse(boolean)`, `isUse()` |
-| `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)` |
+| `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)`, `getWindowTitle()` (return type changed) |
 
 **Migration examples:**
 
@@ -1092,13 +1091,13 @@ task.links.addAll(otherTask.links)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
-| `destinationDir` | `File` | `DirectoryProperty` | `setDestinationDir(File)` |
-| `executable` | `String` | `Property<String>` | `setExecutable(String)` |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
+| `destinationDir` | `File` | `DirectoryProperty` | `setDestinationDir(File)`, `getDestinationDir()` (return type changed) |
+| `executable` | `String` | `Property<String>` | `setExecutable(String)`, `getExecutable()` (return type changed) |
 | `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
-| `maxMemory` | `String` | `Property<String>` | `setMaxMemory(String)` |
-| `optionsFile` | `File` | `Provider<RegularFile>` | — |
-| `title` | `String` | `Property<String>` | `setTitle(String)` |
+| `maxMemory` | `String` | `Property<String>` | `setMaxMemory(String)`, `getMaxMemory()` (return type changed) |
+| `optionsFile` | `File` | `Provider<RegularFile>` | `getOptionsFile()` (return type changed) |
+| `title` | `String` | `Property<String>` | `setTitle(String)`, `getTitle()` (return type changed) |
 
 **Migration examples:**
 
@@ -1123,9 +1122,9 @@ otherTask.someInput.set(task.optionsFile)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `scalaClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setScalaClasspath(FileCollection)` |
-| `scalaCompilerPlugins` | `FileCollection` | `ConfigurableFileCollection` | `setScalaCompilerPlugins(FileCollection)` |
-| `zincClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setZincClasspath(FileCollection)` |
+| `scalaClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setScalaClasspath(FileCollection)`, `getScalaClasspath()` (return type changed) |
+| `scalaCompilerPlugins` | `FileCollection` | `ConfigurableFileCollection` | `setScalaCompilerPlugins(FileCollection)`, `getScalaCompilerPlugins()` (return type changed) |
+| `zincClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setZincClasspath(FileCollection)`, `getZincClasspath()` (return type changed) |
 
 **Migration examples:**
 
@@ -1140,10 +1139,10 @@ task.scalaClasspath.setFrom(otherTask.scalaClasspath)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
-| `destinationDir` | `File` | `DirectoryProperty` | `setDestinationDir(File)` |
-| `scalaClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setScalaClasspath(FileCollection)` |
-| `title` | `String` | `Property<String>` | `setTitle(String)` |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
+| `destinationDir` | `File` | `DirectoryProperty` | `setDestinationDir(File)`, `getDestinationDir()` (return type changed) |
+| `scalaClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setScalaClasspath(FileCollection)`, `getScalaClasspath()` (return type changed) |
+| `title` | `String` | `Property<String>` | `setTitle(String)`, `getTitle()` (return type changed) |
 
 **Migration examples:**
 
@@ -1163,15 +1162,15 @@ task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `additionalParameters` | `List<String>` | `ListProperty<String>` | `setAdditionalParameters(List<String>)` |
-| `bottom` | `String` | `Property<String>` | `setBottom(String)` |
+| `additionalParameters` | `List<String>` | `ListProperty<String>` | `setAdditionalParameters(List<String>)`, `getAdditionalParameters()` (return type changed) |
+| `bottom` | `String` | `Property<String>` | `setBottom(String)`, `getBottom()` (return type changed) |
 | `deprecation` | `boolean` | `Property<Boolean>` | `setDeprecation(boolean)`, `isDeprecation()` |
-| `docTitle` | `String` | `Property<String>` | `setDocTitle(String)` |
-| `footer` | `String` | `Property<String>` | `setFooter(String)` |
-| `header` | `String` | `Property<String>` | `setHeader(String)` |
-| `top` | `String` | `Property<String>` | `setTop(String)` |
+| `docTitle` | `String` | `Property<String>` | `setDocTitle(String)`, `getDocTitle()` (return type changed) |
+| `footer` | `String` | `Property<String>` | `setFooter(String)`, `getFooter()` (return type changed) |
+| `header` | `String` | `Property<String>` | `setHeader(String)`, `getHeader()` (return type changed) |
+| `top` | `String` | `Property<String>` | `setTop(String)`, `getTop()` (return type changed) |
 | `unchecked` | `boolean` | `Property<Boolean>` | `setUnchecked(boolean)`, `isUnchecked()` |
-| `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)` |
+| `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)`, `getWindowTitle()` (return type changed) |
 
 **Migration examples:**
 
@@ -1206,13 +1205,13 @@ task.outputPerTestCase.set(otherTask.outputPerTestCase)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
-| `forkEvery` | `long` | `Property<java.lang.Long>` | `setForkEvery(long)` |
-| `javaVersion` | `JavaVersion` | `Provider<JavaVersion>` | — |
-| `maxParallelForks` | `int` | `Property<Integer>` | `setMaxParallelForks(int)` |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
+| `forkEvery` | `long` | `Property<java.lang.Long>` | `setForkEvery(long)`, `getForkEvery()` (return type changed) |
+| `javaVersion` | `JavaVersion` | `Provider<JavaVersion>` | `getJavaVersion()` (return type changed) |
+| `maxParallelForks` | `int` | `Property<Integer>` | `setMaxParallelForks(int)`, `getMaxParallelForks()` (return type changed) |
 | `scanForTestClasses` | `boolean` | `Property<Boolean>` | `setScanForTestClasses(boolean)`, `isScanForTestClasses()` |
-| `testClassesDirs` | `FileCollection` | `ConfigurableFileCollection` | `setTestClassesDirs(FileCollection)` |
-| `testFramework` | `TestFramework` | `Property<TestFramework>` | — |
+| `testClassesDirs` | `FileCollection` | `ConfigurableFileCollection` | `setTestClassesDirs(FileCollection)`, `getTestClassesDirs()` (return type changed) |
+| `testFramework` | `TestFramework` | `Property<TestFramework>` | `getTestFramework()` (return type changed) |
 
 **Migration examples:**
 
@@ -1237,9 +1236,9 @@ otherTask.someInput.set(task.javaVersion)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `excludePatterns` | `Set<String>` | `SetProperty<String>` | `setExcludePatterns(String...)` |
+| `excludePatterns` | `Set<String>` | `SetProperty<String>` | `setExcludePatterns(String...)`, `getExcludePatterns()` (return type changed) |
 | `failOnNoMatchingTests` | `boolean` | `Property<Boolean>` | `setFailOnNoMatchingTests(boolean)`, `isFailOnNoMatchingTests()` |
-| `includePatterns` | `Set<String>` | `SetProperty<String>` | `setIncludePatterns(String...)` |
+| `includePatterns` | `Set<String>` | `SetProperty<String>` | `setIncludePatterns(String...)`, `getIncludePatterns()` (return type changed) |
 
 **Migration examples:**
 
@@ -1271,8 +1270,8 @@ task.destinationDirectory.set(otherTask.destinationDirectory)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `excludeCategories` | `Set<String>` | `SetProperty<String>` | `setExcludeCategories(Set<String>)` |
-| `includeCategories` | `Set<String>` | `SetProperty<String>` | `setIncludeCategories(Set<String>)` |
+| `excludeCategories` | `Set<String>` | `SetProperty<String>` | `setExcludeCategories(Set<String>)`, `getExcludeCategories()` (return type changed) |
+| `includeCategories` | `Set<String>` | `SetProperty<String>` | `setIncludeCategories(Set<String>)`, `getIncludeCategories()` (return type changed) |
 
 **Migration examples:**
 
@@ -1287,10 +1286,10 @@ task.excludeCategories.addAll(otherTask.excludeCategories)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `excludeEngines` | `Set<String>` | `SetProperty<String>` | `setExcludeEngines(Set<String>)` |
-| `excludeTags` | `Set<String>` | `SetProperty<String>` | `setExcludeTags(Set<String>)` |
-| `includeEngines` | `Set<String>` | `SetProperty<String>` | `setIncludeEngines(Set<String>)` |
-| `includeTags` | `Set<String>` | `SetProperty<String>` | `setIncludeTags(Set<String>)` |
+| `excludeEngines` | `Set<String>` | `SetProperty<String>` | `setExcludeEngines(Set<String>)`, `getExcludeEngines()` (return type changed) |
+| `excludeTags` | `Set<String>` | `SetProperty<String>` | `setExcludeTags(Set<String>)`, `getExcludeTags()` (return type changed) |
+| `includeEngines` | `Set<String>` | `SetProperty<String>` | `setIncludeEngines(Set<String>)`, `getIncludeEngines()` (return type changed) |
+| `includeTags` | `Set<String>` | `SetProperty<String>` | `setIncludeTags(Set<String>)`, `getIncludeTags()` (return type changed) |
 
 **Migration examples:**
 
@@ -1305,16 +1304,16 @@ task.excludeEngines.addAll(otherTask.excludeEngines)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `displayGranularity` | `int` | `Property<Integer>` | `setDisplayGranularity(int)` |
-| `events` | `Set<TestLogEvent>` | `SetProperty<TestLogEvent>` | `setEvents(Set<TestLogEvent>)`, `setEvents(Iterable<?>)` |
-| `exceptionFormat` | `TestExceptionFormat` | `Property<TestExceptionFormat>` | `setExceptionFormat(TestExceptionFormat)`, `setExceptionFormat(Object)` |
-| `maxGranularity` | `int` | `Property<Integer>` | `setMaxGranularity(int)` |
-| `minGranularity` | `int` | `Property<Integer>` | `setMinGranularity(int)` |
-| `showCauses` | `boolean` | `Property<Boolean>` | `setShowCauses(boolean)` |
-| `showExceptions` | `boolean` | `Property<Boolean>` | `setShowExceptions(boolean)` |
-| `showStackTraces` | `boolean` | `Property<Boolean>` | `setShowStackTraces(boolean)` |
-| `showStandardStreams` | `boolean` | `Property<Boolean>` | `setShowStandardStreams(boolean)` |
-| `stackTraceFilters` | `Set<TestStackTraceFilter>` | `SetProperty<TestStackTraceFilter>` | `setStackTraceFilters(Set<TestStackTraceFilter>)`, `setStackTraceFilters(Iterable<?>)` |
+| `displayGranularity` | `int` | `Property<Integer>` | `setDisplayGranularity(int)`, `getDisplayGranularity()` (return type changed) |
+| `events` | `Set<TestLogEvent>` | `SetProperty<TestLogEvent>` | `setEvents(Set<TestLogEvent>)`, `setEvents(Iterable<?>)`, `getEvents()` (return type changed) |
+| `exceptionFormat` | `TestExceptionFormat` | `Property<TestExceptionFormat>` | `setExceptionFormat(TestExceptionFormat)`, `setExceptionFormat(Object)`, `getExceptionFormat()` (return type changed) |
+| `maxGranularity` | `int` | `Property<Integer>` | `setMaxGranularity(int)`, `getMaxGranularity()` (return type changed) |
+| `minGranularity` | `int` | `Property<Integer>` | `setMinGranularity(int)`, `getMinGranularity()` (return type changed) |
+| `showCauses` | `boolean` | `Property<Boolean>` | `setShowCauses(boolean)`, `getShowCauses()` (return type changed) |
+| `showExceptions` | `boolean` | `Property<Boolean>` | `setShowExceptions(boolean)`, `getShowExceptions()` (return type changed) |
+| `showStackTraces` | `boolean` | `Property<Boolean>` | `setShowStackTraces(boolean)`, `getShowStackTraces()` (return type changed) |
+| `showStandardStreams` | `boolean` | `Property<Boolean>` | `setShowStandardStreams(boolean)`, `getShowStandardStreams()` (return type changed) |
+| `stackTraceFilters` | `Set<TestStackTraceFilter>` | `SetProperty<TestStackTraceFilter>` | `setStackTraceFilters(Set<TestStackTraceFilter>)`, `setStackTraceFilters(Iterable<?>)`, `getStackTraceFilters()` (return type changed) |
 
 **Migration examples:**
 
@@ -1336,22 +1335,22 @@ task.exceptionFormat.set(otherTask.exceptionFormat)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `configFailurePolicy` | `String` | `Property<String>` | `setConfigFailurePolicy(String)` |
-| `excludeGroups` | `Set<String>` | `SetProperty<String>` | `setExcludeGroups(Set<String>)` |
-| `groupByInstances` | `boolean` | `Property<Boolean>` | `setGroupByInstances(boolean)`, `isGroupByInstances()` |
-| `includeGroups` | `Set<String>` | `SetProperty<String>` | `setIncludeGroups(Set<String>)` |
-| `listeners` | `Set<String>` | `SetProperty<String>` | `setListeners(Set<String>)` |
-| `outputDirectory` | `File` | `DirectoryProperty` | `setOutputDirectory(File)` |
-| `parallel` | `String` | `Property<String>` | `setParallel(String)` |
-| `preserveOrder` | `boolean` | `Property<Boolean>` | `setPreserveOrder(boolean)`, `isPreserveOrder()` |
-| `suiteName` | `String` | `Property<String>` | `setSuiteName(String)` |
-| `suiteXmlBuilder` | `groovy.xml.MarkupBuilder` | `Property<groovy.xml.MarkupBuilder>` | `setSuiteXmlBuilder(groovy.xml.MarkupBuilder)` |
-| `suiteXmlFiles` | `List<File>` | `ConfigurableFileCollection` | `setSuiteXmlFiles(List<File>)` |
-| `suiteXmlWriter` | `java.io.StringWriter` | `Property<java.io.StringWriter>` | `setSuiteXmlWriter(java.io.StringWriter)` |
-| `testName` | `String` | `Property<String>` | `setTestName(String)` |
-| `threadCount` | `int` | `Property<Integer>` | `setThreadCount(int)` |
-| `threadPoolFactoryClass` | `String` | `Property<String>` | `setThreadPoolFactoryClass(String)` |
-| `useDefaultListeners` | `boolean` | `Property<Boolean>` | `setUseDefaultListeners(boolean)`, `isUseDefaultListeners()` |
+| `configFailurePolicy` | `String` | `Property<String>` | `setConfigFailurePolicy(String)`, `getConfigFailurePolicy()` (return type changed) |
+| `excludeGroups` | `Set<String>` | `SetProperty<String>` | `setExcludeGroups(Set<String>)`, `getExcludeGroups()` (return type changed) |
+| `groupByInstances` | `boolean` | `Property<Boolean>` | `setGroupByInstances(boolean)`, `isGroupByInstances()`, `getGroupByInstances()` (return type changed) |
+| `includeGroups` | `Set<String>` | `SetProperty<String>` | `setIncludeGroups(Set<String>)`, `getIncludeGroups()` (return type changed) |
+| `listeners` | `Set<String>` | `SetProperty<String>` | `setListeners(Set<String>)`, `getListeners()` (return type changed) |
+| `outputDirectory` | `File` | `DirectoryProperty` | `setOutputDirectory(File)`, `getOutputDirectory()` (return type changed) |
+| `parallel` | `String` | `Property<String>` | `setParallel(String)`, `getParallel()` (return type changed) |
+| `preserveOrder` | `boolean` | `Property<Boolean>` | `setPreserveOrder(boolean)`, `isPreserveOrder()`, `getPreserveOrder()` (return type changed) |
+| `suiteName` | `String` | `Property<String>` | `setSuiteName(String)`, `getSuiteName()` (return type changed) |
+| `suiteXmlBuilder` | `groovy.xml.MarkupBuilder` | `Property<groovy.xml.MarkupBuilder>` | `setSuiteXmlBuilder(groovy.xml.MarkupBuilder)`, `getSuiteXmlBuilder()` (return type changed) |
+| `suiteXmlFiles` | `List<File>` | `ConfigurableFileCollection` | `setSuiteXmlFiles(List<File>)`, `getSuiteXmlFiles()` (return type changed) |
+| `suiteXmlWriter` | `java.io.StringWriter` | `Property<java.io.StringWriter>` | `setSuiteXmlWriter(java.io.StringWriter)`, `getSuiteXmlWriter()` (return type changed) |
+| `testName` | `String` | `Property<String>` | `setTestName(String)`, `getTestName()` (return type changed) |
+| `threadCount` | `int` | `Property<Integer>` | `setThreadCount(int)`, `getThreadCount()` (return type changed) |
+| `threadPoolFactoryClass` | `String` | `Property<String>` | `setThreadPoolFactoryClass(String)`, `getThreadPoolFactoryClass()` (return type changed) |
+| `useDefaultListeners` | `boolean` | `Property<Boolean>` | `setUseDefaultListeners(boolean)`, `isUseDefaultListeners()`, `getUseDefaultListeners()` (return type changed) |
 
 **Migration examples:**
 
@@ -1377,18 +1376,18 @@ task.suiteXmlBuilder.set(otherTask.suiteXmlBuilder)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `archiveBase` | `Wrapper$PathBase` | `Property<Wrapper$PathBase>` | `setArchiveBase(Wrapper$PathBase)` |
-| `archivePath` | `String` | `Property<String>` | `setArchivePath(String)` |
-| `batchScript` | `File` | `Provider<RegularFile>` | — |
-| `distributionBase` | `Wrapper$PathBase` | `Property<Wrapper$PathBase>` | `setDistributionBase(Wrapper$PathBase)` |
-| `distributionPath` | `String` | `Property<String>` | `setDistributionPath(String)` |
-| `distributionSha256Sum` | `String` | `Property<String>` | `setDistributionSha256Sum(String)` |
-| `distributionType` | `Wrapper$DistributionType` | `Property<Wrapper$DistributionType>` | `setDistributionType(Wrapper$DistributionType)` |
-| `distributionUrl` | `String` | `Property<String>` | `setDistributionUrl(String)` |
-| `gradleVersion` | `String` | `Property<String>` | `setGradleVersion(String)` |
-| `jarFile` | `File` | `RegularFileProperty` | `setJarFile(File)`, `setJarFile(Object)` |
-| `propertiesFile` | `File` | `Provider<RegularFile>` | — |
-| `scriptFile` | `File` | `RegularFileProperty` | `setScriptFile(File)`, `setScriptFile(Object)` |
+| `archiveBase` | `Wrapper$PathBase` | `Property<Wrapper$PathBase>` | `setArchiveBase(Wrapper$PathBase)`, `getArchiveBase()` (return type changed) |
+| `archivePath` | `String` | `Property<String>` | `setArchivePath(String)`, `getArchivePath()` (return type changed) |
+| `batchScript` | `File` | `Provider<RegularFile>` | `getBatchScript()` (return type changed) |
+| `distributionBase` | `Wrapper$PathBase` | `Property<Wrapper$PathBase>` | `setDistributionBase(Wrapper$PathBase)`, `getDistributionBase()` (return type changed) |
+| `distributionPath` | `String` | `Property<String>` | `setDistributionPath(String)`, `getDistributionPath()` (return type changed) |
+| `distributionSha256Sum` | `String` | `Property<String>` | `setDistributionSha256Sum(String)`, `getDistributionSha256Sum()` (return type changed) |
+| `distributionType` | `Wrapper$DistributionType` | `Property<Wrapper$DistributionType>` | `setDistributionType(Wrapper$DistributionType)`, `getDistributionType()` (return type changed) |
+| `distributionUrl` | `String` | `Property<String>` | `setDistributionUrl(String)`, `getDistributionUrl()` (return type changed) |
+| `gradleVersion` | `String` | `Property<String>` | `setGradleVersion(String)`, `getGradleVersion()` (return type changed) |
+| `jarFile` | `File` | `RegularFileProperty` | `setJarFile(File)`, `setJarFile(Object)`, `getJarFile()` (return type changed) |
+| `propertiesFile` | `File` | `Provider<RegularFile>` | `getPropertiesFile()` (return type changed) |
+| `scriptFile` | `File` | `RegularFileProperty` | `setScriptFile(File)`, `setScriptFile(Object)`, `getScriptFile()` (return type changed) |
 
 **Migration examples:**
 
@@ -1411,14 +1410,14 @@ otherTask.someInput.set(task.batchScript)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `availableBuildTypes` | `List<String>` | `Provider<List<String>>` | — |
-| `availableDSLs` | `List<String>` | `Provider<List<String>>` | — |
-| `availableTestFrameworks` | `List<String>` | `Provider<List<String>>` | — |
-| `dsl` | `String` | `Property<String>` | `setDsl(String)` |
-| `packageName` | `String` | `Property<String>` | `setPackageName(String)` |
-| `projectName` | `String` | `Property<String>` | `setProjectName(String)` |
-| `testFramework` | `String` | `Property<String>` | `setTestFramework(String)` |
-| `type` | `String` | `Property<String>` | `setType(String)` |
+| `availableBuildTypes` | `List<String>` | `Provider<List<String>>` | `getAvailableBuildTypes()` (return type changed) |
+| `availableDSLs` | `List<String>` | `Provider<List<String>>` | `getAvailableDSLs()` (return type changed) |
+| `availableTestFrameworks` | `List<String>` | `Provider<List<String>>` | `getAvailableTestFrameworks()` (return type changed) |
+| `dsl` | `String` | `Property<String>` | `setDsl(String)`, `getDsl()` (return type changed) |
+| `packageName` | `String` | `Property<String>` | `setPackageName(String)`, `getPackageName()` (return type changed) |
+| `projectName` | `String` | `Property<String>` | `setProjectName(String)`, `getProjectName()` (return type changed) |
+| `testFramework` | `String` | `Property<String>` | `setTestFramework(String)`, `getTestFramework()` (return type changed) |
+| `type` | `String` | `Property<String>` | `setType(String)`, `getType()` (return type changed) |
 
 **Migration examples:**
 
@@ -1455,7 +1454,7 @@ task.enabled.set(otherTask.enabled)  // lazy wiring
 |----------|----------------|----------------|-------------------|
 | `allowInsecureProtocol` | `boolean` | `Property<Boolean>` | `setAllowInsecureProtocol(boolean)`, `isAllowInsecureProtocol()` |
 | `allowUntrustedServer` | `boolean` | `Property<Boolean>` | `setAllowUntrustedServer(boolean)`, `isAllowUntrustedServer()` |
-| `url` | `URI` | `Property<URI>` | `setUrl(String)`, `setUrl(URI)` |
+| `url` | `URI` | `Property<URI>` | `setUrl(String)`, `setUrl(URI)`, `getUrl()` (return type changed) |
 | `useExpectContinue` | `boolean` | `Property<Boolean>` | `setUseExpectContinue(boolean)`, `isUseExpectContinue()` |
 
 **Migration examples:**
@@ -1473,7 +1472,7 @@ task.url.set(otherTask.url)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `directory` | `Object` | `DirectoryProperty` | `setDirectory(Object)` |
+| `directory` | `Object` | `DirectoryProperty` | `setDirectory(Object)`, `getDirectory()` (return type changed) |
 
 **Migration examples:**
 
@@ -1488,26 +1487,26 @@ task.directory.set(otherTask.directory)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `bootClasspath` | `List<File>` | `ConfigurableFileCollection` | `setBootClasspath(List<File>)` |
+| `bootClasspath` | `List<File>` | `ConfigurableFileCollection` | `setBootClasspath(List<File>)`, `getBootClasspath()` (return type changed) |
 | `breakIterator` | `boolean` | `Property<Boolean>` | `setBreakIterator(boolean)`, `isBreakIterator()` |
-| `classpath` | `List<File>` | `ConfigurableFileCollection` | `setClasspath(List<File>)` |
-| `destinationDirectory` | `File` | `DirectoryProperty` | `setDestinationDirectory(File)` |
-| `doclet` | `String` | `Property<String>` | `setDoclet(String)` |
-| `docletpath` | `List<File>` | `ConfigurableFileCollection` | `setDocletpath(List<File>)` |
-| `encoding` | `String` | `Property<String>` | `setEncoding(String)` |
-| `extDirs` | `List<File>` | `ConfigurableFileCollection` | `setExtDirs(List<File>)` |
-| `header` | `String` | `Property<String>` | `setHeader(String)` |
-| `jFlags` | `List<String>` | `ListProperty<String>` | `setJFlags(List<String>)` |
-| `locale` | `String` | `Property<String>` | `setLocale(String)` |
-| `memberLevel` | `JavadocMemberLevel` | `Property<JavadocMemberLevel>` | `setMemberLevel(JavadocMemberLevel)` |
-| `modulePath` | `List<File>` | `ConfigurableFileCollection` | `setModulePath(List<File>)` |
-| `optionFiles` | `List<File>` | `ConfigurableFileCollection` | `setOptionFiles(List<File>)` |
-| `outputLevel` | `JavadocOutputLevel` | `Property<JavadocOutputLevel>` | `setOutputLevel(JavadocOutputLevel)` |
-| `overview` | `String` | `Property<String>` | `setOverview(String)` |
-| `source` | `String` | `Property<String>` | `setSource(String)` |
-| `sourceNames` | `List<String>` | `ListProperty<String>` | `setSourceNames(List<String>)` |
+| `classpath` | `List<File>` | `ConfigurableFileCollection` | `setClasspath(List<File>)`, `getClasspath()` (return type changed) |
+| `destinationDirectory` | `File` | `DirectoryProperty` | `setDestinationDirectory(File)`, `getDestinationDirectory()` (return type changed) |
+| `doclet` | `String` | `Property<String>` | `setDoclet(String)`, `getDoclet()` (return type changed) |
+| `docletpath` | `List<File>` | `ConfigurableFileCollection` | `setDocletpath(List<File>)`, `getDocletpath()` (return type changed) |
+| `encoding` | `String` | `Property<String>` | `setEncoding(String)`, `getEncoding()` (return type changed) |
+| `extDirs` | `List<File>` | `ConfigurableFileCollection` | `setExtDirs(List<File>)`, `getExtDirs()` (return type changed) |
+| `header` | `String` | `Property<String>` | `setHeader(String)`, `getHeader()` (return type changed) |
+| `jFlags` | `List<String>` | `ListProperty<String>` | `setJFlags(List<String>)`, `getJFlags()` (return type changed) |
+| `locale` | `String` | `Property<String>` | `setLocale(String)`, `getLocale()` (return type changed) |
+| `memberLevel` | `JavadocMemberLevel` | `Property<JavadocMemberLevel>` | `setMemberLevel(JavadocMemberLevel)`, `getMemberLevel()` (return type changed) |
+| `modulePath` | `List<File>` | `ConfigurableFileCollection` | `setModulePath(List<File>)`, `getModulePath()` (return type changed) |
+| `optionFiles` | `List<File>` | `ConfigurableFileCollection` | `setOptionFiles(List<File>)`, `getOptionFiles()` (return type changed) |
+| `outputLevel` | `JavadocOutputLevel` | `Property<JavadocOutputLevel>` | `setOutputLevel(JavadocOutputLevel)`, `getOutputLevel()` (return type changed) |
+| `overview` | `String` | `Property<String>` | `setOverview(String)`, `getOverview()` (return type changed) |
+| `source` | `String` | `Property<String>` | `setSource(String)`, `getSource()` (return type changed) |
+| `sourceNames` | `List<String>` | `ListProperty<String>` | `setSourceNames(List<String>)`, `getSourceNames()` (return type changed) |
 | `verbose` | `boolean` | `Provider<Boolean>` | `isVerbose()` |
-| `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)` |
+| `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)`, `getWindowTitle()` (return type changed) |
 
 **Migration examples:**
 
@@ -1537,35 +1536,35 @@ otherTask.someInput.set(task.verbose)
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `author` | `boolean` | `Property<Boolean>` | `setAuthor(boolean)`, `isAuthor()` |
-| `bottom` | `String` | `Property<String>` | `setBottom(String)` |
-| `charSet` | `String` | `Property<String>` | `setCharSet(String)` |
-| `docEncoding` | `String` | `Property<String>` | `setDocEncoding(String)` |
+| `bottom` | `String` | `Property<String>` | `setBottom(String)`, `getBottom()` (return type changed) |
+| `charSet` | `String` | `Property<String>` | `setCharSet(String)`, `getCharSet()` (return type changed) |
+| `docEncoding` | `String` | `Property<String>` | `setDocEncoding(String)`, `getDocEncoding()` (return type changed) |
 | `docFilesSubDirs` | `boolean` | `Property<Boolean>` | `setDocFilesSubDirs(boolean)`, `isDocFilesSubDirs()` |
-| `docTitle` | `String` | `Property<String>` | `setDocTitle(String)` |
-| `excludeDocFilesSubDir` | `List<String>` | `ListProperty<String>` | `setExcludeDocFilesSubDir(List<String>)` |
-| `footer` | `String` | `Property<String>` | `setFooter(String)` |
-| `groups` | `Map<String, List<String>>` | `MapProperty<String, List<String>>` | `setGroups(Map<String, List<String>>)` |
-| `helpFile` | `File` | `RegularFileProperty` | `setHelpFile(File)` |
+| `docTitle` | `String` | `Property<String>` | `setDocTitle(String)`, `getDocTitle()` (return type changed) |
+| `excludeDocFilesSubDir` | `List<String>` | `ListProperty<String>` | `setExcludeDocFilesSubDir(List<String>)`, `getExcludeDocFilesSubDir()` (return type changed) |
+| `footer` | `String` | `Property<String>` | `setFooter(String)`, `getFooter()` (return type changed) |
+| `groups` | `Map<String, List<String>>` | `MapProperty<String, List<String>>` | `setGroups(Map<String, List<String>>)`, `getGroups()` (return type changed) |
+| `helpFile` | `File` | `RegularFileProperty` | `setHelpFile(File)`, `getHelpFile()` (return type changed) |
 | `keyWords` | `boolean` | `Property<Boolean>` | `setKeyWords(boolean)`, `isKeyWords()` |
 | `linkSource` | `boolean` | `Property<Boolean>` | `setLinkSource(boolean)`, `isLinkSource()` |
-| `links` | `List<String>` | `ListProperty<String>` | `setLinks(List<String>)` |
-| `linksOffline` | `List<JavadocOfflineLink>` | `ListProperty<JavadocOfflineLink>` | `setLinksOffline(List<JavadocOfflineLink>)` |
+| `links` | `List<String>` | `ListProperty<String>` | `setLinks(List<String>)`, `getLinks()` (return type changed) |
+| `linksOffline` | `List<JavadocOfflineLink>` | `ListProperty<JavadocOfflineLink>` | `setLinksOffline(List<JavadocOfflineLink>)`, `getLinksOffline()` (return type changed) |
 | `noComment` | `boolean` | `Property<Boolean>` | `setNoComment(boolean)`, `isNoComment()` |
 | `noDeprecated` | `boolean` | `Property<Boolean>` | `setNoDeprecated(boolean)`, `isNoDeprecated()` |
 | `noDeprecatedList` | `boolean` | `Property<Boolean>` | `setNoDeprecatedList(boolean)`, `isNoDeprecatedList()` |
 | `noHelp` | `boolean` | `Property<Boolean>` | `setNoHelp(boolean)`, `isNoHelp()` |
 | `noIndex` | `boolean` | `Property<Boolean>` | `setNoIndex(boolean)`, `isNoIndex()` |
 | `noNavBar` | `boolean` | `Property<Boolean>` | `setNoNavBar(boolean)`, `isNoNavBar()` |
-| `noQualifiers` | `List<String>` | `ListProperty<String>` | `setNoQualifiers(List<String>)` |
+| `noQualifiers` | `List<String>` | `ListProperty<String>` | `setNoQualifiers(List<String>)`, `getNoQualifiers()` (return type changed) |
 | `noSince` | `boolean` | `Property<Boolean>` | `setNoSince(boolean)`, `isNoSince()` |
 | `noTimestamp` | `boolean` | `Property<Boolean>` | `setNoTimestamp(boolean)`, `isNoTimestamp()` |
 | `noTree` | `boolean` | `Property<Boolean>` | `setNoTree(boolean)`, `isNoTree()` |
 | `serialWarn` | `boolean` | `Property<Boolean>` | `setSerialWarn(boolean)`, `isSerialWarn()` |
 | `splitIndex` | `boolean` | `Property<Boolean>` | `setSplitIndex(boolean)`, `isSplitIndex()` |
-| `stylesheetFile` | `File` | `RegularFileProperty` | `setStylesheetFile(File)` |
-| `tagletPath` | `List<File>` | `ConfigurableFileCollection` | `setTagletPath(List<File>)` |
-| `taglets` | `List<String>` | `ListProperty<String>` | `setTaglets(List<String>)` |
-| `tags` | `List<String>` | `ListProperty<String>` | `setTags(List<String>)` |
+| `stylesheetFile` | `File` | `RegularFileProperty` | `setStylesheetFile(File)`, `getStylesheetFile()` (return type changed) |
+| `tagletPath` | `List<File>` | `ConfigurableFileCollection` | `setTagletPath(List<File>)`, `getTagletPath()` (return type changed) |
+| `taglets` | `List<String>` | `ListProperty<String>` | `setTaglets(List<String>)`, `getTaglets()` (return type changed) |
+| `tags` | `List<String>` | `ListProperty<String>` | `setTags(List<String>)`, `getTags()` (return type changed) |
 | `use` | `boolean` | `Property<Boolean>` | `setUse(boolean)`, `isUse()` |
 | `version` | `boolean` | `Property<Boolean>` | `setVersion(boolean)`, `isVersion()` |
 
@@ -1593,15 +1592,15 @@ task.groups.putAll(otherTask.groups)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `applicationName` | `String` | `Property<String>` | `setApplicationName(String)` |
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
-| `defaultJvmOpts` | `Iterable<String>` | `ListProperty<String>` | `setDefaultJvmOpts(Iterable<String>)` |
-| `executableDir` | `String` | `Property<String>` | `setExecutableDir(String)` |
-| `exitEnvironmentVar` | `String` | `Property<String>` | `setExitEnvironmentVar(String)` |
-| `optsEnvironmentVar` | `String` | `Property<String>` | `setOptsEnvironmentVar(String)` |
-| `outputDir` | `File` | `DirectoryProperty` | `setOutputDir(File)` |
-| `unixScript` | `File` | `RegularFileProperty` | — |
-| `windowsScript` | `File` | `RegularFileProperty` | — |
+| `applicationName` | `String` | `Property<String>` | `setApplicationName(String)`, `getApplicationName()` (return type changed) |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
+| `defaultJvmOpts` | `Iterable<String>` | `ListProperty<String>` | `setDefaultJvmOpts(Iterable<String>)`, `getDefaultJvmOpts()` (return type changed) |
+| `executableDir` | `String` | `Property<String>` | `setExecutableDir(String)`, `getExecutableDir()` (return type changed) |
+| `exitEnvironmentVar` | `String` | `Property<String>` | `setExitEnvironmentVar(String)`, `getExitEnvironmentVar()` (return type changed) |
+| `optsEnvironmentVar` | `String` | `Property<String>` | `setOptsEnvironmentVar(String)`, `getOptsEnvironmentVar()` (return type changed) |
+| `outputDir` | `File` | `DirectoryProperty` | `setOutputDir(File)`, `getOutputDir()` (return type changed) |
+| `unixScript` | `File` | `RegularFileProperty` | `getUnixScript()` (return type changed) |
+| `windowsScript` | `File` | `RegularFileProperty` | `getWindowsScript()` (return type changed) |
 
 **Migration examples:**
 
@@ -1625,7 +1624,7 @@ task.defaultJvmOpts.addAll(otherTask.defaultJvmOpts)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `manifestContentCharset` | `String` | `Property<String>` | `setManifestContentCharset(String)` |
+| `manifestContentCharset` | `String` | `Property<String>` | `setManifestContentCharset(String)`, `getManifestContentCharset()` (return type changed) |
 
 **Migration examples:**
 
@@ -1641,15 +1640,15 @@ task.manifestContentCharset.set(otherTask.manifestContentCharset)  // lazy wirin
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `additionalParameters` | `List<String>` | `ListProperty<String>` | `setAdditionalParameters(List<String>)` |
-| `debugLevel` | `String` | `Property<String>` | `setDebugLevel(String)` |
+| `additionalParameters` | `List<String>` | `ListProperty<String>` | `setAdditionalParameters(List<String>)`, `getAdditionalParameters()` (return type changed) |
+| `debugLevel` | `String` | `Property<String>` | `setDebugLevel(String)`, `getDebugLevel()` (return type changed) |
 | `deprecation` | `boolean` | `Property<Boolean>` | `setDeprecation(boolean)`, `isDeprecation()` |
-| `encoding` | `String` | `Property<String>` | `setEncoding(String)` |
+| `encoding` | `String` | `Property<String>` | `setEncoding(String)`, `getEncoding()` (return type changed) |
 | `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
 | `force` | `boolean` | `Property<Boolean>` | `setForce(boolean)`, `isForce()` |
 | `listFiles` | `boolean` | `Property<Boolean>` | `setListFiles(boolean)`, `isListFiles()` |
-| `loggingLevel` | `String` | `Property<String>` | `setLoggingLevel(String)` |
-| `loggingPhases` | `List<String>` | `ListProperty<String>` | `setLoggingPhases(List<String>)` |
+| `loggingLevel` | `String` | `Property<String>` | `setLoggingLevel(String)`, `getLoggingLevel()` (return type changed) |
+| `loggingPhases` | `List<String>` | `ListProperty<String>` | `setLoggingPhases(List<String>)`, `getLoggingPhases()` (return type changed) |
 | `optimize` | `boolean` | `Property<Boolean>` | `setOptimize(boolean)`, `isOptimize()` |
 | `unchecked` | `boolean` | `Property<Boolean>` | `setUnchecked(boolean)`, `isUnchecked()` |
 
@@ -1671,10 +1670,10 @@ task.additionalParameters.addAll(otherTask.additionalParameters)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `description` | `String` | `Property<String>` | `setDescription(String)` |
-| `displayName` | `String` | `Property<String>` | `setDisplayName(String)` |
-| `id` | `String` | `Property<String>` | `setId(String)` |
-| `implementationClass` | `String` | `Property<String>` | `setImplementationClass(String)` |
+| `description` | `String` | `Property<String>` | `setDescription(String)`, `getDescription()` (return type changed) |
+| `displayName` | `String` | `Property<String>` | `setDisplayName(String)`, `getDisplayName()` (return type changed) |
+| `id` | `String` | `Property<String>` | `setId(String)`, `getId()` (return type changed) |
+| `implementationClass` | `String` | `Property<String>` | `setImplementationClass(String)`, `getImplementationClass()` (return type changed) |
 
 **Migration examples:**
 
@@ -1690,7 +1689,7 @@ task.description.set(otherTask.description)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `libDirName` | `String` | `Property<String>` | `setLibDirName(String)` |
+| `libDirName` | `String` | `Property<String>` | `setLibDirName(String)`, `getLibDirName()` (return type changed) |
 
 **Migration examples:**
 
@@ -1706,15 +1705,15 @@ task.libDirName.set(otherTask.libDirName)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `applicationName` | `String` | `Property<String>` | `setApplicationName(String)` |
-| `description` | `String` | `Property<String>` | `setDescription(String)` |
-| `displayName` | `String` | `Property<String>` | `setDisplayName(String)` |
-| `initializeInOrder` | `Boolean` | `Property<Boolean>` | `setInitializeInOrder(Boolean)` |
-| `libraryDirectory` | `String` | `Property<String>` | `setLibraryDirectory(String)` |
-| `moduleTypeMappings` | `Map<String, String>` | `MapProperty<String, String>` | `setModuleTypeMappings(Map<String, String>)` |
-| `modules` | `Set<EarModule>` | `SetProperty<EarModule>` | `setModules(Set<EarModule>)` |
-| `securityRoles` | `Set<EarSecurityRole>` | `SetProperty<EarSecurityRole>` | `setSecurityRoles(Set<EarSecurityRole>)` |
-| `version` | `String` | `Property<String>` | `setVersion(String)` |
+| `applicationName` | `String` | `Property<String>` | `setApplicationName(String)`, `getApplicationName()` (return type changed) |
+| `description` | `String` | `Property<String>` | `setDescription(String)`, `getDescription()` (return type changed) |
+| `displayName` | `String` | `Property<String>` | `setDisplayName(String)`, `getDisplayName()` (return type changed) |
+| `initializeInOrder` | `Boolean` | `Property<Boolean>` | `setInitializeInOrder(Boolean)`, `getInitializeInOrder()` (return type changed) |
+| `libraryDirectory` | `String` | `Property<String>` | `setLibraryDirectory(String)`, `getLibraryDirectory()` (return type changed) |
+| `moduleTypeMappings` | `Map<String, String>` | `MapProperty<String, String>` | `setModuleTypeMappings(Map<String, String>)`, `getModuleTypeMappings()` (return type changed) |
+| `modules` | `Set<EarModule>` | `SetProperty<EarModule>` | `setModules(Set<EarModule>)`, `getModules()` (return type changed) |
+| `securityRoles` | `Set<EarSecurityRole>` | `SetProperty<EarSecurityRole>` | `setSecurityRoles(Set<EarSecurityRole>)`, `getSecurityRoles()` (return type changed) |
+| `version` | `String` | `Property<String>` | `setVersion(String)`, `getVersion()` (return type changed) |
 
 **Migration examples:**
 
@@ -1736,8 +1735,8 @@ task.initializeInOrder.set(otherTask.initializeInOrder)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `altDeployDescriptor` | `String` | `Property<String>` | `setAltDeployDescriptor(String)` |
-| `path` | `String` | `Property<String>` | `setPath(String)` |
+| `altDeployDescriptor` | `String` | `Property<String>` | `setAltDeployDescriptor(String)`, `getAltDeployDescriptor()` (return type changed) |
+| `path` | `String` | `Property<String>` | `setPath(String)`, `getPath()` (return type changed) |
 
 **Migration examples:**
 
@@ -1753,8 +1752,8 @@ task.altDeployDescriptor.set(otherTask.altDeployDescriptor)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `description` | `String` | `Property<String>` | `setDescription(String)` |
-| `roleName` | `String` | `Property<String>` | `setRoleName(String)` |
+| `description` | `String` | `Property<String>` | `setDescription(String)`, `getDescription()` (return type changed) |
+| `roleName` | `String` | `Property<String>` | `setRoleName(String)`, `getRoleName()` (return type changed) |
 
 **Migration examples:**
 
@@ -1770,7 +1769,7 @@ task.description.set(otherTask.description)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `contextRoot` | `String` | `Property<String>` | `setContextRoot(String)` |
+| `contextRoot` | `String` | `Property<String>` | `setContextRoot(String)`, `getContextRoot()` (return type changed) |
 
 **Migration examples:**
 
@@ -1786,11 +1785,11 @@ task.contextRoot.set(otherTask.contextRoot)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `commandLine` | `List<String>` | `Provider<List<String>>` | — |
-| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)` |
+| `commandLine` | `List<String>` | `Provider<List<String>>` | `setCommandLine(List<String>)`, `setCommandLine(Object...)`, `setCommandLine(Iterable<?>)`, `getCommandLine()` (return type changed) |
+| `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `getErrorOutput()` (return type changed) |
 | `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
-| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)` |
-| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)` |
+| `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `getStandardInput()` (return type changed) |
+| `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `getStandardOutput()` (return type changed) |
 
 **Migration examples:**
 
@@ -1810,8 +1809,8 @@ otherTask.someInput.set(task.commandLine)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)` |
-| `argumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | — |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `getArgs()` (return type changed) |
+| `argumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getArgumentProviders()` (return type changed) |
 | `commandLine` | `Provider<List<String>>` | `Provider<List<String>>` | `setCommandLine(List<String>)`, `setCommandLine(Object...)`, `setCommandLine(Iterable<?>)` |
 
 **Migration examples:**
@@ -1830,9 +1829,9 @@ otherTask.someInput.set(task.commandLine)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)` |
-| `argumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | — |
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)` |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `getArgs()` (return type changed) |
+| `argumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getArgumentProviders()` (return type changed) |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
 | `mainClass` | `Property<String>` | `Property<String>` | — |
 
 **Migration examples:**
@@ -1852,16 +1851,16 @@ task.mainClass.set(otherTask.mainClass)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `allJvmArgs` | `List<String>` | `Provider<List<String>>` | `setAllJvmArgs(List<String>)`, `setAllJvmArgs(Iterable<?>)` |
-| `bootstrapClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setBootstrapClasspath(FileCollection)` |
-| `debug` | `boolean` | `Property<Boolean>` | `setDebug(boolean)` |
-| `defaultCharacterEncoding` | `String` | `Property<String>` | `setDefaultCharacterEncoding(String)` |
-| `enableAssertions` | `boolean` | `Property<Boolean>` | `setEnableAssertions(boolean)` |
-| `jvmArgs` | `List<String>` | `ListProperty<String>` | `setJvmArgs(List<String>)`, `setJvmArgs(Iterable<?>)` |
-| `jvmArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | — |
-| `maxHeapSize` | `String` | `Property<String>` | `setMaxHeapSize(String)` |
-| `minHeapSize` | `String` | `Property<String>` | `setMinHeapSize(String)` |
-| `systemProperties` | `Map<String, Object>` | `MapProperty<String, Object>` | `setSystemProperties(Map<String, ? extends Object>)` |
+| `allJvmArgs` | `List<String>` | `Provider<List<String>>` | `setAllJvmArgs(List<String>)`, `setAllJvmArgs(Iterable<?>)`, `getAllJvmArgs()` (return type changed) |
+| `bootstrapClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setBootstrapClasspath(FileCollection)`, `getBootstrapClasspath()` (return type changed) |
+| `debug` | `boolean` | `Property<Boolean>` | `setDebug(boolean)`, `getDebug()` (return type changed) |
+| `defaultCharacterEncoding` | `String` | `Property<String>` | `setDefaultCharacterEncoding(String)`, `getDefaultCharacterEncoding()` (return type changed) |
+| `enableAssertions` | `boolean` | `Property<Boolean>` | `setEnableAssertions(boolean)`, `getEnableAssertions()` (return type changed) |
+| `jvmArgs` | `List<String>` | `ListProperty<String>` | `setJvmArgs(List<String>)`, `setJvmArgs(Iterable<?>)`, `getJvmArgs()` (return type changed) |
+| `jvmArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getJvmArgumentProviders()` (return type changed) |
+| `maxHeapSize` | `String` | `Property<String>` | `setMaxHeapSize(String)`, `getMaxHeapSize()` (return type changed) |
+| `minHeapSize` | `String` | `Property<String>` | `setMinHeapSize(String)`, `getMinHeapSize()` (return type changed) |
+| `systemProperties` | `Map<String, Object>` | `MapProperty<String, Object>` | `setSystemProperties(Map<String, ? extends Object>)`, `getSystemProperties()` (return type changed) |
 
 **Migration examples:**
 
@@ -1888,9 +1887,9 @@ otherTask.someInput.set(task.allJvmArgs)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `environment` | `Map<String, Object>` | `MapProperty<String, Object>` | `setEnvironment(Map<String, ?>)` |
-| `executable` | `String` | `Property<String>` | `setExecutable(String)`, `setExecutable(Object)` |
-| `workingDir` | `File` | `DirectoryProperty` | `setWorkingDir(File)`, `setWorkingDir(Object)` |
+| `environment` | `Map<String, Object>` | `MapProperty<String, Object>` | `setEnvironment(Map<String, ?>)`, `getEnvironment()` (return type changed) |
+| `executable` | `String` | `Property<String>` | `setExecutable(String)`, `setExecutable(Object)`, `getExecutable()` (return type changed) |
+| `workingDir` | `File` | `DirectoryProperty` | `setWorkingDir(File)`, `setWorkingDir(Object)`, `getWorkingDir()` (return type changed) |
 
 **Migration examples:**
 
@@ -1910,7 +1909,7 @@ task.environment.putAll(otherTask.environment)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `toolVersion` | `String` | `Property<String>` | `setToolVersion(String)` |
+| `toolVersion` | `String` | `Property<String>` | `setToolVersion(String)`, `getToolVersion()` (return type changed) |
 
 **Migration examples:**
 
@@ -1926,20 +1925,20 @@ task.toolVersion.set(otherTask.toolVersion)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `address` | `String` | `Property<String>` | `setAddress(String)` |
-| `asJvmArg` | `String` | `Provider<String>` | — |
-| `classDumpDir` | `File` | `DirectoryProperty` | `setClassDumpDir(File)` |
-| `destinationFile` | `File` | `RegularFileProperty` | `setDestinationFile(Provider<File>)`, `setDestinationFile(File)` |
+| `address` | `String` | `Property<String>` | `setAddress(String)`, `getAddress()` (return type changed) |
+| `asJvmArg` | `String` | `Provider<String>` | `getAsJvmArg()` (return type changed) |
+| `classDumpDir` | `File` | `DirectoryProperty` | `setClassDumpDir(File)`, `getClassDumpDir()` (return type changed) |
+| `destinationFile` | `File` | `RegularFileProperty` | `setDestinationFile(Provider<File>)`, `setDestinationFile(File)`, `getDestinationFile()` (return type changed) |
 | `dumpOnExit` | `boolean` | `Property<Boolean>` | `setDumpOnExit(boolean)`, `isDumpOnExit()` |
 | `enabled` | `boolean` | `Property<Boolean>` | `setEnabled(boolean)`, `isEnabled()` |
-| `excludeClassLoaders` | `List<String>` | `ListProperty<String>` | `setExcludeClassLoaders(List<String>)` |
-| `excludes` | `List<String>` | `ListProperty<String>` | `setExcludes(List<String>)` |
+| `excludeClassLoaders` | `List<String>` | `ListProperty<String>` | `setExcludeClassLoaders(List<String>)`, `getExcludeClassLoaders()` (return type changed) |
+| `excludes` | `List<String>` | `ListProperty<String>` | `setExcludes(List<String>)`, `getExcludes()` (return type changed) |
 | `includeNoLocationClasses` | `boolean` | `Property<Boolean>` | `setIncludeNoLocationClasses(boolean)`, `isIncludeNoLocationClasses()` |
-| `includes` | `List<String>` | `ListProperty<String>` | `setIncludes(List<String>)` |
+| `includes` | `List<String>` | `ListProperty<String>` | `setIncludes(List<String>)`, `getIncludes()` (return type changed) |
 | `jmx` | `boolean` | `Property<Boolean>` | `setJmx(boolean)`, `isJmx()` |
-| `output` | `JacocoTaskExtension$Output` | `Property<JacocoTaskExtension$Output>` | `setOutput(JacocoTaskExtension$Output)` |
-| `port` | `int` | `Property<Integer>` | `setPort(int)` |
-| `sessionId` | `String` | `Property<String>` | `setSessionId(String)` |
+| `output` | `JacocoTaskExtension$Output` | `Property<JacocoTaskExtension$Output>` | `setOutput(JacocoTaskExtension$Output)`, `getOutput()` (return type changed) |
+| `port` | `int` | `Property<Integer>` | `setPort(int)`, `getPort()` (return type changed) |
+| `sessionId` | `String` | `Property<String>` | `setSessionId(String)`, `getSessionId()` (return type changed) |
 
 **Migration examples:**
 
@@ -1968,7 +1967,7 @@ otherTask.someInput.set(task.asJvmArg)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `jacocoClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setJacocoClasspath(FileCollection)` |
+| `jacocoClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setJacocoClasspath(FileCollection)`, `getJacocoClasspath()` (return type changed) |
 
 **Migration examples:**
 
@@ -1983,7 +1982,7 @@ task.jacocoClasspath.setFrom(otherTask.jacocoClasspath)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `rootDir` | `String` | `Property<String>` | `setRootDir(String)` |
+| `rootDir` | `String` | `Property<String>` | `setRootDir(String)`, `getRootDir()` (return type changed) |
 
 **Migration examples:**
 
@@ -1999,9 +1998,9 @@ task.rootDir.set(otherTask.rootDir)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `repoName` | `String` | `Provider<String>` | — |
-| `rootDir` | `String` | `Property<String>` | `setRootDir(String)` |
-| `uniqueId` | `String` | `Provider<String>` | — |
+| `repoName` | `String` | `Provider<String>` | `getRepoName()` (return type changed) |
+| `rootDir` | `String` | `Property<String>` | `setRootDir(String)`, `getRootDir()` (return type changed) |
+| `uniqueId` | `String` | `Provider<String>` | `getUniqueId()` (return type changed) |
 
 **Migration examples:**
 
@@ -2020,7 +2019,7 @@ otherTask.someInput.set(task.repoName)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `url` | `URI` | `Property<URI>` | — |
+| `url` | `URI` | `Property<URI>` | `setUrl(URI)`, `getUrl()` (return type changed) |
 
 **Migration examples:**
 
