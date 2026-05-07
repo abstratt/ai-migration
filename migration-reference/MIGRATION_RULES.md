@@ -1,6 +1,6 @@
 # Gradle 10 Lazy Property Migration Rules
 
-Use with `migration-data.json` to migrate Gradle build scripts. Look up the class + property in the JSON to get `kind`, `old_type`, `new_type`, and `removed_accessors`, then apply the matching rule below.
+Use with `migration-data.json` to migrate Gradle build scripts. Look up the class + property in the JSON to get `kind`, `old_type`, `new_type`, `removed_accessors`, `changed_return_accessors`, `new_read_accessor`, `new_write_accessor`, `new_is_provider`, and `inheriting_subtypes`, then apply the matching rule below. Types in the JSON are fully-qualified (e.g. `org.gradle.api.provider.Property<java.lang.String>`); the rules and examples in this document use simplified names for readability.
 
 ## End-to-end walkthrough
 
@@ -19,12 +19,17 @@ buildSrc/src/main/java/MyBuildPlugin.java
 
 ```json
 {
-  "class": "CompileOptions",
+  "class": "org.gradle.api.tasks.compile.CompileOptions",
   "property": "encoding",
   "kind": "scalar",
-  "old_type": "String",
-  "new_type": "Property<String>",
-  "removed_accessors": ["setEncoding(String)"]
+  "old_type": "java.lang.String",
+  "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+  "new_is_provider": false,
+  "new_read_accessor": "getEncoding().get()",
+  "new_write_accessor": "getEncoding().set(VALUE)",
+  "removed_accessors": ["setEncoding(java.lang.String)"],
+  "changed_return_accessors": ["getEncoding()"],
+  "inheriting_subtypes": [...]
 }
 ```
 

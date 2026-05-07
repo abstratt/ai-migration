@@ -73,7 +73,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    3. Is the receiver a local variable? Find its declaration.
       - Declared type is in `migration-data.json`? → **apply**.
       - Declared type is in a non-`org.gradle` package? → **skip**.
-   4. Is the receiver a method chain (`a.b().c()`)? Find `b()`'s declared return type. If that return type is in `migration-data.json` (directly or via `also_known_as`), → **apply**.
+   4. Is the receiver a method chain (`a.b().c()`)? Find `b()`'s declared return type. If that return type is in `migration-data.json` (directly or via `inheriting_subtypes`), → **apply**.
    5. Is the receiver a lambda parameter (e.g. `publication.pom(pom -> pom.setX(...))`)? Check the enclosing method's signature — the parameter's type is usually a Gradle configuration type. → **apply** if found in the JSON.
    6. None of the above → **leave unchanged and note in a comment for review**.
 
@@ -118,7 +118,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
    **(c) Cannot decide yet.** If the fix requires compile-error context (e.g. multi-line restructure whose correctness depends on which overload the compiler picks), leave the entry but **still rewrite its `reason` string** to name the specific uncertainty at *this site* (e.g. `overload selection unclear: MavenPom.setPackaging(String) vs. AbstractBootArchiveTests.setPackaging(Object) — resolve against task 07 compile output`). Do not leave any boilerplate string in place, including:
 
-   - Any canonical `apply_migrations.py` reason (`category B is out of scope for this tool`, `unconfirmed receiver — no matching import`, `kind '…' has no mechanical rewrite`, `setter call not found or spans multiple lines`, `read_only property has no setter to rewrite`, `{method}() boolean read: context-dependent rewrite`, `ambiguous receiver (matched N classes)`, `file_collection argument references same property (possible circular ref)`, `confirmed class has no matching data entry`, `rewrite produced no change`).
+   - Any canonical `apply_migrations.py` reason (`category B is out of scope for this tool`, `unconfirmed receiver — no matching import`, `kind '…' has no mechanical rewrite`, `setter call not found or spans multiple lines`, `Provider<X> property has no setter to rewrite`, `{method}() boolean read: context-dependent rewrite`, `ambiguous receiver (matched N classes)`, `file_collection argument references same property (possible circular ref)`, `confirmed class has no matching data entry`, `rewrite produced no change`).
    - **Templated substitutes** that preserve the boilerplate shape with different words — e.g. `defer to task 07: Cat-B getter rewrite depends on downstream usage`, `let compile errors disambiguate`, `verify against compile output`, `multiple candidate Gradle types — pick the right one from compile errors`, or any other category-level-but-generic text reused verbatim across many entries. These are the shape the boilerplate-detector in step 5(b) fails on, and they are indistinguishable from raw tool output for audit purposes.
 
    **Entries you must always process, never skip wholesale:**
@@ -128,7 +128,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
    Use the **Receiver-type decision procedure** from step 2 (the numbered ladder above) to classify each entry. Also recall:
 
-   **Inheritance lookup via `also_known_as`.** A property may be defined on a base class and inherited by many public-API subtypes (e.g. `maxHeapSize` is on `JavaForkOptions` and inherited by `Test`, `JavaExec`, and others). If a direct class + property lookup returns no entry, search `migration-data.json` for the property name alone and check each match's `also_known_as` field. Example: `Test.setMaxHeapSize("2g")` resolves via `JavaForkOptions.maxHeapSize` (with `Test` under `also_known_as`).
+   **Inheritance lookup via `inheriting_subtypes`.** A property may be defined on a base class and inherited by many public-API subtypes (e.g. `maxHeapSize` is on `JavaForkOptions` and inherited by `Test`, `JavaExec`, and others). If a direct class + property lookup returns no entry, search `migration-data.json` for the property name alone and check each match's `inheriting_subtypes` field. Example: `Test.setMaxHeapSize("2g")` resolves via `JavaForkOptions.maxHeapSize` (with `Test` under `inheriting_subtypes`).
 
    **Per-category rewrite rules for the hand-applied subset:**
 
@@ -162,7 +162,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    **(b.1) Canonical-boilerplate check.** Catches any canonical `apply_migrations.py` reason string left intact:
 
    ```bash
-   grep -cE "category [ABC] is out of scope for this tool|unconfirmed receiver — no matching import|kind '[a-z_]+' has no mechanical rewrite|boolean read: context-dependent rewrite|possible circular ref|ambiguous receiver \(matched|setter call not found or spans multiple lines|read_only property has no setter|confirmed class has no matching data entry|rewrite produced no change" MIGRATION_NOTES.md || true
+   grep -cE "category [ABC] is out of scope for this tool|unconfirmed receiver — no matching import|kind '[a-z_]+' has no mechanical rewrite|boolean read: context-dependent rewrite|possible circular ref|ambiguous receiver \(matched|setter call not found or spans multiple lines|Provider<X> property has no setter|confirmed class has no matching data entry|rewrite produced no change" MIGRATION_NOTES.md || true
    ```
 
    The count must be **zero**. Non-zero = raw tool output committed; return to step 4.
