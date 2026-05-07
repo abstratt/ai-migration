@@ -111,12 +111,57 @@ def parse_simple_javap(filepath):
     return classes
 
 
+_PRIM_DESC_MAP = {
+    'Z': 'boolean', 'I': 'int', 'J': 'long', 'D': 'double',
+    'F': 'float', 'C': 'char', 'S': 'short', 'B': 'byte',
+}
+
+
+def _decode_original_type(text):
+    """Decode an originalType=... clause; returns None if not present."""
+    m = re.search(r'originalType\s*=\s*class\s+L([\w/$]+);?', text)
+    if m:
+        return m.group(1).replace('/', '.')
+    m = re.search(r'originalType\s*=\s*([A-Z])\b', text)
+    if m and m.group(1) in _PRIM_DESC_MAP:
+        return _PRIM_DESC_MAP[m.group(1)]
+    return None
+
+
+def _parse_replaced_accessors(block):
+    """Extract explicit @ReplacedAccessor entries from a javap -v annotation block.
+
+    Returns a list of (kind, name, original_type) tuples where:
+      - kind is 'SETTER' or 'GETTER' (matches AccessorType enum constants)
+      - name is the original Gradle 9 accessor name (e.g. 'isDetail', 'setShowDetail')
+      - original_type is the per-accessor originalType (FQN string), or None if absent
+    """
+    results = []
+    for m in re.finditer(
+        r'@(?:[\w.]+\.)?ReplacedAccessor\s*\(([^)]*)\)',
+        block,
+        re.DOTALL,
+    ):
+        body = m.group(1)
+        kind_m = re.search(r'value\s*=\s*[\w./;$]*AccessorType[;]?\.(\w+)', body)
+        name_m = re.search(r'name\s*=\s*"([^"]+)"', body)
+        if not kind_m or not name_m:
+            continue
+        results.append((kind_m.group(1), name_m.group(1), _decode_original_type(body)))
+    return results
+
+
 def find_annotated_methods(filepath):
-    """Find method names annotated with @ReplacesEagerProperty from javap -v."""
+    """Find method names annotated with @ReplacesEagerProperty from javap -v.
+
+    Returns: {class -> set of (method_name, original_type, replaced_accessors_tuple)}
+      where replaced_accessors_tuple is a sorted tuple of (kind, name, original_type)
+      so the set can dedupe.
+    """
     with open(filepath) as f:
         content = f.read()
 
-    results = {}  # class -> set of method names
+    results = {}
     sections = content.split("##########")
     i = 1
     while i < len(sections):
@@ -126,13 +171,10 @@ def find_annotated_methods(filepath):
         if not class_name or ".internal." in class_name:
             continue
 
-        # Find methods section
         brace = body.find("\n{")
         if brace == -1:
             continue
         methods_section = body[brace:]
-
-        # Split into method blocks
         method_blocks = re.split(r'\n  (?=public |protected |private )', methods_section)
 
         annotated = set()
@@ -146,21 +188,13 @@ def find_annotated_methods(filepath):
                 r'([\w]+)\((.*?)\);',
                 block.strip()
             )
-            if sig_match:
-                method_name = sig_match.group(3).strip()
-                # Extract originalType from annotation
-                original_type = None
-                ot_match = re.search(r'originalType\s*=\s*class\s+L([\w/$]+);', block)
-                if ot_match:
-                    original_type = ot_match.group(1).replace('/', '.')
-                else:
-                    ot_match = re.search(r'originalType\s*=\s*(\w)\b', block)
-                    if ot_match:
-                        prim_map = {'Z': 'boolean', 'I': 'int', 'J': 'long', 'D': 'double', 'F': 'float'}
-                        val = ot_match.group(1)
-                        if val in prim_map:
-                            original_type = prim_map[val]
-                annotated.add((method_name, original_type))
+            if not sig_match:
+                continue
+
+            method_name = sig_match.group(3).strip()
+            original_type = _decode_original_type(block)
+            replaced_accessors = tuple(sorted(_parse_replaced_accessors(block)))
+            annotated.add((method_name, original_type, replaced_accessors))
 
         if annotated:
             results[class_name] = annotated
@@ -203,40 +237,43 @@ def simplify(t):
     return result
 
 
-def infer_eager_type(g10_type, original_type_override):
-    """Infer what the eager type was from the G10 lazy type."""
+def infer_eager_type_raw(g10_type, original_type_override):
+    """Infer the FQN form of the eager (Gradle 9) type from the G10 lazy type."""
     if original_type_override:
-        return simplify(original_type_override)
+        return original_type_override
 
-    t = simplify(g10_type)
+    if g10_type == 'org.gradle.api.file.DirectoryProperty':
+        return 'java.io.File'
+    if g10_type == 'org.gradle.api.file.RegularFileProperty':
+        return 'java.io.File'
+    if g10_type == 'org.gradle.api.file.ConfigurableFileCollection':
+        return 'org.gradle.api.file.FileCollection'
 
-    if t == 'DirectoryProperty':
-        return 'File'
-    if t == 'RegularFileProperty':
-        return 'File'
-    if t == 'ConfigurableFileCollection':
-        return 'FileCollection'
-
-    m = re.search(r'MapProperty<(.+)>', t)
+    m = re.match(r'org\.gradle\.api\.provider\.MapProperty<(.+)>$', g10_type)
     if m:
-        return f'Map<{m.group(1)}>'
+        return f'java.util.Map<{m.group(1)}>'
 
-    m = re.search(r'ListProperty<(.+?)>', t)
+    m = re.match(r'org\.gradle\.api\.provider\.ListProperty<(.+)>$', g10_type)
     if m:
-        return f'List<{m.group(1)}>'
+        return f'java.util.List<{m.group(1)}>'
 
-    m = re.search(r'SetProperty<(.+?)>', t)
+    m = re.match(r'org\.gradle\.api\.provider\.SetProperty<(.+)>$', g10_type)
     if m:
-        return f'Set<{m.group(1)}>'
+        return f'java.util.Set<{m.group(1)}>'
 
-    m = re.search(r'Property<(.+?)>', t)
+    m = re.match(r'org\.gradle\.api\.provider\.Property<(.+)>$', g10_type)
     if m:
         inner = m.group(1)
-        if inner == 'Boolean':
+        if inner == 'java.lang.Boolean':
             return 'boolean'
         return inner
 
-    return t
+    return g10_type
+
+
+def infer_eager_type(g10_type, original_type_override):
+    """Backwards-compatible wrapper returning the simplified eager type for display."""
+    return simplify(infer_eager_type_raw(g10_type, original_type_override))
 
 
 
@@ -254,41 +291,46 @@ def main():
     comparison = parse_simple_javap(os.path.join(ref_dir, 'comparison-v2.txt'))
     annotated = find_annotated_methods(os.path.join(ref_dir, 'g10-javap-v2.txt'))
 
-    # Load class hierarchy for also_known_as computation
+    # Load class hierarchy for inheriting_subtypes computation
     hierarchy_path = os.path.join(ref_dir, 'hierarchy-v2.txt')
     if os.path.exists(hierarchy_path):
         _parents, children_map = build_hierarchy(hierarchy_path)
     else:
         _parents, children_map = {}, {}
-        print("WARNING: hierarchy-v2.txt not found, also_known_as will be empty. Run extract_data.sh first.", file=sys.stderr)
+        print("WARNING: hierarchy-v2.txt not found, inheriting_subtypes will be empty. Run extract_data.sh first.", file=sys.stderr)
 
     sorted_classes = sorted(annotated.keys())
+
+    # Precompute subtypes for each annotated class (public API only, exclude internal)
+    subtypes_cache = {}
+    for cls in sorted_classes:
+        all_subs = find_all_subtypes(cls, children_map)
+        subtypes_cache[cls] = sorted(s for s in all_subs if '.internal.' not in s)
+
+    def lookup_by_name(class_fqn, version):
+        """Return {method_name: [method_dict, ...]} for the given class+version."""
+        result = {}
+        for m in comparison.get((class_fqn, version), []):
+            result.setdefault(m['name'], []).append(m)
+        return result
 
     # Collect all entries for the report
     all_entries = []
 
     for cls in sorted_classes:
         ann_methods = annotated[cls]
-        base_meths = comparison.get((cls, "BASE"), [])
-        g10_meths = comparison.get((cls, "G10"), [])
+        base_by_name = lookup_by_name(cls, "BASE")
+        g10_by_name = lookup_by_name(cls, "G10")
 
-        # Build lookup by name for both versions
-        base_by_name = {}
-        for m in base_meths:
-            key = m['name']
-            if key not in base_by_name:
-                base_by_name[key] = []
-            base_by_name[key].append(m)
-
-        g10_by_name = {}
-        for m in g10_meths:
-            key = m['name']
-            if key not in g10_by_name:
-                g10_by_name[key] = []
-            g10_by_name[key].append(m)
+        # Lookups for inheriting subtypes (used to union removed accessors that
+        # only exist on the implementation class, not the annotated interface).
+        subtype_lookups = [
+            (lookup_by_name(s, "BASE"), lookup_by_name(s, "G10"))
+            for s in subtypes_cache.get(cls, [])
+        ]
 
         entries = []
-        for method_name, original_type in sorted(ann_methods):
+        for method_name, original_type, replaced_accessors in sorted(ann_methods):
             # G10 type from simple javap (no-arg getter)
             g10_type = None
             for m in g10_by_name.get(method_name, []):
@@ -301,47 +343,102 @@ def main():
 
             g10_simple = simplify(g10_type)
 
-            # baseline type
-            base_type = None
+            # Same-name no-arg accessor in baseline (used for changed_return tracking)
+            same_name_base_type = None
             for m in base_by_name.get(method_name, []):
                 if not m['params']:
-                    base_type = m['return_type']
+                    same_name_base_type = m['return_type']
                     break
 
-            # Check is* variant for booleans
-            if base_type is None and method_name.startswith("get"):
-                prop = method_name[3:]
-                is_name = f"is{prop}"
-                for m in base_by_name.get(is_name, []):
+            # Boolean is-variant: only consulted as a fallback for the eager-type display
+            is_name_base_type = None
+            if method_name.startswith("get"):
+                prop_pascal = method_name[3:]
+                is_name_pascal = f"is{prop_pascal}"
+                for m in base_by_name.get(is_name_pascal, []):
                     if not m['params']:
-                        base_type = m['return_type']
+                        is_name_base_type = m['return_type']
                         break
 
-            eager_type = infer_eager_type(g10_type, original_type)
-            base_simple = simplify(base_type) if base_type else eager_type
+            base_type_raw = same_name_base_type or is_name_base_type
+            eager_type_raw = infer_eager_type_raw(g10_type, original_type)
+            base_raw = base_type_raw if base_type_raw else eager_type_raw
+            base_simple = simplify(base_raw)
 
-            # Find removed accessors
-            removed = []
+            # Collect removed_accessors and changed_return_accessors across the
+            # annotated class AND its inheriting subtypes (an accessor may be
+            # declared only on the implementation class, e.g. Delete.isFollowSymlinks
+            # for the DeleteSpec.followSymlinks property).
+            removed_raw = []
+            removed_seen = set()
+            changed_return_raw = []
+            changed_return_seen = set()
+
+            def emit_removed(sig):
+                if sig not in removed_seen:
+                    removed_seen.add(sig)
+                    removed_raw.append(sig)
+
+            def emit_changed(sig):
+                if sig not in changed_return_seen:
+                    changed_return_seen.add(sig)
+                    changed_return_raw.append(sig)
+
+            # Names of accessors to look up: from the @ReplacedAccessor annotations
+            # (authoritative when present), unioned with the conventional `getX`-derived
+            # names (handles cases where the annotation only declares the SETTER and
+            # leaves the eager getter implicit).
+            setter_names = {n for kind, n, _ in replaced_accessors if kind == 'SETTER'}
+            getter_names = {n for kind, n, _ in replaced_accessors if kind == 'GETTER'}
             if method_name.startswith("get"):
-                prop = method_name[3:]
-                # Check setters
-                setter_name = f"set{prop}"
-                if setter_name in base_by_name and setter_name not in g10_by_name:
-                    for m in base_by_name[setter_name]:
-                        removed.append(f"`{setter_name}({simplify(m['params'])})`")
-                # Check is* getter
-                is_name = f"is{prop}"
-                if is_name in base_by_name and is_name not in g10_by_name:
-                    removed.append(f"`{is_name}()`")
+                prop_pascal = method_name[3:]
+                setter_names.add(f"set{prop_pascal}")
+                getter_names.add(f"is{prop_pascal}")
 
-            removed_str = ", ".join(removed) if removed else ""
+            for base_lookup, g10_lookup in [(base_by_name, g10_by_name)] + subtype_lookups:
+                # Setter overloads: in BASE, gone in G10 (by exact param signature)
+                for sname in setter_names:
+                    g10_setter_params = {m['params'] for m in g10_lookup.get(sname, [])}
+                    for m in base_lookup.get(sname, []):
+                        if m['params'] not in g10_setter_params:
+                            emit_removed(f"{sname}({m['params']})")
+
+                # Eager getters (typically isX or a manually-named getter from the
+                # annotation): present in BASE no-arg, absent in G10 no-arg.
+                for gname in getter_names:
+                    if gname == method_name:
+                        # Same-name getter handled by the changed-return branch below.
+                        continue
+                    base_no_arg = any(not m['params'] for m in base_lookup.get(gname, []))
+                    g10_no_arg = any(not m['params'] for m in g10_lookup.get(gname, []))
+                    if base_no_arg and not g10_no_arg:
+                        emit_removed(f"{gname}()")
+
+                # Changed-return getter: same name no-arg present in both, return types differ
+                base_same_name = next(
+                    (m['return_type'] for m in base_lookup.get(method_name, []) if not m['params']),
+                    None,
+                )
+                g10_same_name = next(
+                    (m['return_type'] for m in g10_lookup.get(method_name, []) if not m['params']),
+                    None,
+                )
+                if (
+                    base_same_name is not None
+                    and g10_same_name is not None
+                    and base_same_name != g10_same_name
+                ):
+                    emit_changed(f"{method_name}()")
 
             entries.append({
                 'method': method_name,
                 'prop': property_name_from_getter(method_name),
                 'base': base_simple,
                 'g10': g10_simple,
-                'removed': removed_str,
+                'base_raw': base_raw,
+                'g10_raw': g10_type,
+                'removed_raw': removed_raw,
+                'changed_return_raw': changed_return_raw,
             })
 
         if entries:
@@ -373,28 +470,31 @@ def main():
             return 'scalar'
         return 'other'
 
-    def clean_removed(removed_str):
-        """Strip markdown backticks from removed accessor strings."""
-        return [s.strip().strip('`') for s in removed_str.split(',') if s.strip()] if removed_str else []
-
-    # Precompute subtypes for each annotated class (public API only, exclude internal)
-    subtypes_cache = {}
-    for cls in sorted_classes:
-        all_subs = find_all_subtypes(cls, children_map)
-        subtypes_cache[cls] = sorted(s for s in all_subs if '.internal.' not in s)
+    def compute_write_accessor(method_name, kind, new_is_provider):
+        """Replacement expression for the removed setters; None if no .set() exists."""
+        if new_is_provider:
+            return None
+        if kind == 'file_collection':
+            return f"{method_name}().setFrom(VALUE)"
+        return f"{method_name}().set(VALUE)"
 
     json_entries = []
     for cls, entries in all_entries:
         for e in entries:
+            kind = classify_kind(e)
+            new_is_provider = e['g10_raw'].startswith('org.gradle.api.provider.Provider<')
             json_entries.append({
                 'class': cls,
                 'property': e['prop'],
-                'old_type': e["base"],
-                'new_type': e['g10'],
-                'kind': classify_kind(e),
-                'read_only': e['g10'].startswith('Provider<'),
-                'removed_accessors': clean_removed(e['removed']),
-                'also_known_as': subtypes_cache.get(cls, []),
+                'old_type': e['base_raw'],
+                'new_type': e['g10_raw'],
+                'kind': kind,
+                'new_is_provider': new_is_provider,
+                'new_read_accessor': f"{e['method']}().get()",
+                'new_write_accessor': compute_write_accessor(e['method'], kind, new_is_provider),
+                'removed_accessors': e['removed_raw'],
+                'changed_return_accessors': e['changed_return_raw'],
+                'inheriting_subtypes': subtypes_cache.get(cls, []),
             })
 
     json_path = os.path.join(ref_dir, 'migration-data.json')
@@ -482,14 +582,18 @@ def main():
     print("## Detailed Migration Guide")
     print()
 
+    def render_removed_for_md(e):
+        parts = [f"`{simplify(s)}`" for s in e['removed_raw']]
+        parts.extend(f"`{simplify(s)}` (return type changed)" for s in e['changed_return_raw'])
+        return ", ".join(parts) if parts else "—"
+
     for cls, entries in all_entries:
         print(f"### `{cls}`")
         print()
         print("| Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |")
         print("|----------|----------------|----------------|-------------------|")
         for e in entries:
-            removed = e['removed'] if e['removed'] else "—"
-            print(f"| `{e['prop']}` | `{e["base"]}` | `{e['g10']}` | {removed} |")
+            print(f"| `{e['prop']}` | `{e["base"]}` | `{e['g10']}` | {render_removed_for_md(e)} |")
         print()
 
         # Generate migration examples: one per property-type category, concise

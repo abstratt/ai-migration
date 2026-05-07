@@ -76,7 +76,13 @@ The `.txt` files are cached intermediate data. Re-running `extract_data.sh` over
 ## For AI migration sessions
 
 Load these two files into context from the `migration-reference/` sibling directory:
-1. `migration-reference/migration-data.json` — look up class + property to get `kind`, `old_type`, `new_type`, `removed_accessors`, `also_known_as`
+1. `migration-reference/migration-data.json` — look up class + property to get `kind`, `old_type`, `new_type`, `removed_accessors`, `changed_return_accessors`, `new_read_accessor`, `new_write_accessor`, `new_is_provider`, `inheriting_subtypes`
 2. `migration-reference/MIGRATION_RULES.md` — apply the rule matching the `kind` field
 
-The `also_known_as` field lists public API subtypes that inherit the property (e.g. `JavaForkOptions.maxHeapSize` lists `Test`, `JavaExec`, etc.). When scanning user code, search for imports of both `class` and all `also_known_as` entries.
+Schema notes (self-explanatory from the field names; consumers only ever see this JSON):
+- `old_type` / `new_type` and accessor parameter types are emitted in **fully-qualified** form (`org.gradle.api.provider.Property<java.net.URI>`, not `Property<URI>`) so OpenRewrite `MethodMatcher` patterns and similar tools resolve unambiguously.
+- `removed_accessors` lists Gradle 9 accessors that are gone in Gradle 10 (typically setters and `isX()` boolean readers).
+- `changed_return_accessors` lists getters whose name survived but whose return type changed to a lazy form (e.g. `boolean getShowCauses()` → `Property<Boolean> getShowCauses()`); call sites must add `.get()` to reach a primitive value.
+- `new_read_accessor` and `new_write_accessor` give the replacement expressions (e.g. `getX().get()`, `getX().set(VALUE)`); `new_write_accessor` is `null` when the new type is `Provider<X>` (no `.set(...)` available — setters in `removed_accessors` need a non-property migration like a varargs builder method).
+- `new_is_provider` is `true` iff the new type is `Provider<X>` (not `Property<X>`); orthogonal to whether removed setters had a lazy replacement.
+- `inheriting_subtypes` lists public API subtypes that inherit the property (e.g. `JavaForkOptions.maxHeapSize` lists `Test`, `JavaExec`, etc.). When scanning user code, search for imports of both `class` and all `inheriting_subtypes` entries. Accessors removed only on a subtype (e.g. `Delete.isFollowSymlinks()` for `DeleteSpec.followSymlinks`) are unioned into the parent entry's `removed_accessors`.
