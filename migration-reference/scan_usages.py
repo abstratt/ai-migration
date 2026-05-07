@@ -218,7 +218,7 @@ def confirmed_classes(entries: list[dict], gradle_imports: set[str]) -> list[str
     confirmed = []
     for e in entries:
         cls = e["class"]
-        candidates = [cls] + e.get("also_known_as", [])
+        candidates = [cls] + e.get("inheriting_subtypes", [])
         for c in candidates:
             if c in gradle_imports:
                 simple = cls.rsplit(".", 1)[-1]

@@ -132,8 +132,8 @@ def classify_hit(hit: dict) -> tuple[str, dict | None, str]:
     if method.startswith("is"):
         return ("defer", entry, f"{method}() boolean read: context-dependent rewrite")
 
-    if entry.get("read_only"):
-        return ("defer", entry, "read_only property has no setter to rewrite")
+    if entry.get("new_is_provider"):
+        return ("defer", entry, "Provider<X> property has no setter to rewrite")
 
     kind = entry["kind"]
     if kind == FILE_COLLECTION_KIND:
