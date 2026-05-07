@@ -18,9 +18,11 @@ Run all tasks in order, end-to-end, as a **single autonomous workflow**. Each ta
 8. @tasks/08-verify-assemble.md
 9. @tasks/09-report.md
 
+**Progress reporting: At a minimum, show information on what task is being executed, including the time it started.**
+
 **Do not pause between tasks — but commits are part of each task, not a pause.** After finishing a task's commit (or confirming the task legitimately made no changes and left a clean tree), immediately start the next one without asking the user whether to continue, without waiting for confirmation, and without summarizing progress mid-workflow. Skipping a task's commit is not "proceeding faster" — it breaks resume detection on the next run and compounds across the rest of the workflow. Every task from 02 onwards begins with a **Pre-start check** that aborts the entire workflow if the migrated clone has uncommitted changes. The workflow is complete only after task 09 finishes (or a task hits an explicit abort condition — e.g. SDKMAN unavailable in task 02, or a Pre-start check failing). "Task already complete — skipping" is not a stopping point; it means move on to the next task.
 
-Each task can also be run individually by referencing its file directly — but when invoked from this workflow, run all nine without stopping.
+Each task can also be run individually by referencing its file directly — but when invoked from this workflow, run all nine without stopping (but report progress).
 
 ## Shared Context
 
