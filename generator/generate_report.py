@@ -284,10 +284,29 @@ def property_name_from_getter(getter_name):
     return getter_name
 
 
+def resolve_pair(script_dir, want=None):
+    """Resolve a distro pair from ../distro-pairs.json. Returns the pair dict.
+
+    `want` is a pair id; when falsy the manifest's "default" pair is used.
+    """
+    import json, os
+    manifest = os.path.join(script_dir, '..', 'distro-pairs.json')
+    with open(manifest) as f:
+        data = json.load(f)
+    pid = want or data["default"]
+    pair = next((p for p in data["pairs"] if p["id"] == pid), None)
+    if pair is None:
+        sys.exit(f"ERROR: distro pair '{pid}' not found in {manifest}")
+    return pair
+
+
 def main():
     import os
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    ref_dir = os.path.join(script_dir, '..', 'migration-reference')
+    # Optional first arg selects the distro pair; defaults to the manifest "default".
+    want_pair = sys.argv[1] if len(sys.argv) > 1 else None
+    pair = resolve_pair(script_dir, want_pair)
+    ref_dir = os.path.join(script_dir, '..', 'migration-reference', 'distro-pairs', pair['id'])
     comparison = parse_simple_javap(os.path.join(ref_dir, 'comparison-v2.txt'))
     annotated = find_annotated_methods(os.path.join(ref_dir, 'g10-javap-v2.txt'))
 
@@ -437,8 +456,12 @@ def main():
                 'g10': g10_simple,
                 'base_raw': base_raw,
                 'g10_raw': g10_type,
-                'removed_raw': removed_raw,
-                'changed_return_raw': changed_return_raw,
+                # Sort accessor lists so output is canonical: emission order depends
+                # on set iteration over accessor names and on the (baseline-dependent)
+                # subtype set, which would otherwise produce spurious diffs between
+                # pairs/regenerations. inheriting_subtypes is already sorted upstream.
+                'removed_raw': sorted(removed_raw),
+                'changed_return_raw': sorted(changed_return_raw),
             })
 
         if entries:
@@ -505,7 +528,7 @@ def main():
     # Now generate the full report
     print("# Gradle 10 Lazy Property Migration Report")
     print()
-    print("Properties annotated with `@ReplacesEagerProperty` in Gradle 10 preview (`gradle-provider-api-20260204140400`), compared against Gradle 9.4.0.")
+    print(f"Properties annotated with `@ReplacesEagerProperty` in the target distribution, compared against the baseline. Distro pair: **{pair['label']}** (`{pair['id']}`).")
     print()
     print("> **What does `@ReplacesEagerProperty` mean?**")
     print("> In Gradle 10, eager getters/setters (e.g. `String getFoo()` / `void setFoo(String)`) are replaced by lazy provider-based properties (e.g. `Property<String> getFoo()`). The annotation marks these new lazy accessors and instructs Gradle's bytecode instrumentation to intercept calls to the old eager API, bridging them to the new lazy one during the transition.")

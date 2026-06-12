@@ -4,7 +4,7 @@ Scan a Gradle project for all usages that need migration to the Gradle 10
 lazy Provider API, using migration-data.json as the source of truth.
 
 Usage:
-    python3 scan_usages.py <project-dir> [migration-data.json]
+    python3 scan_usages.py <project-dir> [--distro-pair ID] [--migration-data PATH]
 
 Outputs a grouped list of every hit across three categories:
   A. Removed accessors (set*, is* found in removed_accessors)
@@ -14,12 +14,30 @@ Outputs a grouped list of every hit across three categories:
 Exit code: 0 if no hits, 1 if hits found.
 """
 
+import argparse
 import json
 import os
 import re
 import sys
 from collections import defaultdict
 from pathlib import Path
+
+
+def resolve_pair(want: str | None = None) -> dict:
+    """Resolve a distro pair from ../distro-pairs.json. Returns the pair dict.
+
+    `want` is a pair id; when falsy the manifest's "default" pair is used. The
+    manifest lives at the repo root (one level above migration-reference/).
+    Shared by apply_migrations.py, which imports this function.
+    """
+    manifest = Path(__file__).resolve().parent.parent / "distro-pairs.json"
+    with open(manifest) as f:
+        data = json.load(f)
+    pid = want or data["default"]
+    pair = next((p for p in data["pairs"] if p["id"] == pid), None)
+    if pair is None:
+        sys.exit(f"ERROR: distro pair '{pid}' not found in {manifest}")
+    return pair
 
 
 # ------------------------------------------------------------------
@@ -346,14 +364,26 @@ def print_hits(hits: list[dict], project_root: Path):
 
 
 def main():
-    if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <project-dir> [migration-data.json]", file=sys.stderr)
-        sys.exit(2)
+    ap = argparse.ArgumentParser(description=(
+        "Scan a Gradle project for usages that need migration to the lazy Provider API, "
+        "driven by a distro pair's migration-data.json."
+    ))
+    ap.add_argument("project_dir", type=Path, help="Path to the Gradle project to scan")
+    ap.add_argument("--distro-pair", default=None,
+                    help="Distro pair id from distro-pairs.json (default: the manifest's \"default\" pair)")
+    ap.add_argument("--migration-data", type=Path, default=None,
+                    help="Override the migration-data.json path (default: derived from the distro pair)")
+    args = ap.parse_args()
 
-    project_root = Path(sys.argv[1]).resolve()
-    data_file = Path(sys.argv[2]) if len(sys.argv) > 2 else (
-        Path(__file__).parent / "migration-data.json"
-    )
+    # The migration data is selected per distro pair and lives under
+    # migration-reference/distro-pairs/<pair-id>/. --migration-data overrides this.
+    if args.migration_data is not None:
+        data_file = args.migration_data
+    else:
+        pair = resolve_pair(args.distro_pair)
+        data_file = Path(__file__).resolve().parent / "distro-pairs" / pair["id"] / "migration-data.json"
+
+    project_root = args.project_dir.resolve()
 
     if not project_root.is_dir():
         print(f"ERROR: {project_root} is not a directory", file=sys.stderr)

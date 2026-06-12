@@ -19,7 +19,20 @@ If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/ven
 
 ## Instructions
 
-1. **Determine required Java version** from the build configuration of the cloned repo (e.g. `toolchain { languageVersion }`, `sourceCompatibility`, `targetCompatibility`, `JAVA_HOME` hints in CI files). Default to 21 if unclear.
+1. **Determine the required Java version** — specifically the **build/launcher JDK** (the JDK that runs Gradle and compiles the build), which is what you install here.
+
+   > **Intent:** the JDK that *runs the build* is frequently newer than the bytecode level the project *targets*. `sourceCompatibility`/`targetCompatibility`/`toolchain { languageVersion }` describe the **output bytecode level** (e.g. 17) — they are a floor, **not** the build-JDK requirement. Many projects pin a higher build JDK and fail late (often only at `assemble`, not `help`) if you run an older one. Installing the bytecode-level JDK is the most common cause of a green task 02 that breaks in task 08.
+
+   Take the **maximum** of every version signal you find:
+
+   - **Explicit build-JDK pins (these win, and are often higher than the source level)** — search `buildSrc/` and `build-logic/`/convention plugins for:
+     - a constant such as `BUILD_JAVA_VERSION`, `MAIN_TOOLCHAIN`, or similar (e.g. Spring Boot's `JavaConventions.java`: `public static final int BUILD_JAVA_VERSION = 25;`);
+     - an assertion message like `"… should be built with Java <N> or above"` (grep `should be built with Java`) — the `<N>` it checks against is the hard requirement;
+     - a root-level Gradle property like `toolchainVersion` / `mainToolchainVersion` in `gradle.properties`.
+   - **CI build job** — the JDK the *build/verify* job runs on (`.github/workflows/*.yml` `java-version:` / `setup-java`), distinguishing it from matrix entries that are merely test targets (`toolchain: true` rows test against extra JDKs but don't set the build JDK).
+   - **Bytecode level** — `sourceCompatibility`, `targetCompatibility`, `toolchain { languageVersion }`. Treat as a floor only.
+
+   Use the highest version any of these requires. Default to 21 only if none are found.
 
 2. **Install and activate the JDK via SDKMAN — this is the only supported path.**
 

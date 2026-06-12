@@ -15,9 +15,10 @@ Example:
   - Otherwise, the base branch is whatever the remote reports as its default — run `git remote show origin` or check `HEAD` after cloning. This is typically `main` or `master`.
   - **Do not choose a branch yourself.** Never pick a maintenance branch (e.g. `6.1.x`, `6.8`), a release branch, or any other non-default branch unless it was explicitly specified in `REPO_URL`.
   - The migration branch is always created off this base branch — never off another `gradle-10-migration/*` branch or any other feature branch.
+- **DISTRO_PAIR** (optional): The distro pair id to migrate to. When unset, the workflow uses the `default` pair in `distro-pairs.json` at the workflow root. See **Distro pair selection** below. A pair fixes the baseline Gradle version (task 03), the target preview distribution (task 04), and the migration data (task 06), so the whole workflow stays internally consistent.
 - **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see task 02, Install JDK).
 - **Clone directory**: `migrated/<repo-name>` (e.g. `migrated/my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
-- **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>` (e.g. `gradle-10-migration/20260331-1400`). The timestamp is set at the start of the workflow and reused throughout.
+- **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>-<pair-id>` (e.g. `gradle-10-migration/20260331-1400-g951-to-PAPI-20260609`), where `<pair-id>` is the active distro pair's id (see **Distro pair selection**). The timestamp is set at the start of the workflow and reused throughout; the pair id makes runs of the same repo against different pairs distinguishable and collision-free. Branches from older runs may lack the `-<pair-id>` suffix; they still match `gradle-10-migration/*`.
 - **SDKMAN**: Pre-installed in the Docker image at `$HOME/.sdkman`
 - **Host OS**: Before running shell commands, probe the host with `uname -s` (expect `Linux` or `Darwin`) and remember the result for the rest of the workflow. This determines which shell-command dialect is safe — see **Shell Portability** below.
 
@@ -102,12 +103,39 @@ In every case the commit subject must be the task's title verbatim (see Commit M
 - Do not change observable functionality — this is basically a refactor
 - Do not make cosmetic changes — no rewording comments, no reformatting code, no renaming variables. Only change what is necessary to complete the migration
 
+## Distro pair selection
+
+A migration is defined by a **distro pair** — a baseline Gradle release plus a target Gradle 10 preview distribution — declared in `distro-pairs.json` at the workflow root. The selected pair drives four things coherently: the baseline version task 03 upgrades to, the target distribution task 04 swaps into the wrapper, the `migration-data.json` (from the pair's distro mapping bundle) that task 06 reads, and the **pair id** that disambiguates the migration branch name (task 01) and is recorded in the report (task 09). Using one pair end-to-end is what keeps them consistent; mixing (e.g. one pair's data against another's distribution) produces a broken migration.
+
+**Resolve the active pair once, near the start of any task that needs it** (01, 03, 04, 06, 09), running this from the workflow root:
+
+```bash
+python3 - <<'PY'
+import json, os, re
+d = json.load(open("distro-pairs.json"))
+pid = os.environ.get("DISTRO_PAIR") or d["default"]
+p = next((x for x in d["pairs"] if x["id"] == pid), None)
+if p is None:
+    raise SystemExit(f"ERROR: distro pair '{pid}' not found in distro-pairs.json")
+m = re.search(r"gradle-([0-9]+(?:\.[0-9]+)*)", p["baseline_url"])
+print("PAIR_ID=" + p["id"])
+print("BASELINE_VERSION=" + (m.group(1) if m else "?"))
+print("TARGET_URL=" + p["target_url"])
+PY
+```
+
+- **PAIR_ID** — the resolved id; the single canonical identifier for the pair. Pass it to the scanner/rewriter in task 06 via `--distro-pair`, and use it verbatim as the suffix of the migration branch name (task 01). Pair ids are already constrained to be filesystem-safe (`[A-Za-z0-9._-]`), which also makes them valid as a git ref component.
+- **BASELINE_VERSION** — the Gradle version embedded in `baseline_url` (e.g. `9.5.1`); task 03 upgrades the wrapper to this.
+- **TARGET_URL** — the preview distribution URL; task 04 writes it into `gradle-wrapper.properties`.
+
+If `distro-pairs.json` defines only one pair (or `DISTRO_PAIR` is unset), this resolves to the `default` with no further choices to make.
+
 ## Migration Reference
 
-The complete set of API changes and transformation rules lives in `migration-reference/`:
+The complete set of API changes and transformation rules lives in `migration-reference/`. The structured data is selected per **distro pair** (baseline + target distributions, declared in `distro-pairs.json` at the repo root); each pair's generated data lives in its own **distro mapping bundle** at `migration-reference/distro-pairs/<pair-id>/`:
 
-- **`migration-reference/migration-data.json`** — structured lookup table with every changed property: class, property name, old type, new type, `kind` (boolean, scalar, dir, file, file_collection, list, set, map, other, read_only), and removed accessors.
-- **`migration-reference/MIGRATION_RULES.md`** — one transformation rule per `kind`, covering `.set()`, `.get()`, `.setFrom()`, `.add()`, lazy wiring, conventions, and read-only providers.
+- **`migration-reference/distro-pairs/<pair-id>/migration-data.json`** — structured lookup table with every changed property: class, property name, old type, new type, `kind` (boolean, scalar, dir, file, file_collection, list, set, map, other, read_only), and removed accessors. `<pair-id>` is the `default` entry in `distro-pairs.json` unless a run targets a specific pair.
+- **`migration-reference/MIGRATION_RULES.md`** — one transformation rule per `kind`, covering `.set()`, `.get()`, `.setFrom()`, `.add()`, lazy wiring, conventions, and read-only providers. Shared across all pairs.
 
 **How to use**: look up the class + property in the JSON to get its `kind`, then apply the matching rule.
 
@@ -140,7 +168,7 @@ The following operations are pre-authorized and should be performed without aski
 - Run `gh` CLI commands for forking
 - Run `git` commands (clone, checkout, branch, add, commit, diff, status, log — but **not push**)
 - Run shell commands for inspecting build output, searching for patterns, and reading files
-- Download Gradle distributions when a task authorizes Gradle execution, including the custom Provider API build from `https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip`
+- Download Gradle distributions when a task authorizes Gradle execution, including the custom Provider API preview build given by the active distro pair's `target_url` in `distro-pairs.json` (see **Distro pair selection**)
 - Install JDK versions via SDKMAN (`sdk install java`, `sdk use java`)
 
 ## No ad-hoc scripts

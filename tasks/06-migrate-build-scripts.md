@@ -25,9 +25,9 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
 ## Instructions
 
-1. **Load the migration reference files** from `migration-reference/`:
-   - `migration-reference/migration-data.json` — lookup table of every changed property (class, old type, new type, kind, removed accessors)
-   - `migration-reference/MIGRATION_RULES.md` — transformation rules for each property kind
+1. **Load the migration reference files** from `migration-reference/`. First resolve the active distro pair to get **PAIR_ID** (see **Distro pair selection** in CONTEXT.md) — it must be the same pair tasks 03/04 used, so the data matches the installed distribution.
+   - `migration-reference/distro-pairs/<PAIR_ID>/migration-data.json` — lookup table of every changed property (class, old type, new type, kind, removed accessors). The `scan_usages.py` and `apply_migrations.py` invocations below take `--distro-pair <PAIR_ID>` so they read this same distro mapping bundle.
+   - `migration-reference/MIGRATION_RULES.md` — transformation rules for each property kind (shared across all pairs)
 
    **Leave-alone list.** The following constructs are outside the scope of this migration and must be kept as-is even if they superficially resemble a scan hit:
 
@@ -44,7 +44,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 2. **Run the automated usage scanner** to get a comprehensive, pre-filtered list of every candidate change site:
 
    ```bash
-   python3 ../migration-reference/scan_usages.py . 2>&1 | tee /tmp/scan-results.txt
+   python3 ../migration-reference/scan_usages.py . --distro-pair <PAIR_ID> 2>&1 | tee /tmp/scan-results.txt
    ```
 
    The scanner produces three sections:
@@ -80,7 +80,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 3. **Apply mechanical rewrites first with `apply_migrations.py`**:
 
    ```bash
-   python3 ../migration-reference/apply_migrations.py . 2>&1 | tee /tmp/apply-results.txt
+   python3 ../migration-reference/apply_migrations.py . --distro-pair <PAIR_ID> 2>&1 | tee /tmp/apply-results.txt
    ```
 
    The tool is data-driven from `migration-data.json` and only rewrites the safe, unambiguous cases:
@@ -144,7 +144,7 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
    **(a) Scanner audit.** Re-run the scanner on the transformed tree:
 
    ```bash
-   python3 ../migration-reference/scan_usages.py . 2>&1 | tee /tmp/scan-results-after.txt
+   python3 ../migration-reference/scan_usages.py . --distro-pair <PAIR_ID> 2>&1 | tee /tmp/scan-results-after.txt
    ```
 
    > **Intent:** provide a deterministic pass/fail signal that the migration covered every site the scanner can detect, without relying on Gradle execution (which is forbidden in this task).

@@ -1,4 +1,4 @@
-# Task: Upgrade to Gradle 9.4
+# Task: Upgrade Baseline Gradle
 
 @tasks/CONTEXT.md
 
@@ -17,17 +17,21 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 ## Resume check
 
-1. Check the current Gradle version by reading `gradle/wrapper/gradle-wrapper.properties` for the distribution URL
-2. If the version is already 9.x or higher (but not the custom Provider API distribution), this task is already complete
-3. Also check `git log` for a commit message matching "Upgrade to Gradle 9.4" (the task title)
+First resolve the active distro pair to get **BASELINE_VERSION** (see **Distro pair selection** in CONTEXT.md).
 
-If the Gradle version is already 9.x+, skip this task entirely.
+1. Check the current Gradle version by reading `gradle/wrapper/gradle-wrapper.properties` for the distribution URL
+2. If the version is already at **BASELINE_VERSION** or higher (but not the custom Provider API distribution), this task is already complete
+3. Also check `git log` for a commit message matching "Upgrade Baseline Gradle" (the task title)
+
+If the Gradle version is already at BASELINE_VERSION or higher, skip this task entirely.
 
 ## Instructions
 
-This task is **conditional** — only needed if the repository is not already on Gradle 9.x.
+This task is **conditional** — only needed if the repository is not already on the baseline Gradle version (or higher).
 
-1. Run `./gradlew wrapper --gradle-version 9.4` to update the wrapper and distribution
+First resolve the active distro pair to get **BASELINE_VERSION** (see **Distro pair selection** in CONTEXT.md). This is the baseline release the pair's migration data was computed against, so the project must be on it before later tasks apply that data.
+
+1. Run `./gradlew wrapper --gradle-version <BASELINE_VERSION>` to update the wrapper and distribution
 
 2. Run `./gradlew help` and fix any issues caused by the major version upgrade
 
@@ -37,7 +41,7 @@ Note: Always use the `wrapper` task for standard Gradle version upgrades. Only m
 
 Before starting task 04, commit the changes from this task:
 
-- Subject: `Upgrade to Gradle 9.4` (the task title)
+- Subject: `Upgrade Baseline Gradle` (the task title)
 - Include the `Assistant:` trailer (see CONTEXT.md)
 - After committing, run `git status` and confirm the working tree is clean
 
@@ -45,6 +49,6 @@ Do not combine these changes with a later task's commit. See the "Commit Discipl
 
 ## Done when
 
-- `gradle/wrapper/gradle-wrapper.properties` references Gradle 9.4.x (or was already 9.x+)
+- `gradle/wrapper/gradle-wrapper.properties` references the pair's baseline Gradle version (or was already at that version or higher)
 - `./gradlew help` succeeds
-- A commit with subject `Upgrade to Gradle 9.4` exists on the migration branch (or the repo was already on 9.x, no changes were made, and `git status` is clean)
+- A commit with subject `Upgrade Baseline Gradle` exists on the migration branch (or the repo was already at the baseline version or higher, no changes were made, and `git status` is clean)

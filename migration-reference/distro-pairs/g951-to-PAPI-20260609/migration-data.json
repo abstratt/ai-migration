@@ -1,0 +1,5646 @@
+[
+  {
+    "class": "org.gradle.api.artifacts.repositories.UrlArtifactRepository",
+    "property": "allowInsecureProtocol",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getAllowInsecureProtocol().get()",
+    "new_write_accessor": "getAllowInsecureProtocol().set(VALUE)",
+    "removed_accessors": [
+      "isAllowInsecureProtocol()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.repositories.IvyArtifactRepository",
+      "org.gradle.api.artifacts.repositories.MavenArtifactRepository"
+    ]
+  },
+  {
+    "class": "org.gradle.api.artifacts.repositories.UrlArtifactRepository",
+    "property": "url",
+    "old_type": "java.net.URI",
+    "new_type": "org.gradle.api.provider.Property<java.net.URI>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getUrl().get()",
+    "new_write_accessor": "getUrl().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getUrl()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.repositories.IvyArtifactRepository",
+      "org.gradle.api.artifacts.repositories.MavenArtifactRepository"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.JavaApplication",
+    "property": "applicationDefaultJvmArgs",
+    "old_type": "java.lang.Iterable<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getApplicationDefaultJvmArgs().get()",
+    "new_write_accessor": "getApplicationDefaultJvmArgs().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getApplicationDefaultJvmArgs()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.JavaApplication",
+    "property": "applicationName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getApplicationName().get()",
+    "new_write_accessor": "getApplicationName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getApplicationName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.JavaApplication",
+    "property": "executableDir",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getExecutableDir().get()",
+    "new_write_accessor": "getExecutableDir().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExecutableDir()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "antlrClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getAntlrClasspath().get()",
+    "new_write_accessor": "getAntlrClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAntlrClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "arguments",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getArguments().get()",
+    "new_write_accessor": "getArguments().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getArguments()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "maxHeapSize",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxHeapSize().get()",
+    "new_write_accessor": "getMaxHeapSize().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxHeapSize()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "outputDirectory",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.DirectoryProperty",
+    "kind": "dir",
+    "new_is_provider": false,
+    "new_read_accessor": "getOutputDirectory().get()",
+    "new_write_accessor": "getOutputDirectory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOutputDirectory()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "trace",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getTrace().get()",
+    "new_write_accessor": "getTrace().set(VALUE)",
+    "removed_accessors": [
+      "isTrace()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "traceLexer",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getTraceLexer().get()",
+    "new_write_accessor": "getTraceLexer().set(VALUE)",
+    "removed_accessors": [
+      "isTraceLexer()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "traceParser",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getTraceParser().get()",
+    "new_write_accessor": "getTraceParser().set(VALUE)",
+    "removed_accessors": [
+      "isTraceParser()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.antlr.AntlrTask",
+    "property": "traceTreeWalker",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getTraceTreeWalker().get()",
+    "new_write_accessor": "getTraceTreeWalker().set(VALUE)",
+    "removed_accessors": [
+      "isTraceTreeWalker()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "checkstyleClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getCheckstyleClasspath().get()",
+    "new_write_accessor": "getCheckstyleClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getCheckstyleClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "configProperties",
+    "old_type": "java.util.Map<java.lang.String, java.lang.Object>",
+    "new_type": "org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object>",
+    "kind": "map",
+    "new_is_provider": false,
+    "new_read_accessor": "getConfigProperties().get()",
+    "new_write_accessor": "getConfigProperties().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getConfigProperties()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "isIgnoreFailures",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getIsIgnoreFailures().get()",
+    "new_write_accessor": "getIsIgnoreFailures().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "maxErrors",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxErrors().get()",
+    "new_write_accessor": "getMaxErrors().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxErrors()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "maxWarnings",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxWarnings().get()",
+    "new_write_accessor": "getMaxWarnings().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxWarnings()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Checkstyle",
+    "property": "showViolations",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getShowViolations().get()",
+    "new_write_accessor": "getShowViolations().set(VALUE)",
+    "removed_accessors": [
+      "isShowViolations()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
+    "property": "configProperties",
+    "old_type": "java.util.Map<java.lang.String, java.lang.Object>",
+    "new_type": "org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object>",
+    "kind": "map",
+    "new_is_provider": false,
+    "new_read_accessor": "getConfigProperties().get()",
+    "new_write_accessor": "getConfigProperties().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getConfigProperties()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
+    "property": "maxErrors",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxErrors().get()",
+    "new_write_accessor": "getMaxErrors().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxErrors()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
+    "property": "maxWarnings",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxWarnings().get()",
+    "new_write_accessor": "getMaxWarnings().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxWarnings()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CheckstyleExtension",
+    "property": "showViolations",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getShowViolations().get()",
+    "new_write_accessor": "getShowViolations().set(VALUE)",
+    "removed_accessors": [
+      "isShowViolations()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "codenarcClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getCodenarcClasspath().get()",
+    "new_write_accessor": "getCodenarcClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getCodenarcClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "compilationClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getCompilationClasspath().get()",
+    "new_write_accessor": "getCompilationClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getCompilationClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "maxPriority1Violations",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxPriority1Violations().get()",
+    "new_write_accessor": "getMaxPriority1Violations().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxPriority1Violations()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "maxPriority2Violations",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxPriority2Violations().get()",
+    "new_write_accessor": "getMaxPriority2Violations().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxPriority2Violations()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarc",
+    "property": "maxPriority3Violations",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxPriority3Violations().get()",
+    "new_write_accessor": "getMaxPriority3Violations().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxPriority3Violations()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
+    "property": "maxPriority1Violations",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxPriority1Violations().get()",
+    "new_write_accessor": "getMaxPriority1Violations().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxPriority1Violations()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
+    "property": "maxPriority2Violations",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxPriority2Violations().get()",
+    "new_write_accessor": "getMaxPriority2Violations().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxPriority2Violations()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
+    "property": "maxPriority3Violations",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxPriority3Violations().get()",
+    "new_write_accessor": "getMaxPriority3Violations().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxPriority3Violations()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeNarcExtension",
+    "property": "reportFormat",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getReportFormat().get()",
+    "new_write_accessor": "getReportFormat().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getReportFormat()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeQualityExtension",
+    "property": "ignoreFailures",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getIgnoreFailures().get()",
+    "new_write_accessor": "getIgnoreFailures().set(VALUE)",
+    "removed_accessors": [
+      "isIgnoreFailures()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.plugins.quality.CheckstyleExtension",
+      "org.gradle.api.plugins.quality.CodeNarcExtension",
+      "org.gradle.api.plugins.quality.PmdExtension"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeQualityExtension",
+    "property": "sourceSets",
+    "old_type": "java.util.Collection<org.gradle.api.tasks.SourceSet>",
+    "new_type": "org.gradle.api.provider.ListProperty<org.gradle.api.tasks.SourceSet>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getSourceSets().get()",
+    "new_write_accessor": "getSourceSets().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSourceSets()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.plugins.quality.CheckstyleExtension",
+      "org.gradle.api.plugins.quality.CodeNarcExtension",
+      "org.gradle.api.plugins.quality.PmdExtension"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.CodeQualityExtension",
+    "property": "toolVersion",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getToolVersion().get()",
+    "new_write_accessor": "getToolVersion().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getToolVersion()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.plugins.quality.CheckstyleExtension",
+      "org.gradle.api.plugins.quality.CodeNarcExtension",
+      "org.gradle.api.plugins.quality.PmdExtension"
+    ]
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "consoleOutput",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getConsoleOutput().get()",
+    "new_write_accessor": "getConsoleOutput().set(VALUE)",
+    "removed_accessors": [
+      "isConsoleOutput()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "incrementalCacheFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getIncrementalCacheFile().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getIncrementalCacheFile()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "pmdClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getPmdClasspath().get()",
+    "new_write_accessor": "getPmdClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getPmdClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "ruleSetFiles",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getRuleSetFiles().get()",
+    "new_write_accessor": "getRuleSetFiles().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRuleSetFiles()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.Pmd",
+    "property": "ruleSets",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getRuleSets().get()",
+    "new_write_accessor": "getRuleSets().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRuleSets()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.PmdExtension",
+    "property": "consoleOutput",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getConsoleOutput().get()",
+    "new_write_accessor": "getConsoleOutput().set(VALUE)",
+    "removed_accessors": [
+      "isConsoleOutput()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.PmdExtension",
+    "property": "ruleSetFiles",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getRuleSetFiles().get()",
+    "new_write_accessor": "getRuleSetFiles().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRuleSetFiles()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.plugins.quality.PmdExtension",
+    "property": "ruleSets",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getRuleSets().get()",
+    "new_write_accessor": "getRuleSets().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRuleSets()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.PublicationArtifact",
+    "property": "file",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getFile().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getFile()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.publish.ivy.IvyArtifact",
+      "org.gradle.api.publish.maven.MavenArtifact"
+    ]
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "classifier",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getClassifier().get()",
+    "new_write_accessor": "getClassifier().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClassifier()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "conf",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getConf().get()",
+    "new_write_accessor": "getConf().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getConf()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "extension",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getExtension().get()",
+    "new_write_accessor": "getExtension().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExtension()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "name",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getName().get()",
+    "new_write_accessor": "getName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyArtifact",
+    "property": "type",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getType().get()",
+    "new_write_accessor": "getType().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getType()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyModuleDescriptorSpec",
+    "property": "branch",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getBranch().get()",
+    "new_write_accessor": "getBranch().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getBranch()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyModuleDescriptorSpec",
+    "property": "status",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getStatus().get()",
+    "new_write_accessor": "getStatus().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getStatus()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyPublication",
+    "property": "module",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getModule().get()",
+    "new_write_accessor": "getModule().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getModule()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyPublication",
+    "property": "organisation",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getOrganisation().get()",
+    "new_write_accessor": "getOrganisation().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOrganisation()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.ivy.IvyPublication",
+    "property": "revision",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getRevision().get()",
+    "new_write_accessor": "getRevision().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRevision()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenArtifact",
+    "property": "classifier",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getClassifier().get()",
+    "new_write_accessor": "getClassifier().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClassifier()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenArtifact",
+    "property": "extension",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getExtension().get()",
+    "new_write_accessor": "getExtension().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExtension()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenPom",
+    "property": "packaging",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getPackaging().get()",
+    "new_write_accessor": "getPackaging().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getPackaging()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenPublication",
+    "property": "artifactId",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getArtifactId().get()",
+    "new_write_accessor": "getArtifactId().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getArtifactId()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenPublication",
+    "property": "groupId",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getGroupId().get()",
+    "new_write_accessor": "getGroupId().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getGroupId()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.publish.maven.MavenPublication",
+    "property": "version",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getVersion().get()",
+    "new_write_accessor": "getVersion().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getVersion()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.Delete",
+    "property": "followSymlinks",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getFollowSymlinks().get()",
+    "new_write_accessor": "getFollowSymlinks().set(VALUE)",
+    "removed_accessors": [
+      "isFollowSymlinks()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.Delete",
+    "property": "targetFiles",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getTargetFiles().get()",
+    "new_write_accessor": "getTargetFiles().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTargetFiles()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.JavaExec",
+    "property": "javaVersion",
+    "old_type": "org.gradle.api.JavaVersion",
+    "new_type": "org.gradle.api.provider.Provider<org.gradle.api.JavaVersion>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getJavaVersion().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJavaVersion()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.WriteProperties",
+    "property": "comment",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getComment().get()",
+    "new_write_accessor": "getComment().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getComment()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.WriteProperties",
+    "property": "encoding",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getEncoding().get()",
+    "new_write_accessor": "getEncoding().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEncoding()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.WriteProperties",
+    "property": "lineSeparator",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getLineSeparator().get()",
+    "new_write_accessor": "getLineSeparator().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLineSeparator()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.WriteProperties",
+    "property": "properties",
+    "old_type": "java.util.Map<java.lang.String, java.lang.String>",
+    "new_type": "org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object>",
+    "kind": "map",
+    "new_is_provider": false,
+    "new_read_accessor": "getProperties().get()",
+    "new_write_accessor": "getProperties().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getProperties()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.ant.AntTarget",
+    "property": "baseDir",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.DirectoryProperty",
+    "kind": "dir",
+    "new_is_provider": false,
+    "new_read_accessor": "getBaseDir().get()",
+    "new_write_accessor": "getBaseDir().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getBaseDir()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.ant.AntTarget",
+    "property": "target",
+    "old_type": "org.apache.tools.ant.Target",
+    "new_type": "org.gradle.api.provider.Property<org.apache.tools.ant.Target>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getTarget().get()",
+    "new_write_accessor": "getTarget().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTarget()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.AbstractArchiveTask",
+    "property": "preserveFileTimestamps",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getPreserveFileTimestamps().get()",
+    "new_write_accessor": "getPreserveFileTimestamps().set(VALUE)",
+    "removed_accessors": [
+      "isPreserveFileTimestamps()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.Tar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.api.tasks.bundling.Zip",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.AbstractArchiveTask",
+    "property": "reproducibleFileOrder",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getReproducibleFileOrder().get()",
+    "new_write_accessor": "getReproducibleFileOrder().set(VALUE)",
+    "removed_accessors": [
+      "isReproducibleFileOrder()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.Tar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.api.tasks.bundling.Zip",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.Tar",
+    "property": "compression",
+    "old_type": "org.gradle.api.tasks.bundling.Compression",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.api.tasks.bundling.Compression>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getCompression().get()",
+    "new_write_accessor": "getCompression().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getCompression()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.War",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.Zip",
+    "property": "entryCompression",
+    "old_type": "org.gradle.api.tasks.bundling.ZipEntryCompression",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.api.tasks.bundling.ZipEntryCompression>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getEntryCompression().get()",
+    "new_write_accessor": "getEntryCompression().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEntryCompression()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.Zip",
+    "property": "metadataCharset",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMetadataCharset().get()",
+    "new_write_accessor": "getMetadataCharset().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMetadataCharset()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.bundling.Zip",
+    "property": "zip64",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getZip64().get()",
+    "new_write_accessor": "getZip64().set(VALUE)",
+    "removed_accessors": [
+      "isZip64()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.jvm.tasks.Jar",
+      "org.gradle.plugins.ear.Ear"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.AbstractCompile",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.compile.GroovyCompile",
+      "org.gradle.api.tasks.compile.JavaCompile",
+      "org.gradle.api.tasks.scala.ScalaCompile",
+      "org.gradle.language.scala.tasks.AbstractScalaCompile"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.AbstractCompile",
+    "property": "destinationDirectory",
+    "old_type": "org.gradle.api.file.DirectoryProperty",
+    "new_type": "org.gradle.api.file.DirectoryProperty",
+    "kind": "dir",
+    "new_is_provider": false,
+    "new_read_accessor": "getDestinationDirectory().get()",
+    "new_write_accessor": "getDestinationDirectory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.compile.GroovyCompile",
+      "org.gradle.api.tasks.compile.JavaCompile",
+      "org.gradle.api.tasks.scala.ScalaCompile",
+      "org.gradle.language.scala.tasks.AbstractScalaCompile"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.BaseForkOptions",
+    "property": "jvmArgs",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getJvmArgs().get()",
+    "new_write_accessor": "getJvmArgs().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJvmArgs()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.BaseForkOptions",
+    "property": "memoryInitialSize",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMemoryInitialSize().get()",
+    "new_write_accessor": "getMemoryInitialSize().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMemoryInitialSize()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.BaseForkOptions",
+    "property": "memoryMaximumSize",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMemoryMaximumSize().get()",
+    "new_write_accessor": "getMemoryMaximumSize().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMemoryMaximumSize()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "allCompilerArgs",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.Provider<java.util.List<java.lang.String>>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getAllCompilerArgs().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAllCompilerArgs()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "annotationProcessorPath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getAnnotationProcessorPath().get()",
+    "new_write_accessor": "getAnnotationProcessorPath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAnnotationProcessorPath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "bootstrapClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getBootstrapClasspath().get()",
+    "new_write_accessor": "getBootstrapClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getBootstrapClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "compilerArgs",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getCompilerArgs().get()",
+    "new_write_accessor": "getCompilerArgs().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getCompilerArgs()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "compilerArgumentProviders",
+    "old_type": "java.util.List<org.gradle.process.CommandLineArgumentProvider>",
+    "new_type": "org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getCompilerArgumentProviders().get()",
+    "new_write_accessor": "getCompilerArgumentProviders().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getCompilerArgumentProviders()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "debug",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getDebug().get()",
+    "new_write_accessor": "getDebug().set(VALUE)",
+    "removed_accessors": [
+      "isDebug()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "deprecation",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getDeprecation().get()",
+    "new_write_accessor": "getDeprecation().set(VALUE)",
+    "removed_accessors": [
+      "isDeprecation()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "encoding",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getEncoding().get()",
+    "new_write_accessor": "getEncoding().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEncoding()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "extensionDirs",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getExtensionDirs().get()",
+    "new_write_accessor": "getExtensionDirs().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExtensionDirs()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "failOnError",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getFailOnError().get()",
+    "new_write_accessor": "getFailOnError().set(VALUE)",
+    "removed_accessors": [
+      "isFailOnError()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "fork",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getFork().get()",
+    "new_write_accessor": "getFork().set(VALUE)",
+    "removed_accessors": [
+      "isFork()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "generatedSourceOutputDirectory",
+    "old_type": "org.gradle.api.file.DirectoryProperty",
+    "new_type": "org.gradle.api.file.DirectoryProperty",
+    "kind": "dir",
+    "new_is_provider": false,
+    "new_read_accessor": "getGeneratedSourceOutputDirectory().get()",
+    "new_write_accessor": "getGeneratedSourceOutputDirectory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "incremental",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getIncremental().get()",
+    "new_write_accessor": "getIncremental().set(VALUE)",
+    "removed_accessors": [
+      "isIncremental()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "listFiles",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getListFiles().get()",
+    "new_write_accessor": "getListFiles().set(VALUE)",
+    "removed_accessors": [
+      "isListFiles()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "sourcepath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getSourcepath().get()",
+    "new_write_accessor": "getSourcepath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSourcepath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "verbose",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getVerbose().get()",
+    "new_write_accessor": "getVerbose().set(VALUE)",
+    "removed_accessors": [
+      "isVerbose()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.CompileOptions",
+    "property": "warnings",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getWarnings().get()",
+    "new_write_accessor": "getWarnings().set(VALUE)",
+    "removed_accessors": [
+      "isWarnings()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.DebugOptions",
+    "property": "debugLevel",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDebugLevel().get()",
+    "new_write_accessor": "getDebugLevel().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDebugLevel()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.ForkOptions",
+    "property": "executable",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getExecutable().get()",
+    "new_write_accessor": "getExecutable().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExecutable()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.ForkOptions",
+    "property": "tempDir",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getTempDir().get()",
+    "new_write_accessor": "getTempDir().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTempDir()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompile",
+    "property": "groovyClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getGroovyClasspath().get()",
+    "new_write_accessor": "getGroovyClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getGroovyClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "encoding",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getEncoding().get()",
+    "new_write_accessor": "getEncoding().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEncoding()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "failOnError",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getFailOnError().get()",
+    "new_write_accessor": "getFailOnError().set(VALUE)",
+    "removed_accessors": [
+      "isFailOnError()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "fileExtensions",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getFileExtensions().get()",
+    "new_write_accessor": "getFileExtensions().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getFileExtensions()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "fork",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getFork().get()",
+    "new_write_accessor": "getFork().set(VALUE)",
+    "removed_accessors": [
+      "isFork()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "javaAnnotationProcessing",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getJavaAnnotationProcessing().get()",
+    "new_write_accessor": "getJavaAnnotationProcessing().set(VALUE)",
+    "removed_accessors": [
+      "isJavaAnnotationProcessing()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "keepStubs",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getKeepStubs().get()",
+    "new_write_accessor": "getKeepStubs().set(VALUE)",
+    "removed_accessors": [
+      "isKeepStubs()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "listFiles",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getListFiles().get()",
+    "new_write_accessor": "getListFiles().set(VALUE)",
+    "removed_accessors": [
+      "isListFiles()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "optimizationOptions",
+    "old_type": "java.util.Map<java.lang.String, java.lang.Boolean>",
+    "new_type": "org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Boolean>",
+    "kind": "map",
+    "new_is_provider": false,
+    "new_read_accessor": "getOptimizationOptions().get()",
+    "new_write_accessor": "getOptimizationOptions().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOptimizationOptions()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "parameters",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getParameters().get()",
+    "new_write_accessor": "getParameters().set(VALUE)",
+    "removed_accessors": [
+      "isParameters()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.GroovyCompileOptions",
+    "property": "verbose",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getVerbose().get()",
+    "new_write_accessor": "getVerbose().set(VALUE)",
+    "removed_accessors": [
+      "isVerbose()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+    "property": "allJvmArgs",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.Provider<java.util.List<java.lang.String>>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getAllJvmArgs().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAllJvmArgs()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.compile.ProviderAwareCompilerDaemonForkOptions",
+    "property": "jvmArgumentProviders",
+    "old_type": "java.util.List<org.gradle.process.CommandLineArgumentProvider>",
+    "new_type": "org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getJvmArgumentProviders().get()",
+    "new_write_accessor": "getJvmArgumentProviders().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJvmArgumentProviders()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.compile.ForkOptions",
+      "org.gradle.api.tasks.compile.GroovyForkOptions",
+      "org.gradle.api.tasks.scala.ScalaForkOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.AbstractDependencyReportTask",
+    "property": "configurations",
+    "old_type": "java.util.Set<org.gradle.api.artifacts.Configuration>",
+    "new_type": "org.gradle.api.provider.SetProperty<org.gradle.api.artifacts.Configuration>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getConfigurations().get()",
+    "new_write_accessor": "getConfigurations().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getConfigurations()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.reporting.dependencies.HtmlDependencyReportTask",
+      "org.gradle.api.tasks.diagnostics.DependencyReportTask"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.ConventionReportTask",
+    "property": "outputFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.RegularFileProperty",
+    "kind": "file",
+    "new_is_provider": false,
+    "new_read_accessor": "getOutputFile().get()",
+    "new_write_accessor": "getOutputFile().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOutputFile()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.diagnostics.ProjectBasedReportTask",
+      "org.gradle.api.tasks.diagnostics.TaskReportTask"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.ConventionReportTask",
+    "property": "projects",
+    "old_type": "java.util.Set<org.gradle.api.Project>",
+    "new_type": "org.gradle.api.provider.SetProperty<org.gradle.api.Project>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getProjects().get()",
+    "new_write_accessor": "getProjects().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getProjects()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.diagnostics.ProjectBasedReportTask",
+      "org.gradle.api.tasks.diagnostics.TaskReportTask"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.DependencyInsightReportTask",
+    "property": "configuration",
+    "old_type": "org.gradle.api.artifacts.Configuration",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.api.artifacts.Configuration>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getConfiguration().get()",
+    "new_write_accessor": "getConfiguration().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getConfiguration()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.DependencyInsightReportTask",
+    "property": "showSinglePathToDependency",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getShowSinglePathToDependency().get()",
+    "new_write_accessor": "getShowSinglePathToDependency().set(VALUE)",
+    "removed_accessors": [
+      "isShowSinglePathToDependency()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.TaskReportTask",
+    "property": "displayGroup",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDisplayGroup().get()",
+    "new_write_accessor": "getDisplayGroup().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDisplayGroup()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.diagnostics.TaskReportTask",
+    "property": "showDetail",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getShowDetail().get()",
+    "new_write_accessor": "getShowDetail().set(VALUE)",
+    "removed_accessors": [
+      "isDetail()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "docTitle",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDocTitle().get()",
+    "new_write_accessor": "getDocTitle().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDocTitle()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "footer",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getFooter().get()",
+    "new_write_accessor": "getFooter().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getFooter()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "groovyClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getGroovyClasspath().get()",
+    "new_write_accessor": "getGroovyClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getGroovyClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "header",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getHeader().get()",
+    "new_write_accessor": "getHeader().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getHeader()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "links",
+    "old_type": "java.util.Set<org.gradle.api.tasks.javadoc.Groovydoc$Link>",
+    "new_type": "org.gradle.api.provider.SetProperty<org.gradle.api.tasks.javadoc.Groovydoc$Link>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getLinks().get()",
+    "new_write_accessor": "getLinks().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLinks()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "noTimestamp",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoTimestamp().get()",
+    "new_write_accessor": "getNoTimestamp().set(VALUE)",
+    "removed_accessors": [
+      "isNoTimestamp()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "noVersionStamp",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoVersionStamp().get()",
+    "new_write_accessor": "getNoVersionStamp().set(VALUE)",
+    "removed_accessors": [
+      "isNoVersionStamp()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "use",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getUse().get()",
+    "new_write_accessor": "getUse().set(VALUE)",
+    "removed_accessors": [
+      "isUse()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Groovydoc",
+    "property": "windowTitle",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getWindowTitle().get()",
+    "new_write_accessor": "getWindowTitle().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getWindowTitle()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "executable",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getExecutable().get()",
+    "new_write_accessor": "getExecutable().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExecutable()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "failOnError",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getFailOnError().get()",
+    "new_write_accessor": "getFailOnError().set(VALUE)",
+    "removed_accessors": [
+      "isFailOnError()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "maxMemory",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxMemory().get()",
+    "new_write_accessor": "getMaxMemory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxMemory()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "optionsFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getOptionsFile().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOptionsFile()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.javadoc.Javadoc",
+    "property": "title",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getTitle().get()",
+    "new_write_accessor": "getTitle().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTitle()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaCompile",
+    "property": "scalaClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getScalaClasspath().get()",
+    "new_write_accessor": "getScalaClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getScalaClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaCompile",
+    "property": "scalaCompilerPlugins",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getScalaCompilerPlugins().get()",
+    "new_write_accessor": "getScalaCompilerPlugins().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getScalaCompilerPlugins()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaCompile",
+    "property": "zincClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getZincClasspath().get()",
+    "new_write_accessor": "getZincClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getZincClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDoc",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDoc",
+    "property": "scalaClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getScalaClasspath().get()",
+    "new_write_accessor": "getScalaClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getScalaClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDoc",
+    "property": "title",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getTitle().get()",
+    "new_write_accessor": "getTitle().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTitle()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "additionalParameters",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getAdditionalParameters().get()",
+    "new_write_accessor": "getAdditionalParameters().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAdditionalParameters()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "bottom",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getBottom().get()",
+    "new_write_accessor": "getBottom().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getBottom()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "deprecation",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getDeprecation().get()",
+    "new_write_accessor": "getDeprecation().set(VALUE)",
+    "removed_accessors": [
+      "isDeprecation()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "docTitle",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDocTitle().get()",
+    "new_write_accessor": "getDocTitle().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDocTitle()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "footer",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getFooter().get()",
+    "new_write_accessor": "getFooter().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getFooter()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "header",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getHeader().get()",
+    "new_write_accessor": "getHeader().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getHeader()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "top",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getTop().get()",
+    "new_write_accessor": "getTop().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTop()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "unchecked",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getUnchecked().get()",
+    "new_write_accessor": "getUnchecked().set(VALUE)",
+    "removed_accessors": [
+      "isUnchecked()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.scala.ScalaDocOptions",
+    "property": "windowTitle",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getWindowTitle().get()",
+    "new_write_accessor": "getWindowTitle().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getWindowTitle()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.JUnitXmlReport",
+    "property": "outputPerTestCase",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getOutputPerTestCase().get()",
+    "new_write_accessor": "getOutputPerTestCase().set(VALUE)",
+    "removed_accessors": [
+      "isOutputPerTestCase()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "forkEvery",
+    "old_type": "long",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Long>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getForkEvery().get()",
+    "new_write_accessor": "getForkEvery().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getForkEvery()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "javaVersion",
+    "old_type": "org.gradle.api.JavaVersion",
+    "new_type": "org.gradle.api.provider.Provider<org.gradle.api.JavaVersion>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getJavaVersion().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJavaVersion()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "maxParallelForks",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxParallelForks().get()",
+    "new_write_accessor": "getMaxParallelForks().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxParallelForks()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "scanForTestClasses",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getScanForTestClasses().get()",
+    "new_write_accessor": "getScanForTestClasses().set(VALUE)",
+    "removed_accessors": [
+      "isScanForTestClasses()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "testClassesDirs",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getTestClassesDirs().get()",
+    "new_write_accessor": "getTestClassesDirs().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTestClassesDirs()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.Test",
+    "property": "testFramework",
+    "old_type": "org.gradle.api.internal.tasks.testing.TestFramework",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.api.internal.tasks.testing.TestFramework>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getTestFramework().get()",
+    "new_write_accessor": "getTestFramework().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTestFramework()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.TestFilter",
+    "property": "excludePatterns",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getExcludePatterns().get()",
+    "new_write_accessor": "getExcludePatterns().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExcludePatterns()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.TestFilter",
+    "property": "failOnNoMatchingTests",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getFailOnNoMatchingTests().get()",
+    "new_write_accessor": "getFailOnNoMatchingTests().set(VALUE)",
+    "removed_accessors": [
+      "isFailOnNoMatchingTests()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.TestFilter",
+    "property": "includePatterns",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getIncludePatterns().get()",
+    "new_write_accessor": "getIncludePatterns().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getIncludePatterns()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.TestReport",
+    "property": "destinationDirectory",
+    "old_type": "org.gradle.api.file.DirectoryProperty",
+    "new_type": "org.gradle.api.file.DirectoryProperty",
+    "kind": "dir",
+    "new_is_provider": false,
+    "new_read_accessor": "getDestinationDirectory().get()",
+    "new_write_accessor": "getDestinationDirectory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junit.JUnitOptions",
+    "property": "excludeCategories",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getExcludeCategories().get()",
+    "new_write_accessor": "getExcludeCategories().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExcludeCategories()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junit.JUnitOptions",
+    "property": "includeCategories",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getIncludeCategories().get()",
+    "new_write_accessor": "getIncludeCategories().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getIncludeCategories()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
+    "property": "excludeEngines",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getExcludeEngines().get()",
+    "new_write_accessor": "getExcludeEngines().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExcludeEngines()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
+    "property": "excludeTags",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getExcludeTags().get()",
+    "new_write_accessor": "getExcludeTags().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExcludeTags()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
+    "property": "includeEngines",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getIncludeEngines().get()",
+    "new_write_accessor": "getIncludeEngines().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getIncludeEngines()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.junitplatform.JUnitPlatformOptions",
+    "property": "includeTags",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getIncludeTags().get()",
+    "new_write_accessor": "getIncludeTags().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getIncludeTags()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "displayGranularity",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDisplayGranularity().get()",
+    "new_write_accessor": "getDisplayGranularity().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDisplayGranularity()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "events",
+    "old_type": "java.util.Set<org.gradle.api.tasks.testing.logging.TestLogEvent>",
+    "new_type": "org.gradle.api.provider.SetProperty<org.gradle.api.tasks.testing.logging.TestLogEvent>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getEvents().get()",
+    "new_write_accessor": "getEvents().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEvents()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "exceptionFormat",
+    "old_type": "org.gradle.api.tasks.testing.logging.TestExceptionFormat",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.api.tasks.testing.logging.TestExceptionFormat>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getExceptionFormat().get()",
+    "new_write_accessor": "getExceptionFormat().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExceptionFormat()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "maxGranularity",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxGranularity().get()",
+    "new_write_accessor": "getMaxGranularity().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxGranularity()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "minGranularity",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMinGranularity().get()",
+    "new_write_accessor": "getMinGranularity().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMinGranularity()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "showCauses",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getShowCauses().get()",
+    "new_write_accessor": "getShowCauses().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getShowCauses()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "showExceptions",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getShowExceptions().get()",
+    "new_write_accessor": "getShowExceptions().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getShowExceptions()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "showStackTraces",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getShowStackTraces().get()",
+    "new_write_accessor": "getShowStackTraces().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getShowStackTraces()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "showStandardStreams",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getShowStandardStreams().get()",
+    "new_write_accessor": "getShowStandardStreams().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getShowStandardStreams()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.logging.TestLogging",
+    "property": "stackTraceFilters",
+    "old_type": "java.util.Set<org.gradle.api.tasks.testing.logging.TestStackTraceFilter>",
+    "new_type": "org.gradle.api.provider.SetProperty<org.gradle.api.tasks.testing.logging.TestStackTraceFilter>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getStackTraceFilters().get()",
+    "new_write_accessor": "getStackTraceFilters().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getStackTraceFilters()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.testing.logging.TestLoggingContainer"
+    ]
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "configFailurePolicy",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getConfigFailurePolicy().get()",
+    "new_write_accessor": "getConfigFailurePolicy().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getConfigFailurePolicy()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "excludeGroups",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getExcludeGroups().get()",
+    "new_write_accessor": "getExcludeGroups().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExcludeGroups()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "groupByInstances",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getGroupByInstances().get()",
+    "new_write_accessor": "getGroupByInstances().set(VALUE)",
+    "removed_accessors": [
+      "isGroupByInstances()"
+    ],
+    "changed_return_accessors": [
+      "getGroupByInstances()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "includeGroups",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getIncludeGroups().get()",
+    "new_write_accessor": "getIncludeGroups().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getIncludeGroups()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "listeners",
+    "old_type": "java.util.Set<java.lang.String>",
+    "new_type": "org.gradle.api.provider.SetProperty<java.lang.String>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getListeners().get()",
+    "new_write_accessor": "getListeners().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getListeners()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "outputDirectory",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.DirectoryProperty",
+    "kind": "dir",
+    "new_is_provider": false,
+    "new_read_accessor": "getOutputDirectory().get()",
+    "new_write_accessor": "getOutputDirectory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOutputDirectory()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "parallel",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getParallel().get()",
+    "new_write_accessor": "getParallel().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getParallel()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "preserveOrder",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getPreserveOrder().get()",
+    "new_write_accessor": "getPreserveOrder().set(VALUE)",
+    "removed_accessors": [
+      "isPreserveOrder()"
+    ],
+    "changed_return_accessors": [
+      "getPreserveOrder()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "suiteName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getSuiteName().get()",
+    "new_write_accessor": "getSuiteName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSuiteName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "suiteXmlBuilder",
+    "old_type": "groovy.xml.MarkupBuilder",
+    "new_type": "org.gradle.api.provider.Property<groovy.xml.MarkupBuilder>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getSuiteXmlBuilder().get()",
+    "new_write_accessor": "getSuiteXmlBuilder().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSuiteXmlBuilder()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "suiteXmlFiles",
+    "old_type": "java.util.List<java.io.File>",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getSuiteXmlFiles().get()",
+    "new_write_accessor": "getSuiteXmlFiles().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSuiteXmlFiles()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "suiteXmlWriter",
+    "old_type": "java.io.StringWriter",
+    "new_type": "org.gradle.api.provider.Property<java.io.StringWriter>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getSuiteXmlWriter().get()",
+    "new_write_accessor": "getSuiteXmlWriter().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSuiteXmlWriter()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "testName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getTestName().get()",
+    "new_write_accessor": "getTestName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTestName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "threadCount",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getThreadCount().get()",
+    "new_write_accessor": "getThreadCount().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getThreadCount()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "threadPoolFactoryClass",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getThreadPoolFactoryClass().get()",
+    "new_write_accessor": "getThreadPoolFactoryClass().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getThreadPoolFactoryClass()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.testing.testng.TestNGOptions",
+    "property": "useDefaultListeners",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getUseDefaultListeners().get()",
+    "new_write_accessor": "getUseDefaultListeners().set(VALUE)",
+    "removed_accessors": [
+      "isUseDefaultListeners()"
+    ],
+    "changed_return_accessors": [
+      "getUseDefaultListeners()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "archiveBase",
+    "old_type": "org.gradle.api.tasks.wrapper.Wrapper$PathBase",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.api.tasks.wrapper.Wrapper$PathBase>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getArchiveBase().get()",
+    "new_write_accessor": "getArchiveBase().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getArchiveBase()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "archivePath",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getArchivePath().get()",
+    "new_write_accessor": "getArchivePath().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getArchivePath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "batchScript",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getBatchScript().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getBatchScript()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionBase",
+    "old_type": "org.gradle.api.tasks.wrapper.Wrapper$PathBase",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.api.tasks.wrapper.Wrapper$PathBase>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getDistributionBase().get()",
+    "new_write_accessor": "getDistributionBase().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDistributionBase()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionPath",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDistributionPath().get()",
+    "new_write_accessor": "getDistributionPath().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDistributionPath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionSha256Sum",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDistributionSha256Sum().get()",
+    "new_write_accessor": "getDistributionSha256Sum().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDistributionSha256Sum()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionType",
+    "old_type": "org.gradle.api.tasks.wrapper.Wrapper$DistributionType",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.api.tasks.wrapper.Wrapper$DistributionType>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getDistributionType().get()",
+    "new_write_accessor": "getDistributionType().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDistributionType()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "distributionUrl",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDistributionUrl().get()",
+    "new_write_accessor": "getDistributionUrl().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDistributionUrl()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "gradleVersion",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getGradleVersion().get()",
+    "new_write_accessor": "getGradleVersion().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getGradleVersion()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "jarFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.RegularFileProperty",
+    "kind": "file",
+    "new_is_provider": false,
+    "new_read_accessor": "getJarFile().get()",
+    "new_write_accessor": "getJarFile().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJarFile()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "propertiesFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getPropertiesFile().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getPropertiesFile()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.api.tasks.wrapper.Wrapper",
+    "property": "scriptFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.RegularFileProperty",
+    "kind": "file",
+    "new_is_provider": false,
+    "new_read_accessor": "getScriptFile().get()",
+    "new_write_accessor": "getScriptFile().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getScriptFile()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.buildinit.tasks.InitBuild",
+    "property": "availableBuildTypes",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.Provider<java.util.List<java.lang.String>>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getAvailableBuildTypes().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAvailableBuildTypes()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.buildinit.tasks.InitBuild",
+    "property": "availableDSLs",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.Provider<java.util.List<java.lang.String>>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getAvailableDSLs().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAvailableDSLs()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.buildinit.tasks.InitBuild",
+    "property": "availableTestFrameworks",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.Provider<java.util.List<java.lang.String>>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getAvailableTestFrameworks().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAvailableTestFrameworks()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.buildinit.tasks.InitBuild",
+    "property": "dsl",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDsl().get()",
+    "new_write_accessor": "getDsl().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDsl()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.buildinit.tasks.InitBuild",
+    "property": "packageName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getPackageName().get()",
+    "new_write_accessor": "getPackageName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getPackageName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.buildinit.tasks.InitBuild",
+    "property": "projectName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getProjectName().get()",
+    "new_write_accessor": "getProjectName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getProjectName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.buildinit.tasks.InitBuild",
+    "property": "testFramework",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getTestFramework().get()",
+    "new_write_accessor": "getTestFramework().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTestFramework()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.buildinit.tasks.InitBuild",
+    "property": "type",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getType().get()",
+    "new_write_accessor": "getType().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getType()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.caching.configuration.BuildCache",
+    "property": "enabled",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getEnabled().get()",
+    "new_write_accessor": "getEnabled().set(VALUE)",
+    "removed_accessors": [
+      "isEnabled()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.caching.configuration.AbstractBuildCache",
+      "org.gradle.caching.http.HttpBuildCache",
+      "org.gradle.caching.local.DirectoryBuildCache"
+    ]
+  },
+  {
+    "class": "org.gradle.caching.configuration.BuildCache",
+    "property": "push",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getPush().get()",
+    "new_write_accessor": "getPush().set(VALUE)",
+    "removed_accessors": [
+      "isPush()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.caching.configuration.AbstractBuildCache",
+      "org.gradle.caching.http.HttpBuildCache",
+      "org.gradle.caching.local.DirectoryBuildCache"
+    ]
+  },
+  {
+    "class": "org.gradle.caching.http.HttpBuildCache",
+    "property": "allowInsecureProtocol",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getAllowInsecureProtocol().get()",
+    "new_write_accessor": "getAllowInsecureProtocol().set(VALUE)",
+    "removed_accessors": [
+      "isAllowInsecureProtocol()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.caching.http.HttpBuildCache",
+    "property": "allowUntrustedServer",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getAllowUntrustedServer().get()",
+    "new_write_accessor": "getAllowUntrustedServer().set(VALUE)",
+    "removed_accessors": [
+      "isAllowUntrustedServer()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.caching.http.HttpBuildCache",
+    "property": "url",
+    "old_type": "java.net.URI",
+    "new_type": "org.gradle.api.provider.Property<java.net.URI>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getUrl().get()",
+    "new_write_accessor": "getUrl().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getUrl()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.caching.http.HttpBuildCache",
+    "property": "useExpectContinue",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getUseExpectContinue().get()",
+    "new_write_accessor": "getUseExpectContinue().set(VALUE)",
+    "removed_accessors": [
+      "isUseExpectContinue()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.caching.local.DirectoryBuildCache",
+    "property": "directory",
+    "old_type": "java.lang.Object",
+    "new_type": "org.gradle.api.file.DirectoryProperty",
+    "kind": "dir",
+    "new_is_provider": false,
+    "new_read_accessor": "getDirectory().get()",
+    "new_write_accessor": "getDirectory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDirectory()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "bootClasspath",
+    "old_type": "java.util.List<java.io.File>",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getBootClasspath().get()",
+    "new_write_accessor": "getBootClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getBootClasspath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "breakIterator",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getBreakIterator().get()",
+    "new_write_accessor": "getBreakIterator().set(VALUE)",
+    "removed_accessors": [
+      "isBreakIterator()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "classpath",
+    "old_type": "java.util.List<java.io.File>",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "destinationDirectory",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.DirectoryProperty",
+    "kind": "dir",
+    "new_is_provider": false,
+    "new_read_accessor": "getDestinationDirectory().get()",
+    "new_write_accessor": "getDestinationDirectory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDestinationDirectory()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "doclet",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDoclet().get()",
+    "new_write_accessor": "getDoclet().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDoclet()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "docletpath",
+    "old_type": "java.util.List<java.io.File>",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getDocletpath().get()",
+    "new_write_accessor": "getDocletpath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDocletpath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "encoding",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getEncoding().get()",
+    "new_write_accessor": "getEncoding().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEncoding()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "extDirs",
+    "old_type": "java.util.List<java.io.File>",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getExtDirs().get()",
+    "new_write_accessor": "getExtDirs().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExtDirs()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "header",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getHeader().get()",
+    "new_write_accessor": "getHeader().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getHeader()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "jFlags",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getJFlags().get()",
+    "new_write_accessor": "getJFlags().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJFlags()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "locale",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getLocale().get()",
+    "new_write_accessor": "getLocale().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLocale()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "memberLevel",
+    "old_type": "org.gradle.external.javadoc.JavadocMemberLevel",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.external.javadoc.JavadocMemberLevel>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getMemberLevel().get()",
+    "new_write_accessor": "getMemberLevel().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMemberLevel()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "modulePath",
+    "old_type": "java.util.List<java.io.File>",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getModulePath().get()",
+    "new_write_accessor": "getModulePath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getModulePath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "optionFiles",
+    "old_type": "java.util.List<java.io.File>",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getOptionFiles().get()",
+    "new_write_accessor": "getOptionFiles().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOptionFiles()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "outputLevel",
+    "old_type": "org.gradle.external.javadoc.JavadocOutputLevel",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.external.javadoc.JavadocOutputLevel>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getOutputLevel().get()",
+    "new_write_accessor": "getOutputLevel().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOutputLevel()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "overview",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getOverview().get()",
+    "new_write_accessor": "getOverview().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOverview()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "source",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getSource().get()",
+    "new_write_accessor": "getSource().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSource()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "sourceNames",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getSourceNames().get()",
+    "new_write_accessor": "getSourceNames().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSourceNames()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "verbose",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Provider<java.lang.Boolean>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getVerbose().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [
+      "isVerbose()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.MinimalJavadocOptions",
+    "property": "windowTitle",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getWindowTitle().get()",
+    "new_write_accessor": "getWindowTitle().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getWindowTitle()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.external.javadoc.CoreJavadocOptions",
+      "org.gradle.external.javadoc.StandardJavadocDocletOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "author",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getAuthor().get()",
+    "new_write_accessor": "getAuthor().set(VALUE)",
+    "removed_accessors": [
+      "isAuthor()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "bottom",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getBottom().get()",
+    "new_write_accessor": "getBottom().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getBottom()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "charSet",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getCharSet().get()",
+    "new_write_accessor": "getCharSet().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getCharSet()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "docEncoding",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDocEncoding().get()",
+    "new_write_accessor": "getDocEncoding().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDocEncoding()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "docFilesSubDirs",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getDocFilesSubDirs().get()",
+    "new_write_accessor": "getDocFilesSubDirs().set(VALUE)",
+    "removed_accessors": [
+      "isDocFilesSubDirs()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "docTitle",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDocTitle().get()",
+    "new_write_accessor": "getDocTitle().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDocTitle()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "excludeDocFilesSubDir",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getExcludeDocFilesSubDir().get()",
+    "new_write_accessor": "getExcludeDocFilesSubDir().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExcludeDocFilesSubDir()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "footer",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getFooter().get()",
+    "new_write_accessor": "getFooter().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getFooter()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "groups",
+    "old_type": "java.util.Map<java.lang.String, java.util.List<java.lang.String>>",
+    "new_type": "org.gradle.api.provider.MapProperty<java.lang.String, java.util.List<java.lang.String>>",
+    "kind": "map",
+    "new_is_provider": false,
+    "new_read_accessor": "getGroups().get()",
+    "new_write_accessor": "getGroups().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getGroups()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "helpFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.RegularFileProperty",
+    "kind": "file",
+    "new_is_provider": false,
+    "new_read_accessor": "getHelpFile().get()",
+    "new_write_accessor": "getHelpFile().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getHelpFile()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "keyWords",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getKeyWords().get()",
+    "new_write_accessor": "getKeyWords().set(VALUE)",
+    "removed_accessors": [
+      "isKeyWords()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "linkSource",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getLinkSource().get()",
+    "new_write_accessor": "getLinkSource().set(VALUE)",
+    "removed_accessors": [
+      "isLinkSource()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "links",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getLinks().get()",
+    "new_write_accessor": "getLinks().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLinks()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "linksOffline",
+    "old_type": "java.util.List<org.gradle.external.javadoc.JavadocOfflineLink>",
+    "new_type": "org.gradle.api.provider.ListProperty<org.gradle.external.javadoc.JavadocOfflineLink>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getLinksOffline().get()",
+    "new_write_accessor": "getLinksOffline().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLinksOffline()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noComment",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoComment().get()",
+    "new_write_accessor": "getNoComment().set(VALUE)",
+    "removed_accessors": [
+      "isNoComment()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noDeprecated",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoDeprecated().get()",
+    "new_write_accessor": "getNoDeprecated().set(VALUE)",
+    "removed_accessors": [
+      "isNoDeprecated()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noDeprecatedList",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoDeprecatedList().get()",
+    "new_write_accessor": "getNoDeprecatedList().set(VALUE)",
+    "removed_accessors": [
+      "isNoDeprecatedList()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noHelp",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoHelp().get()",
+    "new_write_accessor": "getNoHelp().set(VALUE)",
+    "removed_accessors": [
+      "isNoHelp()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noIndex",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoIndex().get()",
+    "new_write_accessor": "getNoIndex().set(VALUE)",
+    "removed_accessors": [
+      "isNoIndex()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noNavBar",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoNavBar().get()",
+    "new_write_accessor": "getNoNavBar().set(VALUE)",
+    "removed_accessors": [
+      "isNoNavBar()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noQualifiers",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoQualifiers().get()",
+    "new_write_accessor": "getNoQualifiers().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getNoQualifiers()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noSince",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoSince().get()",
+    "new_write_accessor": "getNoSince().set(VALUE)",
+    "removed_accessors": [
+      "isNoSince()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noTimestamp",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoTimestamp().get()",
+    "new_write_accessor": "getNoTimestamp().set(VALUE)",
+    "removed_accessors": [
+      "isNoTimestamp()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "noTree",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getNoTree().get()",
+    "new_write_accessor": "getNoTree().set(VALUE)",
+    "removed_accessors": [
+      "isNoTree()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "serialWarn",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getSerialWarn().get()",
+    "new_write_accessor": "getSerialWarn().set(VALUE)",
+    "removed_accessors": [
+      "isSerialWarn()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "splitIndex",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getSplitIndex().get()",
+    "new_write_accessor": "getSplitIndex().set(VALUE)",
+    "removed_accessors": [
+      "isSplitIndex()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "stylesheetFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.RegularFileProperty",
+    "kind": "file",
+    "new_is_provider": false,
+    "new_read_accessor": "getStylesheetFile().get()",
+    "new_write_accessor": "getStylesheetFile().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getStylesheetFile()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "tagletPath",
+    "old_type": "java.util.List<java.io.File>",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getTagletPath().get()",
+    "new_write_accessor": "getTagletPath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTagletPath()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "taglets",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getTaglets().get()",
+    "new_write_accessor": "getTaglets().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTaglets()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "tags",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getTags().get()",
+    "new_write_accessor": "getTags().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getTags()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "use",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getUse().get()",
+    "new_write_accessor": "getUse().set(VALUE)",
+    "removed_accessors": [
+      "isUse()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.external.javadoc.StandardJavadocDocletOptions",
+    "property": "version",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getVersion().get()",
+    "new_write_accessor": "getVersion().set(VALUE)",
+    "removed_accessors": [
+      "isVersion()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.jvm.application.tasks.CreateStartScripts",
+    "property": "applicationName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getApplicationName().get()",
+    "new_write_accessor": "getApplicationName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getApplicationName()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
+    ]
+  },
+  {
+    "class": "org.gradle.jvm.application.tasks.CreateStartScripts",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
+    ]
+  },
+  {
+    "class": "org.gradle.jvm.application.tasks.CreateStartScripts",
+    "property": "defaultJvmOpts",
+    "old_type": "java.lang.Iterable<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getDefaultJvmOpts().get()",
+    "new_write_accessor": "getDefaultJvmOpts().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDefaultJvmOpts()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
+    ]
+  },
+  {
+    "class": "org.gradle.jvm.application.tasks.CreateStartScripts",
+    "property": "executableDir",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getExecutableDir().get()",
+    "new_write_accessor": "getExecutableDir().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExecutableDir()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
+    ]
+  },
+  {
+    "class": "org.gradle.jvm.application.tasks.CreateStartScripts",
+    "property": "optsEnvironmentVar",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getOptsEnvironmentVar().get()",
+    "new_write_accessor": "getOptsEnvironmentVar().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOptsEnvironmentVar()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.application.CreateStartScripts"
+    ]
+  },
+  {
+    "class": "org.gradle.jvm.tasks.Jar",
+    "property": "manifestContentCharset",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getManifestContentCharset().get()",
+    "new_write_accessor": "getManifestContentCharset().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getManifestContentCharset()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.bundling.Jar",
+      "org.gradle.api.tasks.bundling.War",
+      "org.gradle.plugins.ear.Ear"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "additionalParameters",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getAdditionalParameters().get()",
+    "new_write_accessor": "getAdditionalParameters().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAdditionalParameters()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "debugLevel",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDebugLevel().get()",
+    "new_write_accessor": "getDebugLevel().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDebugLevel()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "deprecation",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getDeprecation().get()",
+    "new_write_accessor": "getDeprecation().set(VALUE)",
+    "removed_accessors": [
+      "isDeprecation()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "encoding",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getEncoding().get()",
+    "new_write_accessor": "getEncoding().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEncoding()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "failOnError",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getFailOnError().get()",
+    "new_write_accessor": "getFailOnError().set(VALUE)",
+    "removed_accessors": [
+      "isFailOnError()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "force",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getForce().get()",
+    "new_write_accessor": "getForce().set(VALUE)",
+    "removed_accessors": [
+      "isForce()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "listFiles",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getListFiles().get()",
+    "new_write_accessor": "getListFiles().set(VALUE)",
+    "removed_accessors": [
+      "isListFiles()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "loggingLevel",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getLoggingLevel().get()",
+    "new_write_accessor": "getLoggingLevel().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLoggingLevel()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "loggingPhases",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getLoggingPhases().get()",
+    "new_write_accessor": "getLoggingPhases().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLoggingPhases()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "optimize",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getOptimize().get()",
+    "new_write_accessor": "getOptimize().set(VALUE)",
+    "removed_accessors": [
+      "isOptimize()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.language.scala.tasks.BaseScalaCompileOptions",
+    "property": "unchecked",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getUnchecked().get()",
+    "new_write_accessor": "getUnchecked().set(VALUE)",
+    "removed_accessors": [
+      "isUnchecked()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.scala.ScalaCompileOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.plugin.devel.PluginDeclaration",
+    "property": "description",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDescription().get()",
+    "new_write_accessor": "getDescription().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDescription()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugin.devel.PluginDeclaration",
+    "property": "displayName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDisplayName().get()",
+    "new_write_accessor": "getDisplayName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDisplayName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugin.devel.PluginDeclaration",
+    "property": "id",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getId().get()",
+    "new_write_accessor": "getId().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getId()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugin.devel.PluginDeclaration",
+    "property": "implementationClass",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getImplementationClass().get()",
+    "new_write_accessor": "getImplementationClass().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getImplementationClass()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.Ear",
+    "property": "libDirName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getLibDirName().get()",
+    "new_write_accessor": "getLibDirName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLibDirName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "applicationName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getApplicationName().get()",
+    "new_write_accessor": "getApplicationName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getApplicationName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "description",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDescription().get()",
+    "new_write_accessor": "getDescription().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDescription()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "displayName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDisplayName().get()",
+    "new_write_accessor": "getDisplayName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDisplayName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "initializeInOrder",
+    "old_type": "java.lang.Boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getInitializeInOrder().get()",
+    "new_write_accessor": "getInitializeInOrder().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getInitializeInOrder()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "libraryDirectory",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getLibraryDirectory().get()",
+    "new_write_accessor": "getLibraryDirectory().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getLibraryDirectory()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "moduleTypeMappings",
+    "old_type": "java.util.Map<java.lang.String, java.lang.String>",
+    "new_type": "org.gradle.api.provider.MapProperty<java.lang.String, java.lang.String>",
+    "kind": "map",
+    "new_is_provider": false,
+    "new_read_accessor": "getModuleTypeMappings().get()",
+    "new_write_accessor": "getModuleTypeMappings().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getModuleTypeMappings()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "modules",
+    "old_type": "java.util.Set<org.gradle.plugins.ear.descriptor.EarModule>",
+    "new_type": "org.gradle.api.provider.SetProperty<org.gradle.plugins.ear.descriptor.EarModule>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getModules().get()",
+    "new_write_accessor": "getModules().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getModules()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "securityRoles",
+    "old_type": "java.util.Set<org.gradle.plugins.ear.descriptor.EarSecurityRole>",
+    "new_type": "org.gradle.api.provider.SetProperty<org.gradle.plugins.ear.descriptor.EarSecurityRole>",
+    "kind": "set",
+    "new_is_provider": false,
+    "new_read_accessor": "getSecurityRoles().get()",
+    "new_write_accessor": "getSecurityRoles().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSecurityRoles()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.DeploymentDescriptor",
+    "property": "version",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getVersion().get()",
+    "new_write_accessor": "getVersion().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getVersion()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.EarModule",
+    "property": "altDeployDescriptor",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getAltDeployDescriptor().get()",
+    "new_write_accessor": "getAltDeployDescriptor().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAltDeployDescriptor()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.plugins.ear.descriptor.EarWebModule"
+    ]
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.EarModule",
+    "property": "path",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getPath().get()",
+    "new_write_accessor": "getPath().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getPath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.plugins.ear.descriptor.EarWebModule"
+    ]
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.EarSecurityRole",
+    "property": "description",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDescription().get()",
+    "new_write_accessor": "getDescription().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDescription()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.EarSecurityRole",
+    "property": "roleName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getRoleName().get()",
+    "new_write_accessor": "getRoleName().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRoleName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.plugins.ear.descriptor.EarWebModule",
+    "property": "contextRoot",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getContextRoot().get()",
+    "new_write_accessor": "getContextRoot().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getContextRoot()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.process.BaseExecSpec",
+    "property": "commandLine",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.Provider<java.util.List<java.lang.String>>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getCommandLine().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getCommandLine()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.BaseExecSpec",
+    "property": "errorOutput",
+    "old_type": "java.io.OutputStream",
+    "new_type": "org.gradle.api.provider.Property<java.io.OutputStream>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getErrorOutput().get()",
+    "new_write_accessor": "getErrorOutput().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getErrorOutput()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.BaseExecSpec",
+    "property": "ignoreExitValue",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getIgnoreExitValue().get()",
+    "new_write_accessor": "getIgnoreExitValue().set(VALUE)",
+    "removed_accessors": [
+      "isIgnoreExitValue()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.BaseExecSpec",
+    "property": "standardInput",
+    "old_type": "java.io.InputStream",
+    "new_type": "org.gradle.api.provider.Property<java.io.InputStream>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getStandardInput().get()",
+    "new_write_accessor": "getStandardInput().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getStandardInput()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.BaseExecSpec",
+    "property": "standardOutput",
+    "old_type": "java.io.OutputStream",
+    "new_type": "org.gradle.api.provider.Property<java.io.OutputStream>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getStandardOutput().get()",
+    "new_write_accessor": "getStandardOutput().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getStandardOutput()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.ExecSpec",
+    "property": "args",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getArgs().get()",
+    "new_write_accessor": "getArgs().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getArgs()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.process.ExecSpec",
+    "property": "argumentProviders",
+    "old_type": "java.util.List<org.gradle.process.CommandLineArgumentProvider>",
+    "new_type": "org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getArgumentProviders().get()",
+    "new_write_accessor": "getArgumentProviders().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getArgumentProviders()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.process.JavaExecSpec",
+    "property": "args",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getArgs().get()",
+    "new_write_accessor": "getArgs().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getArgs()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaExecSpec",
+    "property": "argumentProviders",
+    "old_type": "java.util.List<org.gradle.process.CommandLineArgumentProvider>",
+    "new_type": "org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getArgumentProviders().get()",
+    "new_write_accessor": "getArgumentProviders().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getArgumentProviders()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaExecSpec",
+    "property": "classpath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getClasspath().get()",
+    "new_write_accessor": "getClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getClasspath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaExecSpec",
+    "property": "mainClass",
+    "old_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getMainClass().get()",
+    "new_write_accessor": "getMainClass().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": [
+      "org.gradle.api.tasks.JavaExec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "allJvmArgs",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.Provider<java.util.List<java.lang.String>>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getAllJvmArgs().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAllJvmArgs()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "bootstrapClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getBootstrapClasspath().get()",
+    "new_write_accessor": "getBootstrapClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getBootstrapClasspath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "debug",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getDebug().get()",
+    "new_write_accessor": "getDebug().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDebug()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "defaultCharacterEncoding",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getDefaultCharacterEncoding().get()",
+    "new_write_accessor": "getDefaultCharacterEncoding().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getDefaultCharacterEncoding()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "enableAssertions",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getEnableAssertions().get()",
+    "new_write_accessor": "getEnableAssertions().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEnableAssertions()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "jvmArgs",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getJvmArgs().get()",
+    "new_write_accessor": "getJvmArgs().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJvmArgs()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "jvmArgumentProviders",
+    "old_type": "java.util.List<org.gradle.process.CommandLineArgumentProvider>",
+    "new_type": "org.gradle.api.provider.ListProperty<org.gradle.process.CommandLineArgumentProvider>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getJvmArgumentProviders().get()",
+    "new_write_accessor": "getJvmArgumentProviders().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJvmArgumentProviders()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "maxHeapSize",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMaxHeapSize().get()",
+    "new_write_accessor": "getMaxHeapSize().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMaxHeapSize()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "minHeapSize",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getMinHeapSize().get()",
+    "new_write_accessor": "getMinHeapSize().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getMinHeapSize()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.JavaForkOptions",
+    "property": "systemProperties",
+    "old_type": "java.util.Map<java.lang.String, java.lang.Object>",
+    "new_type": "org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object>",
+    "kind": "map",
+    "new_is_provider": false,
+    "new_read_accessor": "getSystemProperties().get()",
+    "new_write_accessor": "getSystemProperties().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSystemProperties()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.JavaExecSpec"
+    ]
+  },
+  {
+    "class": "org.gradle.process.ProcessForkOptions",
+    "property": "environment",
+    "old_type": "java.util.Map<java.lang.String, java.lang.Object>",
+    "new_type": "org.gradle.api.provider.MapProperty<java.lang.String, java.lang.Object>",
+    "kind": "map",
+    "new_is_provider": false,
+    "new_read_accessor": "getEnvironment().get()",
+    "new_write_accessor": "getEnvironment().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getEnvironment()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.BaseExecSpec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec",
+      "org.gradle.process.JavaForkOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.process.ProcessForkOptions",
+    "property": "executable",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getExecutable().get()",
+    "new_write_accessor": "getExecutable().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExecutable()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.api.artifacts.ComponentMetadataDetails",
+      "org.gradle.api.tasks.JavaExec",
+      "org.gradle.process.BaseExecSpec",
+      "org.gradle.process.ExecSpec",
+      "org.gradle.process.JavaExecSpec",
+      "org.gradle.process.JavaForkOptions"
+    ]
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoPluginExtension",
+    "property": "toolVersion",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getToolVersion().get()",
+    "new_write_accessor": "getToolVersion().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getToolVersion()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "address",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getAddress().get()",
+    "new_write_accessor": "getAddress().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAddress()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "asJvmArg",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Provider<java.lang.String>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getAsJvmArg().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getAsJvmArg()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "destinationFile",
+    "old_type": "java.io.File",
+    "new_type": "org.gradle.api.file.RegularFileProperty",
+    "kind": "file",
+    "new_is_provider": false,
+    "new_read_accessor": "getDestinationFile().get()",
+    "new_write_accessor": "getDestinationFile().set(VALUE)",
+    "removed_accessors": [
+      "setDestinationFile(org.gradle.api.provider.Provider<java.io.File>)"
+    ],
+    "changed_return_accessors": [
+      "getDestinationFile()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "dumpOnExit",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getDumpOnExit().get()",
+    "new_write_accessor": "getDumpOnExit().set(VALUE)",
+    "removed_accessors": [
+      "isDumpOnExit()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "enabled",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getEnabled().get()",
+    "new_write_accessor": "getEnabled().set(VALUE)",
+    "removed_accessors": [
+      "isEnabled()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "excludeClassLoaders",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getExcludeClassLoaders().get()",
+    "new_write_accessor": "getExcludeClassLoaders().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExcludeClassLoaders()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "excludes",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getExcludes().get()",
+    "new_write_accessor": "getExcludes().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getExcludes()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "includeNoLocationClasses",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getIncludeNoLocationClasses().get()",
+    "new_write_accessor": "getIncludeNoLocationClasses().set(VALUE)",
+    "removed_accessors": [
+      "isIncludeNoLocationClasses()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "includes",
+    "old_type": "java.util.List<java.lang.String>",
+    "new_type": "org.gradle.api.provider.ListProperty<java.lang.String>",
+    "kind": "list",
+    "new_is_provider": false,
+    "new_read_accessor": "getIncludes().get()",
+    "new_write_accessor": "getIncludes().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getIncludes()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "jmx",
+    "old_type": "boolean",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Boolean>",
+    "kind": "boolean",
+    "new_is_provider": false,
+    "new_read_accessor": "getJmx().get()",
+    "new_write_accessor": "getJmx().set(VALUE)",
+    "removed_accessors": [
+      "isJmx()"
+    ],
+    "changed_return_accessors": [],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "output",
+    "old_type": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension$Output",
+    "new_type": "org.gradle.api.provider.Property<org.gradle.testing.jacoco.plugins.JacocoTaskExtension$Output>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getOutput().get()",
+    "new_write_accessor": "getOutput().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getOutput()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "port",
+    "old_type": "int",
+    "new_type": "org.gradle.api.provider.Property<java.lang.Integer>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getPort().get()",
+    "new_write_accessor": "getPort().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getPort()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.plugins.JacocoTaskExtension",
+    "property": "sessionId",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getSessionId().get()",
+    "new_write_accessor": "getSessionId().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getSessionId()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.testing.jacoco.tasks.JacocoBase",
+    "property": "jacocoClasspath",
+    "old_type": "org.gradle.api.file.FileCollection",
+    "new_type": "org.gradle.api.file.ConfigurableFileCollection",
+    "kind": "file_collection",
+    "new_is_provider": false,
+    "new_read_accessor": "getJacocoClasspath().get()",
+    "new_write_accessor": "getJacocoClasspath().setFrom(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getJacocoClasspath()"
+    ],
+    "inheriting_subtypes": [
+      "org.gradle.testing.jacoco.tasks.JacocoCoverageVerification",
+      "org.gradle.testing.jacoco.tasks.JacocoReport",
+      "org.gradle.testing.jacoco.tasks.JacocoReportBase"
+    ]
+  },
+  {
+    "class": "org.gradle.vcs.VersionControlRepository",
+    "property": "rootDir",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getRootDir().get()",
+    "new_write_accessor": "getRootDir().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRootDir()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.vcs.VersionControlSpec",
+    "property": "repoName",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Provider<java.lang.String>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getRepoName().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRepoName()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.vcs.VersionControlSpec",
+    "property": "rootDir",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Property<java.lang.String>",
+    "kind": "scalar",
+    "new_is_provider": false,
+    "new_read_accessor": "getRootDir().get()",
+    "new_write_accessor": "getRootDir().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getRootDir()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.vcs.VersionControlSpec",
+    "property": "uniqueId",
+    "old_type": "java.lang.String",
+    "new_type": "org.gradle.api.provider.Provider<java.lang.String>",
+    "kind": "read_only",
+    "new_is_provider": true,
+    "new_read_accessor": "getUniqueId().get()",
+    "new_write_accessor": null,
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getUniqueId()"
+    ],
+    "inheriting_subtypes": []
+  },
+  {
+    "class": "org.gradle.vcs.git.GitVersionControlSpec",
+    "property": "url",
+    "old_type": "java.net.URI",
+    "new_type": "org.gradle.api.provider.Property<java.net.URI>",
+    "kind": "other",
+    "new_is_provider": false,
+    "new_read_accessor": "getUrl().get()",
+    "new_write_accessor": "getUrl().set(VALUE)",
+    "removed_accessors": [],
+    "changed_return_accessors": [
+      "getUrl()"
+    ],
+    "inheriting_subtypes": []
+  }
+]

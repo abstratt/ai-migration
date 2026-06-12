@@ -16,7 +16,7 @@ and appended to MIGRATION_NOTES.md at the project root. Weaker models should run
 tool first and then handle only the deferrals.
 
 Usage:
-    python3 apply_migrations.py <project-dir> [--dry-run] [--migration-data PATH]
+    python3 apply_migrations.py <project-dir> [--dry-run] [--distro-pair ID] [--migration-data PATH]
 """
 
 import argparse
@@ -29,6 +29,7 @@ from scan_usages import (  # noqa: E402
     build_patterns,
     find_files,
     load_lookups,
+    resolve_pair,
     scan_file,
 )
 
@@ -224,19 +225,26 @@ def apply_hits_to_file(path: Path, hits: list[dict], dry_run: bool) -> tuple[int
     return applied, deferrals
 
 
-NOTES_HEADER = (
-    "# Migration Notes\n\n"
-    "Deferred hits logged by `apply_migrations.py`. For each entry, look the class "
-    "and property up in `migration-reference/migration-data.json`, apply the rule from "
-    "`migration-reference/MIGRATION_RULES.md`, then remove the entry from this file.\n"
-)
+def notes_header(data_path: Path) -> str:
+    """Header for MIGRATION_NOTES.md, naming the actual per-pair data file in use.
+
+    The migration data is selected per distro pair (e.g.
+    migration-reference/distro-pairs/<pair-id>/migration-data.json), so the path is
+    interpolated rather than hardcoded.
+    """
+    return (
+        "# Migration Notes\n\n"
+        "Deferred hits logged by `apply_migrations.py`. For each entry, look the class "
+        f"and property up in `{data_path}`, apply the rule from "
+        "`migration-reference/MIGRATION_RULES.md`, then remove the entry from this file.\n"
+    )
 
 
-def write_migration_notes(project_root: Path, deferrals: list[dict], dry_run: bool) -> Path | None:
+def write_migration_notes(project_root: Path, deferrals: list[dict], dry_run: bool, data_path: Path) -> Path | None:
     if not deferrals:
         return None
     notes_path = project_root / "MIGRATION_NOTES.md"
-    existing = notes_path.read_text(encoding="utf-8") if notes_path.exists() else NOTES_HEADER
+    existing = notes_path.read_text(encoding="utf-8") if notes_path.exists() else notes_header(data_path)
 
     by_file: dict[str, list[dict]] = defaultdict(list)
     for d in deferrals:
@@ -269,21 +277,31 @@ def main() -> int:
         "Safe hits are rewritten in place; everything else is deferred to MIGRATION_NOTES.md."
     ))
     ap.add_argument("project_dir", type=Path, help="Path to the cloned repository being migrated")
-    ap.add_argument("--migration-data", type=Path,
-                    default=Path(__file__).resolve().parent / "migration-data.json")
+    ap.add_argument("--distro-pair", default=None,
+                    help="Distro pair id from distro-pairs.json (default: the manifest's \"default\" pair)")
+    ap.add_argument("--migration-data", type=Path, default=None,
+                    help="Override the migration-data.json path (default: derived from the distro pair)")
     ap.add_argument("--dry-run", action="store_true",
                     help="Print what would change; do not modify files")
     args = ap.parse_args()
+
+    # The migration data is selected per distro pair and lives under
+    # migration-reference/distro-pairs/<pair-id>/. --migration-data overrides this.
+    if args.migration_data is not None:
+        data_path = args.migration_data
+    else:
+        pair = resolve_pair(args.distro_pair)
+        data_path = Path(__file__).resolve().parent / "distro-pairs" / pair["id"] / "migration-data.json"
 
     project_root = args.project_dir.resolve()
     if not project_root.is_dir():
         print(f"ERROR: {project_root} is not a directory", file=sys.stderr)
         return 2
-    if not args.migration_data.exists():
-        print(f"ERROR: {args.migration_data} not found", file=sys.stderr)
+    if not data_path.exists():
+        print(f"ERROR: {data_path} not found", file=sys.stderr)
         return 2
 
-    removed_accessors, getter_names, dsl_props = load_lookups(args.migration_data)
+    removed_accessors, getter_names, dsl_props = load_lookups(data_path)
     cat_a_re, cat_b_re, cat_c_re = build_patterns(removed_accessors, getter_names, dsl_props)
 
     all_files, dsl_set, test_set = find_files(project_root)
@@ -305,7 +323,7 @@ def main() -> int:
         total_applied += applied
         total_deferrals.extend(deferrals)
 
-    notes_path = write_migration_notes(project_root, total_deferrals, args.dry_run)
+    notes_path = write_migration_notes(project_root, total_deferrals, args.dry_run, data_path)
 
     mode = "dry run" if args.dry_run else "applied"
     print(f"apply_migrations.py — {mode}")

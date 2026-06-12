@@ -1,6 +1,6 @@
 # Gradle 10 Lazy Property Migration Report
 
-Properties annotated with `@ReplacesEagerProperty` in Gradle 10 preview (`gradle-provider-api-20260204140400`), compared against Gradle 9.4.0.
+Properties annotated with `@ReplacesEagerProperty` in the target distribution, compared against the baseline. Distro pair: **Gradle 9.4.0 → provider-api preview (2026-02-04)** (`g94-to-PAPI-20260204`).
 
 > **What does `@ReplacesEagerProperty` mean?**
 > In Gradle 10, eager getters/setters (e.g. `String getFoo()` / `void setFoo(String)`) are replaced by lazy provider-based properties (e.g. `Property<String> getFoo()`). The annotation marks these new lazy accessors and instructs Gradle's bytecode instrumentation to intercept calls to the old eager API, bridging them to the new lazy one during the transition.
@@ -152,7 +152,7 @@ The migration to lazy properties is **not** just a mechanical `getFoo()` → `fo
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `artifactUrls` | `Set<URI>` | `SetProperty<URI>` | `setArtifactUrls(Set<URI>)`, `setArtifactUrls(Iterable<?>)`, `getArtifactUrls()` (return type changed) |
+| `artifactUrls` | `Set<URI>` | `SetProperty<URI>` | `setArtifactUrls(Iterable<?>)`, `setArtifactUrls(Set<URI>)`, `getArtifactUrls()` (return type changed) |
 
 **Migration examples:**
 
@@ -167,7 +167,7 @@ task.artifactUrls.addAll(otherTask.artifactUrls)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `allowInsecureProtocol` | `boolean` | `Property<Boolean>` | `setAllowInsecureProtocol(boolean)`, `isAllowInsecureProtocol()` |
+| `allowInsecureProtocol` | `boolean` | `Property<Boolean>` | `isAllowInsecureProtocol()`, `setAllowInsecureProtocol(boolean)` |
 | `url` | `URI` | `Property<URI>` | `setUrl(URI)`, `getUrl()` (return type changed) |
 
 **Migration examples:**
@@ -185,7 +185,7 @@ task.url.set(otherTask.url)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `followSymlinks` | `boolean` | `Property<Boolean>` | `setFollowSymlinks(boolean)`, `isFollowSymlinks()` |
+| `followSymlinks` | `boolean` | `Property<Boolean>` | `isFollowSymlinks()`, `setFollowSymlinks(boolean)` |
 
 **Migration examples:**
 
@@ -224,10 +224,10 @@ task.applicationDefaultJvmArgs.addAll(otherTask.applicationDefaultJvmArgs)  // l
 | `arguments` | `List<String>` | `ListProperty<String>` | `setArguments(List<String>)`, `getArguments()` (return type changed) |
 | `maxHeapSize` | `String` | `Property<String>` | `setMaxHeapSize(String)`, `getMaxHeapSize()` (return type changed) |
 | `outputDirectory` | `File` | `DirectoryProperty` | `setOutputDirectory(File)`, `getOutputDirectory()` (return type changed) |
-| `trace` | `boolean` | `Property<Boolean>` | `setTrace(boolean)`, `isTrace()` |
-| `traceLexer` | `boolean` | `Property<Boolean>` | `setTraceLexer(boolean)`, `isTraceLexer()` |
-| `traceParser` | `boolean` | `Property<Boolean>` | `setTraceParser(boolean)`, `isTraceParser()` |
-| `traceTreeWalker` | `boolean` | `Property<Boolean>` | `setTraceTreeWalker(boolean)`, `isTraceTreeWalker()` |
+| `trace` | `boolean` | `Property<Boolean>` | `isTrace()`, `setTrace(boolean)` |
+| `traceLexer` | `boolean` | `Property<Boolean>` | `isTraceLexer()`, `setTraceLexer(boolean)` |
+| `traceParser` | `boolean` | `Property<Boolean>` | `isTraceParser()`, `setTraceParser(boolean)` |
+| `traceTreeWalker` | `boolean` | `Property<Boolean>` | `isTraceTreeWalker()`, `setTraceTreeWalker(boolean)` |
 
 **Migration examples:**
 
@@ -257,7 +257,7 @@ task.arguments.addAll(otherTask.arguments)  // lazy wiring
 | `isIgnoreFailures` | `boolean` | `Property<Boolean>` | — |
 | `maxErrors` | `int` | `Property<Integer>` | `setMaxErrors(int)`, `getMaxErrors()` (return type changed) |
 | `maxWarnings` | `int` | `Property<Integer>` | `setMaxWarnings(int)`, `getMaxWarnings()` (return type changed) |
-| `showViolations` | `boolean` | `Property<Boolean>` | `setShowViolations(boolean)`, `isShowViolations()` |
+| `showViolations` | `boolean` | `Property<Boolean>` | `isShowViolations()`, `setShowViolations(boolean)` |
 
 **Migration examples:**
 
@@ -282,7 +282,7 @@ task.configProperties.putAll(otherTask.configProperties)  // lazy wiring
 | `configProperties` | `Map<String, Object>` | `MapProperty<String, Object>` | `setConfigProperties(Map<String, Object>)`, `getConfigProperties()` (return type changed) |
 | `maxErrors` | `int` | `Property<Integer>` | `setMaxErrors(int)`, `getMaxErrors()` (return type changed) |
 | `maxWarnings` | `int` | `Property<Integer>` | `setMaxWarnings(int)`, `getMaxWarnings()` (return type changed) |
-| `showViolations` | `boolean` | `Property<Boolean>` | `setShowViolations(boolean)`, `isShowViolations()` |
+| `showViolations` | `boolean` | `Property<Boolean>` | `isShowViolations()`, `setShowViolations(boolean)` |
 
 **Migration examples:**
 
@@ -343,7 +343,7 @@ task.maxPriority1Violations.set(otherTask.maxPriority1Violations)  // lazy wirin
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `ignoreFailures` | `boolean` | `Property<Boolean>` | `setIgnoreFailures(boolean)`, `isIgnoreFailures()` |
+| `ignoreFailures` | `boolean` | `Property<Boolean>` | `isIgnoreFailures()`, `setIgnoreFailures(boolean)` |
 | `reportsDir` | `File` | `DirectoryProperty` | `setReportsDir(File)`, `getReportsDir()` (return type changed) |
 | `sourceSets` | `java.util.Collection<SourceSet>` | `ListProperty<SourceSet>` | `setSourceSets(java.util.Collection<SourceSet>)`, `getSourceSets()` (return type changed) |
 | `toolVersion` | `String` | `Property<String>` | `setToolVersion(String)`, `getToolVersion()` (return type changed) |
@@ -369,7 +369,7 @@ task.sourceSets.addAll(otherTask.sourceSets)  // lazy wiring
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
-| `consoleOutput` | `boolean` | `Property<Boolean>` | `setConsoleOutput(boolean)`, `isConsoleOutput()` |
+| `consoleOutput` | `boolean` | `Property<Boolean>` | `isConsoleOutput()`, `setConsoleOutput(boolean)` |
 | `incrementalCacheFile` | `File` | `Provider<RegularFile>` | `getIncrementalCacheFile()` (return type changed) |
 | `pmdClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setPmdClasspath(FileCollection)`, `getPmdClasspath()` (return type changed) |
 | `ruleSetFiles` | `FileCollection` | `ConfigurableFileCollection` | `setRuleSetFiles(FileCollection)`, `getRuleSetFiles()` (return type changed) |
@@ -398,10 +398,10 @@ otherTask.someInput.set(task.incrementalCacheFile)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `consoleOutput` | `boolean` | `Property<Boolean>` | `setConsoleOutput(boolean)`, `isConsoleOutput()` |
+| `consoleOutput` | `boolean` | `Property<Boolean>` | `isConsoleOutput()`, `setConsoleOutput(boolean)` |
 | `ruleSetFiles` | `FileCollection` | `ConfigurableFileCollection` | `setRuleSetFiles(FileCollection)`, `getRuleSetFiles()` (return type changed) |
 | `ruleSets` | `List<String>` | `ListProperty<String>` | `setRuleSets(List<String>)`, `getRuleSets()` (return type changed) |
-| `targetJdk` | `TargetJdk` | `Property<TargetJdk>` | `setTargetJdk(TargetJdk)`, `setTargetJdk(Object)`, `getTargetJdk()` (return type changed) |
+| `targetJdk` | `TargetJdk` | `Property<TargetJdk>` | `setTargetJdk(Object)`, `setTargetJdk(TargetJdk)`, `getTargetJdk()` (return type changed) |
 
 **Migration examples:**
 
@@ -573,9 +573,9 @@ task.destination.set(otherTask.destination)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `getArgs()` (return type changed) |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(Iterable)`, `setArgs(Iterable<?>)`, `setArgs(List)`, `setArgs(List<String>)`, `getArgs()` (return type changed) |
 | `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `getErrorOutput()` (return type changed) |
-| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
+| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `isIgnoreExitValue()`, `setIgnoreExitValue(boolean)` |
 | `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `getStandardInput()` (return type changed) |
 | `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `getStandardOutput()` (return type changed) |
 
@@ -596,7 +596,7 @@ task.errorOutput.set(otherTask.errorOutput)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `followSymlinks` | `boolean` | `Property<Boolean>` | `setFollowSymlinks(boolean)`, `isFollowSymlinks()` |
+| `followSymlinks` | `boolean` | `Property<Boolean>` | `isFollowSymlinks()`, `setFollowSymlinks(boolean)` |
 | `targetFiles` | `FileCollection` | `ConfigurableFileCollection` | `getTargetFiles()` (return type changed) |
 
 **Migration examples:**
@@ -614,9 +614,9 @@ task.targetFiles.setFrom(otherTask.targetFiles)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `getArgs()` (return type changed) |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(Iterable)`, `setArgs(Iterable<?>)`, `setArgs(List)`, `setArgs(List<String>)`, `getArgs()` (return type changed) |
 | `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `getErrorOutput()` (return type changed) |
-| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
+| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `isIgnoreExitValue()`, `setIgnoreExitValue(boolean)` |
 | `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `getStandardInput()` (return type changed) |
 | `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `getStandardOutput()` (return type changed) |
 
@@ -637,10 +637,10 @@ task.errorOutput.set(otherTask.errorOutput)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `getArgs()` (return type changed) |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(Iterable)`, `setArgs(Iterable<?>)`, `setArgs(List)`, `setArgs(List<String>)`, `getArgs()` (return type changed) |
 | `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
 | `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `getErrorOutput()` (return type changed) |
-| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
+| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `isIgnoreExitValue()`, `setIgnoreExitValue(boolean)` |
 | `javaVersion` | `JavaVersion` | `Provider<JavaVersion>` | `getJavaVersion()` (return type changed) |
 | `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `getStandardInput()` (return type changed) |
 | `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `getStandardOutput()` (return type changed) |
@@ -706,8 +706,8 @@ task.target.set(otherTask.target)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `preserveFileTimestamps` | `boolean` | `Property<Boolean>` | `setPreserveFileTimestamps(boolean)`, `isPreserveFileTimestamps()` |
-| `reproducibleFileOrder` | `boolean` | `Property<Boolean>` | `setReproducibleFileOrder(boolean)`, `isReproducibleFileOrder()` |
+| `preserveFileTimestamps` | `boolean` | `Property<Boolean>` | `isPreserveFileTimestamps()`, `setPreserveFileTimestamps(boolean)` |
+| `reproducibleFileOrder` | `boolean` | `Property<Boolean>` | `isReproducibleFileOrder()`, `setReproducibleFileOrder(boolean)` |
 
 **Migration examples:**
 
@@ -737,7 +737,7 @@ task.compression.set(otherTask.compression)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `setClasspath(Object)`, `getClasspath()` (return type changed) |
+| `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(Object)`, `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
 | `webXml` | `File` | `RegularFileProperty` | `setWebXml(File)`, `getWebXml()` (return type changed) |
 
 **Migration examples:**
@@ -757,7 +757,7 @@ task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 |----------|----------------|----------------|-------------------|
 | `entryCompression` | `ZipEntryCompression` | `Property<ZipEntryCompression>` | `setEntryCompression(ZipEntryCompression)`, `getEntryCompression()` (return type changed) |
 | `metadataCharset` | `String` | `Property<String>` | `setMetadataCharset(String)`, `getMetadataCharset()` (return type changed) |
-| `zip64` | `boolean` | `Property<Boolean>` | `setZip64(boolean)`, `isZip64()` |
+| `zip64` | `boolean` | `Property<Boolean>` | `isZip64()`, `setZip64(boolean)` |
 
 **Migration examples:**
 
@@ -820,18 +820,18 @@ task.jvmArgs.addAll(otherTask.jvmArgs)  // lazy wiring
 | `bootstrapClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setBootstrapClasspath(FileCollection)`, `getBootstrapClasspath()` (return type changed) |
 | `compilerArgs` | `List<String>` | `ListProperty<String>` | `setCompilerArgs(List<String>)`, `getCompilerArgs()` (return type changed) |
 | `compilerArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getCompilerArgumentProviders()` (return type changed) |
-| `debug` | `boolean` | `Property<Boolean>` | `setDebug(boolean)`, `isDebug()` |
-| `deprecation` | `boolean` | `Property<Boolean>` | `setDeprecation(boolean)`, `isDeprecation()` |
+| `debug` | `boolean` | `Property<Boolean>` | `isDebug()`, `setDebug(boolean)` |
+| `deprecation` | `boolean` | `Property<Boolean>` | `isDeprecation()`, `setDeprecation(boolean)` |
 | `encoding` | `String` | `Property<String>` | `setEncoding(String)`, `getEncoding()` (return type changed) |
 | `extensionDirs` | `String` | `Property<String>` | `setExtensionDirs(String)`, `getExtensionDirs()` (return type changed) |
-| `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
-| `fork` | `boolean` | `Property<Boolean>` | `setFork(boolean)`, `isFork()` |
+| `failOnError` | `boolean` | `Property<Boolean>` | `isFailOnError()`, `setFailOnError(boolean)` |
+| `fork` | `boolean` | `Property<Boolean>` | `isFork()`, `setFork(boolean)` |
 | `generatedSourceOutputDirectory` | `DirectoryProperty` | `DirectoryProperty` | — |
-| `incremental` | `boolean` | `Property<Boolean>` | `setIncremental(boolean)`, `isIncremental()` |
-| `listFiles` | `boolean` | `Property<Boolean>` | `setListFiles(boolean)`, `isListFiles()` |
+| `incremental` | `boolean` | `Property<Boolean>` | `isIncremental()`, `setIncremental(boolean)` |
+| `listFiles` | `boolean` | `Property<Boolean>` | `isListFiles()`, `setListFiles(boolean)` |
 | `sourcepath` | `FileCollection` | `ConfigurableFileCollection` | `setSourcepath(FileCollection)`, `getSourcepath()` (return type changed) |
-| `verbose` | `boolean` | `Property<Boolean>` | `setVerbose(boolean)`, `isVerbose()` |
-| `warnings` | `boolean` | `Property<Boolean>` | `setWarnings(boolean)`, `isWarnings()` |
+| `verbose` | `boolean` | `Property<Boolean>` | `isVerbose()`, `setVerbose(boolean)` |
+| `warnings` | `boolean` | `Property<Boolean>` | `isWarnings()`, `setWarnings(boolean)` |
 
 **Migration examples:**
 
@@ -908,16 +908,16 @@ task.groovyClasspath.setFrom(otherTask.groovyClasspath)  // lazy wiring
 |----------|----------------|----------------|-------------------|
 | `configurationScript` | `File` | `RegularFileProperty` | `setConfigurationScript(File)`, `getConfigurationScript()` (return type changed) |
 | `encoding` | `String` | `Property<String>` | `setEncoding(String)`, `getEncoding()` (return type changed) |
-| `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
+| `failOnError` | `boolean` | `Property<Boolean>` | `isFailOnError()`, `setFailOnError(boolean)` |
 | `fileExtensions` | `List<String>` | `ListProperty<String>` | `setFileExtensions(List<String>)`, `getFileExtensions()` (return type changed) |
-| `fork` | `boolean` | `Property<Boolean>` | `setFork(boolean)`, `isFork()` |
-| `javaAnnotationProcessing` | `boolean` | `Property<Boolean>` | `setJavaAnnotationProcessing(boolean)`, `isJavaAnnotationProcessing()` |
-| `keepStubs` | `boolean` | `Property<Boolean>` | `setKeepStubs(boolean)`, `isKeepStubs()` |
-| `listFiles` | `boolean` | `Property<Boolean>` | `setListFiles(boolean)`, `isListFiles()` |
+| `fork` | `boolean` | `Property<Boolean>` | `isFork()`, `setFork(boolean)` |
+| `javaAnnotationProcessing` | `boolean` | `Property<Boolean>` | `isJavaAnnotationProcessing()`, `setJavaAnnotationProcessing(boolean)` |
+| `keepStubs` | `boolean` | `Property<Boolean>` | `isKeepStubs()`, `setKeepStubs(boolean)` |
+| `listFiles` | `boolean` | `Property<Boolean>` | `isListFiles()`, `setListFiles(boolean)` |
 | `optimizationOptions` | `Map<String, Boolean>` | `MapProperty<String, Boolean>` | `setOptimizationOptions(Map<String, Boolean>)`, `getOptimizationOptions()` (return type changed) |
-| `parameters` | `boolean` | `Property<Boolean>` | `setParameters(boolean)`, `isParameters()` |
+| `parameters` | `boolean` | `Property<Boolean>` | `isParameters()`, `setParameters(boolean)` |
 | `stubDir` | `File` | `DirectoryProperty` | `setStubDir(File)`, `getStubDir()` (return type changed) |
-| `verbose` | `boolean` | `Property<Boolean>` | `setVerbose(boolean)`, `isVerbose()` |
+| `verbose` | `boolean` | `Property<Boolean>` | `isVerbose()`, `setVerbose(boolean)` |
 
 **Migration examples:**
 
@@ -1000,7 +1000,7 @@ task.projects.addAll(otherTask.projects)  // lazy wiring
 |----------|----------------|----------------|-------------------|
 | `configuration` | `Configuration` | `Property<Configuration>` | `setConfiguration(Configuration)`, `getConfiguration()` (return type changed) |
 | `dependencyNotation` | `String` | `Property<String>` | — |
-| `showSinglePathToDependency` | `boolean` | `Property<Boolean>` | `setShowSinglePathToDependency(boolean)`, `isShowSinglePathToDependency()` |
+| `showSinglePathToDependency` | `boolean` | `Property<Boolean>` | `isShowSinglePathToDependency()`, `setShowSinglePathToDependency(boolean)` |
 
 **Migration examples:**
 
@@ -1037,7 +1037,7 @@ task.renderer.set(otherTask.renderer)  // lazy wiring
 |----------|----------------|----------------|-------------------|
 | `displayGroup` | `String` | `Property<String>` | `setDisplayGroup(String)`, `getDisplayGroup()` (return type changed) |
 | `renderer` | `ReportRenderer` | `Property<TaskReportRenderer>` | `setRenderer(TaskReportRenderer)`, `getRenderer()` (return type changed) |
-| `showDetail` | `boolean` | `Property<Boolean>` | `setShowDetail(boolean)`, `isDetail()` |
+| `showDetail` | `boolean` | `Property<Boolean>` | `isDetail()`, `setShowDetail(boolean)` |
 
 **Migration examples:**
 
@@ -1064,9 +1064,9 @@ task.renderer.set(otherTask.renderer)  // lazy wiring
 | `groovyClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setGroovyClasspath(FileCollection)`, `getGroovyClasspath()` (return type changed) |
 | `header` | `String` | `Property<String>` | `setHeader(String)`, `getHeader()` (return type changed) |
 | `links` | `Set<Groovydoc$Link>` | `SetProperty<Groovydoc$Link>` | `setLinks(Set<Groovydoc$Link>)`, `getLinks()` (return type changed) |
-| `noTimestamp` | `boolean` | `Property<Boolean>` | `setNoTimestamp(boolean)`, `isNoTimestamp()` |
-| `noVersionStamp` | `boolean` | `Property<Boolean>` | `setNoVersionStamp(boolean)`, `isNoVersionStamp()` |
-| `use` | `boolean` | `Property<Boolean>` | `setUse(boolean)`, `isUse()` |
+| `noTimestamp` | `boolean` | `Property<Boolean>` | `isNoTimestamp()`, `setNoTimestamp(boolean)` |
+| `noVersionStamp` | `boolean` | `Property<Boolean>` | `isNoVersionStamp()`, `setNoVersionStamp(boolean)` |
+| `use` | `boolean` | `Property<Boolean>` | `isUse()`, `setUse(boolean)` |
 | `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)`, `getWindowTitle()` (return type changed) |
 
 **Migration examples:**
@@ -1094,7 +1094,7 @@ task.links.addAll(otherTask.links)  // lazy wiring
 | `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
 | `destinationDir` | `File` | `DirectoryProperty` | `setDestinationDir(File)`, `getDestinationDir()` (return type changed) |
 | `executable` | `String` | `Property<String>` | `setExecutable(String)`, `getExecutable()` (return type changed) |
-| `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
+| `failOnError` | `boolean` | `Property<Boolean>` | `isFailOnError()`, `setFailOnError(boolean)` |
 | `maxMemory` | `String` | `Property<String>` | `setMaxMemory(String)`, `getMaxMemory()` (return type changed) |
 | `optionsFile` | `File` | `Provider<RegularFile>` | `getOptionsFile()` (return type changed) |
 | `title` | `String` | `Property<String>` | `setTitle(String)`, `getTitle()` (return type changed) |
@@ -1164,12 +1164,12 @@ task.classpath.setFrom(otherTask.classpath)  // lazy wiring
 |----------|----------------|----------------|-------------------|
 | `additionalParameters` | `List<String>` | `ListProperty<String>` | `setAdditionalParameters(List<String>)`, `getAdditionalParameters()` (return type changed) |
 | `bottom` | `String` | `Property<String>` | `setBottom(String)`, `getBottom()` (return type changed) |
-| `deprecation` | `boolean` | `Property<Boolean>` | `setDeprecation(boolean)`, `isDeprecation()` |
+| `deprecation` | `boolean` | `Property<Boolean>` | `isDeprecation()`, `setDeprecation(boolean)` |
 | `docTitle` | `String` | `Property<String>` | `setDocTitle(String)`, `getDocTitle()` (return type changed) |
 | `footer` | `String` | `Property<String>` | `setFooter(String)`, `getFooter()` (return type changed) |
 | `header` | `String` | `Property<String>` | `setHeader(String)`, `getHeader()` (return type changed) |
 | `top` | `String` | `Property<String>` | `setTop(String)`, `getTop()` (return type changed) |
-| `unchecked` | `boolean` | `Property<Boolean>` | `setUnchecked(boolean)`, `isUnchecked()` |
+| `unchecked` | `boolean` | `Property<Boolean>` | `isUnchecked()`, `setUnchecked(boolean)` |
 | `windowTitle` | `String` | `Property<String>` | `setWindowTitle(String)`, `getWindowTitle()` (return type changed) |
 
 **Migration examples:**
@@ -1190,7 +1190,7 @@ task.additionalParameters.addAll(otherTask.additionalParameters)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `outputPerTestCase` | `boolean` | `Property<Boolean>` | `setOutputPerTestCase(boolean)`, `isOutputPerTestCase()` |
+| `outputPerTestCase` | `boolean` | `Property<Boolean>` | `isOutputPerTestCase()`, `setOutputPerTestCase(boolean)` |
 
 **Migration examples:**
 
@@ -1209,7 +1209,7 @@ task.outputPerTestCase.set(otherTask.outputPerTestCase)  // lazy wiring
 | `forkEvery` | `long` | `Property<java.lang.Long>` | `setForkEvery(long)`, `getForkEvery()` (return type changed) |
 | `javaVersion` | `JavaVersion` | `Provider<JavaVersion>` | `getJavaVersion()` (return type changed) |
 | `maxParallelForks` | `int` | `Property<Integer>` | `setMaxParallelForks(int)`, `getMaxParallelForks()` (return type changed) |
-| `scanForTestClasses` | `boolean` | `Property<Boolean>` | `setScanForTestClasses(boolean)`, `isScanForTestClasses()` |
+| `scanForTestClasses` | `boolean` | `Property<Boolean>` | `isScanForTestClasses()`, `setScanForTestClasses(boolean)` |
 | `testClassesDirs` | `FileCollection` | `ConfigurableFileCollection` | `setTestClassesDirs(FileCollection)`, `getTestClassesDirs()` (return type changed) |
 | `testFramework` | `TestFramework` | `Property<TestFramework>` | `getTestFramework()` (return type changed) |
 
@@ -1237,7 +1237,7 @@ otherTask.someInput.set(task.javaVersion)
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `excludePatterns` | `Set<String>` | `SetProperty<String>` | `setExcludePatterns(String...)`, `getExcludePatterns()` (return type changed) |
-| `failOnNoMatchingTests` | `boolean` | `Property<Boolean>` | `setFailOnNoMatchingTests(boolean)`, `isFailOnNoMatchingTests()` |
+| `failOnNoMatchingTests` | `boolean` | `Property<Boolean>` | `isFailOnNoMatchingTests()`, `setFailOnNoMatchingTests(boolean)` |
 | `includePatterns` | `Set<String>` | `SetProperty<String>` | `setIncludePatterns(String...)`, `getIncludePatterns()` (return type changed) |
 
 **Migration examples:**
@@ -1305,15 +1305,15 @@ task.excludeEngines.addAll(otherTask.excludeEngines)  // lazy wiring
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `displayGranularity` | `int` | `Property<Integer>` | `setDisplayGranularity(int)`, `getDisplayGranularity()` (return type changed) |
-| `events` | `Set<TestLogEvent>` | `SetProperty<TestLogEvent>` | `setEvents(Set<TestLogEvent>)`, `setEvents(Iterable<?>)`, `getEvents()` (return type changed) |
-| `exceptionFormat` | `TestExceptionFormat` | `Property<TestExceptionFormat>` | `setExceptionFormat(TestExceptionFormat)`, `setExceptionFormat(Object)`, `getExceptionFormat()` (return type changed) |
+| `events` | `Set<TestLogEvent>` | `SetProperty<TestLogEvent>` | `setEvents(Iterable<?>)`, `setEvents(Set<TestLogEvent>)`, `getEvents()` (return type changed) |
+| `exceptionFormat` | `TestExceptionFormat` | `Property<TestExceptionFormat>` | `setExceptionFormat(Object)`, `setExceptionFormat(TestExceptionFormat)`, `getExceptionFormat()` (return type changed) |
 | `maxGranularity` | `int` | `Property<Integer>` | `setMaxGranularity(int)`, `getMaxGranularity()` (return type changed) |
 | `minGranularity` | `int` | `Property<Integer>` | `setMinGranularity(int)`, `getMinGranularity()` (return type changed) |
 | `showCauses` | `boolean` | `Property<Boolean>` | `setShowCauses(boolean)`, `getShowCauses()` (return type changed) |
 | `showExceptions` | `boolean` | `Property<Boolean>` | `setShowExceptions(boolean)`, `getShowExceptions()` (return type changed) |
 | `showStackTraces` | `boolean` | `Property<Boolean>` | `setShowStackTraces(boolean)`, `getShowStackTraces()` (return type changed) |
 | `showStandardStreams` | `boolean` | `Property<Boolean>` | `setShowStandardStreams(boolean)`, `getShowStandardStreams()` (return type changed) |
-| `stackTraceFilters` | `Set<TestStackTraceFilter>` | `SetProperty<TestStackTraceFilter>` | `setStackTraceFilters(Set<TestStackTraceFilter>)`, `setStackTraceFilters(Iterable<?>)`, `getStackTraceFilters()` (return type changed) |
+| `stackTraceFilters` | `Set<TestStackTraceFilter>` | `SetProperty<TestStackTraceFilter>` | `setStackTraceFilters(Iterable<?>)`, `setStackTraceFilters(Set<TestStackTraceFilter>)`, `getStackTraceFilters()` (return type changed) |
 
 **Migration examples:**
 
@@ -1337,12 +1337,12 @@ task.exceptionFormat.set(otherTask.exceptionFormat)  // lazy wiring
 |----------|----------------|----------------|-------------------|
 | `configFailurePolicy` | `String` | `Property<String>` | `setConfigFailurePolicy(String)`, `getConfigFailurePolicy()` (return type changed) |
 | `excludeGroups` | `Set<String>` | `SetProperty<String>` | `setExcludeGroups(Set<String>)`, `getExcludeGroups()` (return type changed) |
-| `groupByInstances` | `boolean` | `Property<Boolean>` | `setGroupByInstances(boolean)`, `isGroupByInstances()`, `getGroupByInstances()` (return type changed) |
+| `groupByInstances` | `boolean` | `Property<Boolean>` | `isGroupByInstances()`, `setGroupByInstances(boolean)`, `getGroupByInstances()` (return type changed) |
 | `includeGroups` | `Set<String>` | `SetProperty<String>` | `setIncludeGroups(Set<String>)`, `getIncludeGroups()` (return type changed) |
 | `listeners` | `Set<String>` | `SetProperty<String>` | `setListeners(Set<String>)`, `getListeners()` (return type changed) |
 | `outputDirectory` | `File` | `DirectoryProperty` | `setOutputDirectory(File)`, `getOutputDirectory()` (return type changed) |
 | `parallel` | `String` | `Property<String>` | `setParallel(String)`, `getParallel()` (return type changed) |
-| `preserveOrder` | `boolean` | `Property<Boolean>` | `setPreserveOrder(boolean)`, `isPreserveOrder()`, `getPreserveOrder()` (return type changed) |
+| `preserveOrder` | `boolean` | `Property<Boolean>` | `isPreserveOrder()`, `setPreserveOrder(boolean)`, `getPreserveOrder()` (return type changed) |
 | `suiteName` | `String` | `Property<String>` | `setSuiteName(String)`, `getSuiteName()` (return type changed) |
 | `suiteXmlBuilder` | `groovy.xml.MarkupBuilder` | `Property<groovy.xml.MarkupBuilder>` | `setSuiteXmlBuilder(groovy.xml.MarkupBuilder)`, `getSuiteXmlBuilder()` (return type changed) |
 | `suiteXmlFiles` | `List<File>` | `ConfigurableFileCollection` | `setSuiteXmlFiles(List<File>)`, `getSuiteXmlFiles()` (return type changed) |
@@ -1350,7 +1350,7 @@ task.exceptionFormat.set(otherTask.exceptionFormat)  // lazy wiring
 | `testName` | `String` | `Property<String>` | `setTestName(String)`, `getTestName()` (return type changed) |
 | `threadCount` | `int` | `Property<Integer>` | `setThreadCount(int)`, `getThreadCount()` (return type changed) |
 | `threadPoolFactoryClass` | `String` | `Property<String>` | `setThreadPoolFactoryClass(String)`, `getThreadPoolFactoryClass()` (return type changed) |
-| `useDefaultListeners` | `boolean` | `Property<Boolean>` | `setUseDefaultListeners(boolean)`, `isUseDefaultListeners()`, `getUseDefaultListeners()` (return type changed) |
+| `useDefaultListeners` | `boolean` | `Property<Boolean>` | `isUseDefaultListeners()`, `setUseDefaultListeners(boolean)`, `getUseDefaultListeners()` (return type changed) |
 
 **Migration examples:**
 
@@ -1436,8 +1436,8 @@ otherTask.someInput.set(task.availableBuildTypes)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `enabled` | `boolean` | `Property<Boolean>` | `setEnabled(boolean)`, `isEnabled()` |
-| `push` | `boolean` | `Property<Boolean>` | `setPush(boolean)`, `isPush()` |
+| `enabled` | `boolean` | `Property<Boolean>` | `isEnabled()`, `setEnabled(boolean)` |
+| `push` | `boolean` | `Property<Boolean>` | `isPush()`, `setPush(boolean)` |
 
 **Migration examples:**
 
@@ -1452,10 +1452,10 @@ task.enabled.set(otherTask.enabled)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `allowInsecureProtocol` | `boolean` | `Property<Boolean>` | `setAllowInsecureProtocol(boolean)`, `isAllowInsecureProtocol()` |
-| `allowUntrustedServer` | `boolean` | `Property<Boolean>` | `setAllowUntrustedServer(boolean)`, `isAllowUntrustedServer()` |
+| `allowInsecureProtocol` | `boolean` | `Property<Boolean>` | `isAllowInsecureProtocol()`, `setAllowInsecureProtocol(boolean)` |
+| `allowUntrustedServer` | `boolean` | `Property<Boolean>` | `isAllowUntrustedServer()`, `setAllowUntrustedServer(boolean)` |
 | `url` | `URI` | `Property<URI>` | `setUrl(String)`, `setUrl(URI)`, `getUrl()` (return type changed) |
-| `useExpectContinue` | `boolean` | `Property<Boolean>` | `setUseExpectContinue(boolean)`, `isUseExpectContinue()` |
+| `useExpectContinue` | `boolean` | `Property<Boolean>` | `isUseExpectContinue()`, `setUseExpectContinue(boolean)` |
 
 **Migration examples:**
 
@@ -1488,7 +1488,7 @@ task.directory.set(otherTask.directory)  // lazy wiring
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `bootClasspath` | `List<File>` | `ConfigurableFileCollection` | `setBootClasspath(List<File>)`, `getBootClasspath()` (return type changed) |
-| `breakIterator` | `boolean` | `Property<Boolean>` | `setBreakIterator(boolean)`, `isBreakIterator()` |
+| `breakIterator` | `boolean` | `Property<Boolean>` | `isBreakIterator()`, `setBreakIterator(boolean)` |
 | `classpath` | `List<File>` | `ConfigurableFileCollection` | `setClasspath(List<File>)`, `getClasspath()` (return type changed) |
 | `destinationDirectory` | `File` | `DirectoryProperty` | `setDestinationDirectory(File)`, `getDestinationDirectory()` (return type changed) |
 | `doclet` | `String` | `Property<String>` | `setDoclet(String)`, `getDoclet()` (return type changed) |
@@ -1535,38 +1535,38 @@ otherTask.someInput.set(task.verbose)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `author` | `boolean` | `Property<Boolean>` | `setAuthor(boolean)`, `isAuthor()` |
+| `author` | `boolean` | `Property<Boolean>` | `isAuthor()`, `setAuthor(boolean)` |
 | `bottom` | `String` | `Property<String>` | `setBottom(String)`, `getBottom()` (return type changed) |
 | `charSet` | `String` | `Property<String>` | `setCharSet(String)`, `getCharSet()` (return type changed) |
 | `docEncoding` | `String` | `Property<String>` | `setDocEncoding(String)`, `getDocEncoding()` (return type changed) |
-| `docFilesSubDirs` | `boolean` | `Property<Boolean>` | `setDocFilesSubDirs(boolean)`, `isDocFilesSubDirs()` |
+| `docFilesSubDirs` | `boolean` | `Property<Boolean>` | `isDocFilesSubDirs()`, `setDocFilesSubDirs(boolean)` |
 | `docTitle` | `String` | `Property<String>` | `setDocTitle(String)`, `getDocTitle()` (return type changed) |
 | `excludeDocFilesSubDir` | `List<String>` | `ListProperty<String>` | `setExcludeDocFilesSubDir(List<String>)`, `getExcludeDocFilesSubDir()` (return type changed) |
 | `footer` | `String` | `Property<String>` | `setFooter(String)`, `getFooter()` (return type changed) |
 | `groups` | `Map<String, List<String>>` | `MapProperty<String, List<String>>` | `setGroups(Map<String, List<String>>)`, `getGroups()` (return type changed) |
 | `helpFile` | `File` | `RegularFileProperty` | `setHelpFile(File)`, `getHelpFile()` (return type changed) |
-| `keyWords` | `boolean` | `Property<Boolean>` | `setKeyWords(boolean)`, `isKeyWords()` |
-| `linkSource` | `boolean` | `Property<Boolean>` | `setLinkSource(boolean)`, `isLinkSource()` |
+| `keyWords` | `boolean` | `Property<Boolean>` | `isKeyWords()`, `setKeyWords(boolean)` |
+| `linkSource` | `boolean` | `Property<Boolean>` | `isLinkSource()`, `setLinkSource(boolean)` |
 | `links` | `List<String>` | `ListProperty<String>` | `setLinks(List<String>)`, `getLinks()` (return type changed) |
 | `linksOffline` | `List<JavadocOfflineLink>` | `ListProperty<JavadocOfflineLink>` | `setLinksOffline(List<JavadocOfflineLink>)`, `getLinksOffline()` (return type changed) |
-| `noComment` | `boolean` | `Property<Boolean>` | `setNoComment(boolean)`, `isNoComment()` |
-| `noDeprecated` | `boolean` | `Property<Boolean>` | `setNoDeprecated(boolean)`, `isNoDeprecated()` |
-| `noDeprecatedList` | `boolean` | `Property<Boolean>` | `setNoDeprecatedList(boolean)`, `isNoDeprecatedList()` |
-| `noHelp` | `boolean` | `Property<Boolean>` | `setNoHelp(boolean)`, `isNoHelp()` |
-| `noIndex` | `boolean` | `Property<Boolean>` | `setNoIndex(boolean)`, `isNoIndex()` |
-| `noNavBar` | `boolean` | `Property<Boolean>` | `setNoNavBar(boolean)`, `isNoNavBar()` |
+| `noComment` | `boolean` | `Property<Boolean>` | `isNoComment()`, `setNoComment(boolean)` |
+| `noDeprecated` | `boolean` | `Property<Boolean>` | `isNoDeprecated()`, `setNoDeprecated(boolean)` |
+| `noDeprecatedList` | `boolean` | `Property<Boolean>` | `isNoDeprecatedList()`, `setNoDeprecatedList(boolean)` |
+| `noHelp` | `boolean` | `Property<Boolean>` | `isNoHelp()`, `setNoHelp(boolean)` |
+| `noIndex` | `boolean` | `Property<Boolean>` | `isNoIndex()`, `setNoIndex(boolean)` |
+| `noNavBar` | `boolean` | `Property<Boolean>` | `isNoNavBar()`, `setNoNavBar(boolean)` |
 | `noQualifiers` | `List<String>` | `ListProperty<String>` | `setNoQualifiers(List<String>)`, `getNoQualifiers()` (return type changed) |
-| `noSince` | `boolean` | `Property<Boolean>` | `setNoSince(boolean)`, `isNoSince()` |
-| `noTimestamp` | `boolean` | `Property<Boolean>` | `setNoTimestamp(boolean)`, `isNoTimestamp()` |
-| `noTree` | `boolean` | `Property<Boolean>` | `setNoTree(boolean)`, `isNoTree()` |
-| `serialWarn` | `boolean` | `Property<Boolean>` | `setSerialWarn(boolean)`, `isSerialWarn()` |
-| `splitIndex` | `boolean` | `Property<Boolean>` | `setSplitIndex(boolean)`, `isSplitIndex()` |
+| `noSince` | `boolean` | `Property<Boolean>` | `isNoSince()`, `setNoSince(boolean)` |
+| `noTimestamp` | `boolean` | `Property<Boolean>` | `isNoTimestamp()`, `setNoTimestamp(boolean)` |
+| `noTree` | `boolean` | `Property<Boolean>` | `isNoTree()`, `setNoTree(boolean)` |
+| `serialWarn` | `boolean` | `Property<Boolean>` | `isSerialWarn()`, `setSerialWarn(boolean)` |
+| `splitIndex` | `boolean` | `Property<Boolean>` | `isSplitIndex()`, `setSplitIndex(boolean)` |
 | `stylesheetFile` | `File` | `RegularFileProperty` | `setStylesheetFile(File)`, `getStylesheetFile()` (return type changed) |
 | `tagletPath` | `List<File>` | `ConfigurableFileCollection` | `setTagletPath(List<File>)`, `getTagletPath()` (return type changed) |
 | `taglets` | `List<String>` | `ListProperty<String>` | `setTaglets(List<String>)`, `getTaglets()` (return type changed) |
 | `tags` | `List<String>` | `ListProperty<String>` | `setTags(List<String>)`, `getTags()` (return type changed) |
-| `use` | `boolean` | `Property<Boolean>` | `setUse(boolean)`, `isUse()` |
-| `version` | `boolean` | `Property<Boolean>` | `setVersion(boolean)`, `isVersion()` |
+| `use` | `boolean` | `Property<Boolean>` | `isUse()`, `setUse(boolean)` |
+| `version` | `boolean` | `Property<Boolean>` | `isVersion()`, `setVersion(boolean)` |
 
 **Migration examples:**
 
@@ -1642,15 +1642,15 @@ task.manifestContentCharset.set(otherTask.manifestContentCharset)  // lazy wirin
 |----------|----------------|----------------|-------------------|
 | `additionalParameters` | `List<String>` | `ListProperty<String>` | `setAdditionalParameters(List<String>)`, `getAdditionalParameters()` (return type changed) |
 | `debugLevel` | `String` | `Property<String>` | `setDebugLevel(String)`, `getDebugLevel()` (return type changed) |
-| `deprecation` | `boolean` | `Property<Boolean>` | `setDeprecation(boolean)`, `isDeprecation()` |
+| `deprecation` | `boolean` | `Property<Boolean>` | `isDeprecation()`, `setDeprecation(boolean)` |
 | `encoding` | `String` | `Property<String>` | `setEncoding(String)`, `getEncoding()` (return type changed) |
-| `failOnError` | `boolean` | `Property<Boolean>` | `setFailOnError(boolean)`, `isFailOnError()` |
-| `force` | `boolean` | `Property<Boolean>` | `setForce(boolean)`, `isForce()` |
-| `listFiles` | `boolean` | `Property<Boolean>` | `setListFiles(boolean)`, `isListFiles()` |
+| `failOnError` | `boolean` | `Property<Boolean>` | `isFailOnError()`, `setFailOnError(boolean)` |
+| `force` | `boolean` | `Property<Boolean>` | `isForce()`, `setForce(boolean)` |
+| `listFiles` | `boolean` | `Property<Boolean>` | `isListFiles()`, `setListFiles(boolean)` |
 | `loggingLevel` | `String` | `Property<String>` | `setLoggingLevel(String)`, `getLoggingLevel()` (return type changed) |
 | `loggingPhases` | `List<String>` | `ListProperty<String>` | `setLoggingPhases(List<String>)`, `getLoggingPhases()` (return type changed) |
-| `optimize` | `boolean` | `Property<Boolean>` | `setOptimize(boolean)`, `isOptimize()` |
-| `unchecked` | `boolean` | `Property<Boolean>` | `setUnchecked(boolean)`, `isUnchecked()` |
+| `optimize` | `boolean` | `Property<Boolean>` | `isOptimize()`, `setOptimize(boolean)` |
+| `unchecked` | `boolean` | `Property<Boolean>` | `isUnchecked()`, `setUnchecked(boolean)` |
 
 **Migration examples:**
 
@@ -1785,9 +1785,9 @@ task.contextRoot.set(otherTask.contextRoot)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `commandLine` | `List<String>` | `Provider<List<String>>` | `setCommandLine(List<String>)`, `setCommandLine(Object...)`, `setCommandLine(Iterable<?>)`, `getCommandLine()` (return type changed) |
+| `commandLine` | `List<String>` | `Provider<List<String>>` | `setCommandLine(Iterable<?>)`, `setCommandLine(Object...)`, `setCommandLine(List<String>)`, `getCommandLine()` (return type changed) |
 | `errorOutput` | `OutputStream` | `Property<OutputStream>` | `setErrorOutput(OutputStream)`, `getErrorOutput()` (return type changed) |
-| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `setIgnoreExitValue(boolean)`, `isIgnoreExitValue()` |
+| `ignoreExitValue` | `boolean` | `Property<Boolean>` | `isIgnoreExitValue()`, `setIgnoreExitValue(boolean)` |
 | `standardInput` | `InputStream` | `Property<InputStream>` | `setStandardInput(InputStream)`, `getStandardInput()` (return type changed) |
 | `standardOutput` | `OutputStream` | `Property<OutputStream>` | `setStandardOutput(OutputStream)`, `getStandardOutput()` (return type changed) |
 
@@ -1809,9 +1809,9 @@ otherTask.someInput.set(task.commandLine)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `getArgs()` (return type changed) |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(Iterable<?>)`, `setArgs(List<String>)`, `getArgs()` (return type changed) |
 | `argumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getArgumentProviders()` (return type changed) |
-| `commandLine` | `Provider<List<String>>` | `Provider<List<String>>` | `setCommandLine(List<String>)`, `setCommandLine(Object...)`, `setCommandLine(Iterable<?>)` |
+| `commandLine` | `Provider<List<String>>` | `Provider<List<String>>` | `setCommandLine(Iterable<?>)`, `setCommandLine(Object...)`, `setCommandLine(List<String>)` |
 
 **Migration examples:**
 
@@ -1829,7 +1829,7 @@ otherTask.someInput.set(task.commandLine)
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `args` | `List<String>` | `ListProperty<String>` | `setArgs(List<String>)`, `setArgs(Iterable<?>)`, `setArgs(Iterable)`, `setArgs(List)`, `getArgs()` (return type changed) |
+| `args` | `List<String>` | `ListProperty<String>` | `setArgs(Iterable)`, `setArgs(Iterable<?>)`, `setArgs(List)`, `setArgs(List<String>)`, `getArgs()` (return type changed) |
 | `argumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getArgumentProviders()` (return type changed) |
 | `classpath` | `FileCollection` | `ConfigurableFileCollection` | `setClasspath(FileCollection)`, `getClasspath()` (return type changed) |
 | `mainClass` | `Property<String>` | `Property<String>` | — |
@@ -1851,12 +1851,12 @@ task.mainClass.set(otherTask.mainClass)  // lazy wiring
 
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
-| `allJvmArgs` | `List<String>` | `Provider<List<String>>` | `setAllJvmArgs(List<String>)`, `setAllJvmArgs(Iterable<?>)`, `getAllJvmArgs()` (return type changed) |
+| `allJvmArgs` | `List<String>` | `Provider<List<String>>` | `setAllJvmArgs(Iterable<?>)`, `setAllJvmArgs(List<String>)`, `getAllJvmArgs()` (return type changed) |
 | `bootstrapClasspath` | `FileCollection` | `ConfigurableFileCollection` | `setBootstrapClasspath(FileCollection)`, `getBootstrapClasspath()` (return type changed) |
 | `debug` | `boolean` | `Property<Boolean>` | `setDebug(boolean)`, `getDebug()` (return type changed) |
 | `defaultCharacterEncoding` | `String` | `Property<String>` | `setDefaultCharacterEncoding(String)`, `getDefaultCharacterEncoding()` (return type changed) |
 | `enableAssertions` | `boolean` | `Property<Boolean>` | `setEnableAssertions(boolean)`, `getEnableAssertions()` (return type changed) |
-| `jvmArgs` | `List<String>` | `ListProperty<String>` | `setJvmArgs(List<String>)`, `setJvmArgs(Iterable<?>)`, `getJvmArgs()` (return type changed) |
+| `jvmArgs` | `List<String>` | `ListProperty<String>` | `setJvmArgs(Iterable<?>)`, `setJvmArgs(List<String>)`, `getJvmArgs()` (return type changed) |
 | `jvmArgumentProviders` | `List<CommandLineArgumentProvider>` | `ListProperty<CommandLineArgumentProvider>` | `getJvmArgumentProviders()` (return type changed) |
 | `maxHeapSize` | `String` | `Property<String>` | `setMaxHeapSize(String)`, `getMaxHeapSize()` (return type changed) |
 | `minHeapSize` | `String` | `Property<String>` | `setMinHeapSize(String)`, `getMinHeapSize()` (return type changed) |
@@ -1888,7 +1888,7 @@ otherTask.someInput.set(task.allJvmArgs)
 | Property | Gradle 9.4 Type | Gradle 10 Type | Removed Accessors |
 |----------|----------------|----------------|-------------------|
 | `environment` | `Map<String, Object>` | `MapProperty<String, Object>` | `setEnvironment(Map<String, ?>)`, `getEnvironment()` (return type changed) |
-| `executable` | `String` | `Property<String>` | `setExecutable(String)`, `setExecutable(Object)`, `getExecutable()` (return type changed) |
+| `executable` | `String` | `Property<String>` | `setExecutable(Object)`, `setExecutable(String)`, `getExecutable()` (return type changed) |
 | `workingDir` | `File` | `DirectoryProperty` | `setWorkingDir(File)`, `setWorkingDir(Object)`, `getWorkingDir()` (return type changed) |
 
 **Migration examples:**
@@ -1928,14 +1928,14 @@ task.toolVersion.set(otherTask.toolVersion)  // lazy wiring
 | `address` | `String` | `Property<String>` | `setAddress(String)`, `getAddress()` (return type changed) |
 | `asJvmArg` | `String` | `Provider<String>` | `getAsJvmArg()` (return type changed) |
 | `classDumpDir` | `File` | `DirectoryProperty` | `setClassDumpDir(File)`, `getClassDumpDir()` (return type changed) |
-| `destinationFile` | `File` | `RegularFileProperty` | `setDestinationFile(Provider<File>)`, `setDestinationFile(File)`, `getDestinationFile()` (return type changed) |
-| `dumpOnExit` | `boolean` | `Property<Boolean>` | `setDumpOnExit(boolean)`, `isDumpOnExit()` |
-| `enabled` | `boolean` | `Property<Boolean>` | `setEnabled(boolean)`, `isEnabled()` |
+| `destinationFile` | `File` | `RegularFileProperty` | `setDestinationFile(File)`, `setDestinationFile(Provider<File>)`, `getDestinationFile()` (return type changed) |
+| `dumpOnExit` | `boolean` | `Property<Boolean>` | `isDumpOnExit()`, `setDumpOnExit(boolean)` |
+| `enabled` | `boolean` | `Property<Boolean>` | `isEnabled()`, `setEnabled(boolean)` |
 | `excludeClassLoaders` | `List<String>` | `ListProperty<String>` | `setExcludeClassLoaders(List<String>)`, `getExcludeClassLoaders()` (return type changed) |
 | `excludes` | `List<String>` | `ListProperty<String>` | `setExcludes(List<String>)`, `getExcludes()` (return type changed) |
-| `includeNoLocationClasses` | `boolean` | `Property<Boolean>` | `setIncludeNoLocationClasses(boolean)`, `isIncludeNoLocationClasses()` |
+| `includeNoLocationClasses` | `boolean` | `Property<Boolean>` | `isIncludeNoLocationClasses()`, `setIncludeNoLocationClasses(boolean)` |
 | `includes` | `List<String>` | `ListProperty<String>` | `setIncludes(List<String>)`, `getIncludes()` (return type changed) |
-| `jmx` | `boolean` | `Property<Boolean>` | `setJmx(boolean)`, `isJmx()` |
+| `jmx` | `boolean` | `Property<Boolean>` | `isJmx()`, `setJmx(boolean)` |
 | `output` | `JacocoTaskExtension$Output` | `Property<JacocoTaskExtension$Output>` | `setOutput(JacocoTaskExtension$Output)`, `getOutput()` (return type changed) |
 | `port` | `int` | `Property<Integer>` | `setPort(int)`, `getPort()` (return type changed) |
 | `sessionId` | `String` | `Property<String>` | `setSessionId(String)`, `getSessionId()` (return type changed) |

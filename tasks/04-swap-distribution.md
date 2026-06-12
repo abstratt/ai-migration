@@ -18,15 +18,19 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 ## Resume check
 
+First resolve the active distro pair to get **TARGET_URL** (see **Distro pair selection** in CONTEXT.md).
+
 1. Read `gradle/wrapper/gradle-wrapper.properties`
-2. If `distributionUrl` already points to `https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip`, this task is already complete
+2. If `distributionUrl` already points to the pair's **TARGET_URL**, this task is already complete
 3. Also check `git log` for a commit message matching "Swap Gradle Distribution" (the task title)
 
 ## Instructions
 
-1. Edit `gradle/wrapper/gradle-wrapper.properties` to set:
+First resolve the active distro pair to get **TARGET_URL** (see **Distro pair selection** in CONTEXT.md) — the Gradle 10 preview distribution this migration targets.
+
+1. Edit `gradle/wrapper/gradle-wrapper.properties` to set `distributionUrl` to the pair's **TARGET_URL**:
    ```
-   distributionUrl=https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip
+   distributionUrl=<TARGET_URL>
    ```
    Also remove `distributionSha256Sum` if present, and set `validateDistributionUrl=false`.
 

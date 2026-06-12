@@ -1,15 +1,37 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Default distribution URLs
-DEFAULT_G10_URL="https://github.com/asodja/gradle-dev-distributions/releases/download/v1.1.0/gradle-provider-api-20260204140400.zip"
-DEFAULT_BASE_URL="https://downloads.gradle.org/distributions/gradle-9.4.0-bin.zip"
-
-G10_URL="${1:-$DEFAULT_G10_URL}"
-BASE_URL="${2:-$DEFAULT_BASE_URL}"
+# Usage: ./extract_data.sh [distro-pair-id]
+#
+# A migration is defined by a *pair* of distros (baseline + target). Pairs live
+# in ../distro-pairs.json; the baseline/target URLs and the distro mapping bundle directory are
+# all resolved from the selected pair id. With no argument, the manifest's
+# "default" pair is used.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-OUT_DIR="$(cd "$SCRIPT_DIR/../migration-reference" && pwd)"
+MANIFEST="$SCRIPT_DIR/../distro-pairs.json"
+DISTRO_PAIR="${1:-}"
+
+# Resolve (id, baseline_url, target_url) from the manifest. python3 is already a
+# prerequisite for generate_report.py, so we parse with it rather than depend on jq.
+RESOLVED="$(python3 - "$MANIFEST" "$DISTRO_PAIR" <<'PY'
+import json, sys
+manifest, want = sys.argv[1], sys.argv[2]
+data = json.load(open(manifest))
+pid = want or data["default"]
+pair = next((p for p in data["pairs"] if p["id"] == pid), None)
+if pair is None:
+    sys.exit(f"ERROR: distro pair '{pid}' not found in {manifest}")
+print(pair["id"], pair["baseline_url"], pair["target_url"])
+PY
+)" || exit 1
+read -r PAIR_ID BASE_URL G10_URL <<EOF
+$RESOLVED
+EOF
+
+OUT_DIR="$SCRIPT_DIR/../migration-reference/distro-pairs/$PAIR_ID"
+mkdir -p "$OUT_DIR"
+OUT_DIR="$(cd "$OUT_DIR" && pwd)"
 WORK_DIR="$(mktemp -d)"
 
 cleanup() {
@@ -19,8 +41,10 @@ cleanup() {
 trap cleanup EXIT
 
 echo "=== Gradle 10 Migration Data Extraction ==="
-echo "Gradle 10 URL: $G10_URL"
+echo "Distro pair: $PAIR_ID"
+echo "Gradle 10 (target) URL: $G10_URL"
 echo "Baseline Gradle URL: $BASE_URL"
+echo "Distro mapping bundle: $OUT_DIR"
 echo "Working directory: $WORK_DIR"
 echo ""
 
@@ -174,4 +198,4 @@ echo "  $OUT_DIR/g10-javap-v2.txt ($(wc -l < "$OUT_DIR/g10-javap-v2.txt" | tr -d
 echo "  $OUT_DIR/comparison-v2.txt ($(wc -l < "$OUT_DIR/comparison-v2.txt" | tr -d ' ') lines)"
 echo "  $OUT_DIR/hierarchy-v2.txt ($hier_count class declarations)"
 echo ""
-echo "Now run:  python3 generate_report.py > ../migration-reference/gradle-10-migration-report.md"
+echo "Now run:  python3 generate_report.py $PAIR_ID > $OUT_DIR/gradle-10-migration-report.md"

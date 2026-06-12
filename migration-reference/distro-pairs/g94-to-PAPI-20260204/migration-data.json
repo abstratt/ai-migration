@@ -9,8 +9,8 @@
     "new_read_accessor": "getArtifactUrls().get()",
     "new_write_accessor": "getArtifactUrls().set(VALUE)",
     "removed_accessors": [
-      "setArtifactUrls(java.util.Set<java.net.URI>)",
-      "setArtifactUrls(java.lang.Iterable<?>)"
+      "setArtifactUrls(java.lang.Iterable<?>)",
+      "setArtifactUrls(java.util.Set<java.net.URI>)"
     ],
     "changed_return_accessors": [
       "getArtifactUrls()"
@@ -27,8 +27,8 @@
     "new_read_accessor": "getAllowInsecureProtocol().get()",
     "new_write_accessor": "getAllowInsecureProtocol().set(VALUE)",
     "removed_accessors": [
-      "setAllowInsecureProtocol(boolean)",
-      "isAllowInsecureProtocol()"
+      "isAllowInsecureProtocol()",
+      "setAllowInsecureProtocol(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -66,8 +66,8 @@
     "new_read_accessor": "getFollowSymlinks().get()",
     "new_write_accessor": "getFollowSymlinks().set(VALUE)",
     "removed_accessors": [
-      "setFollowSymlinks(boolean)",
-      "isFollowSymlinks()"
+      "isFollowSymlinks()",
+      "setFollowSymlinks(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -201,8 +201,8 @@
     "new_read_accessor": "getTrace().get()",
     "new_write_accessor": "getTrace().set(VALUE)",
     "removed_accessors": [
-      "setTrace(boolean)",
-      "isTrace()"
+      "isTrace()",
+      "setTrace(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -217,8 +217,8 @@
     "new_read_accessor": "getTraceLexer().get()",
     "new_write_accessor": "getTraceLexer().set(VALUE)",
     "removed_accessors": [
-      "setTraceLexer(boolean)",
-      "isTraceLexer()"
+      "isTraceLexer()",
+      "setTraceLexer(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -233,8 +233,8 @@
     "new_read_accessor": "getTraceParser().get()",
     "new_write_accessor": "getTraceParser().set(VALUE)",
     "removed_accessors": [
-      "setTraceParser(boolean)",
-      "isTraceParser()"
+      "isTraceParser()",
+      "setTraceParser(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -249,8 +249,8 @@
     "new_read_accessor": "getTraceTreeWalker().get()",
     "new_write_accessor": "getTraceTreeWalker().set(VALUE)",
     "removed_accessors": [
-      "setTraceTreeWalker(boolean)",
-      "isTraceTreeWalker()"
+      "isTraceTreeWalker()",
+      "setTraceTreeWalker(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -363,8 +363,8 @@
     "new_read_accessor": "getShowViolations().get()",
     "new_write_accessor": "getShowViolations().set(VALUE)",
     "removed_accessors": [
-      "setShowViolations(boolean)",
-      "isShowViolations()"
+      "isShowViolations()",
+      "setShowViolations(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -430,8 +430,8 @@
     "new_read_accessor": "getShowViolations().get()",
     "new_write_accessor": "getShowViolations().set(VALUE)",
     "removed_accessors": [
-      "setShowViolations(boolean)",
-      "isShowViolations()"
+      "isShowViolations()",
+      "setShowViolations(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -599,8 +599,8 @@
     "new_read_accessor": "getIgnoreFailures().get()",
     "new_write_accessor": "getIgnoreFailures().set(VALUE)",
     "removed_accessors": [
-      "setIgnoreFailures(boolean)",
-      "isIgnoreFailures()"
+      "isIgnoreFailures()",
+      "setIgnoreFailures(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -699,8 +699,8 @@
     "new_read_accessor": "getConsoleOutput().get()",
     "new_write_accessor": "getConsoleOutput().set(VALUE)",
     "removed_accessors": [
-      "setConsoleOutput(boolean)",
-      "isConsoleOutput()"
+      "isConsoleOutput()",
+      "setConsoleOutput(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -798,8 +798,8 @@
     "new_read_accessor": "getConsoleOutput().get()",
     "new_write_accessor": "getConsoleOutput().set(VALUE)",
     "removed_accessors": [
-      "setConsoleOutput(boolean)",
-      "isConsoleOutput()"
+      "isConsoleOutput()",
+      "setConsoleOutput(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -848,8 +848,8 @@
     "new_read_accessor": "getTargetJdk().get()",
     "new_write_accessor": "getTargetJdk().set(VALUE)",
     "removed_accessors": [
-      "setTargetJdk(org.gradle.api.plugins.quality.TargetJdk)",
-      "setTargetJdk(java.lang.Object)"
+      "setTargetJdk(java.lang.Object)",
+      "setTargetJdk(org.gradle.api.plugins.quality.TargetJdk)"
     ],
     "changed_return_accessors": [
       "getTargetJdk()"
@@ -1192,10 +1192,10 @@
     "new_read_accessor": "getArgs().get()",
     "new_write_accessor": "getArgs().set(VALUE)",
     "removed_accessors": [
-      "setArgs(java.util.List<java.lang.String>)",
-      "setArgs(java.lang.Iterable<?>)",
       "setArgs(java.lang.Iterable)",
-      "setArgs(java.util.List)"
+      "setArgs(java.lang.Iterable<?>)",
+      "setArgs(java.util.List)",
+      "setArgs(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [
       "getArgs()"
@@ -1235,8 +1235,8 @@
     "new_read_accessor": "getIgnoreExitValue().get()",
     "new_write_accessor": "getIgnoreExitValue().set(VALUE)",
     "removed_accessors": [
-      "setIgnoreExitValue(boolean)",
-      "isIgnoreExitValue()"
+      "isIgnoreExitValue()",
+      "setIgnoreExitValue(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -1294,8 +1294,8 @@
     "new_read_accessor": "getFollowSymlinks().get()",
     "new_write_accessor": "getFollowSymlinks().set(VALUE)",
     "removed_accessors": [
-      "setFollowSymlinks(boolean)",
-      "isFollowSymlinks()"
+      "isFollowSymlinks()",
+      "setFollowSymlinks(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -1325,10 +1325,10 @@
     "new_read_accessor": "getArgs().get()",
     "new_write_accessor": "getArgs().set(VALUE)",
     "removed_accessors": [
-      "setArgs(java.util.List<java.lang.String>)",
-      "setArgs(java.lang.Iterable<?>)",
       "setArgs(java.lang.Iterable)",
-      "setArgs(java.util.List)"
+      "setArgs(java.lang.Iterable<?>)",
+      "setArgs(java.util.List)",
+      "setArgs(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [
       "getArgs()"
@@ -1362,8 +1362,8 @@
     "new_read_accessor": "getIgnoreExitValue().get()",
     "new_write_accessor": "getIgnoreExitValue().set(VALUE)",
     "removed_accessors": [
-      "setIgnoreExitValue(boolean)",
-      "isIgnoreExitValue()"
+      "isIgnoreExitValue()",
+      "setIgnoreExitValue(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -1412,10 +1412,10 @@
     "new_read_accessor": "getArgs().get()",
     "new_write_accessor": "getArgs().set(VALUE)",
     "removed_accessors": [
-      "setArgs(java.util.List<java.lang.String>)",
-      "setArgs(java.lang.Iterable<?>)",
       "setArgs(java.lang.Iterable)",
-      "setArgs(java.util.List)"
+      "setArgs(java.lang.Iterable<?>)",
+      "setArgs(java.util.List)",
+      "setArgs(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [
       "getArgs()"
@@ -1466,8 +1466,8 @@
     "new_read_accessor": "getIgnoreExitValue().get()",
     "new_write_accessor": "getIgnoreExitValue().set(VALUE)",
     "removed_accessors": [
-      "setIgnoreExitValue(boolean)",
-      "isIgnoreExitValue()"
+      "isIgnoreExitValue()",
+      "setIgnoreExitValue(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -1633,8 +1633,8 @@
     "new_read_accessor": "getPreserveFileTimestamps().get()",
     "new_write_accessor": "getPreserveFileTimestamps().set(VALUE)",
     "removed_accessors": [
-      "setPreserveFileTimestamps(boolean)",
-      "isPreserveFileTimestamps()"
+      "isPreserveFileTimestamps()",
+      "setPreserveFileTimestamps(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -1656,8 +1656,8 @@
     "new_read_accessor": "getReproducibleFileOrder().get()",
     "new_write_accessor": "getReproducibleFileOrder().set(VALUE)",
     "removed_accessors": [
-      "setReproducibleFileOrder(boolean)",
-      "isReproducibleFileOrder()"
+      "isReproducibleFileOrder()",
+      "setReproducibleFileOrder(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -1696,8 +1696,8 @@
     "new_read_accessor": "getClasspath().get()",
     "new_write_accessor": "getClasspath().setFrom(VALUE)",
     "removed_accessors": [
-      "setClasspath(org.gradle.api.file.FileCollection)",
-      "setClasspath(java.lang.Object)"
+      "setClasspath(java.lang.Object)",
+      "setClasspath(org.gradle.api.file.FileCollection)"
     ],
     "changed_return_accessors": [
       "getClasspath()"
@@ -1775,8 +1775,8 @@
     "new_read_accessor": "getZip64().get()",
     "new_write_accessor": "getZip64().set(VALUE)",
     "removed_accessors": [
-      "setZip64(boolean)",
-      "isZip64()"
+      "isZip64()",
+      "setZip64(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -1983,8 +1983,8 @@
     "new_read_accessor": "getDebug().get()",
     "new_write_accessor": "getDebug().set(VALUE)",
     "removed_accessors": [
-      "setDebug(boolean)",
-      "isDebug()"
+      "isDebug()",
+      "setDebug(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -1999,8 +1999,8 @@
     "new_read_accessor": "getDeprecation().get()",
     "new_write_accessor": "getDeprecation().set(VALUE)",
     "removed_accessors": [
-      "setDeprecation(boolean)",
-      "isDeprecation()"
+      "isDeprecation()",
+      "setDeprecation(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2049,8 +2049,8 @@
     "new_read_accessor": "getFailOnError().get()",
     "new_write_accessor": "getFailOnError().set(VALUE)",
     "removed_accessors": [
-      "setFailOnError(boolean)",
-      "isFailOnError()"
+      "isFailOnError()",
+      "setFailOnError(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2065,8 +2065,8 @@
     "new_read_accessor": "getFork().get()",
     "new_write_accessor": "getFork().set(VALUE)",
     "removed_accessors": [
-      "setFork(boolean)",
-      "isFork()"
+      "isFork()",
+      "setFork(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2094,8 +2094,8 @@
     "new_read_accessor": "getIncremental().get()",
     "new_write_accessor": "getIncremental().set(VALUE)",
     "removed_accessors": [
-      "setIncremental(boolean)",
-      "isIncremental()"
+      "isIncremental()",
+      "setIncremental(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2110,8 +2110,8 @@
     "new_read_accessor": "getListFiles().get()",
     "new_write_accessor": "getListFiles().set(VALUE)",
     "removed_accessors": [
-      "setListFiles(boolean)",
-      "isListFiles()"
+      "isListFiles()",
+      "setListFiles(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2143,8 +2143,8 @@
     "new_read_accessor": "getVerbose().get()",
     "new_write_accessor": "getVerbose().set(VALUE)",
     "removed_accessors": [
-      "setVerbose(boolean)",
-      "isVerbose()"
+      "isVerbose()",
+      "setVerbose(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2159,8 +2159,8 @@
     "new_read_accessor": "getWarnings().get()",
     "new_write_accessor": "getWarnings().set(VALUE)",
     "removed_accessors": [
-      "setWarnings(boolean)",
-      "isWarnings()"
+      "isWarnings()",
+      "setWarnings(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2277,8 +2277,8 @@
     "new_read_accessor": "getFailOnError().get()",
     "new_write_accessor": "getFailOnError().set(VALUE)",
     "removed_accessors": [
-      "setFailOnError(boolean)",
-      "isFailOnError()"
+      "isFailOnError()",
+      "setFailOnError(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2310,8 +2310,8 @@
     "new_read_accessor": "getFork().get()",
     "new_write_accessor": "getFork().set(VALUE)",
     "removed_accessors": [
-      "setFork(boolean)",
-      "isFork()"
+      "isFork()",
+      "setFork(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2326,8 +2326,8 @@
     "new_read_accessor": "getJavaAnnotationProcessing().get()",
     "new_write_accessor": "getJavaAnnotationProcessing().set(VALUE)",
     "removed_accessors": [
-      "setJavaAnnotationProcessing(boolean)",
-      "isJavaAnnotationProcessing()"
+      "isJavaAnnotationProcessing()",
+      "setJavaAnnotationProcessing(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2342,8 +2342,8 @@
     "new_read_accessor": "getKeepStubs().get()",
     "new_write_accessor": "getKeepStubs().set(VALUE)",
     "removed_accessors": [
-      "setKeepStubs(boolean)",
-      "isKeepStubs()"
+      "isKeepStubs()",
+      "setKeepStubs(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2358,8 +2358,8 @@
     "new_read_accessor": "getListFiles().get()",
     "new_write_accessor": "getListFiles().set(VALUE)",
     "removed_accessors": [
-      "setListFiles(boolean)",
-      "isListFiles()"
+      "isListFiles()",
+      "setListFiles(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2391,8 +2391,8 @@
     "new_read_accessor": "getParameters().get()",
     "new_write_accessor": "getParameters().set(VALUE)",
     "removed_accessors": [
-      "setParameters(boolean)",
-      "isParameters()"
+      "isParameters()",
+      "setParameters(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2424,8 +2424,8 @@
     "new_read_accessor": "getVerbose().get()",
     "new_write_accessor": "getVerbose().set(VALUE)",
     "removed_accessors": [
-      "setVerbose(boolean)",
-      "isVerbose()"
+      "isVerbose()",
+      "setVerbose(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2588,8 +2588,8 @@
     "new_read_accessor": "getShowSinglePathToDependency().get()",
     "new_write_accessor": "getShowSinglePathToDependency().set(VALUE)",
     "removed_accessors": [
-      "setShowSinglePathToDependency(boolean)",
-      "isShowSinglePathToDependency()"
+      "isShowSinglePathToDependency()",
+      "setShowSinglePathToDependency(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2655,8 +2655,8 @@
     "new_read_accessor": "getShowDetail().get()",
     "new_write_accessor": "getShowDetail().set(VALUE)",
     "removed_accessors": [
-      "setShowDetail(boolean)",
-      "isDetail()"
+      "isDetail()",
+      "setShowDetail(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2790,8 +2790,8 @@
     "new_read_accessor": "getNoTimestamp().get()",
     "new_write_accessor": "getNoTimestamp().set(VALUE)",
     "removed_accessors": [
-      "setNoTimestamp(boolean)",
-      "isNoTimestamp()"
+      "isNoTimestamp()",
+      "setNoTimestamp(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2806,8 +2806,8 @@
     "new_read_accessor": "getNoVersionStamp().get()",
     "new_write_accessor": "getNoVersionStamp().set(VALUE)",
     "removed_accessors": [
-      "setNoVersionStamp(boolean)",
-      "isNoVersionStamp()"
+      "isNoVersionStamp()",
+      "setNoVersionStamp(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2822,8 +2822,8 @@
     "new_read_accessor": "getUse().get()",
     "new_write_accessor": "getUse().set(VALUE)",
     "removed_accessors": [
-      "setUse(boolean)",
-      "isUse()"
+      "isUse()",
+      "setUse(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -2906,8 +2906,8 @@
     "new_read_accessor": "getFailOnError().get()",
     "new_write_accessor": "getFailOnError().set(VALUE)",
     "removed_accessors": [
-      "setFailOnError(boolean)",
-      "isFailOnError()"
+      "isFailOnError()",
+      "setFailOnError(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -3124,8 +3124,8 @@
     "new_read_accessor": "getDeprecation().get()",
     "new_write_accessor": "getDeprecation().set(VALUE)",
     "removed_accessors": [
-      "setDeprecation(boolean)",
-      "isDeprecation()"
+      "isDeprecation()",
+      "setDeprecation(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -3208,8 +3208,8 @@
     "new_read_accessor": "getUnchecked().get()",
     "new_write_accessor": "getUnchecked().set(VALUE)",
     "removed_accessors": [
-      "setUnchecked(boolean)",
-      "isUnchecked()"
+      "isUnchecked()",
+      "setUnchecked(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -3241,8 +3241,8 @@
     "new_read_accessor": "getOutputPerTestCase().get()",
     "new_write_accessor": "getOutputPerTestCase().set(VALUE)",
     "removed_accessors": [
-      "setOutputPerTestCase(boolean)",
-      "isOutputPerTestCase()"
+      "isOutputPerTestCase()",
+      "setOutputPerTestCase(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -3323,8 +3323,8 @@
     "new_read_accessor": "getScanForTestClasses().get()",
     "new_write_accessor": "getScanForTestClasses().set(VALUE)",
     "removed_accessors": [
-      "setScanForTestClasses(boolean)",
-      "isScanForTestClasses()"
+      "isScanForTestClasses()",
+      "setScanForTestClasses(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -3388,8 +3388,8 @@
     "new_read_accessor": "getFailOnNoMatchingTests().get()",
     "new_write_accessor": "getFailOnNoMatchingTests().set(VALUE)",
     "removed_accessors": [
-      "setFailOnNoMatchingTests(boolean)",
-      "isFailOnNoMatchingTests()"
+      "isFailOnNoMatchingTests()",
+      "setFailOnNoMatchingTests(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -3555,8 +3555,8 @@
     "new_read_accessor": "getEvents().get()",
     "new_write_accessor": "getEvents().set(VALUE)",
     "removed_accessors": [
-      "setEvents(java.util.Set<org.gradle.api.tasks.testing.logging.TestLogEvent>)",
-      "setEvents(java.lang.Iterable<?>)"
+      "setEvents(java.lang.Iterable<?>)",
+      "setEvents(java.util.Set<org.gradle.api.tasks.testing.logging.TestLogEvent>)"
     ],
     "changed_return_accessors": [
       "getEvents()"
@@ -3575,8 +3575,8 @@
     "new_read_accessor": "getExceptionFormat().get()",
     "new_write_accessor": "getExceptionFormat().set(VALUE)",
     "removed_accessors": [
-      "setExceptionFormat(org.gradle.api.tasks.testing.logging.TestExceptionFormat)",
-      "setExceptionFormat(java.lang.Object)"
+      "setExceptionFormat(java.lang.Object)",
+      "setExceptionFormat(org.gradle.api.tasks.testing.logging.TestExceptionFormat)"
     ],
     "changed_return_accessors": [
       "getExceptionFormat()"
@@ -3709,8 +3709,8 @@
     "new_read_accessor": "getStackTraceFilters().get()",
     "new_write_accessor": "getStackTraceFilters().set(VALUE)",
     "removed_accessors": [
-      "setStackTraceFilters(java.util.Set<org.gradle.api.tasks.testing.logging.TestStackTraceFilter>)",
-      "setStackTraceFilters(java.lang.Iterable<?>)"
+      "setStackTraceFilters(java.lang.Iterable<?>)",
+      "setStackTraceFilters(java.util.Set<org.gradle.api.tasks.testing.logging.TestStackTraceFilter>)"
     ],
     "changed_return_accessors": [
       "getStackTraceFilters()"
@@ -3763,8 +3763,8 @@
     "new_read_accessor": "getGroupByInstances().get()",
     "new_write_accessor": "getGroupByInstances().set(VALUE)",
     "removed_accessors": [
-      "setGroupByInstances(boolean)",
-      "isGroupByInstances()"
+      "isGroupByInstances()",
+      "setGroupByInstances(boolean)"
     ],
     "changed_return_accessors": [
       "getGroupByInstances()"
@@ -3849,8 +3849,8 @@
     "new_read_accessor": "getPreserveOrder().get()",
     "new_write_accessor": "getPreserveOrder().set(VALUE)",
     "removed_accessors": [
-      "setPreserveOrder(boolean)",
-      "isPreserveOrder()"
+      "isPreserveOrder()",
+      "setPreserveOrder(boolean)"
     ],
     "changed_return_accessors": [
       "getPreserveOrder()"
@@ -3986,8 +3986,8 @@
     "new_read_accessor": "getUseDefaultListeners().get()",
     "new_write_accessor": "getUseDefaultListeners().set(VALUE)",
     "removed_accessors": [
-      "setUseDefaultListeners(boolean)",
-      "isUseDefaultListeners()"
+      "isUseDefaultListeners()",
+      "setUseDefaultListeners(boolean)"
     ],
     "changed_return_accessors": [
       "getUseDefaultListeners()"
@@ -4336,8 +4336,8 @@
     "new_read_accessor": "getEnabled().get()",
     "new_write_accessor": "getEnabled().set(VALUE)",
     "removed_accessors": [
-      "setEnabled(boolean)",
-      "isEnabled()"
+      "isEnabled()",
+      "setEnabled(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -4356,8 +4356,8 @@
     "new_read_accessor": "getPush().get()",
     "new_write_accessor": "getPush().set(VALUE)",
     "removed_accessors": [
-      "setPush(boolean)",
-      "isPush()"
+      "isPush()",
+      "setPush(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -4376,8 +4376,8 @@
     "new_read_accessor": "getAllowInsecureProtocol().get()",
     "new_write_accessor": "getAllowInsecureProtocol().set(VALUE)",
     "removed_accessors": [
-      "setAllowInsecureProtocol(boolean)",
-      "isAllowInsecureProtocol()"
+      "isAllowInsecureProtocol()",
+      "setAllowInsecureProtocol(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -4392,8 +4392,8 @@
     "new_read_accessor": "getAllowUntrustedServer().get()",
     "new_write_accessor": "getAllowUntrustedServer().set(VALUE)",
     "removed_accessors": [
-      "setAllowUntrustedServer(boolean)",
-      "isAllowUntrustedServer()"
+      "isAllowUntrustedServer()",
+      "setAllowUntrustedServer(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -4426,8 +4426,8 @@
     "new_read_accessor": "getUseExpectContinue().get()",
     "new_write_accessor": "getUseExpectContinue().set(VALUE)",
     "removed_accessors": [
-      "setUseExpectContinue(boolean)",
-      "isUseExpectContinue()"
+      "isUseExpectContinue()",
+      "setUseExpectContinue(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -4479,8 +4479,8 @@
     "new_read_accessor": "getBreakIterator().get()",
     "new_write_accessor": "getBreakIterator().set(VALUE)",
     "removed_accessors": [
-      "setBreakIterator(boolean)",
-      "isBreakIterator()"
+      "isBreakIterator()",
+      "setBreakIterator(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -4856,8 +4856,8 @@
     "new_read_accessor": "getAuthor().get()",
     "new_write_accessor": "getAuthor().set(VALUE)",
     "removed_accessors": [
-      "setAuthor(boolean)",
-      "isAuthor()"
+      "isAuthor()",
+      "setAuthor(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -4923,8 +4923,8 @@
     "new_read_accessor": "getDocFilesSubDirs().get()",
     "new_write_accessor": "getDocFilesSubDirs().set(VALUE)",
     "removed_accessors": [
-      "setDocFilesSubDirs(boolean)",
-      "isDocFilesSubDirs()"
+      "isDocFilesSubDirs()",
+      "setDocFilesSubDirs(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5024,8 +5024,8 @@
     "new_read_accessor": "getKeyWords().get()",
     "new_write_accessor": "getKeyWords().set(VALUE)",
     "removed_accessors": [
-      "setKeyWords(boolean)",
-      "isKeyWords()"
+      "isKeyWords()",
+      "setKeyWords(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5040,8 +5040,8 @@
     "new_read_accessor": "getLinkSource().get()",
     "new_write_accessor": "getLinkSource().set(VALUE)",
     "removed_accessors": [
-      "setLinkSource(boolean)",
-      "isLinkSource()"
+      "isLinkSource()",
+      "setLinkSource(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5090,8 +5090,8 @@
     "new_read_accessor": "getNoComment().get()",
     "new_write_accessor": "getNoComment().set(VALUE)",
     "removed_accessors": [
-      "setNoComment(boolean)",
-      "isNoComment()"
+      "isNoComment()",
+      "setNoComment(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5106,8 +5106,8 @@
     "new_read_accessor": "getNoDeprecated().get()",
     "new_write_accessor": "getNoDeprecated().set(VALUE)",
     "removed_accessors": [
-      "setNoDeprecated(boolean)",
-      "isNoDeprecated()"
+      "isNoDeprecated()",
+      "setNoDeprecated(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5122,8 +5122,8 @@
     "new_read_accessor": "getNoDeprecatedList().get()",
     "new_write_accessor": "getNoDeprecatedList().set(VALUE)",
     "removed_accessors": [
-      "setNoDeprecatedList(boolean)",
-      "isNoDeprecatedList()"
+      "isNoDeprecatedList()",
+      "setNoDeprecatedList(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5138,8 +5138,8 @@
     "new_read_accessor": "getNoHelp().get()",
     "new_write_accessor": "getNoHelp().set(VALUE)",
     "removed_accessors": [
-      "setNoHelp(boolean)",
-      "isNoHelp()"
+      "isNoHelp()",
+      "setNoHelp(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5154,8 +5154,8 @@
     "new_read_accessor": "getNoIndex().get()",
     "new_write_accessor": "getNoIndex().set(VALUE)",
     "removed_accessors": [
-      "setNoIndex(boolean)",
-      "isNoIndex()"
+      "isNoIndex()",
+      "setNoIndex(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5170,8 +5170,8 @@
     "new_read_accessor": "getNoNavBar().get()",
     "new_write_accessor": "getNoNavBar().set(VALUE)",
     "removed_accessors": [
-      "setNoNavBar(boolean)",
-      "isNoNavBar()"
+      "isNoNavBar()",
+      "setNoNavBar(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5203,8 +5203,8 @@
     "new_read_accessor": "getNoSince().get()",
     "new_write_accessor": "getNoSince().set(VALUE)",
     "removed_accessors": [
-      "setNoSince(boolean)",
-      "isNoSince()"
+      "isNoSince()",
+      "setNoSince(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5219,8 +5219,8 @@
     "new_read_accessor": "getNoTimestamp().get()",
     "new_write_accessor": "getNoTimestamp().set(VALUE)",
     "removed_accessors": [
-      "setNoTimestamp(boolean)",
-      "isNoTimestamp()"
+      "isNoTimestamp()",
+      "setNoTimestamp(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5235,8 +5235,8 @@
     "new_read_accessor": "getNoTree().get()",
     "new_write_accessor": "getNoTree().set(VALUE)",
     "removed_accessors": [
-      "setNoTree(boolean)",
-      "isNoTree()"
+      "isNoTree()",
+      "setNoTree(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5251,8 +5251,8 @@
     "new_read_accessor": "getSerialWarn().get()",
     "new_write_accessor": "getSerialWarn().set(VALUE)",
     "removed_accessors": [
-      "setSerialWarn(boolean)",
-      "isSerialWarn()"
+      "isSerialWarn()",
+      "setSerialWarn(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5267,8 +5267,8 @@
     "new_read_accessor": "getSplitIndex().get()",
     "new_write_accessor": "getSplitIndex().set(VALUE)",
     "removed_accessors": [
-      "setSplitIndex(boolean)",
-      "isSplitIndex()"
+      "isSplitIndex()",
+      "setSplitIndex(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5351,8 +5351,8 @@
     "new_read_accessor": "getUse().get()",
     "new_write_accessor": "getUse().set(VALUE)",
     "removed_accessors": [
-      "setUse(boolean)",
-      "isUse()"
+      "isUse()",
+      "setUse(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5367,8 +5367,8 @@
     "new_read_accessor": "getVersion().get()",
     "new_write_accessor": "getVersion().set(VALUE)",
     "removed_accessors": [
-      "setVersion(boolean)",
-      "isVersion()"
+      "isVersion()",
+      "setVersion(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -5609,8 +5609,8 @@
     "new_read_accessor": "getDeprecation().get()",
     "new_write_accessor": "getDeprecation().set(VALUE)",
     "removed_accessors": [
-      "setDeprecation(boolean)",
-      "isDeprecation()"
+      "isDeprecation()",
+      "setDeprecation(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -5646,8 +5646,8 @@
     "new_read_accessor": "getFailOnError().get()",
     "new_write_accessor": "getFailOnError().set(VALUE)",
     "removed_accessors": [
-      "setFailOnError(boolean)",
-      "isFailOnError()"
+      "isFailOnError()",
+      "setFailOnError(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -5664,8 +5664,8 @@
     "new_read_accessor": "getForce().get()",
     "new_write_accessor": "getForce().set(VALUE)",
     "removed_accessors": [
-      "setForce(boolean)",
-      "isForce()"
+      "isForce()",
+      "setForce(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -5682,8 +5682,8 @@
     "new_read_accessor": "getListFiles().get()",
     "new_write_accessor": "getListFiles().set(VALUE)",
     "removed_accessors": [
-      "setListFiles(boolean)",
-      "isListFiles()"
+      "isListFiles()",
+      "setListFiles(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -5738,8 +5738,8 @@
     "new_read_accessor": "getOptimize().get()",
     "new_write_accessor": "getOptimize().set(VALUE)",
     "removed_accessors": [
-      "setOptimize(boolean)",
-      "isOptimize()"
+      "isOptimize()",
+      "setOptimize(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -5756,8 +5756,8 @@
     "new_read_accessor": "getUnchecked().get()",
     "new_write_accessor": "getUnchecked().set(VALUE)",
     "removed_accessors": [
-      "setUnchecked(boolean)",
-      "isUnchecked()"
+      "isUnchecked()",
+      "setUnchecked(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -6101,9 +6101,9 @@
     "new_read_accessor": "getCommandLine().get()",
     "new_write_accessor": null,
     "removed_accessors": [
-      "setCommandLine(java.util.List<java.lang.String>)",
+      "setCommandLine(java.lang.Iterable<?>)",
       "setCommandLine(java.lang.Object...)",
-      "setCommandLine(java.lang.Iterable<?>)"
+      "setCommandLine(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [
       "getCommandLine()"
@@ -6145,8 +6145,8 @@
     "new_read_accessor": "getIgnoreExitValue().get()",
     "new_write_accessor": "getIgnoreExitValue().set(VALUE)",
     "removed_accessors": [
-      "setIgnoreExitValue(boolean)",
-      "isIgnoreExitValue()"
+      "isIgnoreExitValue()",
+      "setIgnoreExitValue(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": [
@@ -6207,8 +6207,8 @@
     "new_read_accessor": "getArgs().get()",
     "new_write_accessor": "getArgs().set(VALUE)",
     "removed_accessors": [
-      "setArgs(java.util.List<java.lang.String>)",
-      "setArgs(java.lang.Iterable<?>)"
+      "setArgs(java.lang.Iterable<?>)",
+      "setArgs(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [
       "getArgs()"
@@ -6240,9 +6240,9 @@
     "new_read_accessor": "getCommandLine().get()",
     "new_write_accessor": null,
     "removed_accessors": [
-      "setCommandLine(java.util.List<java.lang.String>)",
+      "setCommandLine(java.lang.Iterable<?>)",
       "setCommandLine(java.lang.Object...)",
-      "setCommandLine(java.lang.Iterable<?>)"
+      "setCommandLine(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -6257,10 +6257,10 @@
     "new_read_accessor": "getArgs().get()",
     "new_write_accessor": "getArgs().set(VALUE)",
     "removed_accessors": [
-      "setArgs(java.util.List<java.lang.String>)",
-      "setArgs(java.lang.Iterable<?>)",
       "setArgs(java.lang.Iterable)",
-      "setArgs(java.util.List)"
+      "setArgs(java.lang.Iterable<?>)",
+      "setArgs(java.util.List)",
+      "setArgs(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [
       "getArgs()"
@@ -6330,8 +6330,8 @@
     "new_read_accessor": "getAllJvmArgs().get()",
     "new_write_accessor": null,
     "removed_accessors": [
-      "setAllJvmArgs(java.util.List<java.lang.String>)",
-      "setAllJvmArgs(java.lang.Iterable<?>)"
+      "setAllJvmArgs(java.lang.Iterable<?>)",
+      "setAllJvmArgs(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [
       "getAllJvmArgs()"
@@ -6436,8 +6436,8 @@
     "new_read_accessor": "getJvmArgs().get()",
     "new_write_accessor": "getJvmArgs().set(VALUE)",
     "removed_accessors": [
-      "setJvmArgs(java.util.List<java.lang.String>)",
-      "setJvmArgs(java.lang.Iterable<?>)"
+      "setJvmArgs(java.lang.Iterable<?>)",
+      "setJvmArgs(java.util.List<java.lang.String>)"
     ],
     "changed_return_accessors": [
       "getJvmArgs()"
@@ -6564,8 +6564,8 @@
     "new_read_accessor": "getExecutable().get()",
     "new_write_accessor": "getExecutable().set(VALUE)",
     "removed_accessors": [
-      "setExecutable(java.lang.String)",
-      "setExecutable(java.lang.Object)"
+      "setExecutable(java.lang.Object)",
+      "setExecutable(java.lang.String)"
     ],
     "changed_return_accessors": [
       "getExecutable()"
@@ -6680,8 +6680,8 @@
     "new_read_accessor": "getDestinationFile().get()",
     "new_write_accessor": "getDestinationFile().set(VALUE)",
     "removed_accessors": [
-      "setDestinationFile(org.gradle.api.provider.Provider<java.io.File>)",
-      "setDestinationFile(java.io.File)"
+      "setDestinationFile(java.io.File)",
+      "setDestinationFile(org.gradle.api.provider.Provider<java.io.File>)"
     ],
     "changed_return_accessors": [
       "getDestinationFile()"
@@ -6698,8 +6698,8 @@
     "new_read_accessor": "getDumpOnExit().get()",
     "new_write_accessor": "getDumpOnExit().set(VALUE)",
     "removed_accessors": [
-      "setDumpOnExit(boolean)",
-      "isDumpOnExit()"
+      "isDumpOnExit()",
+      "setDumpOnExit(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -6714,8 +6714,8 @@
     "new_read_accessor": "getEnabled().get()",
     "new_write_accessor": "getEnabled().set(VALUE)",
     "removed_accessors": [
-      "setEnabled(boolean)",
-      "isEnabled()"
+      "isEnabled()",
+      "setEnabled(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -6764,8 +6764,8 @@
     "new_read_accessor": "getIncludeNoLocationClasses().get()",
     "new_write_accessor": "getIncludeNoLocationClasses().set(VALUE)",
     "removed_accessors": [
-      "setIncludeNoLocationClasses(boolean)",
-      "isIncludeNoLocationClasses()"
+      "isIncludeNoLocationClasses()",
+      "setIncludeNoLocationClasses(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []
@@ -6797,8 +6797,8 @@
     "new_read_accessor": "getJmx().get()",
     "new_write_accessor": "getJmx().set(VALUE)",
     "removed_accessors": [
-      "setJmx(boolean)",
-      "isJmx()"
+      "isJmx()",
+      "setJmx(boolean)"
     ],
     "changed_return_accessors": [],
     "inheriting_subtypes": []

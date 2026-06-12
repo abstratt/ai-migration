@@ -17,7 +17,7 @@ A fresh migration branch is created on every run of this task, so branch existen
 
 ## Instructions
 
-1. **Parse `REPO_URL`** to extract the `owner/repo`, repo name, and optional branch.
+1. **Parse `REPO_URL`** to extract the `owner/repo`, repo name, and optional branch. **Strip any trailing `.git`** from the repo name: both `https://github.com/owner/repo` and `https://github.com/owner/repo.git` must yield repo name `repo` (not `repo.git`), so the clone directory, sibling files, and resume checks are identical regardless of which URL form was given. (This matches the repo-name rule in `tasks/benchmark.md`.)
 
 2. **Determine clone directory**: `migrated/<repo-name>` (e.g. `migrated/spring-framework`), relative to the working directory. Create the `migrated/` parent directory if it does not exist.
 
@@ -42,7 +42,7 @@ A fresh migration branch is created on every run of this task, so branch existen
         ```
         Use the branch from the URL if one was specified, or omit `--branch` to get the repo's default branch. **Do not** pick a branch yourself — never use a maintenance branch (e.g. `6.1.x`, `6.8`), release branch, or any non-default branch unless it was explicitly part of `REPO_URL`. **Do not** clone to the working-directory root — the clone must land under `migrated/`.
 
-4. **Create the migration branch**: Generate the branch name using the current timestamp (e.g. `gradle-10-migration/20260331-1400`). Always create a **fresh** branch on every run — never check out, reset, or otherwise reuse any pre-existing `gradle-10-migration/*` branch, even one created earlier today. If a branch with this exact name already exists locally or on the remote, **abort with an error**; wait a minute and retry so the timestamp changes. Create the branch off the **base branch** — that is, the branch from `REPO_URL` if one was specified, or the repo's default branch (typically `main` or `master`). Never branch from a maintenance branch (e.g. `6.1.x`, `6.8`) unless it was explicitly in `REPO_URL`. Do **not** branch from another `gradle-10-migration/*` branch or from any other feature/topic branch.
+4. **Create the migration branch**: First resolve the active distro pair to get **PAIR_ID** (see **Distro pair selection** in CONTEXT.md). Generate the branch name as `gradle-10-migration/<YYYYMMDD-HHMM>-<PAIR_ID>` using the current timestamp and the resolved pair id (e.g. `gradle-10-migration/20260331-1400-g951-to-PAPI-20260609`). The pair id records which distro pair this run targets, so the same repo migrated against different pairs gets distinct, self-describing branches. Always create a **fresh** branch on every run — never check out, reset, or otherwise reuse any pre-existing `gradle-10-migration/*` branch, even one created earlier today. If a branch with this exact name already exists locally or on the remote, **abort with an error**; wait a minute and retry so the timestamp changes. Create the branch off the **base branch** — that is, the branch from `REPO_URL` if one was specified, or the repo's default branch (typically `main` or `master`). Never branch from a maintenance branch (e.g. `6.1.x`, `6.8`) unless it was explicitly in `REPO_URL`. Do **not** branch from another `gradle-10-migration/*` branch or from any other feature/topic branch.
 
 ## Done when
 

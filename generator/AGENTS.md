@@ -1,18 +1,20 @@
 # Context for AI sessions
 
-> **Scope:** this file is for sessions working **on the generator itself** — editing `extract_data.sh` or `generate_report.py`, or rerunning the pipeline against new Gradle distributions. It is **not** for Gradle-10 migration sessions; those should load `../tasks/CONTEXT.md` plus `../migration-reference/migration-data.json` and `../migration-reference/MIGRATION_RULES.md` instead. If you arrived here during a migration run, back out — nothing under `generator/` is part of the migration workflow.
+> **Scope:** this file is for sessions working **on the generator itself** — editing `extract_data.sh` or `generate_report.py`, or rerunning the pipeline against new Gradle distributions. It is **not** for Gradle-10 migration sessions; those should load `../tasks/CONTEXT.md` plus the selected pair's `../migration-reference/distro-pairs/<pair-id>/migration-data.json` and `../migration-reference/MIGRATION_RULES.md` instead. If you arrived here during a migration run, back out — nothing under `generator/` is part of the migration workflow.
 
 ## What this is
 
-A report generator that compares Gradle 10 preview vs 9.4.0 to catalog every `@ReplacesEagerProperty`-annotated property under all public API packages (see https://docs.gradle.org/current/userguide/public_apis.html).
+A report generator that compares a Gradle 10 preview ("target") distribution against a baseline Gradle release to catalog every `@ReplacesEagerProperty`-annotated property under all public API packages (see https://docs.gradle.org/current/userguide/public_apis.html).
 
-Outputs (both produced by `generate_report.py`, both written to the sibling `../migration-reference/` directory):
+A migration is defined by a **distro pair** (baseline + target) declared in `../distro-pairs.json`; each pair's `id` selects a **distro mapping bundle** — the directory of generated files for that pair. See [`README.md`](README.md) for the manifest format and the end-to-end "create a new pair" walkthrough.
+
+Outputs (both produced by `generate_report.py`, both written to the pair's distro mapping bundle `../migration-reference/distro-pairs/<pair-id>/`):
 - `gradle-10-migration-report.md` — human-readable report (captured via stdout redirect)
 - `migration-data.json` — structured lookup table for AI migration sessions
 
-For AI-driven migrations, load `../migration-reference/migration-data.json` (the lookup table) together with `../migration-reference/MIGRATION_RULES.md` (transformation rules by property kind). The human report is not needed. This directory (`generator/`) holds only hand-written pipeline source (`extract_data.sh`, `generate_report.py`, docs). All generated artifacts — including the javap caches — live in `../migration-reference/`.
+For AI-driven migrations, load the selected pair's `../migration-reference/distro-pairs/<pair-id>/migration-data.json` (the lookup table) together with `../migration-reference/MIGRATION_RULES.md` (transformation rules by property kind). The human report is not needed. This directory (`generator/`) holds only hand-written pipeline source (`extract_data.sh`, `generate_report.py`, docs). All generated artifacts — including the javap caches — live under `../migration-reference/distro-pairs/<pair-id>/`.
 
-To iterate, edit `generate_report.py` and re-run — the cached javap data means no downloads needed.
+To iterate, edit `generate_report.py` and re-run for the same pair id — the cached javap data means no downloads needed.
 
 ## Prerequisites
 
@@ -20,9 +22,9 @@ To iterate, edit `generate_report.py` and re-run — the cached javap data means
 
 ## Source distributions
 
-Default URLs are in `extract_data.sh`. They can be overridden via positional arguments:
+Baseline/target URLs live in `../distro-pairs.json`, one entry per pair. Select a pair by id; with no argument the manifest's `default` pair is used:
 ```bash
-./extract_data.sh [gradle-10-url] [gradle-9-url]
+./extract_data.sh [pair-id]
 ```
 
 ## Annotation semantics
@@ -48,35 +50,39 @@ Default URLs are in `extract_data.sh`. They can be overridden via positional arg
 
 ## Data flow
 
-All generated artifacts live in `../migration-reference/`. The source scripts live here.
+Per-pair generated artifacts live under `../migration-reference/distro-pairs/<pair-id>/`. The source scripts live here; the hand-written consumer files (`MIGRATION_RULES.md`, `scan_usages.py`, `apply_migrations.py`) live one level up at `../migration-reference/` and are shared across all pairs.
 
 ```
-  generator/extract_data.sh [g10-url] [g94-url]
+  ../distro-pairs.json            (manifest: baseline/target URLs per pair id)
         │
-        │  downloads, extracts JARs, runs javap
         ▼
-  ../migration-reference/
+  generator/extract_data.sh [pair-id]
+        │
+        │  resolves pair, downloads, extracts JARs, runs javap
+        ▼
+  ../migration-reference/distro-pairs/<pair-id>/
     annotated-classes-v2.txt   (which classes to look at)
-    g10-javap-v2.txt           (Gradle 10 annotation details — javap -v)
-    comparison-v2.txt          (9.4 vs 10 public signatures — javap -public)
+    g10-javap-v2.txt           (target annotation details — javap -v)
+    comparison-v2.txt          (baseline vs target public signatures — javap -public)
     hierarchy-v2.txt           (class declarations for ALL public API classes — for inheritance)
         │
         ▼
-  generator/generate_report.py   (reads the four .txt files above)
+  generator/generate_report.py [pair-id]   (reads the four .txt files above)
         │
-        ├──▶ ../migration-reference/gradle-10-migration-report.md  (stdout redirect, human)
-        └──▶ ../migration-reference/migration-data.json            (structured, written directly)
+        ├──▶ ../migration-reference/distro-pairs/<pair-id>/gradle-10-migration-report.md  (stdout redirect, human)
+        └──▶ ../migration-reference/distro-pairs/<pair-id>/migration-data.json            (structured, written directly)
 
-  ../migration-reference/MIGRATION_RULES.md   (hand-written, transformation rules by kind)
-  ../migration-reference/scan_usages.py       (hand-written scanner used by task 06)
+  ../migration-reference/MIGRATION_RULES.md   (hand-written, shared, transformation rules by kind)
+  ../migration-reference/scan_usages.py       (hand-written, shared, scanner used by task 06)
+  ../migration-reference/apply_migrations.py  (hand-written, shared, mechanical rewriter used by task 06)
 ```
 
-The `.txt` files are cached intermediate data. Re-running `extract_data.sh` overwrites them in `../migration-reference/`.
+The `.txt` files are cached intermediate data. Re-running `extract_data.sh` for a given pair id overwrites them in that pair's distro mapping bundle.
 
 ## For AI migration sessions
 
-Load these two files into context from the `migration-reference/` sibling directory:
-1. `migration-reference/migration-data.json` — look up class + property to get `kind`, `old_type`, `new_type`, `removed_accessors`, `changed_return_accessors`, `new_read_accessor`, `new_write_accessor`, `new_is_provider`, `inheriting_subtypes`
+Load these two files into context (the first from the selected pair's distro mapping bundle, the second shared at the `migration-reference/` top level):
+1. `migration-reference/distro-pairs/<pair-id>/migration-data.json` — look up class + property to get `kind`, `old_type`, `new_type`, `removed_accessors`, `changed_return_accessors`, `new_read_accessor`, `new_write_accessor`, `new_is_provider`, `inheriting_subtypes`
 2. `migration-reference/MIGRATION_RULES.md` — apply the rule matching the `kind` field
 
 Schema notes (self-explanatory from the field names; consumers only ever see this JSON):
