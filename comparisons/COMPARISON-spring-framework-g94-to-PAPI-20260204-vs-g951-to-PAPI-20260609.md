@@ -9,7 +9,6 @@ Repository migrated: [abstratt/spring-framework](https://github.com/abstratt/spr
 | Migration notes | [MIGRATION_NOTES.md](https://github.com/abstratt/spring-framework/blob/gradle-10-migration/20260612-1544-g94-to-PAPI-20260204/MIGRATION_NOTES.md) | [MIGRATION_NOTES.md](https://github.com/abstratt/spring-framework/blob/gradle-10-migration/20260612-1501-g951-to-PAPI-20260609/MIGRATION_NOTES.md) |
 | Distro pair | `g94-to-PAPI-20260204` | `g951-to-PAPI-20260609` |
 | Succeeded | Yes (`:spring-aspects` excluded) | Yes (`:spring-aspects` excluded) |
-| Duration | 15m 16s | 34m 58s |
 | Files changed | 15 | 9 |
 | Lines changed | +252 / −75 | +228 / −64 |
 | Files changed (excl. report + notes) | 13 | 7 |

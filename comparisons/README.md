@@ -6,13 +6,13 @@ Comparing relies exclusively on inspecting the MIGRATION_NOTES.md and REPORT-<ti
 
 Comparisons should:
 - show the repository migrated (with link)
-- show a table with a colun for each migration run:
+- show a table with a column for each migration run:
   - the branches compared (with links)
   - links to the reports and migration notes for each migration
   - the distro pairs
   - the number of files and lines changed
   - whether the migration succeeded
-  - how long it took
+Note that the columns should be ordered by distro pair name.
 
 Comparison results should be stored in files named COMPARISON-<repository-name>-<distro-pair-1>-vs-<distro-pair-2>.md.
 
