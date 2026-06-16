@@ -4,6 +4,8 @@
 
 The repository to migrate is provided via the `REPO_URL` environment variable (e.g. `https://github.com/owner/repo` or `https://github.com/owner/repo/tree/branch`).
 
+**Brute-force mode (`SKIP_BUILD_SCRIPTS`).** When the `SKIP_BUILD_SCRIPTS` environment variable is set, the data-driven build-script migration (task 06) is skipped entirely and replaced by `@tasks/06-skip-build-scripts.md`, which only ensures no `MIGRATION_NOTES.md` exists. Tasks 07/08 then fix every build error from scratch. Default (unset) = normal data-driven migration. See **Environment** in @tasks/CONTEXT.md.
+
 ## Workflow
 
 Run all tasks in order, end-to-end, as a **single autonomous workflow**. Each task has a resume check — if work is already done, it will be skipped automatically.
@@ -13,7 +15,7 @@ Run all tasks in order, end-to-end, as a **single autonomous workflow**. Each ta
 3. @tasks/03-upgrade-gradle-9.md
 4. @tasks/04-swap-distribution.md
 5. @tasks/05-record-start-time.md
-6. @tasks/06-migrate-build-scripts.md
+6. Build scripts — select by mode: if `SKIP_BUILD_SCRIPTS` is set → @tasks/06-skip-build-scripts.md (brute-force mode); otherwise → @tasks/06-migrate-build-scripts.md
 7. @tasks/07-verify-help.md
 8. @tasks/08-verify-assemble.md
 9. @tasks/09-report.md

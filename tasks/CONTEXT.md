@@ -16,6 +16,7 @@ Example:
   - **Do not choose a branch yourself.** Never pick a maintenance branch (e.g. `6.1.x`, `6.8`), a release branch, or any other non-default branch unless it was explicitly specified in `REPO_URL`.
   - The migration branch is always created off this base branch — never off another `gradle-10-migration/*` branch or any other feature branch.
 - **DISTRO_PAIR** (optional): The distro pair id to migrate to. When unset, the workflow uses the `default` pair in `distro-pairs.json` at the workflow root. See **Distro pair selection** below. A pair fixes the baseline Gradle version (task 03), the target preview distribution (task 04), and the migration data (task 06), so the whole workflow stays internally consistent.
+- **SKIP_BUILD_SCRIPTS** (optional): When set, the workflow runs in **brute-force mode** — task 06 (the data-driven build-script migration) is skipped and replaced by `tasks/06-skip-build-scripts.md`, which only ensures no `MIGRATION_NOTES.md` exists and makes no commit. Tasks 07/08 then fix every build error from scratch, with no scaffolding from task 06. When unset (the default), the normal data-driven `tasks/06-migrate-build-scripts.md` runs. The mode is recorded in the task 09 report (see its **Summary**), not in the branch name.
 - **JAVA_HOME**: Set by Claude after installing the required JDK via SDKMAN (see task 02, Install JDK).
 - **Clone directory**: `migrated/<repo-name>` (e.g. `migrated/my-project`), derived from the repository name in `REPO_URL`. Create the parent dir if it does not exist yet.
 - **Migration branch name**: `gradle-10-migration/<YYYYMMDD-HHMM>-<pair-id>` (e.g. `gradle-10-migration/20260331-1400-g951-to-PAPI-20260609`), where `<pair-id>` is the active distro pair's id (see **Distro pair selection**). The timestamp is set at the start of the workflow and reused throughout; the pair id makes runs of the same repo against different pairs distinguishable and collision-free. Branches from older runs may lack the `-<pair-id>` suffix; they still match `gradle-10-migration/*`.
@@ -86,7 +87,7 @@ Per-task commit expectations when the task actually runs (i.e. its resume check 
 
 - **Task 01** — no commit inside the migrated repo (it only clones and branches).
 - **Task 02** — no commit inside the migrated repo (it only installs a JDK via SDKMAN).
-- **Tasks 03, 04, 06, 09** — commit is **mandatory**. If the working tree is clean at the commit checkpoint, something earlier in the task was missed.
+- **Tasks 03, 04, 06, 09** — commit is **mandatory**. If the working tree is clean at the commit checkpoint, something earlier in the task was missed. **Exception:** in brute-force mode (`SKIP_BUILD_SCRIPTS` set), task 06 is replaced by `tasks/06-skip-build-scripts.md`, which makes **no commit** (like task 05) — so no "Migrate Build Scripts and Gradle API Usages" commit exists in that mode, and resume/report logic must not expect one.
 - **Task 05** — no commit inside the migrated repo (it only writes a timestamp to `migrated/<repo-name>.migration-start-time`, a sibling file alongside the clone directory — outside the working tree and outside `.git/`).
 - **Tasks 07, 08** — commit only if the task made changes. If no changes were needed, `git status` must already be clean before leaving the task.
 
