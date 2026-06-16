@@ -18,6 +18,19 @@ This task is a **static, data-driven transformation**. Do **not** run `./gradlew
 
 If you feel the urge to run Gradle to check your work, stop and commit what you have instead. Any iteration loop driven by Gradle output belongs in task 07 or later, never here.
 
+## Scope note: what the scanner sees, and what it misses
+
+`scan_usages.py` detects call syntax (Cat-A `setX(`, Cat-B `getX()`), operator mutations
+(Cat-C `+=`/`-=`/`<<`, now in source files too), import-confirmed `prop = value` assignments
+(Cat-D), and collection ops (Cat-E `.remove`/`.filterKeys`/...). It still **cannot** see, without
+type analysis: `mapProp[k]` index ops, `obj.prop` reads consumed as a plain `T` (getter now returns
+`Provider<T>`), `!boolProp`, `.map{}`→`.flatMap{}`, and the *unconfirmed* (no-import) majority of
+`prop = value` assignments. See **Scanner coverage and its remaining blind spot** in CONTEXT.md. So this
+task handles the sites the scanner can
+confirm; the rest surface as compile errors in tasks 07/08. **A clean default scan here does not mean
+"everything is migrated."** Do not try to find these statically by running Gradle (see the Hard rule
+above) — they are tasks 07/08's job.
+
 ## Resume check
 
 1. Check `git log` for a commit message matching "Migrate Build Scripts and Gradle API Usages" (the task title)
@@ -167,36 +180,61 @@ If you feel the urge to run Gradle to check your work, stop and commit what you 
 
    The count must be **zero**. Non-zero = raw tool output committed; return to step 4.
 
-   **(b.2) Distinct-reason check.** Catches *templated substitutes* — reason strings that were mass-rewritten into new boilerplate (different words, same shape, still reused across many entries). This is the failure mode that passes (b.1) but still represents zero per-site analysis:
+   **(b.2) Coverage check (format-agnostic).** This replaces an earlier *distinct-reason* heuristic that
+   keyed on the `- line N … — reason` bullet shape and so could be bypassed by simply reformatting the
+   file — a curated reformat made its regex match zero entries and "pass" vacuously. Instead, verify that
+   **every file the scanner still flags is documented in `MIGRATION_NOTES.md`.** You cannot drop the
+   documentation without failing this, and (b.1) already forbids raw boilerplate — together they enforce
+   honest coverage without dictating a format. Using the step-5(a) re-scan output saved to
+   `/tmp/scan-results-after.txt`:
 
    ```bash
    python3 - <<'PY'
-   import re, sys, collections
+   import re, sys, os
    try:
-       text = open("MIGRATION_NOTES.md").read()
+       notes = open("MIGRATION_NOTES.md").read()
    except FileNotFoundError:
-       sys.exit(0)
-   entries = re.findall(r"^- line \d+.*?— (.+)$", text, re.M)
-   if not entries:
-       sys.exit(0)
-   norm = [re.sub(r"\s+", " ", e).strip().lower() for e in entries]
-   counts = collections.Counter(norm)
-   offenders = [(r, c) for r, c in counts.most_common() if c > 3]
-   if offenders:
-       print(f"FAIL: {len(entries)} entries, {len(counts)} distinct reasons.")
-       print("Reasons repeated >3 times (boilerplate):")
-       for r, c in offenders[:10]:
-           print(f"  {c}× {r[:120]}")
+       print("OK: no MIGRATION_NOTES.md (no deferrals)."); sys.exit(0)
+   files, cur = {}, None
+   for ln in open("/tmp/scan-results-after.txt"):
+       m = re.match(r"^  (\S.*\.(?:kt|kts|java|gradle|groovy))\s*$", ln)   # 2-space-indented file header
+       if m: cur = m.group(1); files.setdefault(cur, set()); continue
+       m = re.match(r"^\s*line\s+(\d+):", ln)                              # "line NNN:" hit
+       if m and cur: files[cur].add(int(m.group(1)))
+   def referenced(path):
+       suffix = "/".join(path.split("/")[-2:])   # dir/file.ext — disambiguates same-named files
+       return suffix in notes or os.path.basename(path) in notes
+   uncovered = sorted(p for p in files if not referenced(p))
+   if uncovered:
+       print(f"FAIL: {len(uncovered)} flagged file(s) absent from MIGRATION_NOTES.md:")
+       for p in uncovered[:20]: print("  " + p)
        sys.exit(1)
-   print(f"OK: {len(entries)} entries, {len(counts)} distinct reasons, max repeat {max(counts.values())}.")
+   print(f"OK: all {len(files)} files with residual scanner hits are referenced in MIGRATION_NOTES.md.")
    PY
    ```
 
-   > **Intent:** the only honest reason strings name the specific type at the specific call site, so they naturally don't repeat. A reason that appears on more than 3 entries is boilerplate — either a canonical tool-generated string or a mass-rewritten substitute. Legitimate clusters of >3 sibling false positives (e.g. five `setDestinationDir` calls across `buildSrc`) should be grouped under a `### Heading` and given per-entry reasons that name the site (`Sync in buildSrc MavenPluginPlugin`, `Sync in buildSrc RepoConfigurer`, …).
+   The result must be `OK`. (Recommended but not enforced: list each residual `file:line`, so a reviewer
+   can see exactly which sites were judged false positives.)
 
-   **Both checks must pass.** If either fails, return to step 4 and process the offending entries. Do not commit.
+   > **Intent:** enforce *coverage* (every site the scanner still flags is accounted for), not a bullet
+   > format. Reformatting freely is fine; omitting a site is not. **Grouping is explicitly encouraged** —
+   > a single `### root-cause heading` may carry one shared explanation for many listed `file:line` sites
+   > (e.g. all 128 `getFile()` hits being one custom `Provider<RegularFile|Directory>.getFile()`
+   > extension). There is **no** requirement to invent a distinct reason per site; the rule is only that
+   > each flagged file is documented and the heading names the specific non-Gradle construct. For several
+   > files sharing a basename (e.g. `build.gradle.kts`), include a parent path segment so the reference is
+   > unambiguous.
 
-   - If `MIGRATION_NOTES.md` has zero entries or only a small curated set of grouped false positives with site-specific reasons, good — proceed to the commit checkpoint.
+   **`[CONFIRMED]` is receiver-aware, not import-based.** A `[CONFIRMED]` hit means the scanner matched a
+   migrated type *at the receiver* — but if it instead just matched an `import` elsewhere in the file
+   (e.g. `kotlinVariants.kt`'s `ModuleVersionIdentifier.getVersion()` flagged as `MavenPublication` only
+   because the file imports `MavenPublication`), treat it as a false positive: walk the receiver-type
+   ladder (step 2) and, if the receiver is not a migrated Gradle type, document it as a residual false
+   positive rather than rewriting it.
+
+   **Both checks must pass.** If either fails, return to step 4 and address the offending entries. Do not commit.
+
+   - If `MIGRATION_NOTES.md` has zero entries or a curated set of grouped false positives, good — proceed to the commit checkpoint.
    - If the file ends up empty, delete it. It should not be committed with no body.
 
 ## Commit checkpoint (mandatory before moving on)

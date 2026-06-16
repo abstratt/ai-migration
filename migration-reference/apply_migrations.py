@@ -111,38 +111,50 @@ def argument_references_property(arg: str, prop: str) -> bool:
     return (getter + "(") in arg or ("." + prop) in arg
 
 
-def classify_hit(hit: dict) -> tuple[str, dict | None, str]:
-    if hit["category"] != "A":
-        return ("defer", None, f"category {hit['category']} is out of scope for this tool")
-
+def _confirmed_entry(hit: dict) -> tuple[dict | None, str]:
+    """Resolve the single confirmed entry for a hit, or a defer-reason."""
     confirmed = hit.get("confirmed") or []
     if len(confirmed) == 0:
-        return ("defer", None, "unconfirmed receiver — no matching import")
+        return None, "unconfirmed receiver — no matching import"
     if len(confirmed) > 1:
-        return ("defer", None, f"ambiguous receiver (matched {len(confirmed)} classes)")
-
+        return None, f"ambiguous receiver (matched {len(confirmed)} classes)"
     simple = confirmed[0]
-    entry = next(
-        (e for e in hit["entries"] if e["class"].rsplit(".", 1)[-1] == simple),
-        None,
-    )
+    entry = next((e for e in hit["entries"] if e["class"].rsplit(".", 1)[-1] == simple), None)
     if entry is None:
-        return ("defer", None, "confirmed class has no matching data entry")
+        return None, "confirmed class has no matching data entry"
+    return entry, ""
 
-    method = hit["method"]
-    if method.startswith("is"):
-        return ("defer", entry, f"{method}() boolean read: context-dependent rewrite")
 
-    if entry.get("new_is_provider"):
-        return ("defer", entry, "Provider<X> property has no setter to rewrite")
+def classify_hit(hit: dict) -> tuple[str, dict | None, str]:
+    cat = hit["category"]
 
-    kind = entry["kind"]
-    if kind == FILE_COLLECTION_KIND:
-        return ("apply", entry, "file_collection setter")
-    if kind in REWRITE_KINDS:
-        return ("apply", entry, f"{kind} setter")
+    # Category A — removed set*/is* call → getX().set(...) / .setFrom(...)
+    if cat == "A":
+        entry, why = _confirmed_entry(hit)
+        if entry is None:
+            return ("defer", None, why)
+        method = hit["method"]
+        if method.startswith("is"):
+            return ("defer", entry, f"{method}() boolean read: context-dependent rewrite")
+        if entry.get("new_is_provider"):
+            return ("defer", entry, "Provider<X> property has no setter to rewrite")
+        kind = entry["kind"]
+        if kind == FILE_COLLECTION_KIND:
+            return ("apply", entry, "file_collection setter")
+        if kind in REWRITE_KINDS:
+            return ("apply", entry, f"{kind} setter")
+        return ("defer", entry, f"kind '{kind}' has no mechanical rewrite")
 
-    return ("defer", entry, f"kind '{kind}' has no mechanical rewrite")
+    # Category D — `prop = value` assignment is DETECT-ONLY: on a confirmed receiver
+    # `prop = value` is frequently *already valid* via the Kotlin DSL assign operator, so
+    # auto-rewriting to `.set()` would be cosmetic churn (or wrong for value-conversion
+    # kinds). The scanner surfaces these; the model rewrites only the ones that don't compile.
+    if cat == "D":
+        return ("defer", None,
+                "Cat-D assignment — review: `prop = value` may already be valid via the Kotlin "
+                "DSL assign operator; rewrite to .set()/.setFrom() only if the build doesn't compile")
+
+    return ("defer", None, f"category {cat} is out of scope for this tool")
 
 
 def _class_prop(hit: dict) -> str:
@@ -301,8 +313,8 @@ def main() -> int:
         print(f"ERROR: {data_path} not found", file=sys.stderr)
         return 2
 
-    removed_accessors, getter_names, dsl_props = load_lookups(data_path)
-    cat_a_re, cat_b_re, cat_c_re = build_patterns(removed_accessors, getter_names, dsl_props)
+    lookups = load_lookups(data_path)
+    pats = build_patterns(*lookups)
 
     all_files, dsl_set, test_set = find_files(project_root)
 
@@ -310,11 +322,9 @@ def main() -> int:
     for path in all_files:
         is_dsl = path in dsl_set
         is_test = path in test_set
-        ha, hb, hc = scan_file(
-            path, cat_a_re, cat_b_re, cat_c_re,
-            removed_accessors, getter_names, dsl_props, is_dsl, is_test,
+        hits_by_file[path].extend(
+            scan_file(path, *pats, *lookups, is_dsl, is_test)
         )
-        hits_by_file[path].extend(ha + hb + hc)
 
     total_applied = 0
     total_deferrals: list[dict] = []

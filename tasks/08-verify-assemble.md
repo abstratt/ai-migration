@@ -29,8 +29,27 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 2. **Fix any additional issues** following the same approach:
    - Look up in `migration-data.json` first
    - Then fix manually based on error output
+   - Use task 07's **Common compile-error → fix mapping** table and **lazy-first note** — `assemble`
+     compiles main source (not just build logic), so the same Provider-API patterns recur there.
 
 3. **Iterate** until `./gradlew assemble` succeeds
+
+## Iteration strategy
+
+Apply the same techniques as task 07's *Iteration strategy* (run with `--continue` to surface many
+errors per run; `grep`-and-batch repeated patterns across the tree before re-running;
+`--no-configuration-cache` while iterating with a final clean run; separate `e:` errors from `w:`
+deprecation noise).
+
+Assemble-specific issue seen in practice: **build-tooling that processes bytecode can hit ASM/toolchain
+incompatibilities** under the preview distribution — e.g. IntelliJ's Java `@NotNull` instrumentation
+(`com.intellij.ant.InstrumentIdeaExtensions`) failing with
+`NoSuchMethodError: org.jetbrains.org.objectweb.asm.ClassReader.<init>(InputStream)`. These are
+**classpath/version issues, not Provider-API issues**. Typical fixes: read bytes first
+(`ClassReader(inputStream.readBytes())` instead of `ClassReader(inputStream)`), and isolate the
+instrumentation classloader so the worker's ASM doesn't shadow the task's (e.g. child-first
+`reverseloader="true"` on the ant `taskdef`, dropping a shared `loaderref`). Fix based on the
+stacktrace; don't mistake them for migration data gaps.
 
 ## Commit checkpoint (mandatory before moving on)
 

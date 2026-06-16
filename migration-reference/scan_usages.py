@@ -6,10 +6,20 @@ lazy Provider API, using migration-data.json as the source of truth.
 Usage:
     python3 scan_usages.py <project-dir> [--distro-pair ID] [--migration-data PATH]
 
-Outputs a grouped list of every hit across three categories:
+Outputs a grouped list of every hit across these categories:
   A. Removed accessors (set*, is* found in removed_accessors)
   B. Changed-return-type getters (get<Prop> used without .get()/.set()/etc.)
-  C. Groovy DSL operator mutations (-=, +=, << on list/set/map properties)
+  C. Operator mutations (-=, +=, << on list/set/map properties) — DSL *and* source files
+  D. Property assignments (`prop = value` to a now-lazy property) — import-confirmed only
+     (bare names are too noisy to report unconfirmed)
+  E. Collection ops absent on lazy properties (.remove/.removeAll on list/set/map;
+     .filterKeys/.filterValues on map)
+
+Categories C–E catch the Kotlin/Groovy assignment/operator forms that the call-syntax
+scanners (A/B) miss. Reads consumed as plain values (`obj.prop` where the getter now
+returns Provider<T>), `!boolProp`, and `.map{}`→`.flatMap{}` are intentionally NOT detected:
+without real receiver/consumer type analysis they cannot be distinguished from ordinary
+code by regex, so they remain compile-error-driven fixes in the verify tasks.
 
 Exit code: 0 if no hits, 1 if hits found.
 """
@@ -117,12 +127,26 @@ def cap_first(s: str) -> str:
     return s[0].upper() + s[1:] if s else s
 
 
+# Property names that belong to org.gradle.api.Task (or other non-migrated base
+# types) and are therefore NOT lazy-migrated. Derived from TASK_ONLY_ACCESSORS so
+# Category D (assignment) doesn't flag `task.description = ...`, `task.group = ...`, etc.
+TASK_ONLY_PROPS = {acc[3].lower() + acc[4:] for acc in TASK_ONLY_ACCESSORS}  # setFoo -> foo
+
+# Kinds that can appear on the left of an assignment (everything except read_only).
+ASSIGNABLE_KINDS = {
+    "boolean", "scalar", "list", "set", "map", "dir", "file", "file_collection", "other",
+}
+
+
 def load_lookups(data_file: Path):
     """
-    Returns three dicts keyed by bare method/property name:
-      removed_accessors: {name -> [entry, ...]}   (Category A)
-      getter_names:      {name -> [entry, ...]}   (Category B)
-      dsl_props:         {name -> [entry, ...]}   (Category C, list/set/map only)
+    Returns dicts keyed by bare method/property name:
+      removed_accessors: {name -> [entry, ...]}   (Category A — set*/is* call removed)
+      getter_names:      {name -> [entry, ...]}   (Category B — get<Prop>() call, return type changed)
+      dsl_props:         {name -> [entry, ...]}   (Category C — +=/-=/<< operator, list/set/map)
+      assign_props:      {prop -> [entry, ...]}   (Category D — `prop = value` assignment, assignable kinds)
+      coll_props:        {prop -> [entry, ...]}   (Category E — .remove()/.removeAll() on list/set/map)
+      map_props:         {prop -> [entry, ...]}   (Category E — .filterKeys/.filterValues on map)
     """
     with open(data_file) as f:
         data = json.load(f)
@@ -130,6 +154,9 @@ def load_lookups(data_file: Path):
     removed_accessors = defaultdict(list)
     getter_names = defaultdict(list)
     dsl_props = defaultdict(list)
+    assign_props = defaultdict(list)
+    coll_props = defaultdict(list)
+    map_props = defaultdict(list)
 
     for entry in data:
         prop = entry["property"]
@@ -145,11 +172,19 @@ def load_lookups(data_file: Path):
 
         if kind in ("list", "set", "map"):
             dsl_props[prop].append(entry)
+            coll_props[prop].append(entry)
+        if kind == "map":
+            map_props[prop].append(entry)
 
-    return removed_accessors, getter_names, dsl_props
+        # Category D: assignment `prop = value` to a now-lazy property. Exclude Task-only
+        # property names (description/group/enabled/...) which are not lazy-migrated.
+        if kind in ASSIGNABLE_KINDS and prop not in TASK_ONLY_PROPS:
+            assign_props[prop].append(entry)
+
+    return removed_accessors, getter_names, dsl_props, assign_props, coll_props, map_props
 
 
-def build_patterns(removed_accessors, getter_names, dsl_props):
+def build_patterns(removed_accessors, getter_names, dsl_props, assign_props, coll_props, map_props):
     a_names = "|".join(re.escape(n) for n in sorted(removed_accessors))
     cat_a_re = re.compile(r"\b(" + a_names + r")\s*\(") if a_names else None
 
@@ -162,7 +197,28 @@ def build_patterns(removed_accessors, getter_names, dsl_props):
     else:
         cat_c_re = None
 
-    return cat_a_re, cat_b_re, cat_c_re
+    # Category D: `prop = value` (single `=`, not ==/!=/<=/>=/+=/-=/etc.). The name is
+    # preceded by a non-word char (start, whitespace, `.` for `recv.prop`, `(`), so a
+    # dotted receiver matches but a longer identifier (`myEncoding`) does not.
+    if assign_props:
+        d_names = "|".join(re.escape(n) for n in sorted(assign_props))
+        cat_d_re = re.compile(r"(?<!\w)(" + d_names + r")\s*=(?!=)")
+    else:
+        cat_d_re = None
+
+    # Category E: collection ops that don't exist on lazy properties.
+    if coll_props:
+        e_coll_names = "|".join(re.escape(n) for n in sorted(coll_props))
+        cat_e_coll_re = re.compile(r"(?<!\w)(" + e_coll_names + r")\s*\.\s*(remove|removeAll)\s*\(")
+    else:
+        cat_e_coll_re = None
+    if map_props:
+        e_map_names = "|".join(re.escape(n) for n in sorted(map_props))
+        cat_e_map_re = re.compile(r"(?<!\w)(" + e_map_names + r")\s*\.\s*(filterKeys|filterValues)\s*[({]")
+    else:
+        cat_e_map_re = None
+
+    return cat_a_re, cat_b_re, cat_c_re, cat_d_re, cat_e_coll_re, cat_e_map_re
 
 
 # ------------------------------------------------------------------
@@ -246,18 +302,45 @@ def confirmed_classes(entries: list[dict], gradle_imports: set[str]) -> list[str
     return confirmed
 
 
-def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
-              removed_accessors, getter_names, dsl_props,
-              is_dsl: bool, is_test: bool = False):
-    """Scan a single file for all three categories in one pass."""
-    hits_a, hits_b, hits_c = [], [], []
+# A property name on the left of an assignment is a *declaration* (a new local),
+# not a property mutation, when directly preceded by val/var/def/const val.
+DECL_BEFORE_RE = re.compile(r"\b(?:val|var|def|const\s+val)\s+$")
+
+
+def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re, cat_d_re, cat_e_coll_re, cat_e_map_re,
+              removed_accessors, getter_names, dsl_props, assign_props, coll_props, map_props,
+              is_dsl: bool, is_test: bool = False) -> list[dict]:
+    """Scan a single file for all categories in one pass. Returns a flat list of hit dicts,
+    each tagged with its `category` (A–E).
+
+    Category D (`prop = value` assignment) matches bare property names and would be very noisy
+    on real code (most matches are unrelated locals/named-args), so only *import-confirmed*
+    Cat-D hits are emitted."""
+    hits: list[dict] = []
     try:
         content = path.read_text(encoding="utf-8", errors="replace")
     except OSError:
-        return hits_a, hits_b, hits_c
+        return hits
 
     lines = content.splitlines()
     gradle_imports = extract_gradle_imports(lines) if not is_dsl else set()
+
+    def add(cat, lineno, stripped, name, entries, *, op=None, confirmed=None):
+        if confirmed is None:
+            # DSL files have no typed imports, so confirmation is import-based only for source.
+            confirmed = confirmed_classes(entries, gradle_imports) if not is_dsl else []
+        hit = {
+            "category": cat,
+            "file": path,
+            "line": lineno,
+            "text": stripped,
+            "method": name,
+            "entries": entries,
+            "confirmed": confirmed,
+        }
+        if op is not None:
+            hit["op"] = op
+        hits.append(hit)
 
     for lineno, line in enumerate(lines, 1):
         stripped = line.rstrip()
@@ -274,16 +357,7 @@ def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
                     continue
                 entries = removed_accessors.get(name, [])
                 if entries:
-                    confirmed = confirmed_classes(entries, gradle_imports)
-                    hits_a.append({
-                        "category": "A",
-                        "file": path,
-                        "line": lineno,
-                        "text": stripped,
-                        "method": name,
-                        "entries": entries,
-                        "confirmed": confirmed,
-                    })
+                    add("A", lineno, stripped, name, entries)
 
         # Category B: changed-return-type getters — skip declarations and test files
         if cat_b_re and not is_decl and not is_test:
@@ -291,37 +365,51 @@ def scan_file(path: Path, cat_a_re, cat_b_re, cat_c_re,
                 name = m.group(1)
                 entries = getter_names.get(name, [])
                 if entries:
-                    after = line[m.end():]
-                    if PROVIDER_CHAIN_RE.match(after):
+                    if PROVIDER_CHAIN_RE.match(line[m.end():]):
                         continue  # already chained — ok
-                    confirmed = confirmed_classes(entries, gradle_imports)
-                    hits_b.append({
-                        "category": "B",
-                        "file": path,
-                        "line": lineno,
-                        "text": stripped,
-                        "method": name,
-                        "entries": entries,
-                        "confirmed": confirmed,
-                    })
+                    add("B", lineno, stripped, name, entries)
 
-        # Category C: DSL operator mutations (only in DSL files)
-        if is_dsl and cat_c_re:
+        # Category C: operator mutations (+=/-=/<<). Now scanned in source files too
+        # (not just DSL) — e.g. `jvmArgumentProviders += x` in a .kt convention plugin.
+        if cat_c_re and not is_decl:
             for m in cat_c_re.finditer(line):
                 name = m.group(1)
                 entries = dsl_props.get(name, [])
                 if entries:
-                    hits_c.append({
-                        "category": "C",
-                        "file": path,
-                        "line": lineno,
-                        "text": stripped,
-                        "method": name,
-                        "entries": entries,
-                        "confirmed": [],  # DSL files don't have typed imports
-                    })
+                    add("C", lineno, stripped, name, entries, op=m.group(2))
 
-    return hits_a, hits_b, hits_c
+        # Category D: `prop = value` assignment to a now-lazy property (the Kotlin/Groovy
+        # property-assignment form the call-syntax scanners miss). Skip declarations and tests.
+        # Bare-name matching is noisy, so emit only import-confirmed hits.
+        if cat_d_re and not is_decl and not is_test:
+            for m in cat_d_re.finditer(line):
+                if DECL_BEFORE_RE.search(line[:m.start()]):
+                    continue  # `val prop = ...` — a new local, not a property mutation
+                name = m.group(1)
+                entries = assign_props.get(name, [])
+                if not entries:
+                    continue
+                conf = confirmed_classes(entries, gradle_imports) if not is_dsl else []
+                if conf:
+                    add("D", lineno, stripped, name, entries, op="=", confirmed=conf)
+
+        # Category E: collection ops absent on lazy properties (.remove/.removeAll on
+        # list/set/map; .filterKeys/.filterValues on map). Skip tests.
+        if not is_test:
+            if cat_e_coll_re:
+                for m in cat_e_coll_re.finditer(line):
+                    name = m.group(1)
+                    entries = coll_props.get(name, [])
+                    if entries:
+                        add("E", lineno, stripped, name, entries, op=m.group(2))
+            if cat_e_map_re:
+                for m in cat_e_map_re.finditer(line):
+                    name = m.group(1)
+                    entries = map_props.get(name, [])
+                    if entries:
+                        add("E", lineno, stripped, name, entries, op=m.group(2))
+
+    return hits
 
 
 # ------------------------------------------------------------------
@@ -392,8 +480,8 @@ def main():
         print(f"ERROR: {data_file} not found", file=sys.stderr)
         sys.exit(2)
 
-    removed_accessors, getter_names, dsl_props = load_lookups(data_file)
-    cat_a_re, cat_b_re, cat_c_re = build_patterns(removed_accessors, getter_names, dsl_props)
+    removed_accessors, getter_names, dsl_props, assign_props, coll_props, map_props = load_lookups(data_file)
+    pats = build_patterns(removed_accessors, getter_names, dsl_props, assign_props, coll_props, map_props)
 
     all_files, dsl_set, test_set = find_files(project_root)
 
@@ -402,33 +490,33 @@ def main():
     print(f"Scanning {len(all_files)} candidate files "
           f"({n_java} Gradle-API Java/Kotlin/Groovy [{n_test} test], "
           f"{len(dsl_set)} DSL) in {project_root}")
-    print(f"Patterns: {len(removed_accessors)} Cat-A names, "
-          f"{len(getter_names)} Cat-B getters, {len(dsl_props)} Cat-C DSL props")
+    print(f"Patterns: {len(removed_accessors)} Cat-A names, {len(getter_names)} Cat-B getters, "
+          f"{len(dsl_props)} Cat-C operator props, {len(assign_props)} Cat-D assignable props, "
+          f"{len(coll_props)} Cat-E collection props")
 
-    all_a, all_b, all_c = [], [], []
+    by_cat: dict[str, list[dict]] = defaultdict(list)
     for path in all_files:
         is_dsl = path in dsl_set
         is_test = path in test_set
-        ha, hb, hc = scan_file(
-            path, cat_a_re, cat_b_re, cat_c_re,
-            removed_accessors, getter_names, dsl_props, is_dsl, is_test
-        )
-        all_a.extend(ha)
-        all_b.extend(hb)
-        all_c.extend(hc)
+        for h in scan_file(path, *pats, removed_accessors, getter_names, dsl_props,
+                           assign_props, coll_props, map_props, is_dsl, is_test):
+            by_cat[h["category"]].append(h)
 
-    total = len(all_a) + len(all_b) + len(all_c)
-    print(f"Results: {len(all_a)} Cat-A, {len(all_b)} Cat-B, {len(all_c)} Cat-C  ({total} total)")
+    total = sum(len(v) for v in by_cat.values())
+    counts = "  ".join(f"{len(by_cat[c])} Cat-{c}" for c in "ABCDE")
+    print(f"Results: {counts}  ({total} total)")
     print("=" * 72)
 
-    print(f"\n## Category A — Removed accessors ({len(all_a)} hits)")
-    print_hits(all_a, project_root)
-
-    print(f"\n## Category B — Changed-return-type getters ({len(all_b)} hits)")
-    print_hits(all_b, project_root)
-
-    print(f"\n## Category C — Groovy DSL operator mutations ({len(all_c)} hits)")
-    print_hits(all_c, project_root)
+    sections = [
+        ("A", "Removed accessors (set*/is* call removed)"),
+        ("B", "Changed-return-type getters (get<Prop>() used as a plain value)"),
+        ("C", "Operator mutations (+=/-=/<< on list/set/map)"),
+        ("D", "Property assignments (`prop = value`; import-confirmed only)"),
+        ("E", "Collection ops absent on lazy properties (.remove/.filterKeys/...)"),
+    ]
+    for cat, title in sections:
+        print(f"\n## Category {cat} — {title} ({len(by_cat[cat])} hits)")
+        print_hits(by_cat[cat], project_root)
 
     sys.exit(1 if total else 0)
 

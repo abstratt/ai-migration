@@ -150,6 +150,54 @@ These are patterns not captured by `@ReplacesEagerProperty` but commonly needed:
    > **Intent:** ensure existing `.map { }` call sites are rechecked once the accessors inside the lambda have been migrated to return `Provider`/`Property`, since the correct combinator depends on the post-migration return type.
 - **Third-party plugin issues**: not covered by migration data; fix based on build error output
 
+### Predictable infrastructure issues from the distribution swap
+
+Swapping to the custom Provider API preview distribution (task 04) reliably triggers a few build
+failures that are **not** Provider API code issues and **not** in `migration-data.json`. Expect them,
+and apply these fixes directly rather than rediscovering them via slow compile iterations:
+
+- **Dependency verification fails.** The preview distribution bundles plugin artifact versions (e.g.
+  `gradle-kotlin-dsl-plugins`, `kotlin-assignment-*-gradle*`) that are absent from a repo's checked-in
+  `gradle/verification-metadata.xml`, so resolution fails with "Dependency verification failed".
+  Regenerating verification metadata for a throwaway preview is out of scope. Fix: add a blanket
+  `<trust file=".*[.]jar" regex="true"/>` to the `<trusted-artifacts>` block of
+  `gradle/verification-metadata.xml` (persistent, committed) — or pass `--dependency-verification=off`
+  while iterating. Document the relaxation; it should be reverted when migrating against a released Gradle.
+- **Deprecation warnings promoted to errors.** Gradle 9.6 deprecations (e.g. `by getting`/`by existing`/
+  `tasks.registering` delegates, `provideDelegate`, `ExtraPropertiesExtension` delegates) get turned into
+  hard failures by warnings-as-errors flags:
+  - `org.gradle.kotlin.dsl.allWarningsAsErrors` (controls `.gradle.kts` build-script and precompiled
+    convention-plugin compilation), and
+  - Kotlin/Java compiler `-Werror` / `allWarningsAsErrors` (often gated behind a project property such as
+    `kotlin.build.disable.werror`, or set per-module in convention `build.gradle.kts`).
+
+  Per the **Code Change Guidelines** ("ignore deprecations for now"), **disable these flags** rather than
+  rewriting hundreds of deprecated DSL call sites. Find them with
+  `grep -rn "allWarningsAsErrors" <repo>` and check for a `*.disable.werror`-style property. This is a
+  config relaxation, not a Provider API change.
+- **Configuration-cache staleness hides the fix.** After editing `gradle.properties` (especially the
+  warnings-as-errors flags above), a *reused* configuration cache can serve the old compiled scripts, so
+  the change appears not to take effect. While iterating, run with `--no-configuration-cache` (or
+  otherwise invalidate the cache); do a final clean run with the cache on to confirm.
+
+### Scanner coverage and its remaining blind spot
+
+`scan_usages.py` detects, in addition to the call-syntax categories (A: `setX(`, B: `getX()`):
+- **Cat-C** — operator mutations `+=`/`-=`/`<<` on list/set/map props, now in **`.kt`/`.java` source as
+  well as DSL** files.
+- **Cat-D** — `prop = value` assignments to a now-lazy property. Bare property names are noisy, so only
+  **import-confirmed** hits are reported (the receiver's owning Gradle type is imported in the file).
+- **Cat-E** — collection ops absent on lazy properties (`.remove`/`.removeAll`, `.filterKeys`/`.filterValues`).
+
+It still does **not** detect (no reliable regex signal without type analysis): `mapProp[k]` index ops,
+`obj.prop` reads consumed as a plain `T` where the getter now returns `Provider<T>`, `!boolProp`,
+`.map { }` that should become `.flatMap { }`, and the *unconfirmed* (no-import) majority of `prop = value`
+assignments. Those still surface as compile errors in tasks 07/08. Treat a clean task-06 scan as "the
+confirmed call/assignment sites are handled", not "everything is handled"; see tasks 07/08's *Iteration
+strategy* for the rest. `apply_migrations.py` auto-applies only the safe Cat-A rewrites; Cat-D assignments
+are detect-only (logged for review, never auto-rewritten), since `prop = value` is often already valid via
+the Kotlin DSL assign operator and rewriting it would be cosmetic churn.
+
 ## Allowed Operations
 
 You may be running under a Docker container (Linux) or directly on the host (macOS or Linux). See **Shell Portability** below for how to write commands that work in either environment.
