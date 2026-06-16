@@ -15,3 +15,4 @@ Repository migrated: [abstratt/spring-boot](https://github.com/abstratt/spring-b
 | Lines changed (excl. report + notes) | +76 / −61 | +57 / −34 |
 
 Change counts come from the GitHub compare API (`main...<branch>`). The "excl. report + notes" rows leave out the `MIGRATION_NOTES.md` and `REPORT-*.md` artifacts added by the migration runs themselves, so they reflect only the changes made to the repository's own files.
+

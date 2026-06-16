@@ -15,3 +15,4 @@ Repository migrated: [abstratt/junit-framework](https://github.com/abstratt/juni
 | Lines changed (excl. report + notes) | +64 / −53 | +45 / −42 |
 
 Change counts come from `git diff main...<branch>`. The "excl. report + notes" rows leave out the `MIGRATION_NOTES.md` and `REPORT-*.md` artifacts added by the migration runs themselves, so they reflect only the changes made to the repository's own files. The branches are local only (the workflow does not push), so the links above resolve once the branches are pushed to the fork.
+

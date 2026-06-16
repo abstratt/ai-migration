@@ -15,3 +15,5 @@ Repository migrated: [abstratt/spring-framework](https://github.com/abstratt/spr
 | Lines changed (excl. report + notes) | +30 / −75 | +18 / −64 |
 
 Change counts come from `git diff main...<branch>`. The "excl. report + notes" rows leave out the `MIGRATION_NOTES.md` and `REPORT-*.md` artifacts added by the migration runs themselves, so they reflect only the changes made to the repository's own files.
+
+
