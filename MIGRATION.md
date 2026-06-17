@@ -6,10 +6,13 @@ The repository to migrate is provided via the `REPO_URL` environment variable (e
 
 **Brute-force mode (`SKIP_BUILD_SCRIPTS`).** When the `SKIP_BUILD_SCRIPTS` environment variable is set, the data-driven build-script migration (task 06) is skipped entirely and replaced by `@tasks/06-skip-build-scripts.md`, which only ensures no `MIGRATION_NOTES.md` exists. Tasks 07/08 then fix every build error from scratch. Default (unset) = normal data-driven migration. See **Environment** in @tasks/CONTEXT.md.
 
+**Clean start (default).** Migration state lives on disk, not in the conversation — clearing the chat context does not reset it, so a re-run would otherwise reuse the existing `migrated/<repo>` clone and its leftover artifacts (this is what makes a previous run appear to "leak" into a new one). To avoid that, the workflow **always runs @tasks/00-clear-repository-state.md first (step 0 below)** to scrub that state. The `RESET_STATE` environment variable tunes this: unset = safe reset (default); `purge` = delete and re-clone; `keep` (or `off`) = skip step 0 to resume an interrupted run. See **Environment** in @tasks/CONTEXT.md.
+
 ## Workflow
 
 Run all tasks in order, end-to-end, as a **single autonomous workflow**. Each task has a resume check — if work is already done, it will be skipped automatically.
 
+0. **Clear repository state (runs by default):** @tasks/00-clear-repository-state.md (scrubs prior-run state for a clean start). Skip this step **only** when `RESET_STATE` is `keep` or `off`, or when this workflow was invoked via the `/g10-resume` entry point (both mean: resume an interrupted run, preserving on-disk state). `RESET_STATE=purge` makes it delete and re-clone.
 1. @tasks/01-prepare-repository.md
 2. @tasks/02-install-jdk.md
 3. @tasks/03-upgrade-gradle-9.md

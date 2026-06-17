@@ -32,6 +32,8 @@ The migration workflow is available as Claude Code slash commands.
 
 Runs all tasks in order. The repository URL (and optional branch) is passed as an argument. The migration targets the `default` distro pair from `distro-pairs.json`; set `DISTRO_PAIR=<pair-id>` to target a different one (see [Distro pairs](#distro-pairs)).
 
+Each run starts clean: step 0 scrubs the prior run's on-disk state for this repo (the reused `migrated/<repo>` clone and its start-time sidecar) before migrating — because clearing the conversation context does **not** reset on-disk state. To **resume** an interrupted run instead of starting clean, use `/g10-resume <partial-name>`, which runs the same workflow but skips step 0. It takes a partial repository name (not a URL): it matches every clone under `migrated/` and continues only if exactly one matches (e.g. `/g10-resume spring-boot`), aborting if the name is ambiguous or unknown. Tune the cleanup with `RESET_STATE`: unset = safe reset (default); `RESET_STATE=purge` also deletes and re-clones the repo; `RESET_STATE=keep` (or `off`) skips the cleanup (the env-var equivalent of `/g10-resume`). Run `/g10-clear-repository-state <repo-url>` to clear a repo's state on its own.
+
 #### Example
 
 ```
@@ -48,6 +50,7 @@ DISTRO_PAIR=g94-to-PAPI-20260204 claude --permission-mode auto "/g10-migrate htt
 
 | Command | Description | Arguments |
 |---|---|---|
+| `/g10-clear-repository-state <repo-url>` | Scrub a previous run's on-disk state (clone + start-time sidecar) for a clean start | Repository URL (required) |
 | `/g10-prepare-repository <repo-url>` | Clone repo and create migration branch | Repository URL (required) |
 | `/g10-install-jdk` | Install the JDK required by the repository | None |
 | `/g10-upgrade-gradle-9` | Upgrade Gradle wrapper to the pair's baseline version | None |
