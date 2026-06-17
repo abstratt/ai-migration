@@ -40,7 +40,7 @@ above) — they are tasks 07/08's job.
 
 1. **Load the migration reference files** from `migration-reference/`. First resolve the active distro pair to get **PAIR_ID** (see **Distro pair selection** in CONTEXT.md) — it must be the same pair tasks 03/04 used, so the data matches the installed distribution.
    - `migration-reference/distro-pairs/<PAIR_ID>/migration-data.json` — lookup table of every changed property (class, old type, new type, kind, removed accessors). The `scan_usages.py` and `apply_migrations.py` invocations below take `--distro-pair <PAIR_ID>` so they read this same distro mapping bundle.
-   - `migration-reference/MIGRATION_RULES.md` — transformation rules for each property kind (shared across all pairs)
+   - @migration-reference/MIGRATION_RULES.md — transformation rules for each property kind (shared across all pairs); also carries the **Code Change Guidelines** that govern every edit you make here
 
    **Leave-alone list.** The following constructs are outside the scope of this migration and must be kept as-is even if they superficially resemble a scan hit:
 
@@ -135,7 +135,8 @@ above) — they are tasks 07/08's job.
    - **Templated substitutes** that preserve the boilerplate shape with different words — e.g. `defer to task 07: Cat-B getter rewrite depends on downstream usage`, `let compile errors disambiguate`, `verify against compile output`, `multiple candidate Gradle types — pick the right one from compile errors`, or any other category-level-but-generic text reused verbatim across many entries. These are the shape the boilerplate-detector in step 5(b) fails on, and they are indistinguishable from raw tool output for audit purposes.
 
    **Entries you must always process, never skip wholesale:**
-   - **Category C hits on `.gradle` / `.gradle.kts` files** are almost always real — the scanner marks them "unconfirmed" only because DSL files have no typed imports for it to match against. `jvmArgs += [...]`, `compilerArgs << "..."`, `prop -= [...]` on `ListProperty`/`SetProperty`/`MapProperty` all need rewriting. Do **not** defer these as "unconfirmed."
+   - **Category C hits on `.gradle` (Groovy) files** are almost always real — the scanner marks them "unconfirmed" only because DSL files have no typed imports for it to match against. `jvmArgs += [...]`, `compilerArgs << "..."`, `prop -= [...]` on `ListProperty`/`SetProperty`/`MapProperty` all need rewriting in Groovy. Do **not** defer these as "unconfirmed."
+   - **Category C hits on `.gradle.kts` (Kotlin) files** are different: most operator forms survive via `org.gradle.kotlin.dsl` extensions (implicitly imported in `.kts`) and must be **left unchanged** — `prop += element`, `mapProp += (k to v)`, `mapProp[k] = v`, `files += fc`. Only `prop -= [...]` needs rewriting (no `minusAssign` extension). See **Kotlin DSL operators that survive migration** in `MIGRATION_RULES.md`. `<<` is not valid Kotlin and will not appear in `.kts`.
    - **Category B `[CONFIRMED]` hits** require manual review — they were deferred only because auto-rewriting return-type-changed getters without knowing the consumer context is unsafe, not because they're false positives.
    - **Category A hits with `kind '<X>' has no mechanical rewrite`** reasons mean the kind is `read_only` or an unhandled kind — inspect each one.
 
@@ -147,7 +148,8 @@ above) — they are tasks 07/08's job.
 
    - **`is*` boolean getter sites**: replace `task.isFoo()` with `task.getFoo().get()` (inside task actions or when a resolved value is needed), or wire lazily with `task.getFoo()` (returns `Property<Boolean>`) elsewhere.
    - **Changed-return-type getter sites (Cat-B)**: when `getX()` is used as the old plain type, add `.get()` to resolve it: `task.getArgs()` → `task.getArgs().get()`. When it is passed to an API that accepts `Provider<T>`, no `.get()` is needed.
-   - **Groovy DSL operator mutations (Cat-C)**: replace `prop -= [value]` / `prop += [value]` with `prop.set(prop.get() - [value])` / `prop.add(value)` respectively. `prop << value` → `prop.add(value)`.
+   - **Groovy DSL operator mutations (Cat-C)**: replace `prop -= [value]` / `prop += [value]` with `prop.set(prop.get() - [value])` / `prop.add(value)` respectively. `prop << value` → `prop.add(value)`. These rewrites apply to **Groovy** (`.gradle`) only.
+   - **Kotlin DSL operator mutations (Cat-C)**: do **not** rewrite `prop += value` / `mapProp += (k to v)` / `mapProp[k] = v` / `files += fc` — they keep compiling via `org.gradle.kotlin.dsl` operators (auto-imported in `.kts`; in plain `.kt` under `kotlin-dsl`, add `import org.gradle.kotlin.dsl.*` to preserve the form rather than rewriting). Only `prop -= value` needs a rewrite: `prop.set(prop.get() - value)`.
    - **`file_collection` kind**: replace `task.setX(fc)` with `task.getX().setFrom(fc)`. `.from(...)` appends and is not a migration for `setX(...)` — never use it to rewrite an old setter. Watch for circular references: if the new value references the same property, snapshot first with `.getFiles()`: `task.getX().setFrom(project.files(extra, task.getX().getFiles()).filter(...))`.
 
    **The shape of a completed `MIGRATION_NOTES.md`.** After step 4, the file should either be empty (delete it) or read like a curated false-positive analysis: entries grouped by receiver-type category, each with a one-line human reason. A file that still looks like `apply_migrations.py`'s raw output — hundreds of entries with identical boilerplate reason strings — means step 4 was not done. Commit the file only if it passes step 5's audit.

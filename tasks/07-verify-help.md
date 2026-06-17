@@ -30,6 +30,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
    - Third-party plugin incompatibilities
    - Custom build logic that uses removed APIs
    - Look up fixes in `migration-data.json` first, then fix manually based on error output
+   - Apply @migration-reference/MIGRATION_RULES.md — the per-kind rules, the **operator/assignment-overload rule (absolute)**, and the **Code Change Guidelines** (refactor-only, comments for non-trivial changes, no cosmetic changes, ignore deprecations) that govern every edit here
    - If `MIGRATION_NOTES.md` exists at the repo root, inspect it: each entry flags a hit that task 06 could not confidently transform. Use the build errors from this task to resolve them, then remove the corresponding entry from `MIGRATION_NOTES.md`.
 
    **Common compile-error → fix mapping.**
@@ -43,15 +44,24 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
    | `No signature of method: leftShift` (`<<`) on `ListProperty`/`SetProperty`/`MapProperty` | Groovy DSL `<<` operator does not apply to lazy properties | Replace `prop << value` with `prop.add(value)` |
    | `Cannot set the value of a property of type X using a provider of type Y` | Source `Provider<T>` doesn't match target `Property<U>` | Wrap the source via `.map { ... }` to convert |
    | `Cannot query the value of task ... because it has no value` | Consumer read the property eagerly before it was wired | Move the `.get()` inside a task action, or switch to lazy wiring |
-   | `Could not set unknown property 'X' of task ':Y' of type Z` | Kotlin/Groovy DSL property-assignment syntax no longer matches the lazy accessor | Replace `task.X = v` with `task.X.set(v)` |
+   | `Could not set unknown property 'X' of task ':Y' of type Z` (**Groovy** DSL) | Groovy DSL property-assignment no longer matches the lazy accessor (Groovy has no `org.gradle.kotlin.dsl` overloads) | Replace `task.X = v` with `task.X.set(v)` |
    | `A value of type X cannot be assigned to a property of type Provider<X>` | Accessor now returns a `Property`/`Provider` | Use `.set(v)` on the returned property |
-   | `Cannot invoke method minus()/plus() on null object` on a list/set/map prop | `prop -= […]` / `prop += […]` no longer works | Replace with `prop.set(prop.get() - [...])` / `prop.add(...)` |
-   | `No applicable 'assign' function found for '=' overload` (Kotlin) | `prop = v` on a now-lazy `Property` (Kotlin analogue of the Groovy row above) | `prop.set(v)`; for `file_collection` use `prop.setFrom(v)`; for `DirectoryProperty` from a `String`, assign `java.io.File(v)` |
-   | `Unresolved reference 'not' for operator '!'` on a boolean prop | `!boolProp` where `boolProp` is now `Property<Boolean>` | `!boolProp.get()` |
-   | `Unresolved reference 'filterKeys'`/`'remove'`/`'plusAssign'` on a `MapProperty`/`ListProperty` | collection op on a now-lazy property (`.kt` source, no DSL operators) | resolve+reset: `prop.set(prop.get().filterKeys { … })` / `prop.set(prop.get() - keys)`; `+=` → `.add`/`.addAll` |
-   | `operator modifier is required on 'fun get()'` / `Too many arguments for 'fun get()'` | `mapProp[k]` index read in `.kt` without `org.gradle.kotlin.dsl` in scope | add `import org.gradle.kotlin.dsl.*` (idiomatic, yields `Provider<V>`) **or** `mapProp.get()[k]` |
+   | `Cannot invoke method minus()/plus() on null object` on a list/set/map prop (**Groovy**) | `prop -= […]` / `prop += […]` no longer works | Replace with `prop.set(prop.get() - [...])` / `prop.add(...)` |
+   | `No applicable 'assign' function found for '=' overload` / `Unresolved reference 'assign'` (**Kotlin**) | `prop = v` on a now-lazy property, with the `org.gradle.kotlin.dsl` assign overload not in scope | **Add `import org.gradle.kotlin.dsl.assign` (or `*`) and keep `prop = v`. Do NOT rewrite to `prop.set(v)` / `prop.setFrom(v)` — the import works for `Property`, `ListProperty`, `SetProperty`, `MapProperty`, and `ConfigurableFileCollection` targets alike.** Only exception: a `DirectoryProperty`/`RegularFileProperty` assigned a `String` has no matching overload — keep `=` and wrap the value: `prop = java.io.File(v)` |
+   | `Unresolved reference 'not' for operator '!'` on a boolean prop | `!boolProp` where `boolProp` is now `Property<Boolean>` | `!boolProp.get()` (no surviving operator) |
+   | `Unresolved reference 'plusAssign'` on a `ListProperty`/`SetProperty`/`MapProperty`/`ConfigurableFileCollection` (**Kotlin**) | `prop += x` with the overload not in scope | **Add `import org.gradle.kotlin.dsl.plusAssign` (or `*`) and keep `prop += x`. Do NOT rewrite to `.add`/`.addAll`/`.from`.** |
+   | `Unresolved reference 'filterKeys'`/`'remove'`/`'removeAll'` on a `MapProperty`/`ListProperty`/`SetProperty` | collection op with **no** `org.gradle.kotlin.dsl` operator (truly removed) | resolve+reset: `prop.set(prop.get().filterKeys { … })` / `prop.set(prop.get() - keys)` |
+   | `operator modifier is required on 'fun get()'` / `Too many arguments for 'fun get()'` | `mapProp[k]` index read/write in `.kt` without `org.gradle.kotlin.dsl` in scope | **Add `import org.gradle.kotlin.dsl.*` to restore the `mapProp[k]` / `mapProp[k] = v` operators and keep the index form. Do NOT rewrite to `mapProp.get()[k]` / `mapProp.put(k, v)`.** |
    | `'val' cannot be reassigned` on `commandLine` | `BaseExecSpec.commandLine` is now a read-only `Provider` | use the method form: `commandLine(listOf(...))` |
    | `Unresolved reference 'maybeRedirect'` / receiver-type mismatch on `url` | `*ArtifactRepository.url` is now `Property<URI>` | read with `url.get()`, write with `url.set(...)` |
+
+   > **Operator-overload-first note.** When the error is "the overload is not imported" — `No applicable
+   > 'assign' function found for '=' overload`, `Unresolved reference 'assign'`/`'plusAssign'`, or
+   > `operator modifier is required on 'fun get()'` — add the `org.gradle.kotlin.dsl` import and keep the
+   > original `=` / `+=` / `mapProp[k]` form; **never** rewrite it to a method call. This is governed by
+   > the **operator/assignment-overload rule (absolute)** under **Change-minimization principle** in
+   > `migration-reference/MIGRATION_RULES.md` — see there for the full forbidden-rewrite table and the
+   > narrow exceptions (`-=`, `<<`, `.remove`, `.filterKeys`, Groovy DSL).
 
    > **Lazy-first note (applies to every `.get()`/`.map` row above).** Prefer wiring the Provider
    > through (`dest.set(src)`) or transforming lazily (`.map`/`.flatMap`) over resolving. Reserve

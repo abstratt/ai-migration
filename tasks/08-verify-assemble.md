@@ -28,6 +28,13 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
 
 2. **Fix any additional issues** following the same approach:
    - Look up in `migration-data.json` first
+   - Apply @migration-reference/MIGRATION_RULES.md — the per-kind rules, the **Code Change Guidelines**
+     (refactor-only, comments for non-trivial changes, no cosmetic changes, ignore deprecations), and,
+     crucially, the **Change-minimization principle** with its **operator/assignment-overload rule
+     (absolute)**: when an `org.gradle.kotlin.dsl` import would keep an operator/assignment form
+     (`=`, `+=`, `mapProp[k]`) compiling, add the import and keep that form — never rewrite it to
+     `.set`/`.add`/`.put`/`.setFrom`/`.get()[k]`. This applies to `assemble`-phase fixes exactly as it
+     does in task 07.
    - Then fix manually based on error output
    - Use task 07's **Common compile-error → fix mapping** table and **lazy-first note** — `assemble`
      compiles main source (not just build logic), so the same Provider-API patterns recur there.

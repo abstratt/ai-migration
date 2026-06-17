@@ -2,6 +2,49 @@
 
 Use with `migration-data.json` to migrate Gradle build scripts. Look up the class + property in the JSON to get `kind`, `old_type`, `new_type`, `removed_accessors`, `changed_return_accessors`, `new_read_accessor`, `new_write_accessor`, `new_is_provider`, and `inheriting_subtypes`, then apply the matching rule below. Types in the JSON are fully-qualified (e.g. `org.gradle.api.provider.Property<java.lang.String>`); the rules and examples in this document use simplified names for readability.
 
+## Change-minimization principle
+
+> **Rewrite a site only if the old form would fail to compile or change behavior under Gradle 10. If it still compiles and behaves identically, leave it unchanged.**
+
+> **Operator/assignment-overload rule (absolute):** when a call site uses an operator or assignment form (`=`, `+=`, `mapProp[k]`, `mapProp[k] = v`, `files += fc`, `by`-delegation) and adding an `org.gradle.kotlin.dsl` import makes it compile again, you **MUST** add the import and keep the operator form. **Never** convert an operator/assignment form to its method-based equivalent (`.set(...)`, `.add(...)`, `.addAll(...)`, `.put(...)`, `.setFrom(...)`, `.get()[k]`) when an import would have preserved it. Adding the import is *always* the correct fix — not merely the preferred one. Switching to the method form in that situation is a migration defect, even though it compiles.
+
+The rules below describe the *canonical* new form for each kind, but canonical does not mean mandatory. A correct-but-unnecessary rewrite is still a cost: it enlarges the diff, makes the migration harder to review and attribute, and inflates the change-comparison metrics. When in doubt, prefer the smallest diff and preserve the existing idiom.
+
+**Adding an import is the default fix, not a fallback.** Kotlin source frequently keeps working against the migrated (lazy) types through Gradle's `org.gradle.kotlin.dsl` extensions: the assignment overload (`prop = value`, including `ListProperty`/`SetProperty`/`MapProperty`/`ConfigurableFileCollection` targets), the collection operators (`prop += x`), `MapProperty` indexing (`mapProp[k]` read and `mapProp[k] = v` write), and `by`-delegation. See **Kotlin DSL operators that survive migration** below for the full set. When one of these forms stops compiling only because the extension is not in scope, the fix is to bring it into scope:
+
+- In `.gradle.kts` the `org.gradle.kotlin.dsl` package is an implicit default import, so these forms need **no change at all**.
+- In a plain `.kt` file under a `kotlin-dsl` module, add `import org.gradle.kotlin.dsl.*` (or the specific symbol — `assign`, `plusAssign`, `get`, `set`, `getValue`, `setValue`) and leave the call site as-is.
+
+Concretely, **do NOT** make any of these rewrites when an import would have kept the original compiling:
+
+| Forbidden rewrite (when an import would work) | Correct fix |
+|---|---|
+| `prop = v` → `prop.set(v)` | add `import org.gradle.kotlin.dsl.assign`; keep `prop = v` |
+| `args = listOf(...)` → `args.set(listOf(...))` | add the import; keep `args = listOf(...)` |
+| `classpath = fc` → `classpath.setFrom(fc)` | add the import; keep `classpath = fc` |
+| `prop += x` → `prop.add(x)` / `prop.addAll(x)` | add `import org.gradle.kotlin.dsl.plusAssign`; keep `prop += x` |
+| `mapProp[k] = v` → `mapProp.put(k, v)` | add the import; keep `mapProp[k] = v` |
+| `mapProp[k]` (read) → `mapProp.get()[k]` | add the import; keep `mapProp[k]` |
+
+Rewrite to the method form **only** when no surviving operator exists (e.g. `-=`, which has no `minusAssign` extension; `.remove`/`.filterKeys`, which have no operator) or the language has no such support (Groovy DSL). The lone value-adaptation exception: `DirectoryProperty`/`RegularFileProperty` assigned a `String` has no matching `assign` overload — keep the `=` form but wrap the argument (`prop = File(v)`), do not switch to `.set(...)`.
+
+Apply this principle whenever a removed accessor has an equivalent surviving form at the call site.
+
+## Code Change Guidelines
+
+These govern every code change made while applying this migration — i.e. the tasks that actually edit
+source: build-script migration (task 06) and the `help`/`assemble` fix passes (tasks 07, 08). They are
+the behavioral discipline layered on top of the per-kind mechanics below.
+
+- **Prefer lazy wiring; resolve only when needed.** Avoid eagerly realizing providers — see
+  **Cross-cutting concerns** below for the lazy-wiring / `.get()` specifics.
+- **Add explanatory code comments for non-trivial changes.** Trivial changes (simple property
+  get/set) do not need comments.
+- **Ignore deprecations for now.**
+- **Do not change observable functionality — this is basically a refactor.**
+- **Do not make cosmetic changes** — no rewording comments, no reformatting code, no renaming
+  variables. Change only what is necessary to complete the migration.
+
 ## End-to-end walkthrough
 
 > **Intent:** demonstrate the complete lookup → decide → rewrite flow on one real example before reading the per-kind rules.
@@ -200,15 +243,40 @@ compileJava.options.encoding.set("UTF-8")
 ### Kotlin DSL (`build.gradle.kts`)
 
 ```kotlin
-// old
+// before migration
 tasks.compileJava {
     options.encoding = "UTF-8"
 }
-// new — .set() is required; direct assignment via `=` does NOT work on Property<T>
+// after migration — UNCHANGED. The assignment overload (active in .gradle.kts and
+// kotlin-dsl modules) rewrites `= value` to `.set(value)` at compile time, so the
+// original line keeps compiling against the now-lazy Property<String>. Leave it.
 tasks.compileJava {
-    options.encoding.set("UTF-8")
+    options.encoding = "UTF-8"
 }
+
+// `.set(...)` is only needed where the overload is NOT available — plain Kotlin in a
+// module that does not apply `kotlin-dsl`:
+options.encoding.set("UTF-8")
 ```
+
+> **Note on `=` in Kotlin DSL.** Gradle's lazy property assignment (the Kotlin assignment-overload compiler plugin) rewrites `prop = value` to `prop.set(value)` at compile time for `Property<T>` and other lazy types. It is active in `.gradle.kts` script files and in any source set of a project that applies the `` `kotlin-dsl` `` plugin. In those contexts `prop = value` keeps compiling after migration and needs no change. Rewriting to `.set(...)` there is therefore optional — correct, but not required. The `.set(...)` form *is* required only in plain Kotlin compiled **without** the assignment overload (Kotlin source in a module that does not apply `kotlin-dsl`). Preserve the existing `=` idiom when the overload is active; rewrite to `.set(...)` only when it is not.
+
+### Kotlin DSL operators that survive migration
+
+> **Intent:** beyond `=`, Gradle ships operator extensions in the `org.gradle.kotlin.dsl` package that let existing Kotlin call sites keep compiling against the migrated lazy types. Per the change-minimization principle's **operator/assignment-overload rule (absolute)**, you **must** preserve these forms by adding `import org.gradle.kotlin.dsl.*` (or the specific symbol) where needed. Rewriting any of them to a method call (`.set`/`.add`/`.put`/`.setFrom`/`.get()[k]`) when an import would have worked is a defect, not a stylistic choice.
+
+| Existing syntax | Backed by (`org.gradle.kotlin.dsl`) | Applies to |
+|---|---|---|
+| `prop = value` | assignment overload (compiler plugin) | any `Property` / lazy type |
+| `prop += element` / `prop += listOf(..)` / `prop += arrayOf(..)` | `plusAssign(HasMultipleValues<T>, …)` | `ListProperty`, `SetProperty` |
+| `mapProp += (k to v)` / `mapProp += mapOf(..)` | `plusAssign(MapProperty<K,V>, …)` | `MapProperty` |
+| `mapProp[k]` (read) / `mapProp[k] = v` | `get` / `set(MapProperty<K,V>, …)` | `MapProperty` |
+| `files += otherFiles` | `plusAssign(ConfigurableFileCollection, FileCollection)` | `ConfigurableFileCollection` |
+| `val x by prop` / `var x by prop` | `getValue` / `setValue` | `Property<T>`, `ConfigurableFileCollection` |
+
+**Import scope.** All of the above are in scope automatically in `.gradle.kts` (the `org.gradle.kotlin.dsl` package is an implicit default import). In a plain `.kt` file under a `kotlin-dsl` module the extensions are on the classpath but **not** auto-imported — the file's existing `+=` (or `=`, `mapProp[k]`, …) on a now-lazy type compiles only if `import org.gradle.kotlin.dsl.*` (or the specific operator) is present. When migration changes a property's type to a lazy one in such a file, **you must add the import to preserve the operator form.** Rewriting the call site to the method form (`.set`/`.add`/`.put`/`.setFrom`/`.get()[k]`) is **not** an acceptable alternative here, even for "determinism" or to match a sibling line that genuinely needed a method rewrite — add the import instead. The error that signals this case is `No applicable 'assign' function found for '=' overload` / `Unresolved reference 'assign'` / `Unresolved reference 'plusAssign'` / `operator modifier is required on 'fun get()'`: every one of these means "the overload exists but isn't imported", so the fix is the import.
+
+**What has no operator (must be rewritten).** There is no `minusAssign` and no `leftShift` extension for these types. So `prop -= x` and Groovy's `prop << x` have no surviving Kotlin operator — rewrite them (`prop -= x` → `prop.set(prop.get() - x)`; `<<` → `.add(..)`). Groovy DSL has none of these `org.gradle.kotlin.dsl` extensions at all, so all of its operator mutations (`+=`, `-=`, `<<`) still need rewriting.
 
 ### Java (`buildSrc/src/main/java`, custom plugins)
 
@@ -230,6 +298,8 @@ String enc = compileTask.getOptions().getEncoding().get();
 | `list` | `task.args.add("-v")` | `task.args.add("-v")` | `task.getArgs().add("-v")` |
 | `file_collection` | `task.classpath.setFrom(fc)` | `task.classpath.setFrom(fc)` | `task.getClasspath().setFrom(fc)` |
 | `dir` | `task.dir.set(layout.projectDirectory.dir("x"))` | `task.dir.set(layout.projectDirectory.dir("x"))` | `task.getDir().set(layout.getProjectDirectory().dir("x"))` |
+
+> The **Kotlin DSL** column shows the explicit lazy-API form for reference; it is *not* the preferred rewrite. Per the change-minimization principle, when an existing Kotlin call site already uses an operator form that survives migration (`task.x = "v"`, `task.args += "-v"`, `task.classpath += fc`, `mapProp[k] = v`), **preserve it** — only fall back to the explicit `.set(...)` / `.add(...)` / `.setFrom(...)` form when no operator applies or the overload/import is unavailable.
 
 ## Cross-cutting concerns
 
