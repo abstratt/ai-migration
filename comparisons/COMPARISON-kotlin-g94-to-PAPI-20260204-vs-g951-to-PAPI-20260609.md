@@ -7,27 +7,27 @@ Comparison of the latest completed Gradle 9 → 10 migration run for each distro
 | | Run 1 | Run 2 |
 |---|---|---|
 | **Distro pair** | `g94-to-PAPI-20260204` | `g951-to-PAPI-20260609` |
-| **Branch** | [`gradle-10-migration/20260616-1745-g94-to-PAPI-20260204`](https://github.com/abstratt/kotlin/tree/gradle-10-migration/20260616-1745-g94-to-PAPI-20260204) | [`gradle-10-migration/20260616-1916-g951-to-PAPI-20260609`](https://github.com/abstratt/kotlin/tree/gradle-10-migration/20260616-1916-g951-to-PAPI-20260609) |
-| **Base branch** | `master` | `master` (@ `77e77a815`) |
-| **Report** | [`REPORT-20260616-1745.md`](https://github.com/abstratt/kotlin/blob/gradle-10-migration/20260616-1745-g94-to-PAPI-20260204/REPORT-20260616-1745.md) | [`REPORT-20260616-1916.md`](https://github.com/abstratt/kotlin/blob/gradle-10-migration/20260616-1916-g951-to-PAPI-20260609/REPORT-20260616-1916.md) |
-| **Migration notes** | [`MIGRATION_NOTES.md`](https://github.com/abstratt/kotlin/blob/gradle-10-migration/20260616-1745-g94-to-PAPI-20260204/MIGRATION_NOTES.md) | [`MIGRATION_NOTES.md`](https://github.com/abstratt/kotlin/blob/gradle-10-migration/20260616-1916-g951-to-PAPI-20260609/MIGRATION_NOTES.md) |
-| **Files changed** (excl. artifacts) | 74 | 68 |
-| **Total lines changed** (excl. artifacts) | +189 / −154 (343 total) | +157 / −131 (288 total) |
-| − Formatting / whitespace | 0 | 0 |
-| − Warnings-as-errors & deprecations | 42 (18 files) | 43 (18 files) |
-| − Other infra relaxations | 5 (1 file) | 4 (1 file) |
-| **= Core migration changes** | **296** | **241** |
-| **Migration notes entries** | 147 bullet entries (254-line file) | 180 bullet entries (313-line file) |
+| **Branch** | [`gradle-10-migration/20260617-1412-g94-to-PAPI-20260204`](https://github.com/abstratt/kotlin/tree/gradle-10-migration/20260617-1412-g94-to-PAPI-20260204) | [`gradle-10-migration/20260617-1202-g951-to-PAPI-20260609`](https://github.com/abstratt/kotlin/tree/gradle-10-migration/20260617-1202-g951-to-PAPI-20260609) |
+| **Base branch** | `master` (@ `77e77a815`) | `master` (@ `77e77a815`) |
+| **Report** | [`REPORT-20260617-1412.md`](https://github.com/abstratt/kotlin/blob/gradle-10-migration/20260617-1412-g94-to-PAPI-20260204/REPORT-20260617-1412.md) | [`REPORT-20260617-1202.md`](https://github.com/abstratt/kotlin/blob/gradle-10-migration/20260617-1202-g951-to-PAPI-20260609/REPORT-20260617-1202.md) |
+| **Migration notes** | [`MIGRATION_NOTES.md`](https://github.com/abstratt/kotlin/blob/gradle-10-migration/20260617-1412-g94-to-PAPI-20260204/MIGRATION_NOTES.md) | [`MIGRATION_NOTES.md`](https://github.com/abstratt/kotlin/blob/gradle-10-migration/20260617-1202-g951-to-PAPI-20260609/MIGRATION_NOTES.md) |
+| **Files changed** (excl. artifacts) | 67 | 65 |
+| **Total lines changed** (excl. artifacts) | +135 / −80 (215 total) | +127 / −74 (201 total) |
+| − Formatting / whitespace | 0 | 10 |
+| − Warnings-as-errors & deprecations | 41 (19 files) | 41 (19 files) |
+| − Other infra relaxations | 4 (1 file) | 3 (1 file) |
+| **= Core migration changes** | **170** | **147** |
+| **Migration notes entries** | 393 bullet entries (477-line file) | 171 bullet entries (282-line file) |
 | **Succeeded?** | ✅ Yes — `./gradlew help` and `./gradlew assemble` both succeed | ✅ Yes — `./gradlew help` and `./gradlew assemble` both succeed |
 
 ## Notes
 
-- **Core migration churn is close, with `g94` slightly larger.** Excluding formatting, warnings-as-errors, and infra relaxations, the genuine Provider-API work is **296 lines across 74 files** for `g94` vs **241 lines across 68 files** for `g951` — both runs applied the same families of transformations across the build-conventions plugins, the `kotlin-native/build-tools` included build, and a similar set of subproject build scripts.
-- **Neither run made any formatting/whitespace-only changes** (0 lines each) — consistent with the migration policy of not making cosmetic edits.
-- **The warnings-as-errors relaxation is nearly identical between runs** (42 vs 43 lines over the same 18 files): flipping `allWarningsAsErrors true → false` across ~16 convention-plugin `build.gradle.kts` files plus the two `gradle.properties` files, disabling `-Werror`, and the accompanying relaxation comments.
-- **The infra bucket is the `gradle/verification-metadata.xml` blanket jar-trust relaxation** in both runs (5 vs 4 lines). Other per-run plumbing differences noted in the reports (the `g94` run's build-scan/Develocity disabling against the older preview; the `g951` run's `InstrumentJava.kt` classloader fix for an ASM `NoSuchMethodError`) are not separately bucketed by the heuristic and fall into either infra-by-content or core — they are small and do not change the picture.
+- **Core migration churn is close, with `g94` slightly larger.** Excluding formatting, warnings-as-errors, and infra relaxations, the genuine Provider-API work is **170 lines across 67 files** for `g94` vs **147 lines across 65 files** for `g951` — both runs applied the same families of transformations across the build-conventions plugins, the `kotlin-native/build-tools` included build, and a similar set of subproject build scripts.
+- **Only `g951` made any formatting/whitespace-only changes** (10 lines vs 0 for `g94`) — a small amount of incidental reflow; `g94` made none, consistent with the migration policy of not making cosmetic edits.
+- **The warnings-as-errors relaxation is identical between runs** (41 lines over the same 19 files): flipping `allWarningsAsErrors true → false` across the convention-plugin `build.gradle.kts` files plus the `gradle.properties` files (root, `gradle-build-conventions`, `gradle-settings-conventions`), and the accompanying `kotlin.build.disable.werror` / relaxation comments.
+- **The infra bucket is the `gradle/verification-metadata.xml` blanket jar-trust relaxation** in both runs (4 vs 3 lines). Other per-run plumbing differences noted in the reports (the `g951` run's `InstrumentJava.kt` classloader fix for an ASM `NoSuchMethodError`; the `kgp-npm-tooling-helper` `.set()` rewrites that lack the assignment plugin) are not separately bucketed by the heuristic and fall into core — they are small and do not change the picture.
 - Both runs reported the wrapper was already at Gradle `9.5.1`, so the baseline-upgrade task (03) made no change in either case (the `g94` baseline of 9.4.0 is below the existing version, and `g951` matches it exactly).
-- Both runs intentionally left the Kotlin Gradle Plugin source unmigrated (it compiles against a pinned Gradle API) and limited verification to `help` + `assemble`. The residual `MIGRATION_NOTES.md` entries are characterized in both reports as genuine false positives / deferred sites.
+- Both runs intentionally left the Kotlin Gradle Plugin source unmigrated (it compiles against a pinned Gradle API) and limited verification to `help` + `assemble`. The `MIGRATION_NOTES.md` entries are dominated by residual `scan_usages.py` hits characterized as curated false positives / deferred sites — `g94`'s notes file is substantially longer (477 vs 282 lines) but that is audit-trail volume, not code change.
 
 ## Methodology
 
