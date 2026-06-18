@@ -30,6 +30,10 @@ Rewrite to the method form **only** when no surviving operator exists (e.g. `-=`
 
 Apply this principle whenever a removed accessor has an equivalent surviving form at the call site.
 
+**Accessor-name preservation (the rule extends to *names*, not just operators).** `removed_accessors` lists removed *JVM signatures*, **not** removed *names*. A name listed there may still resolve at a **Kotlin** call site through a back-compat accessor — most importantly `getIsFoo()`, which Gradle generates alongside the canonical `getFoo()` for every `is`-prefixed boolean property (see the `boolean` kind below). Such a name is typically used in **assignment position** (`isFoo = value`), which keeps working via the assignment overload. The operator/assignment-overload rule therefore extends to the accessor name: when `isFoo = v` (or any existing accessor reference) still resolves after adding the relevant `org.gradle.kotlin.dsl` import, you **MUST keep the existing name** — do **not** rename it to the canonical `getFoo()`/`foo` form. Renaming a still-resolving Kotlin accessor is the same class of defect as switching `=` to `.set(...)`: it compiles, but it is unnecessary churn.
+
+The **compiler**, not `removed_accessors`, is the source of truth for whether a Kotlin name must change. Try keep-the-name + add-the-import first; rename to the canonical accessor only if the original name genuinely fails to resolve. (This is Kotlin-specific — in Java and Groovy the `isFoo()` *method* really is gone and must be rewritten to the `getFoo()` lazy form.)
+
 ## Code Change Guidelines
 
 These govern every code change made while applying this migration — i.e. the tasks that actually edit
@@ -103,6 +107,10 @@ task.fork.set(otherTask.fork)          // lazy wiring
 // new — when a resolved value is needed
 if (task.fork.get()) { ... }
 ```
+
+**Kotlin back-compat for `is`-prefixed booleans.** When a boolean property migrates to `Property<Boolean>`, Gradle 10 generates the canonical `getFoo()` **and** a Kotlin-only back-compat accessor `getIsFoo()`. So the original Kotlin property name `isFoo` still resolves, and `isFoo = value` keeps working through the assignment overload. Per the **Accessor-name preservation** rule above:
+- **Kotlin:** leave `isFoo = value` unchanged in `.gradle.kts`; in a plain `.kt` file under a `kotlin-dsl` module add `import org.gradle.kotlin.dsl.assign` and keep the name. **Do NOT rename `isFoo` to `foo`** — both names resolve, so the rename is pure churn even though it compiles.
+- **Java / Groovy:** there is no such alias for these languages — the `isFoo()` method is genuinely removed, so rewrite to `getFoo().get()` / `.set(...)` as usual.
 
 ### `scalar`
 Old: `T getX()` / `setX(T)` where T is String, int, long | New: `Property<T> getX()`
@@ -376,4 +384,17 @@ task.doLast {
 task.doLast {
     def value = task.myProperty.get()
 }
+```
+
+### Renaming a Kotlin `is`-boolean accessor that still resolves
+
+For `TestFilter.failOnNoMatchingTests` (kind `boolean`), `removed_accessors` lists `isFailOnNoMatchingTests()`. But in Kotlin the property name `isFailOnNoMatchingTests` still resolves via the back-compat `getIsFoo()` accessor, so the assignment keeps working once the assign overload is imported.
+
+```kotlin
+// WRONG — renames to the canonical accessor; pure churn (isFailOnNoMatchingTests still resolves via getIsFailOnNoMatchingTests())
+testTask.filter.failOnNoMatchingTests = false
+
+// RIGHT — keep the existing name; add the import (or nothing in .gradle.kts, where it is implicit)
+import org.gradle.kotlin.dsl.assign
+testTask.filter.isFailOnNoMatchingTests = false
 ```
