@@ -424,4 +424,4 @@ options.compilerArgs << '--add-modules=jdk.incubator.vector'
 options.compilerArgs << '-nowarn'
 ```
 
-`<<` (single append) and `+=` (`add`/`addAll`) survive on `ListProperty`/`SetProperty` in Groovy DSL. Only `-=` has no operator and must be rewritten. This is the Groovy analogue of the Kotlin operator-preservation rule: do not de-sugar a surviving operator into a method call. (Observed live in the elasticsearch migration, which rewrote 6+ `options.compilerArgs << '...'` sites to `.add('...')` for no functional reason.)
+`<<` (single append) and `+=` (`add`/`addAll`) survive on `ListProperty`/`SetProperty` in Groovy DSL. Only `-=` has no operator and must be rewritten. This is the Groovy analogue of the Kotlin operator-preservation rule: do not de-sugar a surviving operator into a method call.

@@ -21,7 +21,7 @@ If `JAVA_HOME` is unset, points outside SDKMAN, or reports the wrong version/ven
 
 1. **Determine the required Java version** — specifically the **build/launcher JDK** (the JDK that runs Gradle and compiles the build), which is what you install here.
 
-   > **Intent:** the JDK that *runs the build* is frequently newer than the bytecode level the project *targets*. `sourceCompatibility`/`targetCompatibility`/`toolchain { languageVersion }` describe the **output bytecode level** (e.g. 17) — they are a floor, **not** the build-JDK requirement. Many projects pin a higher build JDK and fail late (often only at `assemble`, not `help`) if you run an older one. Installing the bytecode-level JDK is the most common cause of a green task 02 that breaks in task 08.
+   > **Intent:** the JDK that *runs the build* is frequently newer than the bytecode level the project *targets*. `sourceCompatibility`/`targetCompatibility`/`toolchain { languageVersion }` describe the **output bytecode level** (e.g. 17) — they are a floor, **not** the build-JDK requirement. Many projects pin a higher build JDK and fail late (often only at `assemble`, not `help`) if you run an older one.
 
    Take the **maximum** of every version signal you find:
 

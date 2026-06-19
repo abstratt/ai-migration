@@ -229,7 +229,7 @@ above) — they are tasks 07/08's job.
 
    **`[CONFIRMED]` is receiver-aware, not import-based.** A `[CONFIRMED]` hit means the scanner matched a
    migrated type *at the receiver* — but if it instead just matched an `import` elsewhere in the file
-   (e.g. `kotlinVariants.kt`'s `ModuleVersionIdentifier.getVersion()` flagged as `MavenPublication` only
+   (e.g. a `getVersion()` call on a non-Gradle type, flagged as `MavenPublication` only
    because the file imports `MavenPublication`), treat it as a false positive: walk the receiver-type
    ladder (step 2) and, if the receiver is not a migrated Gradle type, document it as a residual false
    positive rather than rewriting it.
