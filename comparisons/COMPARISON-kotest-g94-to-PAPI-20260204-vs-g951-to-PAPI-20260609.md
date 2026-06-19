@@ -38,3 +38,8 @@ Comparison of the latest completed Gradle 9 → 10 migration run for each distro
 - **`formatting` is exact** — it is the difference between the normal diff and a whitespace-/blank-line-ignoring diff (`git diff -w --ignore-blank-lines`).
 - **`warnings` and `infra` are pattern-based heuristics.** Line classification precedence is: infra-by-path (`gradle/verification-metadata.xml`) → warnings (`allWarningsAsErrors`, `warningsAsErrors`, `-Werror`/`werror`, `disable.werror`, `deprecation`) → infra-by-content (`develocity`, `gradle-enterprise`, `buildScan`, `build-scan`) → formatting → core. **`core`** is the residual and is the primary figure to compare across runs. Note that preview-only relaxations not matching these patterns (e.g. the `g951` `instrumentCode = false` change) are not separately bucketed and land in `core`.
 - These figures intentionally differ from the raw `git diff --shortstat` totals quoted inside each `REPORT-*.md` (which include the `MIGRATION_NOTES.md`/`REPORT` artifacts and do not separate out non-migration churn).
+
+
+## Adjusted: excluding unnecessary supported-operator rewrites
+
+Neither run rewrote any supported append operator (`<<` / `+=`) to a method call, so the figures above need no adjustment on this account.

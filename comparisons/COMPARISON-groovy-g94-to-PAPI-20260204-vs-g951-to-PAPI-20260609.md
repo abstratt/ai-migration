@@ -20,3 +20,19 @@ Comparison of the latest completed Gradle 9 → 10 migration run for each distro
 - Both runs reported the repository was already on Gradle 9.5.1, so the baseline-upgrade task made no change in either case (the `g94` baseline of 9.4.0 is below the repo's existing version, and `g951` matches it exactly).
 - The `g94` run touches more files and lines (12 files, +89/−23) than the `g951` run (9 files, +56/−14). The `g94` run additionally disabled the Develocity/build-scans plugins in `settings.gradle` (a `NoSuchMethodError` against the older preview distribution) — a change not needed by the `g951` run against the newer distribution.
 - Both runs handled the same core classes of construct (`list`-kind operator mutations, a `DirectoryProperty`/`dir` read, a `ConfigurableFileCollection` append, and the multi-value Javadoc `tag` option), and both ended with 11 false-positive entries in `MIGRATION_NOTES.md` (10 third-party Apache RAT `excludes` + 1 local Groovy list variable).
+
+
+## Adjusted: excluding unnecessary supported-operator rewrites
+
+Gradle supports the Groovy `<<` and `+=` append operators on lazy `ListProperty`/`SetProperty`, and Kotlin's `+=` via the default-imported `plusAssign` extension. Rewriting `prop << x` / `prop += x` to `prop.add(x)` / `prop.addAll(x)` is therefore unnecessary — the operator form keeps compiling and behaving identically. Excluding those rewrites (and the now-incorrect “operator not supported on lazy properties” comments some runs added alongside them):
+
+| | Run 1 | Run 2 |
+|---|---|---|
+| Unnecessary rewrite lines (excluded) | 18 | 12 |
+| Build files that vanish entirely | 4 | 4 |
+| **Files changed** (excl. artifacts): reported → adjusted | 11 → **7** | 8 → **4** |
+| Source lines (excl. artifacts): reported → adjusted | 73 (+50/−23) → **55** (+38/−17) | 29 (+15/−14) → **17** (+9/−8) |
+
+Rewrite kind: Groovy `<<`/`+=` → `.add(…)`/`.addAll(…)` in `*.gradle`.
+
+These rewrites are independent of which distribution each run targeted — the operator was supported in both preview distros — so excluding them isolates the genuine target-specific differences between the two runs.

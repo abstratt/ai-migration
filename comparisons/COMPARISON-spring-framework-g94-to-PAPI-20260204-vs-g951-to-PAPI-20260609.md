@@ -17,3 +17,19 @@ Repository migrated: [abstratt/spring-framework](https://github.com/abstratt/spr
 Change counts come from `git diff main...<branch>`. The "excl. report + notes" rows leave out the `MIGRATION_NOTES.md` and `REPORT-*.md` artifacts added by the migration runs themselves, so they reflect only the changes made to the repository's own files.
 
 
+
+
+## Adjusted: excluding unnecessary supported-operator rewrites
+
+Gradle supports the Groovy `<<` and `+=` append operators on lazy `ListProperty`/`SetProperty`, and Kotlin's `+=` via the default-imported `plusAssign` extension. Rewriting `prop << x` / `prop += x` to `prop.add(x)` / `prop.addAll(x)` is therefore unnecessary — the operator form keeps compiling and behaving identically. Excluding those rewrites (and the now-incorrect “operator not supported on lazy properties” comments some runs added alongside them):
+
+| | Run 1 | Run 2 |
+|---|---|---|
+| Unnecessary rewrite lines (excluded) | 4 | 4 |
+| Build files that vanish entirely | 1 | 1 |
+| **Files changed** (excl. artifacts): reported → adjusted | 13 → **12** | 7 → **6** |
+| Source lines (excl. artifacts): reported → adjusted | 105 (+30/−75) → **101** (+28/−73) | 82 (+18/−64) → **78** (+16/−62) |
+
+Rewrite kind: Groovy `<<`/`+=` → `.add(…)`/`.addAll(…)` in `*.gradle`.
+
+These rewrites are independent of which distribution each run targeted — the operator was supported in both preview distros — so excluding them isolates the genuine target-specific differences between the two runs.

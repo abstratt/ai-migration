@@ -15,3 +15,19 @@ Comparison of the latest completed migration run for each distro pair. Data is t
 | **Files changed** | 8 (7 excluding `MIGRATION_NOTES.md`) | 6 (5 excluding `MIGRATION_NOTES.md`) |
 | **Lines changed** | +259 / −49 (308 total) | +229 / −13 (242 total) |
 | **Succeeded** | ✅ Yes (`help` + `assemble`) | ✅ Yes (`help` + `assemble`) |
+
+
+## Adjusted: excluding unnecessary supported-operator rewrites
+
+Gradle supports the Groovy `<<` and `+=` append operators on lazy `ListProperty`/`SetProperty`, and Kotlin's `+=` via the default-imported `plusAssign` extension. Rewriting `prop << x` / `prop += x` to `prop.add(x)` / `prop.addAll(x)` is therefore unnecessary — the operator form keeps compiling and behaving identically. Excluding those rewrites (and the now-incorrect “operator not supported on lazy properties” comments some runs added alongside them):
+
+| | Run 1 | Run 2 |
+|---|---|---|
+| Unnecessary rewrite lines (excluded) | 18 | 18 |
+| Build files that vanish entirely | 1 | 2 |
+| **Files changed** (excl. artifacts): reported → adjusted | 7 → **6** | 5 → **3** |
+| Source lines (excl. artifacts): reported → adjusted | 82 (+33/−49) → **64** (+24/−40) | 27 (+14/−13) → **9** (+5/−4) |
+
+Rewrite kind: Groovy `<<`/`+=` → `.add(…)`/`.addAll(…)` in `*.gradle`. Baseline is source-only churn (excludes the `MIGRATION_NOTES.md` artifact, whose lines are folded into this comparison's headline “Lines changed” row).
+
+These rewrites are independent of which distribution each run targeted — the operator was supported in both preview distros — so excluding them isolates the genuine target-specific differences between the two runs.

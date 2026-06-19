@@ -34,3 +34,19 @@ Comparison of the latest completed Gradle 9 → 10 migration run for each distro
 - **`formatting` is exact** — it is the difference between the normal diff and a whitespace-/blank-line-ignoring diff (`git diff -w --ignore-blank-lines`).
 - **`warnings` and `infra` are pattern-based heuristics.** Line classification precedence is: infra-by-path (`gradle/verification-metadata.xml`) → warnings (`allWarningsAsErrors`, `warningsAsErrors`, `-Werror`/`werror`, `disable.werror`, `deprecation`) → infra-by-content (`develocity`, `gradle-enterprise`, `buildScan`, `build-scan`) → formatting → core. **`core`** is the residual and is the primary figure to compare across runs. Preview-only relaxations not matching these patterns land in `core`.
 - These figures intentionally differ from the raw `git diff --shortstat` totals quoted inside each `REPORT-*.md` (which include the `MIGRATION_NOTES.md`/`REPORT` artifacts and do not separate out non-migration churn).
+
+
+## Adjusted: excluding unnecessary supported-operator rewrites
+
+Gradle supports the Groovy `<<` and `+=` append operators on lazy `ListProperty`/`SetProperty`, and Kotlin's `+=` via the default-imported `plusAssign` extension. Rewriting `prop << x` / `prop += x` to `prop.add(x)` / `prop.addAll(x)` is therefore unnecessary — the operator form keeps compiling and behaving identically. Excluding those rewrites (and the now-incorrect “operator not supported on lazy properties” comments some runs added alongside them):
+
+| | Run 1 | Run 2 |
+|---|---|---|
+| Unnecessary rewrite lines (excluded) | 22 | 22 |
+| Build files that vanish entirely | 7 | 7 |
+| **Files changed** (excl. artifacts): reported → adjusted | 51 → **44** | 20 → **13** |
+| **Core migration changes**: reported → adjusted | 287 → **265** | 76 → **54** |
+
+Rewrite kind: Groovy `<<`/`+=` → `.add(…)`/`.addAll(…)` in `*.gradle`.
+
+These rewrites are independent of which distribution each run targeted — the operator was supported in both preview distros — so excluding them isolates the genuine target-specific differences between the two runs.
