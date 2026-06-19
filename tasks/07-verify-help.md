@@ -55,6 +55,7 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
    | `operator modifier is required on 'fun get()'` / `Too many arguments for 'fun get()'` | `mapProp[k]` index read/write in `.kt` without `org.gradle.kotlin.dsl` in scope | **Add `import org.gradle.kotlin.dsl.*` to restore the `mapProp[k]` / `mapProp[k] = v` operators and keep the index form. Do NOT rewrite to `mapProp.get()[k]` / `mapProp.put(k, v)`.** |
    | `'val' cannot be reassigned` on `commandLine` | `BaseExecSpec.commandLine` is now a read-only `Provider` | use the method form: `commandLine(listOf(...))` |
    | `Unresolved reference 'maybeRedirect'` / receiver-type mismatch on `url` | `*ArtifactRepository.url` is now `Property<URI>` | read with `url.get()`, write with `url.set(...)` |
+   | `StackOverflowError` while configuring (during `help`), inside provider/file-collection resolution | A migrated update wired a property to a derivation of *itself* (`classpath.setFrom(classpath.minus(x))`, `prop.set(prop.map { ... })`) — resolving it re-queries itself | Use the concrete impl's internal `replace(transform)`, which hands the transform the **current value** instead of re-querying: `((DefaultConfigurableFileCollection) task.getClasspath()).replace(it -> it.minus(x))`. See the **Self-reference note** below |
 
    > **Operator-overload-first note.** When the error is "the overload is not imported" — `No applicable
    > 'assign' function found for '=' overload`, `Unresolved reference 'assign'`/`'plusAssign'`, or
@@ -70,6 +71,26 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
    > API), and resolve it **inside a task action** — never reflexively at configuration time. Reflexive
    > `.get()` risks `Cannot query the value … because it has no value`, silently drops the input/output
    > task-dependency the Provider would carry, and defeats configuration-cache laziness.
+
+   > **Self-reference note (`StackOverflowError` while fixing the build).** When the fix for a removed
+   > setter/`-=`/`minus` reads the property and writes a derivation of itself back lazily
+   > (`classpath.setFrom(classpath.minus(x))`, `prop.set(prop.map { ... })`), the derived provider
+   > references the same property, so resolving it recurses until the stack overflows — it surfaces as a
+   > `StackOverflowError` while configuring, not a compile error. Use the concrete impl's **internal**
+   > `replace(transform)` method (last resort, only when the overflow actually occurs); it passes the
+   > current value to the transform instead of re-querying the property:
+   >
+   > ```java
+   > // WRONG — self-reference; resolving re-queries getClasspath(), StackOverflowError
+   > classpath.setFrom(classpath.minus(moduleCompileClasspath));
+   > // RIGHT — replace() hands the transform a snapshot, breaking the cycle
+   > ((DefaultConfigurableFileCollection) task.getClasspath()).replace(it -> it.minus(moduleCompileClasspath));
+   > ```
+   >
+   > `replace(...)` lives on the internal impls: `ConfigurableFileCollection` →
+   > `DefaultConfigurableFileCollection`; `Property`/`other`/`scalar` → `DefaultProperty`;
+   > `ListProperty`/`SetProperty`/`MapProperty` → `AbstractCollectionProperty`. See
+   > **Self-referential lazy update that recurses** in `migration-reference/MIGRATION_RULES.md`.
 
 3. **Iterate** until `./gradlew help` succeeds
 

@@ -398,3 +398,7 @@ testTask.filter.failOnNoMatchingTests = false
 import org.gradle.kotlin.dsl.assign
 testTask.filter.isFailOnNoMatchingTests = false
 ```
+
+### Self-referential lazy update that recurses (`StackOverflowError`)
+
+An old eager "read, transform, write back" update (`setClasspath(files(getClasspath().minus(x)))`, `prop -= x`) must not migrate to a lazy form that wires a property to a derivation of itself (`classpath.setFrom(classpath.minus(x))`, `prop.set(prop.map { ... })`) — resolving it re-queries itself and overflows the stack at configuration time. Fix with the internal `replace(transform)` method (passes the current value, not a re-query) on `DefaultConfigurableFileCollection` / `DefaultProperty` / `AbstractCollectionProperty`. This is a last-resort internal API — apply it only when the `StackOverflowError` actually occurs while fixing `help`/`assemble` (tasks 07/08).

@@ -36,8 +36,10 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
      `.set`/`.add`/`.put`/`.setFrom`/`.get()[k]`. This applies to `assemble`-phase fixes exactly as it
      does in task 07.
    - Then fix manually based on error output
-   - Use task 07's **Common compile-error → fix mapping** table and **lazy-first note** — `assemble`
-     compiles main source (not just build logic), so the same Provider-API patterns recur there.
+   - Use task 07's **Common compile-error → fix mapping** table, **lazy-first note**, and
+     **Self-reference note** — `assemble` configures and compiles main source (not just build logic),
+     so the same Provider-API patterns recur there, including the self-referential update that throws
+     `StackOverflowError` at configuration time (fixed with the internal `replace(transform)` method).
 
 3. **Iterate** until `./gradlew assemble` succeeds
 
