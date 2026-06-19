@@ -181,6 +181,7 @@ task.compilerArgs.addAll(otherTask.compilerArgs) // lazy wiring
 // new — when a resolved value is needed
 List<String> args = task.compilerArgs.get()
 ```
+> **Preserve existing Groovy `<<` / `+=`.** In Groovy DSL, `task.compilerArgs << "-Xlint"` and `task.compilerArgs += "-Xlint"` (and `+= [..]`) keep compiling and behaving identically against the now-`ListProperty` type — leave them unchanged. Use `.add(..)`/`.addAll(..)` only for *new* code or when rewriting a `-=` (which has no surviving operator). See **What has no operator** under "Kotlin DSL operators that survive migration".
 
 ### `set`
 Old: `Set<T> getX()` / `setX(Set<T>)` | New: `SetProperty<T> getX()`
@@ -284,7 +285,14 @@ options.encoding.set("UTF-8")
 
 **Import scope.** All of the above are in scope automatically in `.gradle.kts` (the `org.gradle.kotlin.dsl` package is an implicit default import). In a plain `.kt` file under a `kotlin-dsl` module the extensions are on the classpath but **not** auto-imported — the file's existing `+=` (or `=`, `mapProp[k]`, …) on a now-lazy type compiles only if `import org.gradle.kotlin.dsl.*` (or the specific operator) is present. When migration changes a property's type to a lazy one in such a file, **you must add the import to preserve the operator form.** Rewriting the call site to the method form (`.set`/`.add`/`.put`/`.setFrom`/`.get()[k]`) is **not** an acceptable alternative here, even for "determinism" or to match a sibling line that genuinely needed a method rewrite — add the import instead. The error that signals this case is `No applicable 'assign' function found for '=' overload` / `Unresolved reference 'assign'` / `Unresolved reference 'plusAssign'` / `operator modifier is required on 'fun get()'`: every one of these means "the overload exists but isn't imported", so the fix is the import.
 
-**What has no operator (must be rewritten).** There is no `minusAssign` and no `leftShift` extension for these types. So `prop -= x` and Groovy's `prop << x` have no surviving Kotlin operator — rewrite them (`prop -= x` → `prop.set(prop.get() - x)`; `<<` → `.add(..)`). Groovy DSL has none of these `org.gradle.kotlin.dsl` extensions at all, so all of its operator mutations (`+=`, `-=`, `<<`) still need rewriting.
+**What has no operator (must be rewritten).** In **Kotlin**, there is no `minusAssign` and no `leftShift` extension for these types, so `prop -= x` and `prop << x` have no surviving Kotlin operator — rewrite them (`prop -= x` → `prop.set(prop.get() - x)`; `<<` → `.add(..)`).
+
+> **Groovy DSL is different — `<<` and `+=` survive on collection properties; do NOT rewrite them.** Gradle defines Groovy operator methods (`leftShift`/`plus`/`addAll`) directly on `ListProperty`/`SetProperty` (via the property type itself, *not* via the `org.gradle.kotlin.dsl` extensions, which are Kotlin-only). So in a `.gradle` script:
+> - `prop << x` → **survives** (single-element append). Keep it.
+> - `prop += x` and `prop += [a, b]` → **survive** (`add` / `addAll`). Keep them.
+> - `prop -= x` → **fails** with `MissingMethodException: …minus()`. This one genuinely has no operator — rewrite it (`prop.set(prop.get() - x)`).
+>
+> Rewriting Groovy `compilerArgs << '-x'` to `compilerArgs.add('-x')` is therefore unnecessary churn — exactly the kind of correct-but-pointless rewrite the change-minimization principle forbids. See the anti-pattern **Rewriting Groovy `<<`/`+=` on a collection property** below.
 
 ### Java (`buildSrc/src/main/java`, custom plugins)
 
@@ -402,3 +410,18 @@ testTask.filter.isFailOnNoMatchingTests = false
 ### Self-referential lazy update that recurses (`StackOverflowError`)
 
 An old eager "read, transform, write back" update (`setClasspath(files(getClasspath().minus(x)))`, `prop -= x`) must not migrate to a lazy form that wires a property to a derivation of itself (`classpath.setFrom(classpath.minus(x))`, `prop.set(prop.map { ... })`) — resolving it re-queries itself and overflows the stack at configuration time. Fix with the internal `replace(transform)` method (passes the current value, not a re-query) on `DefaultConfigurableFileCollection` / `DefaultProperty` / `AbstractCollectionProperty`. This is a last-resort internal API — apply it only when the `StackOverflowError` actually occurs while fixing `help`/`assemble` (tasks 07/08).
+
+### Rewriting Groovy `<<` / `+=` on a collection property
+
+```groovy
+// WRONG — unnecessary churn; the `<<` form still compiles and behaves identically
+options.compilerArgs.add('--add-modules=jdk.incubator.vector')
+options.compilerArgs.add('-nowarn')
+
+// RIGHT — leave the Groovy append operators untouched (compilerArgs is now a ListProperty,
+// and Gradle defines leftShift/plus/addAll on ListProperty/SetProperty for Groovy)
+options.compilerArgs << '--add-modules=jdk.incubator.vector'
+options.compilerArgs << '-nowarn'
+```
+
+`<<` (single append) and `+=` (`add`/`addAll`) survive on `ListProperty`/`SetProperty` in Groovy DSL. Only `-=` has no operator and must be rewritten. This is the Groovy analogue of the Kotlin operator-preservation rule: do not de-sugar a surviving operator into a method call. (Observed live in the elasticsearch migration, which rewrote 6+ `options.compilerArgs << '...'` sites to `.add('...')` for no functional reason.)
