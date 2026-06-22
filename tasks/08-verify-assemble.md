@@ -41,7 +41,35 @@ This task requires running Gradle commands (`./gradlew`). Gradle execution and d
      so the same Provider-API patterns recur there, including the self-referential update that throws
      `StackOverflowError` at configuration time (fixed with the internal `replace(transform)` method).
 
-3. **Iterate** until `./gradlew assemble` succeeds
+3. **Iterate** until `./gradlew assemble` succeeds — or until the only remaining failures are
+   **environmental / out-of-scope** (see below).
+
+## Environmental / out-of-scope build failures
+
+> **Intent:** distinguish a failure the migration is responsible for from one the host or the project's
+> own scope imposes, so the iteration loop has a principled stopping point and task 09 can assign a
+> deterministic status. Without this, an unfixable host-toolchain failure (e.g. missing Xcode) makes
+> "iterate until `assemble` exits 0" loop forever and forces an arbitrary FAILED verdict.
+
+A remaining `assemble` failure is **environmental / out-of-scope** when **all** of these hold:
+
+- it is **not attributable to the Provider API migration** — the failing task does not compile or
+  configure any code this run changed, and the stacktrace is not a Provider-API symptom (lazy-property
+  type mismatch, missing accessor, `StackOverflowError` from self-reference, etc.); **and**
+- it would **fail identically on the unmigrated base tree under the baseline distribution** — i.e. it
+  stems from the host (a missing/incomplete toolchain such as no full Xcode for Kotlin/Native Apple
+  targets, an absent SDK or native compiler, no network) or from a target the project itself documents
+  as conditional (e.g. an `AGENTS.md`/README note that "Apple targets require Xcode"); **and**
+- it is **not** one of the predicted preview-distribution issues you are expected to fix (dependency
+  verification, warnings-as-errors promotion, ASM/bytecode-instrumentation toolchain mismatches — those
+  are in scope; fix them, don't classify them as environmental).
+
+Do **not** stretch this carve-out to excuse a genuine migration defect. If you are unsure whether a
+failure would also occur on the unmigrated baseline, the cheapest confirmation is to check out the base
+ref and run the same `assemble` task under the baseline distribution; if it fails the same way, the
+failure is environmental. When you do stop on environmental failures, **record each one** (failing
+tasks, the exact error, and why it is out-of-scope) so task 09 can report it — stopping silently is not
+allowed.
 
 ## Iteration strategy
 
@@ -72,5 +100,7 @@ See the "Commit Discipline" section in CONTEXT.md.
 
 ## Done when
 
-- `./gradlew assemble` exits 0
+- `./gradlew assemble` exits 0 — **or** every remaining failure is **environmental / out-of-scope** per
+  the section above (all migration-attributable errors are fixed, and the residual failures are recorded
+  for task 09)
 - Either a commit with subject `` Verify with `./gradlew assemble` `` exists on the migration branch, or no changes were needed; in both cases `git status` is clean

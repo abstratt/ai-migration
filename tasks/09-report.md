@@ -21,7 +21,34 @@ Before doing anything else, run `git -C migrated/<repo-name> status --porcelain`
 
 Produce a `REPORT-<YYYYMMDD-HHMM>.md` (e.g. `REPORT-20260320-1430.md`) at the **root of the cloned repo** (i.e. inside `migrated/<repo-name>/`, alongside the repo's own files). Do **not** write this file at the root of the tooling repo, and do **not** name it `BENCHMARK-*.md` — that prefix is reserved for the off-pipeline `/g10-benchmark` task and lives under `benchmarks/`. The report file must contain:
 
-1. **Summary**: The repository, its migration status (migrated, skipped, failed), the **build-script migration mode** — `applied (task 06)` or `skipped (brute-force mode)`, determined self-containedly from the branch: report **skipped** iff there is no `Migrate Build Scripts and Gradle API Usages` commit on the migration branch (cross-checked by the absence of `MIGRATION_NOTES.md`), otherwise **applied** — the local branch name, the **distro pair** this migration targeted — resolve it (see **Distro pair selection** in CONTEXT.md) and record `PAIR_ID`, `BASELINE_VERSION`, and `TARGET_URL`, so the report states exactly which mapping produced these changes — the **start time**, **end time**, and **elapsed time** of the migration — start is read from `migrated/<repo-name>.migration-start-time` (a sibling file recorded by task 05, after setup/plumbing finishes), end is the current time when writing this report, and elapsed is the wall-clock difference between the two (use ISO 8601 with timezone for start/end, e.g. `2026-04-15T15:24:00-03:00`, and a human-readable duration for elapsed, e.g. `12m 34s`), and the **Assistant identification** — the same three-part trailer used on commit messages, i.e. `<<Tool Name>> / <<Friendly Model Name>> / <<model-id>>` (e.g. `Acme AI / FooModel 3 / foomodel-3` or `Unknown Tool / Unknown Model / unknown-id` if identity cannot be determined). Use `Unknown Tool`, `Unknown Model`, or `unknown-id` for any part that cannot be determined. This line must be present in every report.
+1. **Summary**: The repository, its migration status (migrated, skipped, failed — decided by the rule in **Determining the migration status** below), the **build-script migration mode** — `applied (task 06)` or `skipped (brute-force mode)`, determined self-containedly from the branch: report **skipped** iff there is no `Migrate Build Scripts and Gradle API Usages` commit on the migration branch (cross-checked by the absence of `MIGRATION_NOTES.md`), otherwise **applied** — the local branch name, the **distro pair** this migration targeted — resolve it (see **Distro pair selection** in CONTEXT.md) and record `PAIR_ID`, `BASELINE_VERSION`, and `TARGET_URL`, so the report states exactly which mapping produced these changes — the **start time**, **end time**, and **elapsed time** of the migration — start is read from `migrated/<repo-name>.migration-start-time` (a sibling file recorded by task 05, after setup/plumbing finishes), end is the current time when writing this report, and elapsed is the wall-clock difference between the two (use ISO 8601 with timezone for start/end, e.g. `2026-04-15T15:24:00-03:00`, and a human-readable duration for elapsed, e.g. `12m 34s`), and the **Assistant identification** — the same three-part trailer used on commit messages, i.e. `<<Tool Name>> / <<Friendly Model Name>> / <<model-id>>` (e.g. `Acme AI / FooModel 3 / foomodel-3` or `Unknown Tool / Unknown Model / unknown-id` if identity cannot be determined). Use `Unknown Tool`, `Unknown Model`, or `unknown-id` for any part that cannot be determined. This line must be present in every report.
+
+### Determining the migration status
+
+> **Intent:** make the status verdict reproducible. The same build outcome must yield the same status
+> regardless of which model or run produces the report. Two runs of the same repo that both end with
+> `help` passing and only a missing-Xcode `assemble` failure must not disagree (one "failed", one
+> "migrated") — the criterion is mechanical, not a judgment call.
+
+Choose exactly one status by applying these rules in order; stop at the first that matches:
+
+- **skipped** — the migration did not run (e.g. the repo needed no migration, or the workflow aborted
+  before making changes). Report the reason.
+- **failed** — `./gradlew help` does not pass, **or** `./gradlew assemble` has any failure that is
+  **attributable to the migration** (a Provider-API defect, or any in-scope preview-distribution issue
+  per task 08 that was not resolved). A migration-attributable failure always means **failed**, no
+  matter how small.
+- **migrated** — `./gradlew help` passes **and** `./gradlew assemble` either exits 0 **or** its only
+  remaining failures are **environmental / out-of-scope** as defined in task 08 (not attributable to
+  the migration, and would fail identically on the unmigrated base tree under the baseline
+  distribution). When `assemble` did not fully exit 0, the status is still **migrated**, but you
+  **must** note the environmental blocker explicitly in the same Summary line (e.g.
+  `migrated (assemble blocked only by missing Xcode for Kotlin/Native Apple targets — environmental, not a migration defect)`)
+  and detail the failing tasks under **Nature of changes → known limitations**.
+
+Do not invent intermediate statuses ("partial", "mostly migrated"). If you are tempted to, re-read the
+task-08 environmental/out-of-scope test: the failure is either migration-attributable (**failed**) or it
+is not (**migrated** with a noted blocker).
 
 2. **Nature of changes**: A summary of the types of changes made, including:
    - **Quantify the scope of changes**: the total number of files changed/added/deleted, and the total number of lines added and removed. Derive these from `git diff --stat` (or `git diff --shortstat`) between the migration branch and its base, and report the actual numbers — do not estimate. Where useful, break the per-file line counts down so the reader can see which files absorbed the bulk of the changes.
