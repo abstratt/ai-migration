@@ -73,6 +73,13 @@ Notice `--permission-mode auto` — use at your own peril.
 claude --permission-mode auto "/g10-migrate https://github.com/abstratt/spring-boot"
 ```
 
+##### Letting Claude find skills by itself
+
+Prompt:
+
+> I want to run migration for git@github.com:abstratt/micronaut-core.git
+
+
 #### Using Ollama + Claude to leverage a local model
 
 Requires installing Ollama and pulling the local model beforehand. Notice `--dangerously-skip-permissions` — use at your own peril.
@@ -98,6 +105,14 @@ Off-pipeline command that compares two already-completed migration branches on t
 ```
 claude --permission-mode auto "/g10-benchmark https://github.com/abstratt/spring-framework gradle-10-migration/20260430-1001=v6-opus gradle-10-migration/20260430-1024=v6-qwen3.6:35b-a3b-coding-nvfp"
 ```
+
+### Comparing migrations across distro-pairs
+
+Preparation: fork the OSS repository you want to explore migrating 
+
+Prompt:
+
+>  I want to run migration for <forked repository git URL> using both distro pairs. Use separate agents for each so they don't share context. Do not run them in parallel as they would compete for the same local file system location. Push both migrated branches. Finally, run the comparison between the two runs.
 
 ## Option 2: Container (headless)
 
