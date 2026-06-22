@@ -46,6 +46,14 @@ Targeting a specific pair:
 DISTRO_PAIR=g94-to-PAPI-20260204 claude --permission-mode auto "/g10-migrate https://github.com/abstratt/spring-framework"
 ```
 
+#### Brute-force mode (no data-driven build-script migration)
+
+```
+/g10-migrate-brute-force https://github.com/owner/repo
+```
+
+Runs the same end-to-end workflow but **skips task 06** (the data-driven build-script migration) — equivalent to setting `SKIP_BUILD_SCRIPTS`. No `MIGRATION_NOTES.md` is produced; instead the verification tasks (`/g10-verify-help`, `/g10-verify-assemble`) fix every build error from scratch with no `migration-data.json` scaffolding. Useful as a baseline to measure how much the data-driven rewrites actually contribute.
+
 ### Individual tasks
 
 | Command | Description | Arguments |
@@ -108,11 +116,25 @@ claude --permission-mode auto "/g10-benchmark https://github.com/abstratt/spring
 
 ### Comparing migrations across distro-pairs
 
-Preparation: fork the OSS repository you want to explore migrating 
+#### Migrate against both pairs, then compare (`/g10-migrate-and-compare`)
 
-Prompt:
+```
+/g10-migrate-and-compare <forked-repo-git-url>
+```
+
+End-to-end driver that migrates the same repo **once per distro pair** and then compares the two runs. It resolves the two pairs from `distro-pairs.json` (asking which two if more than two are defined), runs each migration in its own isolated foreground sub-agent **sequentially** (the runs share one on-disk clone, so they must not run in parallel), pushes each migration branch to the fork, and finally produces `comparisons/COMPARISON-<repo>-<pair-1>-vs-<pair-2>.md`.
+
+Preparation: fork the OSS repository you want to explore migrating, so both runs push to a repo you control. You can also drive this with a natural-language prompt instead of the slash command:
 
 >  I want to run migration for <forked repository git URL> using both distro pairs. Use separate agents for each so they don't share context. Do not run them in parallel as they would compete for the same local file system location. Push both migrated branches. Finally, run the comparison between the two runs.
+
+#### Comparing two already-completed runs (`/g10-compare`)
+
+```
+/g10-compare <repo-git-url> <migration-branch-1> <migration-branch-2>
+```
+
+Off-pipeline command that compares migration runs already **pushed** for the same repository (e.g. the two branches produced above, or any two runs reachable via the GIT URL). It fetches each run's branch and base ref fresh from the remote into a throwaway clone (never the local `migrated/` copy), categorizes the changed lines with `comparisons/categorize_diff.py` (core migration work vs. formatting / warnings-as-errors / infra relaxations), and writes `comparisons/COMPARISON-<repo>-<pair-1>-vs-<pair-2>.md`. See [`comparisons/README.md`](comparisons/README.md) for the full spec.
 
 ## Option 2: Container (headless)
 
