@@ -1,0 +1,324 @@
+// Dumps the executed task graph with each task's inputs and outputs to JSON, in a form that does
+// not depend on the Gradle version, so two builds can be compared with a plain diff.
+//
+//   gradle <tasks> --no-configuration-cache -I task-dump.init.gradle -Dtaskdump.out=/path/out.json
+//
+// Per task: type, outcome, dependencies, input property values, input/output files per property
+// (paths normalized, contents hashed). Per-property data uses Gradle internals (PropertyWalker);
+// if that fails on some version, the public-API aggregates (`allInputFiles`/`allOutputFiles`) remain.
+
+import groovy.json.JsonOutput
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.Proxy
+import java.security.MessageDigest
+
+def outPath = System.getProperty('taskdump.out')
+if (outPath == null) {
+    throw new GradleException('task-dump: pass -Dtaskdump.out=<file>')
+}
+
+def rootDirPath = null
+def replacements = [:]          // absolute prefix -> placeholder, filled once the root project is known
+def hashCache = [:]
+def graphTasks = []
+def graphDeps = [:]
+
+def normPath = { String s ->
+    def r = s
+    replacements.each { k, v -> r = r.replace(k, v) }
+    r = r.replace(gradle.gradleVersion, '<gradle-version>')
+    r = r.replace(org.gradle.util.GradleVersion.current().baseVersion.version, '<gradle-version>')
+    r = r.replaceAll('/transforms/[0-9a-f]{32}/', '/transforms/<hash>/')
+    r
+}
+
+def sha = { File f ->
+    def md = MessageDigest.getInstance('SHA-256')
+    f.withInputStream { is ->
+        byte[] buf = new byte[65536]
+        int n
+        while ((n = is.read(buf)) > 0) { md.update(buf, 0, n) }
+    }
+    md.digest().encodeHex().toString().substring(0, 16)
+}
+
+def fileHash
+fileHash = { File f ->
+    def key = f.absolutePath
+    if (hashCache.containsKey(key)) { return hashCache[key] }
+    def h
+    if (!f.exists()) {
+        h = 'missing'
+    } else if (f.isDirectory()) {
+        def md = MessageDigest.getInstance('SHA-256')
+        def entries = []
+        f.eachFileRecurse { c -> if (c.isFile()) { entries << c } }
+        entries.sort { it.absolutePath }.each { c ->
+            md.update((f.toPath().relativize(c.toPath()).toString() + ':' + fileHash(c) + '\n').bytes)
+        }
+        h = 'dir(' + entries.size() + '):' + md.digest().encodeHex().toString().substring(0, 16)
+    } else {
+        h = sha(f)
+    }
+    hashCache[key] = h
+    h
+}
+
+// Input roots: one entry per root (directories get a tree hash).
+def describeRoots = { Collection<File> files ->
+    def m = new TreeMap()
+    files.each { f -> m[normPath(f.absolutePath)] = fileHash(f) }
+    m
+}
+
+// Output roots: expanded to individual files so a diff pinpoints which file changed.
+def describeExpanded = { Collection<File> files ->
+    def m = new TreeMap()
+    files.each { f ->
+        if (f.isDirectory()) {
+            def any = false
+            f.eachFileRecurse { c -> if (c.isFile()) { any = true; m[normPath(c.absolutePath)] = fileHash(c) } }
+            if (!any) { m[normPath(f.absolutePath)] = 'empty-dir' }
+        } else {
+            m[normPath(f.absolutePath)] = fileHash(f)
+        }
+    }
+    m
+}
+
+def normValue
+normValue = { Object v ->
+    if (v == null) { return null }
+    if (v instanceof org.gradle.api.provider.Provider) { return normValue(v.getOrNull()) }
+    if (v instanceof Boolean || v instanceof Number) { return v }
+    if (v instanceof File) { return normPath(v.absolutePath) }
+    if (v instanceof Enum) { return v.name() }
+    if (v instanceof Map) {
+        def m = new TreeMap()
+        v.each { k, x -> m[String.valueOf(k)] = normValue(x) }
+        return m
+    }
+    if (v instanceof org.gradle.api.file.FileCollection) { return v.files.collect { normPath(it.absolutePath) }.sort() }
+    if (v instanceof Iterable) { return v.collect { normValue(it) } }
+    if (v.getClass().isArray()) { return (v as List).collect { normValue(it) } }
+    normPath(String.valueOf(v)).replaceAll('[$][$]Lambda[/$][0-9a-fx]+', java.util.regex.Matcher.quoteReplacement('$$Lambda')).replaceAll(/@[0-9a-f]{4,}/, '@<id>').replaceAll(/_Decorated/, '')
+}
+
+// A lazy property that replaced an eager one keeps its original eager getter reachable, for code compiled
+// against an earlier Gradle, through a static accessor generated from the @ReplacesEagerProperty
+// annotation on the lazy getter. With D the type that declares the annotated lazy getter:
+//   - by default:  org.gradle.internal.classpath.generated.<D>_Adapter.access_get_<originalAccessorName>(D)
+//     where the original accessor names are the GETTERs in `replacedAccessors`, or, when none are given,
+//     `is<Prop>` if `originalType` is `boolean` and `get<Prop>` otherwise;
+//   - with `adapter = X.class`: <package of D>.$$BridgeFor$$<D>$$<X>.access_get_<adapterMethodName>(D).
+// Reading through it yields what the eager getter returns on the migrated Gradle (e.g. `false`, not
+// `null`, for an unset Property<Boolean> that replaced `boolean isX()`), so the two builds are compared
+// by eager-API semantics. Without such an accessor (any unmigrated property, any pre-migration Gradle),
+// the value is read as before.
+def REPLACES_EAGER_PROPERTY = 'org.gradle.internal.instrumentation.api.annotations.ReplacesEagerProperty'
+
+def eagerAccessorFor = { Class<?> declaring, java.lang.reflect.Method lazyGetter, annotation ->
+    def isGetter = { java.lang.reflect.Method m ->
+        java.lang.reflect.Modifier.isStatic(m.modifiers) && m.name.startsWith('access_get_') && m.parameterCount == 1
+    }
+    Class<?> custom = annotation.adapter()
+    if (custom.name != REPLACES_EAGER_PROPERTY + '$DefaultValue') {
+        def bridge = Class.forName(custom.package.name + '.$$BridgeFor$$' + custom.enclosingClass.simpleName + '$$' + custom.simpleName, false, custom.classLoader)
+        def getters = bridge.methods.findAll(isGetter)
+        return getters.size() == 1 ? getters[0] : null
+    }
+    def names = annotation.replacedAccessors().findAll { it.value().name() == 'GETTER' }.collect { it.name() }
+    if (names.isEmpty()) {
+        def prop = lazyGetter.name.substring(3)
+        names = [(annotation.originalType() == Boolean.TYPE ? 'is' : 'get') + prop]
+    }
+    def adapter = Class.forName('org.gradle.internal.classpath.generated.' + declaring.simpleName + '_Adapter', false, declaring.classLoader)
+    names.findResult { n -> adapter.methods.find { m -> isGetter(m) && m.name == 'access_get_' + n } }
+}
+
+def eagerAccessorCache = [:]    // "<class>#<property>" -> java.lang.reflect.Method, or false when none
+def findEagerAccessor = { Class<?> type, String property ->
+    def key = type.name + '#' + property
+    if (eagerAccessorCache.containsKey(key)) { return eagerAccessorCache[key] ?: null }
+    def lazyGetterName = 'get' + property.capitalize()
+    def found = null
+    def seen = new HashSet()
+    def queue = new LinkedList([type])
+    // Breadth-first over the type hierarchy: the most specific annotated declaration of the lazy getter
+    // is the one the accessor was generated for. Overrides without the annotation are skipped.
+    while (!queue.isEmpty()) {
+        Class<?> c = queue.removeFirst()
+        if (c == null || !seen.add(c)) { continue }
+        def lazyGetter = c.declaredMethods.find { it.name == lazyGetterName && it.parameterCount == 0 && !it.bridge }
+        def annotation = lazyGetter?.annotations?.find { it.annotationType().name == REPLACES_EAGER_PROPERTY }
+        if (annotation != null) {
+            try {
+                found = eagerAccessorFor(c, lazyGetter, annotation)
+            } catch (ClassNotFoundException | LinkageError ignored) {
+            }
+            break
+        }
+        queue.add(c.superclass)
+        queue.addAll(c.interfaces)
+    }
+    eagerAccessorCache[key] = found ?: false
+    found
+}
+
+// Follows a qualified property name ("options.forkOptions", "rules.rule$0") from the task to the bean
+// that holds the leaf property. Segments are the ones produced by Gradle's property walker: nested map
+// entries are keyed by `toString()` of the key, nested iterable elements are `<name>$<index>`.
+def resolveNested = { Object root, List<String> path ->
+    def cur = root
+    for (String seg : path) {
+        if (cur instanceof org.gradle.api.provider.Provider) { cur = cur.getOrNull() }
+        if (cur == null) { return null }
+        def idx = seg =~ /\$(\d+)$/
+        if (cur instanceof Map) { cur = cur.find { k, v -> String.valueOf(k) == seg }?.value }
+        else if (cur instanceof Iterable && idx.find()) { cur = (cur as List)[idx.group(1) as int] }
+        else { cur = cur."$seg" }
+    }
+    cur instanceof org.gradle.api.provider.Provider ? cur.getOrNull() : cur
+}
+
+// Returns [value: <eager value>] when the property has an eager-getter accessor, null otherwise.
+def eagerViaAdapter = { Task task, String qualifiedName ->
+    def segs = qualifiedName.tokenize('.')
+    if (segs.isEmpty()) { return null }
+    def owner
+    def getter
+    try {
+        owner = resolveNested(task, segs.init())
+        getter = owner == null ? null : findEagerAccessor(owner.getClass(), segs.last())
+    } catch (Throwable ignored) {
+        return null     // cannot locate the adapter: fall back to the property value
+    }
+    if (getter == null) { return null }
+    try {
+        [value: getter.invoke(null, owner)]
+    } catch (java.lang.reflect.InvocationTargetException e) {
+        throw e.cause   // let the visitor record it, same as a failure reading the property
+    }
+}
+
+def attrString = { Object[] args, Object valueArg ->
+    args.findAll { it != null && !it.is(valueArg) && !(it instanceof CharSequence) }
+        .collect { it instanceof Class ? it.simpleName : String.valueOf(it).replaceAll(/@[0-9a-f]{4,}/, '') }
+        .collect { it.contains('.') && !it.contains(' ') ? it.substring(it.lastIndexOf('.') + 1) : it }
+        .join(',')
+}
+
+def walkProperties = { Task task, Map rec ->
+    def cl = gradle.getClass().classLoader
+    def visitorType = cl.loadClass('org.gradle.internal.properties.PropertyVisitor')
+    def walkerType = cl.loadClass('org.gradle.internal.properties.bean.PropertyWalker')
+    def utils = cl.loadClass('org.gradle.api.internal.tasks.TaskPropertyUtils')
+    def inputFiles = new TreeMap()
+    def outputFiles = new TreeMap()
+    def inputValues = new TreeMap()
+    def errors = []
+    def viaAdapter = []
+    def isValue = { a -> a != null && !(a instanceof CharSequence) && !(a instanceof Class) && a.metaClass.respondsTo(a, 'call') && a.getClass().name.contains('Value') || (a != null && a.getClass().interfaces*.simpleName.any { it.contains('PropertyValue') }) }
+    def handler = { proxy, method, args ->
+        try {
+            switch (method.name) {
+                case 'visitInputFileProperty':
+                    def value = args.find { isValue(it) }
+                    def raw = value?.call()
+                    def files = raw == null ? [] : task.project.files(raw).files
+                    inputFiles[args[0]] = [attrs: attrString(args, value), files: describeRoots(files)]
+                    break
+                case 'visitOutputFileProperty':
+                    def value = args.find { isValue(it) }
+                    def raw = value?.call()
+                    def files = raw == null ? [] : task.project.files(raw).files
+                    outputFiles[args[0]] = [attrs: attrString(args, value), files: describeExpanded(files)]
+                    break
+                case 'visitInputProperty':
+                    def eager = eagerViaAdapter(task, args[0])
+                    if (eager != null) {
+                        inputValues[args[0]] = normValue(eager.value)
+                        viaAdapter << args[0]
+                    } else {
+                        def value = args.find { isValue(it) }
+                        inputValues[args[0]] = normValue(value?.call())
+                    }
+                    break
+            }
+        } catch (Throwable t) {
+            // An optional property with no value is "absent", not an error.
+            if (t.getClass().simpleName == 'MissingValueException') {
+                def absent = args.find { isValue(it) }
+                if (method.name == 'visitInputFileProperty') { inputFiles[args[0]] = [attrs: attrString(args, absent), files: [:]] }
+                else if (method.name == 'visitOutputFileProperty') { outputFiles[args[0]] = [attrs: attrString(args, absent), files: [:]] }
+                else { inputValues[args[0]] = null }
+            } else errors <<(method.name + '(' + (args ? args[0] : '') + '): ' + t.getClass().simpleName + ': ' + normPath(String.valueOf(t.message)))
+        }
+        if (method.returnType == boolean.class) { return false }
+        if (method.returnType == int.class) { return 0 }
+        if (method.name == 'toString') { return 'task-dump-visitor' }
+        null
+    } as InvocationHandler
+    def visitor = Proxy.newProxyInstance(cl, [visitorType] as Class[], handler)
+    def walker = task.project.services.get(walkerType)
+    utils.getMethod('visitProperties', walkerType, cl.loadClass('org.gradle.api.internal.TaskInternal'), visitorType).invoke(null, walker, task, visitor)
+    rec.inputProperties = inputValues
+    rec.inputFiles = inputFiles
+    rec.outputFiles = outputFiles
+    if (errors) { rec.propertyErrors = errors.sort() }
+    // Not compared by compare_dumps.py; records which values were read through an eager-getter adapter.
+    if (viaAdapter) { rec.inputPropertiesViaAdapter = viaAdapter.sort() }
+}
+
+gradle.taskGraph.whenReady { graph ->
+    def root = gradle.rootProject
+    rootDirPath = root.rootDir.absolutePath
+    // Longest prefixes first so nested locations win.
+    def raw = [
+        (root.rootDir.canonicalPath)              : '<root>',
+        (rootDirPath)                             : '<root>',
+        (gradle.gradleUserHomeDir.absolutePath)   : '<gradle-user-home>',
+        (System.getProperty('user.home'))         : '<home>',
+    ]
+    if (gradle.gradleHomeDir != null) {
+        raw[gradle.gradleHomeDir.absolutePath] = '<gradle-home>'
+        raw[gradle.gradleHomeDir.canonicalPath] = '<gradle-home>'
+    }
+    raw.keySet().sort { -it.length() }.each { replacements[it] = raw[it] }
+    graph.allTasks.each { t ->
+        graphTasks << t
+        graphDeps[t.path] = graph.getDependencies(t).collect { it.path }.sort()
+    }
+}
+
+gradle.buildFinished { result ->
+    def tasks = new TreeMap()
+    graphTasks.each { Task t ->
+        def rec = new LinkedHashMap()
+        rec.type = t.getClass().name.replaceAll(/_Decorated$/, '')
+        def st = t.state
+        rec.outcome = !st.executed ? 'not-run' : st.failure != null ? 'failed' : st.noSource ? 'no-source' : st.upToDate ? 'up-to-date' : st.skipped ? ('skipped:' + st.skipMessage) : 'executed'
+        rec.dependsOn = graphDeps[t.path]
+        try {
+            walkProperties(t, rec)
+        } catch (Throwable e) {
+            rec.propertyWalkError = e.getClass().simpleName + ': ' + normPath(String.valueOf(e.cause?.message ?: e.message))
+        }
+        try { rec.publicInputProperties = normValue(t.inputs.properties) } catch (Throwable e) { rec.publicInputPropertiesError = normPath(String.valueOf(e.message)) }
+        try { rec.allInputFiles = describeRoots(t.inputs.files.files) } catch (Throwable e) { rec.allInputFilesError = normPath(String.valueOf(e.message)) }
+        try { rec.allOutputFiles = describeExpanded(t.outputs.files.files) } catch (Throwable e) { rec.allOutputFilesError = normPath(String.valueOf(e.message)) }
+        tasks[t.path] = rec
+    }
+    def doc = [
+        gradleVersion: gradle.gradleVersion,
+        requestedTasks: gradle.startParameter.taskNames,
+        buildFailed: result.failure != null,
+        executionOrder: graphTasks.collect { it.path },
+        tasks: tasks,
+    ]
+    // Included builds and buildSrc get their own file next to the root build's.
+    def out = gradle.parent == null ? new File(outPath) : new File(outPath.replaceAll(/[.]json$/, '') + '-' + gradle.rootProject.name + '.json')
+    out.parentFile?.mkdirs()
+    out.text = JsonOutput.prettyPrint(JsonOutput.toJson(doc))
+    println "task-dump: wrote ${graphTasks.size()} tasks to ${out}"
+}

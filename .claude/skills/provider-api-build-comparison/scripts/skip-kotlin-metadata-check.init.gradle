@@ -1,0 +1,6 @@
+// The Gradle distribution embeds Kotlin 2.4; the project's Kotlin 2.2.0 compiler rejects its metadata.
+allprojects {
+    tasks.matching { it.name == 'compileKotlin' }.configureEach {
+        it.compilerOptions.freeCompilerArgs.add('-Xskip-metadata-version-check')
+    }
+}
