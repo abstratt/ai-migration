@@ -27,7 +27,7 @@ of a project; this skill compares the project's *build* before and after one mig
 
 There is no fixed list. A project is eligible when the migration produced a branch for it:
 
-- `NEXT_REPOSITORIES.md` ("Completed runs") and `comparisons/COMPARISON-<project>-*.md` name the migrated projects;
+- `NEXT_REPOSITORIES.md` ("Completed runs") lists the migrated projects;
 - the migrated fork is `https://github.com/abstratt/<project>`, with branches `gradle-10-migration/<timestamp>-<pair-id>`
   (`git ls-remote --heads https://github.com/abstratt/<project> 'gradle-10-migration/*'`). Use the branch for the
   pair named in the project's existing report; for a new project, or if unclear, ask which pair. If several
