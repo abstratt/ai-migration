@@ -6,6 +6,13 @@
 // Per task: type, outcome, dependencies, input property values, input/output files per property
 // (paths normalized, contents hashed). Per-property data uses Gradle internals (PropertyWalker);
 // if that fails on some version, the public-API aggregates (`allInputFiles`/`allOutputFiles`) remain.
+//
+// When: inputs are read in `taskGraph.beforeTask`, right before the task's actions run (after its
+// dependencies), which is when Gradle fingerprints them; so values that a task action changes are not
+// mistaken for inputs, and configurations can still be resolved. Outputs are read in `taskGraph.afterTask`,
+// right after the task finishes, before a later task can rewrite or delete them. Tasks that never started
+// or finished (failed build) are read at the end instead, marked `inputsReadAfterBuild` / `outputsReadAfterBuild`.
+// Needs --no-configuration-cache (beforeTask is not supported with it).
 
 import groovy.json.JsonOutput
 import java.lang.reflect.InvocationHandler
@@ -19,9 +26,12 @@ if (outPath == null) {
 
 def rootDirPath = null
 def replacements = [:]          // absolute prefix -> placeholder, filled once the root project is known
-def hashCache = [:]
+// Concurrent: beforeTask/afterTask run on worker threads, in parallel with --parallel.
+def hashCache = new java.util.concurrent.ConcurrentHashMap()   // file: "<path>|<length>|<mtime>" -> hash; directory: path -> hash, cleared after each task
 def graphTasks = []
 def graphDeps = [:]
+def inputRecs = new java.util.concurrent.ConcurrentHashMap()   // task path -> input part of the record, filled in beforeTask
+def outputRecs = new java.util.concurrent.ConcurrentHashMap()  // task path -> output part of the record, filled in afterTask
 
 def normPath = { String s ->
     def r = s
@@ -44,7 +54,9 @@ def sha = { File f ->
 
 def fileHash
 fileHash = { File f ->
-    def key = f.absolutePath
+    // Files are keyed by size and mtime too: inputs are hashed while the build runs, so a file can change
+    // between two reads. Directory hashes are dropped after each task (see afterTask below).
+    def key = f.isFile() ? f.absolutePath + '|' + f.length() + '|' + f.lastModified() : f.absolutePath
     if (hashCache.containsKey(key)) { return hashCache[key] }
     def h
     if (!f.exists()) {
@@ -136,7 +148,7 @@ def eagerAccessorFor = { Class<?> declaring, java.lang.reflect.Method lazyGetter
     names.findResult { n -> adapter.methods.find { m -> isGetter(m) && m.name == 'access_get_' + n } }
 }
 
-def eagerAccessorCache = [:]    // "<class>#<property>" -> java.lang.reflect.Method, or false when none
+def eagerAccessorCache = new java.util.concurrent.ConcurrentHashMap()    // "<class>#<property>" -> java.lang.reflect.Method, or false when none
 def findEagerAccessor = { Class<?> type, String property ->
     def key = type.name + '#' + property
     if (eagerAccessorCache.containsKey(key)) { return eagerAccessorCache[key] ?: null }
@@ -208,7 +220,8 @@ def attrString = { Object[] args, Object valueArg ->
         .join(',')
 }
 
-def walkProperties = { Task task, Map rec ->
+// phase 'inputs' records input values and input files, phase 'outputs' records output files.
+def walkProperties = { Task task, Map rec, String phase ->
     def cl = gradle.getClass().classLoader
     def visitorType = cl.loadClass('org.gradle.internal.properties.PropertyVisitor')
     def walkerType = cl.loadClass('org.gradle.internal.properties.bean.PropertyWalker')
@@ -219,7 +232,11 @@ def walkProperties = { Task task, Map rec ->
     def errors = []
     def viaAdapter = []
     def isValue = { a -> a != null && !(a instanceof CharSequence) && !(a instanceof Class) && a.metaClass.respondsTo(a, 'call') && a.getClass().name.contains('Value') || (a != null && a.getClass().interfaces*.simpleName.any { it.contains('PropertyValue') }) }
+    def wanted = phase == 'inputs' ? ['visitInputFileProperty', 'visitInputProperty'] : ['visitOutputFileProperty']
     def handler = { proxy, method, args ->
+        if (method.name.startsWith('visit') && !(method.name in wanted)) {
+            return method.returnType == boolean.class ? false : null
+        }
         try {
             switch (method.name) {
                 case 'visitInputFileProperty':
@@ -262,12 +279,48 @@ def walkProperties = { Task task, Map rec ->
     def visitor = Proxy.newProxyInstance(cl, [visitorType] as Class[], handler)
     def walker = task.project.services.get(walkerType)
     utils.getMethod('visitProperties', walkerType, cl.loadClass('org.gradle.api.internal.TaskInternal'), visitorType).invoke(null, walker, task, visitor)
-    rec.inputProperties = inputValues
-    rec.inputFiles = inputFiles
-    rec.outputFiles = outputFiles
-    if (errors) { rec.propertyErrors = errors.sort() }
-    // Not compared by compare_dumps.py; records which values were read through an eager-getter adapter.
-    if (viaAdapter) { rec.inputPropertiesViaAdapter = viaAdapter.sort() }
+    if (phase == 'inputs') {
+        rec.inputProperties = inputValues
+        rec.inputFiles = inputFiles
+        // Not compared by compare_dumps.py; records which values were read through an eager-getter adapter.
+        if (viaAdapter) { rec.inputPropertiesViaAdapter = viaAdapter.sort() }
+    } else {
+        rec.outputFiles = outputFiles
+    }
+    if (errors) { rec.propertyErrors = ((rec.propertyErrors ?: []) + errors).sort() }
+}
+
+def readInputs = { Task t ->
+    def rec = new LinkedHashMap()
+    try {
+        walkProperties(t, rec, 'inputs')
+    } catch (Throwable e) {
+        rec.propertyWalkError = e.getClass().simpleName + ': ' + normPath(String.valueOf(e.cause?.message ?: e.message))
+    }
+    try { rec.publicInputProperties = normValue(t.inputs.properties) } catch (Throwable e) { rec.publicInputPropertiesError = normPath(String.valueOf(e.message)) }
+    try { rec.allInputFiles = describeRoots(t.inputs.files.files) } catch (Throwable e) { rec.allInputFilesError = normPath(String.valueOf(e.message)) }
+    rec
+}
+
+gradle.taskGraph.beforeTask { Task t ->
+    if (rootDirPath != null) { inputRecs[t.path] = readInputs(t) }
+}
+
+def readOutputs = { Task t ->
+    def rec = new LinkedHashMap()
+    try {
+        walkProperties(t, rec, 'outputs')
+    } catch (Throwable e) {
+        rec.propertyWalkError = 'outputs: ' + e.getClass().simpleName + ': ' + normPath(String.valueOf(e.cause?.message ?: e.message))
+    }
+    try { rec.allOutputFiles = describeExpanded(t.outputs.files.files) } catch (Throwable e) { rec.allOutputFilesError = normPath(String.valueOf(e.message)) }
+    rec
+}
+
+gradle.taskGraph.afterTask { Task t ->
+    // The task may have rewritten directories hashed earlier.
+    hashCache.keySet().removeAll { !it.contains('|') }
+    if (rootDirPath != null) { outputRecs[t.path] = readOutputs(t) }
 }
 
 gradle.taskGraph.whenReady { graph ->
@@ -299,14 +352,22 @@ gradle.buildFinished { result ->
         def st = t.state
         rec.outcome = !st.executed ? 'not-run' : st.failure != null ? 'failed' : st.noSource ? 'no-source' : st.upToDate ? 'up-to-date' : st.skipped ? ('skipped:' + st.skipMessage) : 'executed'
         rec.dependsOn = graphDeps[t.path]
-        try {
-            walkProperties(t, rec)
-        } catch (Throwable e) {
-            rec.propertyWalkError = e.getClass().simpleName + ': ' + normPath(String.valueOf(e.cause?.message ?: e.message))
+        def inputs = inputRecs[t.path]
+        if (inputs == null) {
+            inputs = readInputs(t)
+            inputs.inputsReadAfterBuild = true
         }
-        try { rec.publicInputProperties = normValue(t.inputs.properties) } catch (Throwable e) { rec.publicInputPropertiesError = normPath(String.valueOf(e.message)) }
-        try { rec.allInputFiles = describeRoots(t.inputs.files.files) } catch (Throwable e) { rec.allInputFilesError = normPath(String.valueOf(e.message)) }
-        try { rec.allOutputFiles = describeExpanded(t.outputs.files.files) } catch (Throwable e) { rec.allOutputFilesError = normPath(String.valueOf(e.message)) }
+        rec.putAll(inputs)
+        def outputs = outputRecs[t.path]
+        if (outputs == null) {
+            outputs = readOutputs(t)
+            outputs.outputsReadAfterBuild = true
+        }
+        outputs.each { k, v ->
+            if (k == 'propertyErrors') { rec.propertyErrors = ((rec.propertyErrors ?: []) + v).sort() }
+            else if (k == 'propertyWalkError' && rec.propertyWalkError) { rec.propertyWalkError += '; ' + v }
+            else { rec[k] = v }
+        }
         tasks[t.path] = rec
     }
     def doc = [

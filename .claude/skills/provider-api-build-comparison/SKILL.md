@@ -64,23 +64,43 @@ computed a default the lazy property lacks, e.g. `JavaExec.defaultCharacterEncod
 Gradle source of both versions (in a gradle/gradle checkout: `git show v9.9.2:<path>` vs the branch).
 `classify_diffs.py` lists such cases under "differing inputs that WERE read through an adapter".
 
+Known gap: when the script cannot follow a nested property's path to its owning bean, it silently reads the
+lazy value instead of the adapter, and does not record that it did. A `null` where the old getter would
+return a value is the symptom.
+
+## When properties are read
+
+Inputs are read in `taskGraph.beforeTask` (right before the task's actions, when Gradle fingerprints them),
+outputs in `taskGraph.afterTask` (right after it finishes). Reports written before 2026-11-26 15:00 read
+everything after the build; that produced `EXEC-MUTATION` (a task action mutating its own input, groovy
+`Javadoc` `JFlags`) and most `QUERY-ERROR`s ("resolution … without an exclusive lock"). When rerunning such a
+project, expect those to change or disappear, and say so in "Changes from the previous version".
+`beforeTask` is deprecated: a project that fails on deprecation warnings needs `--warning-mode=summary` on
+both sides.
+
 ## Workflow (one project per turn)
 
 When doing several projects, do **one project, report back, and ask for confirmation before starting the
 next**. Default order: smallest migration first (the index's order). After a context reset, work out what is
-done from the index's "Adapters" and "Last run" columns before starting.
+done from the index's "Branch build" column: a row whose short revision differs from
+`$W/gradle-local/bin/gradle --version` still needs a rerun (also "Adapters" = no, and "Last run" for rows
+built before the read-timing change above).
 
 1. **Workspace.** `W=out/task-compare-g992`, `P=$W/<project>`. If `$P/repo` is missing: clone the fork to it
    and add detached worktrees `before` and `after` at the commits above. If present: check both worktrees are
    clean and at the expected commits (`git rev-parse --short HEAD`, `git status --short`).
-   Move the previous run's `dump-*.json`, `comparison*.txt`, `before.log`, `after.log`, `control/` into
-   `$P/pre-adapter/` (or another archive dir) rather than overwriting them, and keep the previous report text
-   for the "Changes from the previous version" section.
+   Move the previous run's `dump-*.json`, `comparison*.txt`, `before.log`, `after.log`, `control/` and a copy
+   of the current report into `$P/run-<short revision of the branch build it used>/` (older archives:
+   `pre-adapter/`) rather than overwriting them; the report copy feeds "Changes from the previous version".
 2. **Distributions.**
    - Baseline: `G992=$(ls -d ~/.gradle/wrapper/dists/gradle-9.9.2-bin/*/gradle-9.9.2)`.
    - Branch: `$W/gradle-local/bin/gradle`. Record `gradle --version` (version and revision) in the report.
-     If it must be rebuilt from the Provider API branch of gradle/gradle, use
-     `./gradlew install -Pgradle_installPath=<abs path of $W/gradle-local>` there; ask first, it takes a while.
+     If it must be rebuilt from the Provider API branch of gradle/gradle (`~/sources/gradle/trees/provider-api`,
+     branch `gradle10/provider-api-migration`), use `./gradlew install -Pgradle_installPath=<abs path of
+     $W/gradle-local>` there; ask first, it takes a while. When the user hands over a ready distribution
+     instead (e.g. under `/tmp/gradle/`), move the old one to `$W/gradle-local-<short rev>` and copy the new one
+     to `$W/gradle-local` (`/tmp` gets cleaned). Add the new short revision to the index intro's list.
+     Current: `10.0.0-20261126124457+0000`, revision `018f16a2641`; earlier: `8779a723` in `gradle-local-8779a723`.
    - Run each side with the distribution's `bin/gradle` directly, never the project's wrapper.
 3. **Run both builds** in the background (large projects take several minutes per side):
    ```sh
@@ -110,7 +130,8 @@ done from the index's "Adapters" and "Last run" columns before starting.
    The differing count covers tasks present in both builds only; added and removed tasks are counted
    separately (`Tasks added: N, removed: M`) and each one must be explained too.
 6. **Verify before attributing.** Classes: `javap -c -p` (code) and `javap -v` (metadata) on both sides.
-   Generated files: `diff`. Jars: entry lists and per-entry content (`unzip -Z1`, `unzip -p | shasum`).
+   Generated files: `diff`. Jars: entry names, order, sizes and CRCs with Python's `zipfile`
+   (`infolist()`); a per-entry `unzip -p | shasum` loop takes minutes on large jars.
    Mark anything not verified as "not checked" in the Basis column; never guess.
 7. **Write `semantic-comparisons/REPORT-<project>.md`**, following the existing reports there (the detekt and
    micronaut-core ones are adapter-aware): header table (commits with branch name, Gradle versions with branch
@@ -122,9 +143,11 @@ done from the index's "Adapters" and "Last run" columns before starting.
    "Changes from the previous version of this report", files (located in `out/task-compare-g992/<project>/`).
    Reuse mnemonics before inventing new ones: `EAGER-DEFAULT`, `API-RECOMPILE`, `KOTLIN-COMPILER`, `KOTLIN-DSL`,
    `GRADLE-LIBS`, `IMPLICIT-IMPORTS`, `CHECKOUT-PATH`, `KT-STATE`, `COMPILE-STATE`, `DISK-STATE`, `GEN-ORDER`,
-   `UPSTREAM`, `QUERY-ERROR`, `TOSTRING`, `VERSION-STRING`, `API-ADDED`.
+   `UPSTREAM`, `QUERY-ERROR`, `TOSTRING`, `VERSION-STRING`, `API-ADDED`, `MIGRATED`, `EXEC-MUTATION`,
+   `DSL-TRANSFORM`, `BUILD-METADATA`, `GIT-REV`, `DERIVED-CP`, `BUILD-TIME`.
 8. **Update `semantic-comparisons/README.md`**: the project's row (differing tasks, written `74 of 497`, or
-   `74 of 497, +2 added, −1 removed` when tasks were added or removed; adapters, last run, headline;
+   `74 of 497, +2 added, −1 removed` when tasks were added or removed; adapters, branch build (short
+   revision of the branch distribution, defined in the index's intro), last run, headline;
    keep rows ordered by migration size) and the cross-project tables.
    The index describes the current state only: no history ("no longer differs", "previously", "predates",
    "still lists"). History belongs in each report's "Changes from the previous version" section.

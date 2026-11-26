@@ -41,7 +41,7 @@ python3 compare_dumps.py ~/work/dump-before.json ~/work/dump-after.json
 Flags that matter:
 
 - `-Dtaskdump.out=<file>` is required; the script fails the build without it.
-- `--no-configuration-cache` is required: the script uses `taskGraph.whenReady` and `buildFinished`.
+- `--no-configuration-cache` is required: the script uses `taskGraph.whenReady`, `taskGraph.beforeTask` / `afterTask` and `buildFinished`.
 - `clean` and `--no-build-cache` make every task actually run, so outputs are produced by the build being measured.
 - `--no-scan` is only there for builds that publish a build scan on every invocation.
 - If one build needs a workaround to run at all, apply it to **both** builds, as the sample does with `skip-kotlin-metadata-check.init.gradle`. Otherwise the workaround itself shows up as a difference. Here both builds need it: the project's Kotlin 2.2.0 compiler rejects the Kotlin 2.4 metadata of either Gradle distribution. Leave that `-I` line out when no workaround is needed.
@@ -80,7 +80,7 @@ Flags that matter:
 ## Limitations
 
 - Per-property data (`inputProperties`, `inputFiles`, `outputFiles`) is read through Gradle internals (`TaskPropertyUtils` and `PropertyWalker`). If that fails on some Gradle version the task gets a `propertyWalkError` and only the public-API totals (`publicInputProperties`, `allInputFiles`, `allOutputFiles`) are available.
-- Inputs are read after the build finishes, not immediately before each task runs. A value mutated during execution is recorded in its final state.
+- Inputs are read in `beforeTask`, immediately before each task's actions run (when Gradle fingerprints them); outputs in `afterTask`, immediately after it finishes. A task that never started or finished (failed build) is read at the end instead and marked `inputsReadAfterBuild` / `outputsReadAfterBuild`.
 - File content is hashed raw. Classpath normalization (ABI-only comparison, ignored manifest attributes) is not applied, so a jar that Gradle would treat as unchanged can still show as changed.
 - Objects without a stable `toString()` are recorded as text with identity hashes stripped; a difference there says nothing about the object's content.
 - Each build writes its own file: the root build writes the file named by `-Dtaskdump.out`, and every included build and `buildSrc` writes `<name>-<rootProject.name>.json` next to it (for example `dump-before-buildSrc.json`). Compare them pair by pair.
