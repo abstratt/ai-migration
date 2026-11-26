@@ -44,8 +44,8 @@ Flags that matter:
 - `--no-configuration-cache` is required: the script uses `taskGraph.whenReady`, `taskGraph.beforeTask` / `afterTask` and `buildFinished`.
 - `clean` and `--no-build-cache` make every task actually run, so outputs are produced by the build being measured.
 - `--no-scan` is only there for builds that publish a build scan on every invocation.
-- If one build needs a workaround to run at all, apply it to **both** builds, as the sample does with `skip-kotlin-metadata-check.init.gradle`. Otherwise the workaround itself shows up as a difference. Here both builds need it: the project's Kotlin 2.2.0 compiler rejects the Kotlin 2.4 metadata of either Gradle distribution. Leave that `-I` line out when no workaround is needed.
-- If the project derives its version from Git (as `gradle-lint-plugin` does through Nebula), pin it on both sides, for example `-Prelease.version=0.0.0-compare`, so archive names match.
+- If one build needs a workaround to run at all, apply it to **both** builds, as the sample does with `skip-kotlin-metadata-check.init.gradle`. Otherwise the workaround itself shows up as a difference. A typical case: the project's Kotlin compiler is older than the Kotlin metadata of either Gradle distribution and rejects it. Leave that `-I` line out when no workaround is needed.
+- If the project derives its version from Git (for example through Nebula), pin it on both sides, for example `-Prelease.version=0.0.0-compare`, so archive names match.
 
 ## What the dump contains
 
@@ -82,9 +82,10 @@ Flags that matter:
 - Per-property data (`inputProperties`, `inputFiles`, `outputFiles`) is read through Gradle internals (`TaskPropertyUtils` and `PropertyWalker`). If that fails on some Gradle version the task gets a `propertyWalkError` and only the public-API totals (`publicInputProperties`, `allInputFiles`, `allOutputFiles`) are available.
 - Inputs are read in `beforeTask`, immediately before each task's actions run (when Gradle fingerprints them); outputs in `afterTask`, immediately after it finishes. A task that never started or finished (failed build) is read at the end instead and marked `inputsReadAfterBuild` / `outputsReadAfterBuild`.
 - File content is hashed raw. Classpath normalization (ABI-only comparison, ignored manifest attributes) is not applied, so a jar that Gradle would treat as unchanged can still show as changed.
-- Objects without a stable `toString()` are recorded as text with identity hashes stripped; a difference there says nothing about the object's content.
+- A `@Nested` bean (e.g. `Javadoc.options`, `JavaCompile.options`) is recorded as `{"implementation": "<class>"}`, its implementation type with Gradle's `_Decorated` suffix removed. That is what Gradle fingerprints for the bean itself; its properties are recorded separately as `<name>.<property>`.
+- Other objects without a stable `toString()` are recorded as text with identity hashes stripped; a difference there says nothing about the object's content.
 - Each build writes its own file: the root build writes the file named by `-Dtaskdump.out`, and every included build and `buildSrc` writes `<name>-<rootProject.name>.json` next to it (for example `dump-before-buildSrc.json`). Compare them pair by pair.
-- A difference in an output file is not necessarily caused by the Gradle version. Before attributing one, rerun the task on both sides in fresh daemons (`--stop`, then `<task> --rerun`) and compare again; in `micronaut-core` three generated classes differed in the dumps but were identical when recompiled that way.
+- A difference in an output file is not necessarily caused by the Gradle version. Before attributing one, rerun the task on both sides in fresh daemons (`--stop`, then `<task> --rerun`) and compare again; generated classes that differ in the dumps can turn out identical when recompiled that way.
 - Tested on Gradle 9.5.1, 9.9.2 and a Gradle 9.9.0 development build.
 
 ## Reports

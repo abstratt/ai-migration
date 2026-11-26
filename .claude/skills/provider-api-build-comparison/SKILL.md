@@ -17,10 +17,10 @@ of a project; this skill compares the project's *build* before and after one mig
 
 | Path | What |
 |---|---|
-| `semantic-comparisons/README.md` | The index: one row per project (migration size, differing tasks, adapters yes/no, last run, headline), cross-project difference tables, caveats. **Published output.** |
+| `semantic-comparisons/README.md` | The index: one row per project (migration size, differing tasks, adapters yes/no, last run, headline), the reason-mnemonic definitions, cross-project difference tables, caveats. **Published output.** |
 | `semantic-comparisons/REPORT-<project>.md` | One report per project. **Published output.** Also the record of each project's settings (commits, JDK, extra args, included builds) for reruns. |
-| `out/task-compare-g992/` | Workspace (git-ignored): `gradle-local/` (branch distribution), `<project>/repo` (clone of the fork), `<project>/before`, `<project>/after` (worktrees), dumps, logs, comparison output, `control/`, `pre-adapter/` (superseded runs). |
-| this skill's `scripts/` | `task-dump.init.gradle` (adapter-aware; source of truth, `out/task-compare-g992/tools/` holds an older copy), `compare_dumps.py`, `classify_diffs.py`, `skip-kotlin-metadata-check.init.gradle` |
+| `out/task-compare-g992/` | Workspace (git-ignored): `gradle-local/` (branch distribution), `<project>/repo` (clone of the fork), `<project>/before`, `<project>/after` (worktrees), dumps, logs, comparison output, `control/`, archived runs. |
+| this skill's `scripts/` | `task-dump.init.gradle` (adapter-aware; the only copy to use), `compare_dumps.py`, `classify_diffs.py`, `skip-kotlin-metadata-check.init.gradle` |
 | this skill's `references/tool-README.md` | Dump format, flags, limitations |
 
 ## Discovering projects
@@ -30,8 +30,8 @@ There is no fixed list. A project is eligible when the migration produced a bran
 - `NEXT_REPOSITORIES.md` ("Completed runs") and `comparisons/COMPARISON-<project>-*.md` name the migrated projects;
 - the migrated fork is `https://github.com/abstratt/<project>`, with branches `gradle-10-migration/<timestamp>-<pair-id>`
   (`git ls-remote --heads https://github.com/abstratt/<project> 'gradle-10-migration/*'`). Use the branch for the
-  pair currently being compared (now `…-g951-to-PAPI-20260609`); if several, the newest timestamp, unless the
-  existing report names another;
+  pair named in the project's existing report; for a new project, or if unclear, ask which pair. If several
+  branches match, the newest timestamp, unless the existing report names another;
 - already compared: `semantic-comparisons/REPORT-*.md` and the index; workspaces in `out/task-compare-g992/*/`.
 
 Commits for a project:
@@ -71,27 +71,44 @@ return a value is the symptom.
 ## When properties are read
 
 Inputs are read in `taskGraph.beforeTask` (right before the task's actions, when Gradle fingerprints them),
-outputs in `taskGraph.afterTask` (right after it finishes). Reports written before 2026-11-26 15:00 read
-everything after the build; that produced `EXEC-MUTATION` (a task action mutating its own input, groovy
-`Javadoc` `JFlags`) and most `QUERY-ERROR`s ("resolution … without an exclusive lock"). When rerunning such a
-project, expect those to change or disappear, and say so in "Changes from the previous version".
-`beforeTask` is deprecated: a project that fails on deprecation warnings needs `--warning-mode=summary` on
+outputs in `taskGraph.afterTask` (right after it finishes). `beforeTask` is deprecated: a project that fails on deprecation warnings needs `--warning-mode=summary` on
 both sides.
+
+## Nested beans
+
+A `@Nested` bean (`Javadoc.options`, `JavaCompile.options`, …) is recorded as `{"implementation": "<class>"}`,
+the implementation type Gradle fingerprints, its properties separately as `<name>.<property>`.
+
+## Init script changes
+
+Never compare two dumps written by different versions of `task-dump.init.gradle`; both sides of a comparison
+come from the same run. When a rerun's results differ from the previous report because the script changed
+(`git log -- scripts/task-dump.init.gradle`), say so when reporting back (step 9), not in the report.
 
 ## Workflow (one project per turn)
 
-When doing several projects, do **one project, report back, and ask for confirmation before starting the
-next**. Default order: smallest migration first (the index's order). After a context reset, work out what is
-done from the index's "Branch build" column: a row whose short revision differs from
-`$W/gradle-local/bin/gradle --version` still needs a rerun (also "Adapters" = no, and "Last run" for rows
-built before the read-timing change above).
+**Which project.** Compare only the project(s) the user named. If the request names none (e.g. "run the
+comparison", "re-compare", "continue"), ask which repository to compare before doing anything else
+(`AskUserQuestion`). Do not pick one yourself: not the next row in the index, not the smallest migration, not
+one that looks stale, not the one from an earlier turn or before a context reset. You may list the eligible
+projects and which ones need a rerun (see below) as options in the question, but the user chooses.
+
+When the user asked for several projects (or "all"), do **one project, report back, and ask for confirmation
+before starting the next**. Order: smallest migration first (the index's order), unless the user said
+otherwise. To tell which projects need a rerun (for the options above, or when the user asked for "all
+that need a rerun"), use the index's "Branch build" column: a row whose short revision differs from
+`$W/gradle-local/bin/gradle --version` still needs a rerun. So does a row with "Adapters" = no, and one whose
+"Last run" is before the last commit that changed what the dump records
+(`git log -- .claude/skills/provider-api-build-comparison/scripts/task-dump.init.gradle`; ignore commits that
+only touch comments). A report not in the
+format of step 7 is rewritten in it when rerun.
 
 1. **Workspace.** `W=out/task-compare-g992`, `P=$W/<project>`. If `$P/repo` is missing: clone the fork to it
    and add detached worktrees `before` and `after` at the commits above. If present: check both worktrees are
    clean and at the expected commits (`git rev-parse --short HEAD`, `git status --short`).
    Move the previous run's `dump-*.json`, `comparison*.txt`, `before.log`, `after.log`, `control/` and a copy
-   of the current report into `$P/run-<short revision of the branch build it used>/` (older archives:
-   `pre-adapter/`) rather than overwriting them; the report copy feeds "Changes from the previous version".
+   of the current report into `$P/run-<short revision of the branch build it used>/` rather than overwriting them; the report copy feeds the before/now table when reporting
+   back (step 9). The new report does not refer to it.
 2. **Distributions.**
    - Baseline: `G992=$(ls -d ~/.gradle/wrapper/dists/gradle-9.9.2-bin/*/gradle-9.9.2)`.
    - Branch: `$W/gradle-local/bin/gradle`. Record `gradle --version` (version and revision) in the report.
@@ -100,7 +117,7 @@ built before the read-timing change above).
      $W/gradle-local>` there; ask first, it takes a while. When the user hands over a ready distribution
      instead (e.g. under `/tmp/gradle/`), move the old one to `$W/gradle-local-<short rev>` and copy the new one
      to `$W/gradle-local` (`/tmp` gets cleaned). Add the new short revision to the index intro's list.
-     Current: `10.0.0-20261126124457+0000`, revision `018f16a2641`; earlier: `8779a723` in `gradle-local-8779a723`.
+     The current distribution is whatever `$W/gradle-local/bin/gradle --version` reports.
    - Run each side with the distribution's `bin/gradle` directly, never the project's wrapper.
 3. **Run both builds** in the background (large projects take several minutes per side):
    ```sh
@@ -118,7 +135,8 @@ built before the read-timing change above).
 4. **Control run** when outputs or outcomes differ in ways that might be run-to-run variance: run the baseline
    build again the same way into `$P/control/dump-before-rerun2.json`. What differs between the two baseline
    runs is not caused by the distribution (`KT-STATE` timestamps, `DISK-STATE` outcomes). If outputs embed the
-   checkout path (Kotlin/Android), also build the after side at the baseline's path (see the kotest report).
+   checkout path (Kotlin/Android), also build the after side at the baseline's path, to tell
+   path-dependent output from distribution-dependent output.
 5. **Compare**, per build (root, `-buildSrc`, each included build):
    ```sh
    python3 -I $SKILL/scripts/compare_dumps.py dump-before.json dump-after.json > comparison.txt
@@ -133,24 +151,60 @@ built before the read-timing change above).
    Generated files: `diff`. Jars: entry names, order, sizes and CRCs with Python's `zipfile`
    (`infolist()`); a per-entry `unzip -p | shasum` loop takes minutes on large jars.
    Mark anything not verified as "not checked" in the Basis column; never guess.
-7. **Write `semantic-comparisons/REPORT-<project>.md`**, following the existing reports there (the detekt and
-   micronaut-core ones are adapter-aware): header table (commits with branch name, Gradle versions with branch
-   revision, JVM, task counts, result), exact command line, "Read this first" (adapter sentence with counts,
-   number of **differing** tasks per build, never "identical tasks", since the difference tables count differing tasks,
-   plus added and removed tasks when not 0,
-   build code changed by the migration, how it was run), summary, reason-mnemonic table
-   (Mnemonic | Kind | Meaning | Basis), control run, task graph, one difference table per build,
-   "Changes from the previous version of this report", files (located in `out/task-compare-g992/<project>/`).
-   Reuse mnemonics before inventing new ones: `EAGER-DEFAULT`, `API-RECOMPILE`, `KOTLIN-COMPILER`, `KOTLIN-DSL`,
-   `GRADLE-LIBS`, `IMPLICIT-IMPORTS`, `CHECKOUT-PATH`, `KT-STATE`, `COMPILE-STATE`, `DISK-STATE`, `GEN-ORDER`,
-   `UPSTREAM`, `QUERY-ERROR`, `TOSTRING`, `VERSION-STRING`, `API-ADDED`, `MIGRATED`, `EXEC-MUTATION`,
-   `DSL-TRANSFORM`, `BUILD-METADATA`, `GIT-REV`, `DERIVED-CP`, `BUILD-TIME`.
+7. **Write `semantic-comparisons/REPORT-<project>.md`** with these sections in order:
+   - header table: commits with branch name, Gradle versions with branch revision, JVM, task counts, result;
+   - one sentence under it with the headline: the finding that matters most, or "no input value differs and no
+     build product differs because of the distribution";
+   - a paragraph with the exact command line and whatever is specific to how this project was run: workarounds,
+     `build` dirs of `buildSrc`/included builds deleted first, any local state of the worktrees that could
+     matter;
+   - Summary table. Rows: task graph; outcomes; **differing** tasks per build (never "identical tasks", since
+     the difference tables count differing tasks), plus added and removed tasks when not 0; build code changed by
+     the migration (none, or a pointer to "Migrated build logic"); task inputs, including the adapter counts
+     ("no value differs; N values in M tasks read through adapters"); compiled classes; jars; other outputs
+     that differ;
+   - "Migrated build logic", when the migration changed build code;
+   - "Basis" table (Mnemonic | Basis): one row per mnemonic used in this report, with the evidence from this
+     project's run (what was verified and how, or "not checked"). The mnemonic's kind and generic meaning are
+     defined in the index, not here; one sentence above the table links there
+     (`[index](README.md#reason-mnemonics)`). The mnemonic cells are plain code (`` `GEN-ORDER` ``), not links,
+     because links around inline code in table cells render badly. Project-specific detail (which class, which file, how many)
+     goes in the Basis or in the difference rows;
+   - task graph;
+   - one difference table per build.
+   No "Read this first" section: the method (eager-API semantics, the adapters) and the caveats that apply to
+   every project (version difference, scope limited to `assemble`, …) are stated once, in the index, not repeated
+   per report.
+   No "Control run" section by default. Once the control run (step 4) has settled what is run-to-run variance,
+   its result goes into the Basis of the mnemonics it supports, in a phrase ("differs between two baseline
+   runs too", "identical between two baseline runs"). Add a section only when a conclusion needs more than
+   that to be convincing, e.g. an experiment that builds the after side at the baseline's path.
+   When rewriting an existing report, do not carry over any section not listed above. Two rules for the report's content:
+   - **No history.** The report describes the current run only: no "previously", "no longer", "now",
+     "still", "instead of N", "this time", "the previous version", "an earlier run", no counts compared with an
+     earlier run, no archived runs (`run-<rev>/`). Every Basis entry must rest on evidence
+     from the current run: a fact that an earlier run verified is re-verified against the current dumps or
+     build outputs, or marked "not checked". Do not copy it across as verified. What changed since the last
+     report goes in the step 9 message only.
+   - **No files outside the repository.** Do not mention the comparison's own files (dumps, logs,
+     `compare_dumps.py` output, `control/` dumps, extracted classes, archives) or any `out/…` path. Name
+     the evidence by what it is ("the dumps", "the control run", "a second baseline run"). The project's
+     build outputs that the comparison is about (`previous-compilation-data.bin`, a jar, a generated source)
+     may still be named by their path in the project. So may the skill's scripts (`task-dump.init.gradle`,
+     `skip-kotlin-metadata-check.init.gradle`), which are in the repository.
+   Reuse the mnemonics defined in the index's "Reason mnemonics" table before inventing new ones. A new one is
+   added to that table (step 8) with a generic meaning that is not tied to the project. When an existing report
+   uses a different name for a mnemonic the index defines, use the index's name.
 8. **Update `semantic-comparisons/README.md`**: the project's row (differing tasks, written `74 of 497`, or
    `74 of 497, +2 added, −1 removed` when tasks were added or removed; adapters, branch build (short
    revision of the branch distribution, defined in the index's intro), last run, headline;
-   keep rows ordered by migration size) and the cross-project tables.
-   The index describes the current state only: no history ("no longer differs", "previously", "predates",
-   "still lists"). History belongs in each report's "Changes from the previous version" section.
-9. **Report back** briefly: before/now table of the headline numbers, any remaining real difference and whether
-   it changes effective behaviour, anything changed along the way (deleted dirs, re-runs, JDK), the report path.
-   Then ask whether to continue with the next project. Do not commit or push unless asked.
+   keep rows ordered by migration size), the cross-project tables, and the "Reason mnemonics" table
+   (Mnemonic | Kind | Meaning, one row per mnemonic used in any report, generic wording, no project names
+   or evidence; anchor `#reason-mnemonics`). Drop a mnemonic from the table when no report uses it any more.
+   The index follows the same two rules as the reports (step 7): current state only, no history ("no longer
+   differs", "previously", "predates", "still lists"), and no files outside the repository.
+9. **Report back** briefly: before/now table of the headline numbers, what changed since the last report and
+   why (this message is the only place for that history), any remaining real difference and whether it changes
+   effective behaviour, anything changed along the way (deleted dirs, re-runs, JDK), the report path.
+   Then, if the user asked for several projects, ask whether to continue with the next one of those;
+   otherwise stop. Do not commit or push unless asked.

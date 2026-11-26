@@ -98,6 +98,11 @@ def describeExpanded = { Collection<File> files ->
     m
 }
 
+// Text form of a value: normalized paths, identity hashes, lambda names and Gradle's _Decorated suffix removed.
+def normText = { String s ->
+    normPath(s).replaceAll('[$][$]Lambda[/$][0-9a-fx]+', java.util.regex.Matcher.quoteReplacement('$$Lambda')).replaceAll(/@[0-9a-f]{4,}/, '@<id>').replaceAll(/_Decorated/, '')
+}
+
 def normValue
 normValue = { Object v ->
     if (v == null) { return null }
@@ -113,7 +118,13 @@ normValue = { Object v ->
     if (v instanceof org.gradle.api.file.FileCollection) { return v.files.collect { normPath(it.absolutePath) }.sort() }
     if (v instanceof Iterable) { return v.collect { normValue(it) } }
     if (v.getClass().isArray()) { return (v as List).collect { normValue(it) } }
-    normPath(String.valueOf(v)).replaceAll('[$][$]Lambda[/$][0-9a-fx]+', java.util.regex.Matcher.quoteReplacement('$$Lambda')).replaceAll(/@[0-9a-f]{4,}/, '@<id>').replaceAll(/_Decorated/, '')
+    // A @Nested bean is reported by the property walker as an ImplementationValue: its implementation type,
+    // which is all Gradle fingerprints for the bean itself (its properties are visited separately as
+    // "<name>.<property>"). Record the type only, not the bean's toString(), which has no stable form.
+    if (v.getClass().name == 'org.gradle.internal.snapshot.impl.ImplementationValue') {
+        return [implementation: normText(String.valueOf(v.implementationClassIdentifier))]
+    }
+    normText(String.valueOf(v))
 }
 
 // A lazy property that replaced an eager one keeps its original eager getter reachable, for code compiled
