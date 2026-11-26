@@ -7,12 +7,12 @@
 | JVM | Temurin 21.0.11 | Temurin 21.0.11 |
 | Build result | passed | passed |
 
-Both builds ran `clean assemble --no-scan --no-build-cache --no-configuration-cache` with `task-dump.init.gradle`; the JSON dumps were then compared. No workaround was needed on either side. groovy has one included build, `build-logic`, so there is one dump per build:
+Both builds ran `clean assemble --no-scan --no-build-cache --no-configuration-cache` with `task-dump.init.gradle`; the JSON dumps were then compared. No workaround was needed on either side. groovy has one included build, `build-logic`, so there is one dump per build. A task differs when anything recorded for it differs (an input value, an input or output file, its outcome, or the text of a property it could not read); every differing task is classified below.
 
-| Build | Tasks, baseline build | Tasks, Provider API branch build | Identical tasks |
+| Build | Tasks, baseline build | Tasks, Provider API branch build | Differing tasks |
 |---|---|---|---|
-| root (`groovy`) | 497 | 497 | 423 |
-| included `build-logic` | 9 | 9 | 3 |
+| root (`groovy`) | 497 | 497 | 74 |
+| included `build-logic` | 9 | 9 | 6 |
 
 **Read this first**
 

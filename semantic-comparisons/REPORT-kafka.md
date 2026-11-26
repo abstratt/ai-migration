@@ -17,7 +17,7 @@ Both builds ran `clean assemble --no-scan --no-build-cache --no-configuration-ca
 - This migration **changed build logic**: about 15 places in the root `build.gradle` where compiler arguments were appended with `<<` or `+=` now call `.add(…)` / `.addAll(…)`. The affected values are identical on both sides. See "Migrated build logic".
 - Each side was run with its distribution's `bin/gradle` directly, not through the wrapper. The baseline worktree has one local edit, the wrapper pointing at 9.9.2, which this run does not use.
 - **All 7,987 compiled class files are byte-identical, and every jar has the same entries with the same content.**
-- 331 of the 456 tasks have no differences at all. The other 125 are covered by the rows below; nothing is left unclassified.
+- 125 of the 456 tasks differ (in an input value, a file, an outcome or a read error); all of them are covered by the rows below.
 - Apart from `EAGER-DEFAULT` (8 tasks) and `QUERY-ERROR` (34 tasks, tool noise), every difference is also seen between two runs of the baseline build (see "Control run").
 
 ## Summary
@@ -99,7 +99,7 @@ The properties that could not be read are `classpath` and `options.annotationPro
 - Inputs are now read through the eager-API adapters. `Delete.followSymlinks` (67 tasks) and `JavaExec.enableAssertions` (8 tasks), previously `VALUE-UNSET` (`false` → `null`), are gone: through the adapters, the branch returns `false`, as the baseline does.
 - `JavaExec.defaultCharacterEncoding` `UTF-8` → `null` remains, now as `EAGER-DEFAULT`: the eager getter itself returns a different value.
 - Each side now runs the distribution's `bin/gradle` directly; the baseline previously ran through the wrapper.
-- Identical tasks: 331 of 456 instead of 236.
+- Differing tasks: 125 of 456 instead of 220.
 - `previous-compilation-data.bin` differs on 1 task instead of 32 (previously `RUN-VARIANCE`; renamed `COMPILE-STATE` to match the other reports). Why fewer differ in this run was not traced.
 - The previous run's files are in `pre-adapter/`.
 

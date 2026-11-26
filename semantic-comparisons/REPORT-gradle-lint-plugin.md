@@ -16,7 +16,7 @@ Both builds ran `clean assemble --no-build-cache --no-configuration-cache --no-s
 - The migration changed **no build logic** in this project (only the wrapper files, plus the generated notes and report). Every difference below comes from the Gradle distribution or from the comparison setup.
 - Each side was run with its distribution's `bin/gradle` directly, not through the wrapper.
 - The Provider API branch build identifies itself as 9.9.0, the baseline build as 9.9.2. The two differ by the Provider API branch and also by whatever mainline changed between the branch point and 9.9.2 (for example embedded Kotlin 2.4.20 vs 2.4.21). This report does not separate the two.
-- 7 of the 19 tasks have no differences at all: `:assemble`, `:checkKotlinGradlePluginConfigurationErrors`, `:classes`, `:clean`, `:createPropertiesFileForJar`, `:pluginDescriptors`, `:processResources`.
+- 12 of the 19 tasks differ; all of them are covered by the rows below. The other 7 have no differences: `:assemble`, `:checkKotlinGradlePluginConfigurationErrors`, `:classes`, `:clean`, `:createPropertiesFileForJar`, `:pluginDescriptors`, `:processResources`.
 
 ## Summary
 

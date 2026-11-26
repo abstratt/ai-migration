@@ -16,7 +16,7 @@ Both builds ran `clean assemble --no-scan --no-build-cache --no-configuration-ca
 - The migration changed **no build logic** in this project (only the wrapper files, plus the generated notes and report). Every difference below comes from the Gradle distribution, from the project's own build, or from the comparison.
 - Each side was run with its distribution's `bin/gradle` directly, not through the wrapper. Both sides' `buildSrc` ran from scratch (`clean` does not reach `buildSrc`, so stale `buildSrc` output from an earlier run was removed first).
 - **No difference in a build product is attributable to the Gradle distribution.** The three class files that differ are a non-determinism of the project's annotation processing (see `GEN-ORDER`).
-- 646 of the 741 root-build tasks have no differences at all. The other 95 are covered by the rows below; nothing is left unclassified.
+- 95 of the 741 root-build tasks differ (in an input value, a file, an outcome or a read error); all of them are covered by the rows below.
 - `buildSrc` is covered too: the dump script writes one file per build.
 
 ## Summary

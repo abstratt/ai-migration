@@ -17,7 +17,7 @@ of a project; this skill compares the project's *build* before and after one mig
 
 | Path | What |
 |---|---|
-| `semantic-comparisons/README.md` | The index: one row per project (migration size, identical tasks, adapters yes/no, last run, headline), cross-project difference tables, caveats. **Published output.** |
+| `semantic-comparisons/README.md` | The index: one row per project (migration size, differing tasks, adapters yes/no, last run, headline), cross-project difference tables, caveats. **Published output.** |
 | `semantic-comparisons/REPORT-<project>.md` | One report per project. **Published output.** Also the record of each project's settings (commits, JDK, extra args, included builds) for reruns. |
 | `out/task-compare-g992/` | Workspace (git-ignored): `gradle-local/` (branch distribution), `<project>/repo` (clone of the fork), `<project>/before`, `<project>/after` (worktrees), dumps, logs, comparison output, `control/`, `pre-adapter/` (superseded runs). |
 | this skill's `scripts/` | `task-dump.init.gradle` (adapter-aware; source of truth, `out/task-compare-g992/tools/` holds an older copy), `compare_dumps.py`, `classify_diffs.py`, `skip-kotlin-metadata-check.init.gradle` |
@@ -105,7 +105,7 @@ done from the index's "Adapters" and "Last run" columns before starting.
    python3 -I $SKILL/scripts/compare_dumps.py dump-before.json dump-after.json --verbose > comparison-verbose.txt
    python3 -I $SKILL/scripts/classify_diffs.py dump-before.json dump-after.json [control/dump-before-rerun2.json]
    ```
-   Account for **every** differing task: tasks covered by classified rows must equal the non-identical tasks
+   Account for **every** differing task: tasks covered by classified rows must equal the differing tasks
    reported by `compare_dumps.py`. Hunt down the rest (often `propertyErrors` text only, `QUERY-ERROR`).
 6. **Verify before attributing.** Classes: `javap -c -p` (code) and `javap -v` (metadata) on both sides.
    Generated files: `diff`. Jars: entry lists and per-entry content (`unzip -Z1`, `unzip -p | shasum`).
@@ -113,13 +113,14 @@ done from the index's "Adapters" and "Last run" columns before starting.
 7. **Write `semantic-comparisons/REPORT-<project>.md`**, following the existing reports there (the detekt and
    micronaut-core ones are adapter-aware): header table (commits with branch name, Gradle versions with branch
    revision, JVM, task counts, result), exact command line, "Read this first" (adapter sentence with counts,
+   number of **differing** tasks per build, never "identical tasks", since the difference tables count differing tasks,
    build code changed by the migration, how it was run), summary, reason-mnemonic table
    (Mnemonic | Kind | Meaning | Basis), control run, task graph, one difference table per build,
    "Changes from the previous version of this report", files (located in `out/task-compare-g992/<project>/`).
    Reuse mnemonics before inventing new ones: `EAGER-DEFAULT`, `API-RECOMPILE`, `KOTLIN-COMPILER`, `KOTLIN-DSL`,
    `GRADLE-LIBS`, `IMPLICIT-IMPORTS`, `CHECKOUT-PATH`, `KT-STATE`, `COMPILE-STATE`, `DISK-STATE`, `GEN-ORDER`,
    `UPSTREAM`, `QUERY-ERROR`, `TOSTRING`, `VERSION-STRING`, `API-ADDED`.
-8. **Update `semantic-comparisons/README.md`**: the project's row (identical tasks, adapters, last run, headline;
+8. **Update `semantic-comparisons/README.md`**: the project's row (differing tasks, adapters, last run, headline;
    keep rows ordered by migration size) and the cross-project tables.
    The index describes the current state only: no history ("no longer differs", "previously", "predates",
    "still lists"). History belongs in each report's "Changes from the previous version" section.

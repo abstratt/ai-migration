@@ -176,7 +176,8 @@ def main():
             print("\n".join(out))
         else:
             identical.append(p)
-    print(f"\n== Identical tasks ({len(identical)}/{len(common)}) ==")
+    print(f"\n== Differing tasks: {len(common) - len(identical)} of {len(common)} ==")
+    print(f"\n== Identical tasks ({len(identical)}) ==")
     print("  " + " ".join(identical))
 
 

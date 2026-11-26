@@ -9,11 +9,11 @@
 
 Both builds ran `clean assemble --no-scan --no-build-cache --no-configuration-cache` with `task-dump.init.gradle`; the JSON dumps were then compared. No workaround was needed on either side. detekt is a composite build, so there is one dump per build:
 
-| Build | Tasks, baseline build | Tasks, Provider API branch build | Identical tasks |
+| Build | Tasks, baseline build | Tasks, Provider API branch build | Differing tasks |
 |---|---|---|---|
-| root (`detekt`) | 322 | 322 | 288 |
-| included `build-logic` | 13 | 13 | 8 |
-| included `detekt-gradle-plugin` | 8 | 8 | 7 |
+| root (`detekt`) | 322 | 322 | 34 |
+| included `build-logic` | 13 | 13 | 5 |
+| included `detekt-gradle-plugin` | 8 | 8 | 1 |
 
 **Read this first**
 
@@ -102,7 +102,7 @@ No differences in any of the three builds: same tasks, same types, same `depends
 - `Delete` (all 35 `clean` tasks), input `followSymlinks`: `false` → `null`, is gone. Read through `Delete_Adapter`, the branch returns `false`, as the baseline does.
 - `JavaExec` input `enableAssertions`: `false` → `null`, is gone. Read through `JavaExec_Adapter`, the branch returns `false`.
 - `JavaExec` input `defaultCharacterEncoding`: `UTF-8` → `null` remains, now as `EAGER-DEFAULT` instead of `VALUE-UNSET`: the eager getter itself returns a different value.
-- Root identical tasks: 288 of 322 instead of 254.
+- Root differing tasks: 34 of 322 instead of 68.
 - The previous version reported identical outcomes. In this run, the first baseline build ran from a different on-disk state, so 3 outcomes differ; the control run shows them to be `DISK-STATE`.
 
 ## Files
