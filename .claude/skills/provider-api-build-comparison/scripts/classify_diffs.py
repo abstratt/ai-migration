@@ -92,7 +92,9 @@ def main():
     print("read via adapter (after):", sum(len(v) for _, v in via), "values in", len(via), "tasks")
     kinds = classify(bt, at)
     differing = {t for v in kinds.values() for t in v}
-    print("differing tasks:", len(differing & set(bt)), "of", len(bt))
+    common = set(bt) & set(at)
+    print("differing tasks:", len(differing & common), "of", len(common),
+          "| added:", len(set(at) - set(bt)), "| removed:", len(set(bt) - set(at)))
     print()
     for k, v in sorted(kinds.items(), key=lambda kv: str(kv[0])):
         print(len(v), k, v[:3])

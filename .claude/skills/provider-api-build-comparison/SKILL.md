@@ -107,6 +107,8 @@ done from the index's "Adapters" and "Last run" columns before starting.
    ```
    Account for **every** differing task: tasks covered by classified rows must equal the differing tasks
    reported by `compare_dumps.py`. Hunt down the rest (often `propertyErrors` text only, `QUERY-ERROR`).
+   The differing count covers tasks present in both builds only; added and removed tasks are counted
+   separately (`Tasks added: N, removed: M`) and each one must be explained too.
 6. **Verify before attributing.** Classes: `javap -c -p` (code) and `javap -v` (metadata) on both sides.
    Generated files: `diff`. Jars: entry lists and per-entry content (`unzip -Z1`, `unzip -p | shasum`).
    Mark anything not verified as "not checked" in the Basis column; never guess.
@@ -114,13 +116,15 @@ done from the index's "Adapters" and "Last run" columns before starting.
    micronaut-core ones are adapter-aware): header table (commits with branch name, Gradle versions with branch
    revision, JVM, task counts, result), exact command line, "Read this first" (adapter sentence with counts,
    number of **differing** tasks per build, never "identical tasks", since the difference tables count differing tasks,
+   plus added and removed tasks when not 0,
    build code changed by the migration, how it was run), summary, reason-mnemonic table
    (Mnemonic | Kind | Meaning | Basis), control run, task graph, one difference table per build,
    "Changes from the previous version of this report", files (located in `out/task-compare-g992/<project>/`).
    Reuse mnemonics before inventing new ones: `EAGER-DEFAULT`, `API-RECOMPILE`, `KOTLIN-COMPILER`, `KOTLIN-DSL`,
    `GRADLE-LIBS`, `IMPLICIT-IMPORTS`, `CHECKOUT-PATH`, `KT-STATE`, `COMPILE-STATE`, `DISK-STATE`, `GEN-ORDER`,
    `UPSTREAM`, `QUERY-ERROR`, `TOSTRING`, `VERSION-STRING`, `API-ADDED`.
-8. **Update `semantic-comparisons/README.md`**: the project's row (differing tasks, adapters, last run, headline;
+8. **Update `semantic-comparisons/README.md`**: the project's row (differing tasks, written `74 of 497`, or
+   `74 of 497, +2 added, −1 removed` when tasks were added or removed; adapters, last run, headline;
    keep rows ordered by migration size) and the cross-project tables.
    The index describes the current state only: no history ("no longer differs", "previously", "predates",
    "still lists"). History belongs in each report's "Changes from the previous version" section.

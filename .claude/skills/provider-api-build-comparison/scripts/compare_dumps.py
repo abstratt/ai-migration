@@ -124,6 +124,7 @@ def main():
     print(f"Gradle: {before['gradleVersion']} -> {after['gradleVersion']}")
     print(f"Tasks in graph: {len(tb)} -> {len(ta)}")
     only_b, only_a, _ = diff_map(tb, ta)
+    print(f"Tasks added: {len(only_a)}, removed: {len(only_b)}")
     print("\n== Task graph ==")
     for p in only_b:
         print(f"  only before: {p} ({tb[p]['type']}, {tb[p]['outcome']})")
@@ -176,7 +177,8 @@ def main():
             print("\n".join(out))
         else:
             identical.append(p)
-    print(f"\n== Differing tasks: {len(common) - len(identical)} of {len(common)} ==")
+    print(f"\n== Differing tasks: {len(common) - len(identical)} of {len(common)} in both builds"
+          f" (added: {len(only_a)}, removed: {len(only_b)}) ==")
     print(f"\n== Identical tasks ({len(identical)}) ==")
     print("  " + " ".join(identical))
 
