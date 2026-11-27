@@ -20,8 +20,10 @@ Ordered from the smallest migration to the largest (build code the migration cha
 | Project | Report | Migration changed build code? | Task graph | Differing tasks | Adapters | Branch build | Last run | Headline result |
 |---|---|---|---|---|---|---|---|---|
 | gradle-lint-plugin | [report](REPORT-gradle-lint-plugin.md) | No | 19 tasks, identical | 12 of 19 | yes | `018f16a` | 2026-11-26 15:46 | No input value differs. Compiled classes identical; jars differ only in build date, Gradle version and commit hash |
-| micronaut-core | [report](REPORT-micronaut-core.md) | No | 741 tasks, identical; `buildSrc` 9, identical | 84 of 741 | yes | `018f16a` | 2026-11-26 16:02 | No input value differs. No build-product difference attributable to the distribution; one generated class differs in element order (project non-determinism). Java incremental-compilation state written in a different order on 27 modules |
+| micronaut-core | [report](REPORT-micronaut-core.md) | No | 741 tasks, identical; `buildSrc` 9, identical | 32 of 741 | yes | `018f16a` | 2026-11-26 18:11 | No input value differs. All classes and jars identical. Java incremental-compilation state written in a different order on 27 modules |
 | detekt | [report](REPORT-detekt.md) | Yes, 2 edits in 1 build script | Root 322, `build-logic` 13, `detekt-gradle-plugin` 8: all identical | 34 of 322 (root) | yes | `8779a72` | 2026-11-25 15:30 | One eager getter returns a different value: `JavaExec.defaultCharacterEncoding` `UTF-8` → `null` (`EAGER-DEFAULT`). Root build products identical. In `build-logic`, a precompiled script plugin compiles to different bytecode because an assigned property changed type |
+| hibernate-orm | [report](REPORT-hibernate-orm.md) | Yes, 4 files (+12/−11), 2 of them in `local-build-plugins` | 307 tasks, identical; `local-build-plugins` 11, identical | 13 of 307 | yes | `018f16a` | 2026-11-27 01:21 | No input value or build product differs because of the distribution. The Maven plugin descriptor lists one dependency with an empty `<type>`, from a race between parallel tasks that a second baseline run reproduces (`TASK-RACE`); all classes identical |
+| spring-framework | [report](REPORT-spring-framework.md) | Yes, 6 files (+16/−62): `spring-aspects` excluded from the build, one `+=` rewritten | Root 197 → 190 (the 7 `spring-aspects` tasks removed); `buildSrc` 16, identical | 21 of 190, −7 removed | yes | `018f16a` | 2026-11-27 10:58 | The migration drops `spring-aspects` (AspectJ plugin incompatible with the targeted distribution). Otherwise no root input value or build product differs because of the distribution. In `buildSrc`, `Test.defaultCharacterEncoding` `UTF-8` → `null` (`EAGER-DEFAULT`) |
 | groovy | [report](REPORT-groovy.md) | Yes, 7 files (+13/−12), 5 of them in `build-logic` | 497 tasks, identical; `build-logic` 9, identical | 74 of 497 | yes | `8779a72` | 2026-11-25 17:57 | The migration's own edit makes javadoc receive three `-tag` options instead of one (the original code overwrote them); Javadoc HTML identical. No build-product difference attributable to the distribution; one class varies in method order between runs. In `build-logic`, the branch's Groovy DSL compiler wraps `+=` in unedited script code |
 | kotest | [report](REPORT-kotest.md) | Yes, 2 files (+18/−9), including the project's Gradle plugin | 4,046 tasks, identical; `buildSrc` 14 | 2,108 of 4,046 | **no** | `8779a72` | 2026-11-25 11:07 | **Published BOM broken**: a string template over `MavenPublication` coordinates interpolates `Property` objects (outside `assemble`). Otherwise equivalent when built at the same path |
 | kafka | [report](REPORT-kafka.md) | Yes, about 15 edits in the root `build.gradle` (+16/−15) | 456 tasks, identical | 125 of 456 | yes | `8779a72` | 2026-11-25 18:08 | One eager getter returns a different value: `JavaExec.defaultCharacterEncoding` `UTF-8` → `null` (`EAGER-DEFAULT`), no visible effect. Migrated compiler-argument code yields identical arguments; all 7,987 classes identical; jars differ only in entry timestamps |
@@ -37,12 +39,14 @@ Every difference in a report is tagged with one of these. Each report's "Basis" 
 | Mnemonic | Kind | Meaning |
 |---|---|---|
 | `API-ADDED` | Task API | The task type declares an input property that it does not declare in the baseline build. |
+| `API-RENAME` | Task API | An input property of a Gradle task type has a different name in the two builds; its value is the same. |
 | `API-REBIND` | Compilation | Same as `API-RECOMPILE`. |
+| `API-DECLARATION` | Task API | The task type declares its inputs differently: an input property removed, or a file input normalized differently. |
 | `API-RECOMPILE` | Compilation | Unchanged build source compiles to different bytecode because a Gradle API it uses changed, e.g. an assigned property changed type. |
 | `BUILD-METADATA` | Outputs | A generated manifest or properties file embeds the build date or the Gradle version. |
 | `BUILD-TIME` | Outputs | An archive differs only in the timestamps of its entries, which record when each build ran. |
 | `CHECKOUT-PATH` | Comparison setup | A generated file embeds the absolute path of the checkout, and the two builds ran in different directories. |
-| `COMPILE-ORDER` | Outputs | Incremental-compilation state (`previous-compilation-data.bin`) holds the same values in a different order, consistently between distributions. Not a build product. |
+| `COMPILE-ORDER` | Outputs | Incremental-compilation state (`previous-compilation-data.bin`) holds the same values in a different order, and is identical between two runs of the baseline build, so the order follows the distribution. Not a build product. |
 | `COMPILE-STATE` | Outputs | Incremental-compilation state (`previous-compilation-data.bin`) differs. Not a build product. |
 | `DERIVED-CP` | Environment | Data computed from a classpath (e.g. Kotlin classpath snapshots) differs because the classpath differs. |
 | `DISK-STATE` | Comparison setup | A task outcome or a configuration-time value depends on what was on disk before the build, not on the Gradle version. |
@@ -50,6 +54,7 @@ Every difference in a report is tagged with one of these. Each report's "Basis" 
 | `DSL-TRANSFORM` | Outputs | The branch's Groovy DSL compiler rewrites compound assignments `a += b` into `forCompoundAssignment(a) + b` wrapped in `toAssignmentResult(…)`, to support `+=` on lazy properties; 9.9.2 has no such transform. |
 | `EAGER-DEFAULT` | Task API | The old eager getter returned a computed default when nothing was set; read through the adapter, the branch's getter returns `null` because the lazy property is unset. A real change in the eager API. |
 | `EXEC-MUTATION` | Task API | A task action modifies its own input, so a value read after execution differs from the value the task started with. |
+| `GEN-NAME` | Project non-determinism | A compiler gives a synthetic element a generated name that varies between runs; everything else is identical. |
 | `GEN-ORDER` | Project non-determinism | A compiler or annotation processor emits the same elements (methods, constants) in an order that varies between runs; everything else is identical. |
 | `GIT-REV` | Comparison setup | The build records the commit hash, and the two builds ran from different commits. |
 | `GRADLE-LIBS` | Environment | A classpath contains files of the Gradle distribution itself: generated `gradle-api` / `gradle-test-kit` jars, the installation beacon, embedded Kotlin. |
@@ -62,7 +67,8 @@ Every difference in a report is tagged with one of these. Each report's "Basis" 
 | `MIGRATED-SOURCE` | Build logic | Same as `MIGRATED`. |
 | `PROJECT-PATH` | Comparison setup | Same as `CHECKOUT-PATH`. |
 | `QUERY-ERROR` | Tool noise | The dump script could not read a property; only the error text differs, or the property appears on one side only. The property is not compared. |
-| `RUN-VARIANCE` | Outputs | Differs between two runs of the same build at the same path; same as `KT-STATE` or `COMPILE-STATE`. |
+| `RUN-VARIANCE` | Outputs | Differs between two runs of the same build at the same path, e.g. test reports that record timestamps and durations. |
+| `TASK-RACE` | Project non-determinism | A task reads another task's output without depending on that task; with parallel execution, whether the output exists when the task runs varies between runs. |
 | `TOSTRING` | Tool noise | The value is an object without a stable string form; only its `toString()` text differs. |
 | `UPSTREAM` | Propagation | The file differs only because it is, or contains, the output of another task that already differs. |
 | `VALUE-UNSET` | Task API | A lazy property read directly, not through the adapter, shows `null` where the eager getter returned a default. |
@@ -73,30 +79,34 @@ Every difference in a report is tagged with one of these. Each report's "Basis" 
 
 | Difference | Task type | Projects |
 |---|---|---|
-| eager getter `getDefaultCharacterEncoding()` returns `null` instead of the default charset when unset (`EAGER-DEFAULT`) | `JavaExec` | detekt, kafka |
+| eager getter `getDefaultCharacterEncoding()` returns `null` instead of the default charset when unset (`EAGER-DEFAULT`) | `JavaExec`, `Test` | detekt, kafka, spring-framework (`buildSrc`) |
 | BOM coordinates built by string template over `MavenPublication.groupId`/`artifactId`/`version` interpolate `Property` objects | `buildSrc` convention plugin | kotest |
 | input `selectedConfiguration` only in the Provider API branch build | `DependencyReportTask` | gradle-lint-plugin |
+| `Test.testFrameworkProperty` input named `testFramework` (`API-RENAME`); `PluginUnderTestMetadata` drops its `paths` input and fingerprints the plugin classpath by absolute path (`API-DECLARATION`); same output | `Test`, `PluginUnderTestMetadata` | spring-framework (`buildSrc`) |
 | `jacoco.toolVersion = …` compiles to `getToolVersion(): Property` plus `assign` instead of `setToolVersion(String)` | precompiled Kotlin script plugin | detekt (`build-logic`) |
 | eager `options.getJFlags()` read after execution: 9.9.2 leaks the execution-time `-Xmx<maxMemory>` into the task's own options (shared list in the options copy); the branch does not. Both start javadoc with the same `-J-Xmx…` (`EXEC-MUTATION`) | `Javadoc` | groovy |
-| compound assignments `a += b` in Groovy DSL scripts compile to `forCompoundAssignment(a) + b` wrapped in `toAssignmentResult(…)` (`DSL-TRANSFORM`) | precompiled Groovy script plugin | groovy (`build-logic`) |
-| classpaths contain jars of the Gradle distribution itself (`gradle-api`, installation beacon; on `8779a72` also embedded Kotlin 2.4.20 vs 2.4.21) | compile tasks of plugin builds | gradle-lint-plugin, micronaut-core (`buildSrc`), detekt (`build-logic`), kotest (`buildSrc`), groovy (`build-logic`) |
-| generated or compiled files that follow the distribution: adapter sources embedding the Gradle version; a Kotlin metadata flag and the implicit-imports compiler argument of `kotlin-dsl` | `buildSrc` / `build-logic` tasks | micronaut-core (`buildSrc`), detekt (`build-logic`), groovy (`build-logic`) |
-| `previous-compilation-data.bin` differs, the same way in two baseline runs (in micronaut-core on all but `micronaut-jackson-databind`, whose classes differ). In micronaut-core: the same 32-bit values in a different order (`COMPILE-ORDER`); in groovy, content not inspected | `JavaCompile`, `GroovyCompile` | micronaut-core (27 tasks), groovy (9 tasks) |
+| compound assignments `a += b` in Groovy DSL scripts compile to `forCompoundAssignment(a) + b` wrapped in `toAssignmentResult(…)` (`DSL-TRANSFORM`) | precompiled Groovy script plugin | groovy (`build-logic`), hibernate-orm (`local-build-plugins`) |
+| classpaths contain jars of the Gradle distribution itself (`gradle-api`, installation beacon; on `8779a72` also embedded Kotlin 2.4.20 vs 2.4.21) | compile tasks of plugin builds | gradle-lint-plugin, micronaut-core (`buildSrc`), detekt (`build-logic`), kotest (`buildSrc`), groovy (`build-logic`), hibernate-orm (`local-build-plugins` and the `hibernate-gradle-plugin` project), spring-framework (`buildSrc`) |
+| generated or compiled files that follow the distribution: adapter sources embedding the Gradle version; a Kotlin metadata flag and the implicit-imports compiler argument of `kotlin-dsl`; Checkstyle HTML reports naming the Gradle version | `buildSrc` / `build-logic` tasks | micronaut-core (`buildSrc`), detekt (`build-logic`), groovy (`build-logic`), hibernate-orm (`local-build-plugins`), spring-framework (`buildSrc`) |
+| `previous-compilation-data.bin` differs, and is identical between two baseline runs. In micronaut-core: the same 32-bit values in a different order (`COMPILE-ORDER`); in groovy, content not inspected | `JavaCompile`, `GroovyCompile` | micronaut-core (27 tasks), groovy (9 tasks) |
 
 ## Differences not tied to the Gradle distribution
 
 | Difference | Basis | Projects |
 |---|---|---|
-| Kotlin `last-build.bin` | Holds only the time of the build; differs between two runs of the baseline build (control runs in detekt and micronaut-core). | gradle-lint-plugin, micronaut-core, detekt, kotest |
-| Java `previous-compilation-data.bin` | Control runs: differs between two baseline runs on 1 task in kafka and 1 in micronaut-core (a module whose classes differ). | kafka, micronaut-core |
+| Kotlin `last-build.bin` | Holds only the time of the build; differs between two runs of the baseline build (control runs in detekt, micronaut-core and spring-framework). | gradle-lint-plugin, micronaut-core, detekt, kotest, spring-framework |
+| Java `previous-compilation-data.bin` | Control runs: differs between two baseline runs on 1 task in kafka, on 18 in hibernate-orm, on 20 in spring-framework. | kafka, hibernate-orm, spring-framework |
+| Maven plugin descriptor lists a project dependency with an empty `<type>` (`TASK-RACE`: the descriptor task reads the dependency's jar without depending on the jar task) | Control run: the second baseline run has the Provider API branch build's descriptor. | hibernate-orm |
 | Task outcomes that depend on what was on disk before the build (`DISK-STATE`) | Control run in detekt: the second baseline run has the Provider API branch build's outcomes. | detekt |
 | Javadoc `-tag` options: one in the baseline build, three after the migration (`MIGRATED`: the original code's repeated `addStringOption('tag', …)` calls overwrote each other) | Read from `javadoc.options` on both sides; no source uses the tags, Javadoc output identical. | groovy |
+| A module removed from the build by the migration, with the code that needs it (`WORKAROUND`: the AspectJ plugin was incompatible with the targeted distribution) | Removed tasks, classpath entries and classes match the edits. | spring-framework (`spring-aspects`) |
+| Name of a synthetic local variable in a javac-compiled class (`GEN-NAME`) | Differs between two runs of the baseline build. | spring-framework |
+| Test reports and results (timestamps, durations; `RUN-VARIANCE`) | Differ between two runs of the baseline build. | spring-framework (`buildSrc`) |
 | Order of two synthetic methods in a Groovy-compiled class | Groovy compiler non-determinism; differs between two runs of the baseline build. | groovy |
 | Jar entry timestamps | The project preserves file timestamps; entries and content are equal. | kafka |
 | Build date and commit hash in manifests | The two builds ran at different times from different commits. | gradle-lint-plugin |
-| Absolute checkout path in generated files | The two builds ran in different directories. | detekt, kotest (2,750 Kotlin/Android files) |
-| Order of two types in generated classes | Annotation-processor non-determinism; differs between two runs of the baseline build. | micronaut-core |
-| Tool noise: `toString()` text of `Javadoc` options; property query errors ("resolution without an exclusive lock") | Limitations of the dump script. | all |
+| Absolute checkout path in generated files | The two builds ran in different directories. | detekt, kotest (2,750 Kotlin/Android files), hibernate-orm (29 ANTLR-generated sources), spring-framework (`buildSrc` Checkstyle XML reports, plugin-under-test metadata) |
+| Tool noise: `toString()` text of `Javadoc` options; property query errors ("resolution without an exclusive lock") | Limitations of the dump script. | gradle-lint-plugin, detekt, groovy, kotest, kafka |
 
 ## Caveats that apply to all reports
 
